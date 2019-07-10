@@ -4,15 +4,15 @@
 <!-- style -->
 <style>
 @import
-	url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap')
+	url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap|Black+Han+Sans|Nanum+Gothic&display=swap')
 	;
-
 #goToTop {
 	position: fixed;
 	right: 28px;
 	bottom: 28px;
 	border-radius: 50%;
 	padding: 2px;
+	background:rgba(255,255,255,0.5);
 	box-shadow: 1px 1px 5px 1px #444;
 	z-index: 999;
 	font-size: 15px;
@@ -20,84 +20,69 @@
 	animation-duration: 2s;
 	animation-delay: 2s;
 }
-
 .headerFluid {
 	position: absolute;
 	z-index: 9999;
 	background-color: rgba(255, 255, 255, 0.5);
 }
-
 .topAnchor a {
 	margin-left: 15px;
 	font-size: 13px;
 	color: #000;
 	font-weight: bold;
 }
-
 #myGardenTitle {
 	font-family: 'Noto Serif KR', "맑은 고딕";
 	font-weight: 1000;
 	letter-spacing: 4px; /*text-shadow: 1px 1px 1px gray;*/
+	cursor:pointer;
 }
-
 .topMenuNavbar {
 	background-color: rgba(255, 255, 255, 0.1);
 	font-size: 14px;
 	font-weight: bold; /*text-shadow: 1px 1px 1px #999;*/
 }
-
 .topMenuToggleBtn {
 	border: none;
 }
-
 .menuPosition-fixed {
 	position: fixed;
 	top: 0;
 	left: 0;
 	background: #f5f5f5;
 }
-
 .navbar-light .navbar-nav .nav-link {
 	color: #000;
 }
-
 .dropdown-menu {
 	background-color: rgba(255, 255, 255, 0.3);
 	top: 56px;
 	border: none;
 	border-radius: 0;
 }
-
 .dropdown-item {
 	font-weight: bold;
 	font-size: 14px;
 }
-
 .dropdown-item:active {
 	background: #86B404;
 }
-
 .dropdown-divider {
 	color: #86B404;
 }
-
 .topAnchorSearch {
 	margin: 10px auto;
 }
-
 .menuSearch {
 	border: 1px solid #6c757d;
 	background: none;
 }
-
 .menuSearch::placeholder {
 	color: #6c757d;
 }
-
 .text-shadow {
 	text-shadow: 2px 2px 2px gray;
 }
-
 .socialEmo img:hover, .nav-link img:hover, .clickToCloseBtn:hover {
 	opacity: 0.7;
 }
@@ -119,10 +104,11 @@
 				scrollTop : '0'
 			});
 		});
-		$(function() {
-			$("#cart").on("click", function() {
-				$(location).attr("href", "cart")
-			})
+		$("#cart").on("click", function() {
+			$(location).attr("href", "cart")
+		});
+		$("#myGardenTitle").on("click", function() {
+			$(location).attr("href", "/")
 		});
 	});
 </script>
@@ -137,7 +123,7 @@
 			<div class="row">
 				<div
 					class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-					<a href="#">로그인</a> <a href="#">회원가입</a> <a href="#">공지사항</a> <a
+					<a href="/login">로그인</a> <a href="#">회원가입</a> <a href="#">공지사항</a> <a
 						href="#">고객센터</a>
 				</div>
 			</div>
