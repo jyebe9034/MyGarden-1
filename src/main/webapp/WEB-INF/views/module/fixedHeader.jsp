@@ -3,9 +3,6 @@
 
 <!-- style -->
 <style>
-@import
-	url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap|Black+Han+Sans|Nanum+Gothic&display=swap')
-	;
 #goToTop {
 	position: fixed;
 	right: 28px;
@@ -50,6 +47,7 @@
 	top: 0;
 	left: 0;
 	background: #f5f5f5;
+	box-shadow : 1px 1px 5px #777;
 }
 .navbar-light .navbar-nav .nav-link {
 	color: #000;
@@ -123,7 +121,7 @@
 			<div class="row">
 				<div
 					class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-					<a href="/login">로그인</a> <a href="#">회원가입</a> <a href="#">공지사항</a> <a
+					<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
 						href="#">고객센터</a>
 				</div>
 			</div>

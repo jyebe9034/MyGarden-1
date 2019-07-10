@@ -10,5 +10,10 @@ public class LoginController {
 	public String Login() {
 		return "login/login";
 	}
+
+	@RequestMapping("/join")
+	public String Join() {
+		return "login/join";
+	}
 	
 }
