@@ -16,4 +16,9 @@ public class LoginController {
 		return "login/join";
 	}
 	
+	@RequestMapping("/JoinSubmit")
+	public String JoinSubmit() {
+		return "/";
+	}
+	
 }

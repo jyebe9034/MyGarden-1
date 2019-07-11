@@ -13,8 +13,8 @@
 .socialButton{width:90%; height:50px; box-shadow: 0 10px 30px 0 #666;}
 .joinSuggestion{color:#4f9c87; border:1px solid #4f9c87; margin-top:-8px;}
 .joinSuggestion:hover{color:#fff; border:1px solid #4f9c87; background:#4f9c87;}
-span.mr-2{font-size:25px;}
-.event{background:rgba(0,0,0,0.3); font-family:Black Han Sans; font-size:18px; width:30%; bottom:20%; right:25%;}
+span.mr-2{font-size:25px; display:inline-block; margin-bottom:20px;}
+.event{background:rgba(0,0,0,0.3); text-shadow: 1px 1px #444; max-width:250px; font-size:17px; padding:20px; bottom:20%; right:15%; color:#fff;}
 .tab-group a {
   text-decoration: none;
   color: #1ab188;
@@ -297,7 +297,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			    $(target).fadeIn(600);
 			  });
 			  $('.joinSuggestion').on('click', function(){
-				  $(location).attr('href', 'join');
+				  $(location).attr('href', '/join');
 			  });
 		});
 	</script>
@@ -366,8 +366,9 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				<button type="button" class="btn btn-lg joinSuggestion font-weight-bold">가입하고 정원 개설하러 가기</button>
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-112 col-xs-12 text-center pb-5 my">
-				<img src="resources/img/cookie.jpg" width="60%" class="position-relative rounded-lg">
-				<span class="position-absolute event text-left font-weight-bold p-3">유기농 채소로 만들어진 비건 쿠키 나눔 이벤트&nbsp;&nbsp;<br><a href="#">체험하기 go &#x0226B;</a></span>
+				<img src="resources/img/cookie.jpg" width="80%" class="position-relative rounded-lg">
+				<p class="position-absolute event text-left font-weight-bold p-3">유기농 채소로 만들어진 비건 쿠키 증정 이벤트
+				<br><a href="#">체험하기 go &#x0226B;</a></p>
 			</div>
 		</div>
 	</div>

@@ -97,6 +97,16 @@
 				$('.menuScrollOption').removeClass('menuPosition-fixed');
 			}
 		});
+		//아무 창이나 누르면 toggle키가 작동, 메뉴 접힘 시작
+		$('.navbar-toggler').click(function(event){
+		    event.stopPropagation();
+		    $('#navbarSupportedContent').toggle();
+		});
+		 
+		$(document).click(function(){
+		    $('#navbarSupportedContent').hide();
+		});
+		//아무 창이나 누르면 toggle키가 작동, 메뉴 접힘 끝
 		$('#goToTop').on('click', function() {
 			$('html, body').stop().animate({
 				scrollTop : '0'

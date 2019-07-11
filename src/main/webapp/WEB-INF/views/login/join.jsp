@@ -11,10 +11,12 @@
 .carousel-inner{margin-top:-120px;}
 .loginForm{background:#399078; color:#fff; height:60px; font-size:27px;}
 .filebox label, #joinBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
-#joinBtn{height:57px; margin-top:13px;} 
+#joinBtn{height:57px; position:absolute; top:6px; right:-6px;} 
+#joinBtn:hover, .filebox label:hover{background:#4f9c87; color:#fff;}
 .filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
-.profile{width:130px; height:130px; border-radius:50%; background:#b8d7cf; margin:10px auto; padding-top:15px;}
+.profile{width:130px; height:130px; border-radius:50%; margin:10px auto; overflow:hidden;}
 .fontGreen{font-weight:bold; color:#4f9c87;}
+.postCode{position:relative;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
@@ -113,28 +115,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   display: inline-block;
   font-size: 16px;
   margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
-.inputMd{width:65%;}
-.inputSm{width:55%;}
-.inputStuffOthers, #date{
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
+  width: 100%;
   border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -251,9 +232,11 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 <!-- script -->
 	<script>
 		$(function(){
+			//slide
 			$('.carousel').carousel({
 				  interval: 5000
 				});
+			//input effect
 			$('.form').find('input, textarea').on('keyup blur focus', function (e) {
 			    var $this = $(this),
 			        label = $this.prev('label');
@@ -278,14 +261,28 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			              }
 			      }
 			  });
-			  $('.tab a').on('click', function (e) {
-			    e.preventDefault();
-			    $(this).parent().addClass('active');
-			    $(this).parent().siblings().removeClass('active');
-			    target = $(this).attr('href');
-			    $('.tab-content > div').not(target).hide();
-			    $(target).fadeIn(600);
-			  });
+// 			  $('.tab a').on('click', function (e) {
+// 			    e.preventDefault();
+// 			    $(this).parent().addClass('active');
+// 			    $(this).parent().siblings().removeClass('active');
+// 			    target = $(this).attr('href');
+// 			    $('.tab-content > div').not(target).hide();
+// 			    $(target).fadeIn(600);
+// 			  });
+			//profile local image insert start
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						$('.profile').html('<img src='+e.target.result+' width=130 height=130>');
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			$("#ex_file").change(function() {
+				readURL(this);
+			});	
+			//profile local image insert end
 		});
 	</script>
 <!-- header -->
@@ -321,43 +318,46 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 회원가입</h3>
 			                    <h6 class="pt-2 pb-4 text-muted">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
-			                    <form>
+			                    <form class="pl-5 pr-5" method="post" enctype="multipart/form-data">
 			                    	<div class="filebox"> 
-			                    		<div class="profile"><img src="resources/img/profile.png"></div>
+			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
 			                    		<label for="ex_file">프로필&#x02295;</label> 
-			                    		<input type="file" id="ex_file"> 
-			                    	</div>
-			                        <input type="text" required placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" />
-			                        <input type="text" required placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff">
-			                        <input type="email" required placeholder="사용하실 메일주소를 입력하세요" class="fadeIn inputStuff">
-			                        <input type="password" required placeholder="영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요" class="fadeIn inputStuff">
-			                        <input type="password" required placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
-			                        <input type="text" required placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff">
-			                        <input type="text" required placeholder="버튼을 눌러 우편번호를 검색하세요" class="fadeIn inputStuffOthers inputMd">
-			                        	<button type="button" id="joinBtn" class="mb-3">우편번호 검색</button><br>
-		                        	<label for="date" class="fontGreen">&nbsp;생년월일을 입력하세요&nbsp;&nbsp;</label><input type="date" id="date" class="fadeIn inputSm"/><br>
-		                        	<div class="text-left ml-5 mt-2 mb-2 mr-5">
-			                        	<span class="text-left fontGreen">&nbsp;&nbsp;성별을 입력하세요&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				                        <div class="custom-control custom-radio custom-control-inline">
-										  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-										  <label class="custom-control-label" for="customRadioInline1">여성</label>
-										</div>
-										<div class="custom-control custom-radio custom-control-inline">
-										  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-										  <label class="custom-control-label" for="customRadioInline2">남성</label>
-										</div>
-		                        	</div>
+			                    		<input type="file" id="ex_file" name="m_profile"> 
+			                    	</div>	                    	
+			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_gender"/>
+			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
+			                        <input type="email" placeholder="사용하실 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
+			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요" class="fadeIn inputStuff" name="m_pw">
+			                        <input type="password"d placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
+			                        <input type="text" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
+			                        <div class="postCode">
+			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" name="m_zipcode">
+			                        	<button type="button" id="joinBtn" class="mb-3" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
+			                        </div>	
+		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
+	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth"/>
+			                        <div class="custom-control custom-radio custom-control-inline ml-3">
+									  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+									  <label class="custom-control-label" for="customRadioInline1">여성</label>
+									</div>
+									<div class="custom-control custom-radio custom-control-inline">
+									  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+									  <label class="custom-control-label" for="customRadioInline2">남성</label>
+									</div>
 									<div class="custom-control custom-switch mt-4 mb-4">
 									  <input type="checkbox" class="custom-control-input" id="customSwitch1">
 									  <label class="custom-control-label" for="customSwitch1">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
 									</div>
 			                        <input type="reset" class="mb-1" value="다시쓰기">
 			                        <input type="submit" value="가입하기">
-			                        <p id="formFooter">
-			                        	<a href="#" class="text-muted">서비스 이용약관 /</a>
-			                       		<a href="#" class="text-muted">개인정보취급방침</a>
-			                       	</p>
 			                    </form>
+								<!-- 	address js start-->
+								<script src="resources/js/zipCode.js"></script>
+								<!-- 	address js end-->
+		                        <p id="formFooter">
+		                        	<a href="#" class="text-muted">서비스 이용약관 /</a>
+		                       		<a href="#" class="text-muted">개인정보취급방침</a>
+		                       	</p>
 			                </div>
 			                <div id="signup">
 			                </div>
