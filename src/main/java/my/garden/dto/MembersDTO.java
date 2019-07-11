@@ -3,29 +3,31 @@ package my.garden.dto;
 import java.security.Timestamp;
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MembersDTO {
-	String m_email;
-	String m_pw;
-	String m_name;
-	String m_phone;
-	String m_zipcode;
-	String m_address1;
-	String m_address2;
-	Timestamp m_joindate;
-	String m_ipaddress;
-	String m_grade;
-	int m_point;
-	String m_gender;
-	Date m_birth;
-	String m_garden;
-	String m_profile;
-	String m_realpath;
+	private String m_email;
+	private String m_pw;
+	private String m_name;
+	private String m_phone;
+	private String m_zipcode;
+	private String m_address1;
+	private String m_address2;
+	private Timestamp m_joindate;
+	private String m_ipaddress;
+	private String m_grade;
+	private int m_point;
+	private String m_gender;
+	private String m_birth;
+	private String m_garden;
+	private MultipartFile m_profile;
+	private String m_realpath;
 	public MembersDTO() {
 		super();
 	}
 	public MembersDTO(String m_email, String m_pw, String m_name, String m_phone, String m_zipcode, String m_address1,
 			String m_address2, Timestamp m_joindate, String m_ipaddress, String m_grade, int m_point, String m_gender,
-			Date m_birth, String m_garden, String m_profile, String m_realpath) {
+			String m_birth, String m_garden, MultipartFile m_profile, String m_realpath) {
 		super();
 		this.m_email = m_email;
 		this.m_pw = m_pw;
@@ -116,10 +118,10 @@ public class MembersDTO {
 	public void setM_gender(String m_gender) {
 		this.m_gender = m_gender;
 	}
-	public Date getM_birth() {
+	public String getM_birth() {
 		return m_birth;
 	}
-	public void setM_birth(Date m_birth) {
+	public void setM_birth(String m_birth) {
 		this.m_birth = m_birth;
 	}
 	public String getM_garden() {
@@ -128,10 +130,10 @@ public class MembersDTO {
 	public void setM_garden(String m_garden) {
 		this.m_garden = m_garden;
 	}
-	public String getM_profile() {
+	public MultipartFile getM_profile() {
 		return m_profile;
 	}
-	public void setM_profile(String m_profile) {
+	public void setM_profile(MultipartFile m_profile) {
 		this.m_profile = m_profile;
 	}
 	public String getM_realpath() {

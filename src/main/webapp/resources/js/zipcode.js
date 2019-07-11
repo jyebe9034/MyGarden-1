@@ -28,13 +28,14 @@
                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                     }
                 }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                
+                // 우편번호와 주소 정보를 부모 문서의 해당 필드에 넣는다.
+                $("#zonecode").val(data.zonecode);
+                $("#postCode", parent.document.body).append('<input type="text" class="fadeIn inputStuff" value="'+addr+'" name="m_address1">'
+                		+ '<input type="text" placeholder="상세주소를 입력하세요" class="fadeIn inputStuff" id="detailAddress" name="m_address2">');
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").value = "";
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("detailAddress").value = "";
+                document.getElementById("detailAddress").focus();
             }
         }).open();
     }

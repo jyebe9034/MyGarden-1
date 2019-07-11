@@ -318,41 +318,42 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 회원가입</h3>
 			                    <h6 class="pt-2 pb-4 text-muted">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
-			                    <form class="pl-5 pr-5" method="post" enctype="multipart/form-data">
+			                    <form class="pl-5 pr-5" action="joinSubmit" method="post" enctype="multipart/form-data">
 			                    	<div class="filebox"> 
 			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
 			                    		<label for="ex_file">프로필&#x02295;</label> 
 			                    		<input type="file" id="ex_file" name="m_profile"> 
 			                    	</div>	                    	
-			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_gender"/>
+			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden"/>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        <input type="email" placeholder="사용하실 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
 			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요" class="fadeIn inputStuff" name="m_pw">
 			                        <input type="password"d placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
 			                        <input type="text" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
-			                        <div class="postCode">
-			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" name="m_zipcode">
+			                        <div class="postCode" id="postCode">
+			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" disabled />
 			                        	<button type="button" id="joinBtn" class="mb-3" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
 			                        </div>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
 	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth"/>
 			                        <div class="custom-control custom-radio custom-control-inline ml-3">
-									  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+									  <input type="radio" id="customRadioInline1" value="f" name="m_gender" class="custom-control-input">
 									  <label class="custom-control-label" for="customRadioInline1">여성</label>
 									</div>
 									<div class="custom-control custom-radio custom-control-inline">
-									  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+									  <input type="radio" id="customRadioInline2" value="m" name="m_gender" class="custom-control-input">
 									  <label class="custom-control-label" for="customRadioInline2">남성</label>
 									</div>
 									<div class="custom-control custom-switch mt-4 mb-4">
-									  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-									  <label class="custom-control-label" for="customSwitch1">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
+									  <input type="checkbox" class="custom-control-input" id="customSwitch">
+									  <label class="custom-control-label" for="customSwitch">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
 									</div>
 			                        <input type="reset" class="mb-1" value="다시쓰기">
 			                        <input type="submit" value="가입하기">
 			                    </form>
 								<!-- 	address js start-->
-								<script src="resources/js/zipCode.js"></script>
+								<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+								<script src="resources/js/zipcode.js"></script>
 								<!-- 	address js end-->
 		                        <p id="formFooter">
 		                        	<a href="#" class="text-muted">서비스 이용약관 /</a>
