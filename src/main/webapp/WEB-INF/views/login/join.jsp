@@ -323,55 +323,87 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                    	<div class="filebox"> 
 			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
 			                    		<label for="ex_file">프로필&#x02295;</label> 
-			                    		<input type="file" id="ex_file" name="m_profile"> 
+			                    		<input type="file" id="ex_file" name="ex_file"/> 
 			                    	</div>	                    	
 			                   <script>
 			                   $(function(){
-				                   	$("input").on("blur", function(){
+				                   	$("input[name=m_garden]").on("blur", function(){
 				                   		var regexGarden=/^[가-힣\w]{2,12}$/;
 				                   		if(regexGarden.exec($("input[name=m_garden]").val())){
 				                   			$("#gardenName").text("");
 				                   		}else{
 				                   			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-				                   			$("input[name=m_garden]").text("");
+				                   			$("input[name=m_garden]").val("");
 				                   		}
-				                   		var regexName=/^[가-힣\w]{2,}$/;
+				                   	});
+				                   	$("input[name=m_name]").on("blur", function(){
+				                   		var regexName=/^[가-힣A-z]{2,}$/;
 				                   		if(regexName.exec($("input[name=m_name]").val())){
 				                   			$("#userName").text("");
 				                   		}else{
 				                   			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
-				                   			$("input[name=m_name]").text("");
+				                   			$("input[name=m_name]").val("");
 				                   		}
+				                   	});
+				                   	$("input[name=m_email]").on("blur", function(){
 				                   		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
 				                   		if(regexMail.exec($("input[name=m_email]").val())){
-				                   			$("#eamilName").text("");
+					                   		$.ajax({
+					                   			url:"/emailCheck",
+					                   			type:"post",
+					                   			data : {key : $("input[name=m_email]").val()}
+					                   		}).done(function(resp){
+					                   			if(resp==true){
+						                   			$("#eamilName").text("중복되는 메일입니다");
+						                   			$("input[name=m_email]").val("");
+					                   			}else{
+						                   			$("#eamilName").text("");
+					                   			}
+					                   		});
 				                   		}else{
-				                   			$("#eamilName").text("중복되거나 사용할 수 없는 메일입니다");
-				                   			$("input[name=m_email]").text("");
+				                   			$("#eamilName").text("사용할 수 없는 형식의 메일입니다");
+				                   			$("input[name=m_email]").val("");
 				                   		}
+				                   	});
+				                   	$("input[name=m_pw]").on("blur", function(){
 				                   		var regexPw=/^(?=.*\d)(?=.*[a-z]).{8,15}$/;
 				                   		if(regexPw.exec($("input[name=m_pw]").val())){
 				                   			$("#pwName").text("");
 				                   		}else{
 				                   			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
-				                   			$("input[name=m_pw]").text("");
+				                   			$("input[name=m_pw]").val("");
 				                   		}
-				                   		if(regexPw.exec($("#password").val()) && ($("input[name=m_pw]").val()==$("#password").val())){
+				                   	});
+				                   	$("#password").on("blur", function(){
+				                   		if($("input[name=m_pw]").val()==$("#password").val()){
 				                   			$("#pwCheck").text("");
 				                   		}else{
 				                   			$("#pwCheck").text("비밀번호 형식이 맞지 않거나 일치하지 않습니다");
-				                   			$("#password").text("");
+				                   			$("#password").val("");
 				                   		}
+				                   	});
+				                   	$("input[name=m_phone]").on("blur", function(){
 				                   		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
 				                   		if(regexPhone.exec($("input[name=m_phone]").val())){
-				                   			$("#phoneName").text("");
+					                   		$.ajax({
+					                   			url:"/phoneCheck",
+					                   			type:"post",
+					                   			data : {key : $("input[name=m_phone]").val()}
+					                   		}).done(function(resp){
+					                   			if(resp==true){
+						                   			$("#phoneName").text("중복되는 번호입니다");
+						                   			$("input[name=m_phone]").val("");
+					                   			}else{
+						                   			$("#phoneName").text("");
+					                   			}
+					                   		});
 				                   		}else{
-				                   			$("#phoneName").text("형식에 맞지 않거나 중복되는 번호입니다");
-				                   			$("input[name=m_phone]").text("");
+				                   			$("#phoneName").text("형식에 맞지 않는 번호입니다");
+				                   			$("input[name=m_phone]").val("");
 				                   		}
 				                   	});
 			                   		$('#joinSubmit').on('click', function(){
-			                   			if($('#zonecode').val()!=""){
+			                   			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#customSwitch').is(":checked")){
 				                   			var con = confirm('이대로 제출하시겠습니까?');
 				            				if(con){
 						                   		$('.formSubmit').submit();	
@@ -379,7 +411,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                   			}else{
 			                   				alert('다시 확인 후 제출하세요');
 			                   			}
-						             });
+					                });	
 			                   });
 			                   </script> 	
 			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
