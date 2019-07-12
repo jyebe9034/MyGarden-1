@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardReviewMB">
+
+	<!-- 글작성 -->
+	<insert id="writeReview">
+		insert into board_review values(#{br_p_no},board_review_seq.nextval,#{br_imagepath,jdbcType=VARCHAR},#{br_title},#{br_name,jdbcType=VARCHAR},#{br_content},default,default)
+	</insert>
+	<!-- 상세페이지에서 후기목록-->
+	<select id="reviewList" resultType="my.garden.dto.BoardReviewDTO" parameterType="hashmap">
+		select * from (select row_number() over(order by br_no desc) as rown, board_review.* from board_review where br_p_no=#{br_p_no}) where rown between #{startNum} and #{endNum}
+	</select>
+	<!-- 상세페이지에서 총 후기 개수 -->
+	<select id="reviewCount" resultType="Integer">
+		select count(*) from board_review where br_p_no=#{br_p_no}
+	</select>
+	<!-- 추천 수(도움돼요) -->
+	<update id="recommendCountUp">
+		update board_review set br_recommend=#{br_recommend} where br_no=#{br_no}
+	</update>
+	
+</mapper>

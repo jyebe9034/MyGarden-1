@@ -10,13 +10,14 @@ public class BoardReviewDTO {
 	private String br_name;
 	private String br_content;
 	private Timestamp br_writedate;
+	private int br_recommend;
 	
 	
 	public BoardReviewDTO() {
 		super();
 	}
 	public BoardReviewDTO(int br_p_no, int br_no, String br_imagepath, String br_title, String br_name,
-			String br_content, Timestamp br_writedate) {
+			String br_content, Timestamp br_writedate, int br_recommend) {
 		this.br_p_no = br_p_no;
 		this.br_no = br_no;
 		this.br_imagepath = br_imagepath;
@@ -24,6 +25,7 @@ public class BoardReviewDTO {
 		this.br_name = br_name;
 		this.br_content = br_content;
 		this.br_writedate = br_writedate;
+		this.br_recommend = br_recommend;
 	}
 	public int getBr_p_no() {
 		return br_p_no;
@@ -67,6 +69,13 @@ public class BoardReviewDTO {
 	public void setBr_writedate(Timestamp br_writedate) {
 		this.br_writedate = br_writedate;
 	}
+	public int getBr_recommend() {
+		return br_recommend;
+	}
+	public void setBr_recommend(int br_recommend) {
+		this.br_recommend = br_recommend;
+	}
 	
+
 	
 }
