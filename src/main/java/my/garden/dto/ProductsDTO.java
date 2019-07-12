@@ -2,14 +2,16 @@ package my.garden.dto;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductsDTO {
 	private int p_no;
+	private MultipartFile image;
 	private String p_imagepath;
-	private String p_folderpath;
 	private String p_title;
 	private String p_subtitle;
 	private String p_category;
-	private int inventory;
+	private int p_inventory;
 	private String p_unit;
 	private String p_seller;
 	private String p_origin;
@@ -19,17 +21,17 @@ public class ProductsDTO {
 	private Timestamp p_writedate;
 	
 	public ProductsDTO() {}
-	public ProductsDTO(int p_no, String p_imagepath, String p_folderpath, String p_title, String p_subtitle,
-			String p_category, int inventory, String p_unit, String p_seller, String p_origin, int p_price,
-			String p_content, int p_sales, Timestamp p_writedate) {
+	public ProductsDTO(int p_no, MultipartFile image, String p_imagepath, String p_title,
+			String p_subtitle, String p_category, int p_inventory, String p_unit, String p_seller, String p_origin,
+			int p_price, String p_content, int p_sales, Timestamp p_writedate) {
 		super();
 		this.p_no = p_no;
+		this.image = image;
 		this.p_imagepath = p_imagepath;
-		this.p_folderpath = p_folderpath;
 		this.p_title = p_title;
 		this.p_subtitle = p_subtitle;
 		this.p_category = p_category;
-		this.inventory = inventory;
+		this.p_inventory = p_inventory;
 		this.p_unit = p_unit;
 		this.p_seller = p_seller;
 		this.p_origin = p_origin;
@@ -39,23 +41,24 @@ public class ProductsDTO {
 		this.p_writedate = p_writedate;
 	}
 
+
 	public int getP_no() {
 		return p_no;
 	}
 	public void setP_no(int p_no) {
 		this.p_no = p_no;
 	}
+	public MultipartFile getImage() {
+		return image;
+	}
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
 	public String getP_imagepath() {
 		return p_imagepath;
 	}
 	public void setP_imagepath(String p_imagepath) {
 		this.p_imagepath = p_imagepath;
-	}
-	public String getP_folderpath() {
-		return p_folderpath;
-	}
-	public void setP_folderpath(String p_folderpath) {
-		this.p_folderpath = p_folderpath;
 	}
 	public String getP_title() {
 		return p_title;
@@ -75,11 +78,11 @@ public class ProductsDTO {
 	public void setP_category(String p_category) {
 		this.p_category = p_category;
 	}
-	public int getInventory() {
-		return inventory;
+	public int getP_inventory() {
+		return p_inventory;
 	}
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
+	public void setP_inventory(int p_inventory) {
+		this.p_inventory = p_inventory;
 	}
 	public String getP_unit() {
 		return p_unit;

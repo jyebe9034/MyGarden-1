@@ -1,5 +1,12 @@
 package my.garden.service;
 
-public class ProductsService {
+import java.util.List;
 
+import my.garden.dto.ProductsDTO;
+
+public interface ProductsService {
+	public int insertProductsService(ProductsDTO dto);
+	public List<ProductsDTO> selectProductsListService();
+	public List<ProductsDTO> selectProductsListByPageService(int start, int end);
+	public ProductsDTO selectOneProductService(int pnumber);
 }

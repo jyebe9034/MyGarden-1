@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-
+	
 	@RequestMapping("/")
 	public String home() {
-		return "home";
+		return "home_sample";
 	}
 	
-	@RequestMapping("ProductsList")
-	public String toProductsList() {
-		return "products/productsList";
+	@RequestMapping("productsAdd")
+	public String toProductsAdd() {
+		return "products/productsAdd";
 	}
 }
