@@ -174,7 +174,7 @@
 								<li class="nav-item"><a class="nav-link mt-2" href="#">공유정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">비밀정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">About&nbsp;&nbsp;|</a></li>
-								<li class="nav-item"><a class="nav-link mt-2" href="#">자유게시판</a></li>
+								<li class="nav-item"><a class="nav-link mt-2" href="boardFreeList?page=1">자유게시판</a></li>
 								<li class="nav-item"><a class="nav-link" href="#"> <img
 										src="resources/img/person.png" width="40" height="40"> <img
 										src="resources/img/shop.png" width="40" height="40" id="cart">
