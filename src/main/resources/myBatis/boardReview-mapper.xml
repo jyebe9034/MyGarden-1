@@ -19,4 +19,26 @@
 		update board_review set br_recommend=#{br_recommend} where br_no=#{br_no}
 	</update>
 	
+	
+	
+	<!-- 동일 게시글 추천 여부 검색 -->
+	<select id="rec_check" parameterType="map" resultType="int">
+		select count(*) from br_recommend where br_p_no=#{br_p_no} and br_no=#{br_no} and br_writer=#{br_writer}
+	</select>
+	
+	<!-- 게시글 추천 -->
+	<insert id="rec_update" parameterType="map">
+		insert into br_recommend values(#{br_writer},#{br_p_no},#{br_no},#{br_title})
+	</insert>
+	
+	<!-- 게시글 추천 취소 -->
+	<delete id="rec_delete" parameterType="map">
+		delete from br_recommend where br_p_no=#{br_p_no} and br_no=#{br_no} and br_writer=#{br_writer}
+	</delete>
+	
+	<!-- 게시글 추천수 -->
+	<select id="rec_count" parameterType="int" resultType="int">
+		select count(*) from br_recommend where br_p_no=#{br_p_no} and br_no=#{br_no}
+	</select>
+	
 </mapper>

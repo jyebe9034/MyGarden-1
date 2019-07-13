@@ -79,6 +79,9 @@
 	.reviewRecommend {
 		float: left;
 	}
+	.recommendBtn{
+		cursor: pointer;
+	}
 	
 	.pageNaviBox{
 		width:100%;
@@ -157,10 +160,11 @@
 					}
 				}).done(function(resp){
 					console.log("resp : " + resp);
-					$(".test").append(resp);
-					$(".Helpful").
-					//var result = JSON.parse(resp);
-					//console.log("result.br_recommend : " + result.br_recommend);
+ 					//$(".Helpful").text(resp);
+ 					//$(this).children(".helpful").text(resp);
+ 					
+ 					//$(".recommendBtn").html("<img src='/resources/img/reviewLike.png' width='25px' class='HelpfulImage'>");
+					
 				})
 			})
 			
@@ -228,9 +232,11 @@
                                     </div>
                                     <div class="reviewRecommend" value="${reviewList.br_recommend}">
 										<input type="hidden" value="${reviewList.br_no}">
-                                    	<img src="/resources/img/reviewHate.png" width="25px" class="mb-1 recommendBtn">
+                                    	<span class="mb-1 recommendBtn">
+                                    		<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">
+                                        </span>
                                     	<input type="hidden" value="${reviewList.br_recommend}">
-                                      	  도움돼요 <span class="Helpful">${reviewList.br_recommend}</span>
+                                      	  도움돼요 <span class="helpful">${reviewList.br_recommend}</span>
                                     </div>
                                     <div class="reviewUpdateBtn d-flex justify-content-end">
                                         <button class="btn" id="modifyBtn">수정하기</button>
