@@ -82,7 +82,7 @@
 		text-align : right;
 		margin-top : 5px;
 	}
-	#smPrice, #smCount{
+	#smPriceTitle, #smCount{
 		font-size : 15px;
 	}
 	#smTotal{
@@ -166,7 +166,7 @@
 			<div id="smCart" class="row">
 				<div id="smTitle" class="col-12">${result.p_title}</div>
 				<label id="smUnitTitle" class="col-5">중량/판매단위</label><div id="smUnit" class="col-7">${result.p_unit}</div>
-				<label id="smPrice" class="col-5">상품 가격</label><div id="smUnit" class="col-7">${result.p_price}원</div>
+				<label id="smPriceTitle" class="col-5">상품 가격</label><div id="smPrice" class="col-7">${result.p_price}</div>
 				<label id="smCount" class="col-5">수량</label>
 				<div id="countSelect" class="col-7">
 					<select id="smSelect" name="count">
@@ -185,7 +185,7 @@
 				<div id="msg" class="col-12">마이페이지에서 배송일을 확인 할 수 있어요</div>
 				<div id="smAmount" class="col-12">
 					<label id="smTotal" class="m-0">총 금액 </label>
-					<div id="total">${result.p_price}원</div>
+					<div id="total">${result.p_price}</div>
 				</div>
 				<div id="getProduct" class="col-12">담 기</div>
 			</div>	
@@ -194,11 +194,29 @@
 	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 	
 	<script>
+		$("#smPrice").html(function(){
+			var price = $(this).html();
+			var result = numberWithCommas(price);
+			$(this).html(result);
+		})
+		
+		$("#total").html(function(){
+			var price = $(this).html();
+			var result = numberWithCommas(price);
+			$(this).html(result);
+		})
+	
 		$("#smSelect").on("change", function(){
 			var price = ${result.p_price};
 			var count = $(this).val();
-			$("#total").html(price * count + "원");
+			var calculate = price * count;
+			var result = numberWithCommas(calculate);
+			$("#total").html(result);
 		})
+		
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+		}
 	</script>
 </body>
 </html>

@@ -28,9 +28,9 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 	
 	@Transactional("txManager")
-	public List<ProductsDTO> selectProductsListService() {
+	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category) {
 		try {
-			List<ProductsDTO> result = pdao.selectProductsList();
+			List<ProductsDTO> result = pdao.selectProductsListByCategory(start, end, category);
 			return result;
 		}catch(Exception e) {
 			e.printStackTrace();

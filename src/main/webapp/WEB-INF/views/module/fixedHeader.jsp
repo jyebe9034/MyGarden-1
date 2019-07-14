@@ -165,15 +165,16 @@
 									aria-expanded="false"> 상품 전체보기 </a>
 									<div class="dropdown-menu text-center"
 										aria-labelledby="navbarDropdown">
-										<a class="dropdown-item" href="#">분류1</a> <a
-											class="dropdown-item" href="#">분류2</a>
-										<div class="dropdown-divider"></div>
-										<a class="dropdown-item" href="#">하위분류1</a>
-										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="fruit?category=fruit">과일</a> 
+										<a class="dropdown-item" href="vegetable?category=vegetable">채소</a>
+										<a class="dropdown-item" href="egg?category=egg">달걀/유제품</a>
+										<a class="dropdown-item" href="grain?category=grain">곡물</a>
+										<a class="dropdown-item" href="source?category=source">소스/조미료</a>
 									</div></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="productsList">공유정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="productsAdd">비밀정원</a></li>
-								<li class="nav-item"><a class="nav-link mt-2" href="#">About&nbsp;&nbsp;|</a></li>
+								<li class="nav-item"><a class="nav-link mt-2" href="#">|&nbsp;&nbsp;About</a></li>
+								<li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">자유게시판</a></li>
 								<li class="nav-item"><a class="nav-link" href="#"> 
 									<img src="resources/img/person.png" width="40" height="40">

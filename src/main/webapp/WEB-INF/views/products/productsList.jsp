@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>Products List</title>
+<title>공유 정원</title>
 <style>
 	#sharedWrap{
 		position : relative;
@@ -89,7 +89,7 @@
 							  <img src="${list.p_imagepath}" class="card-img-top eachImg">
 							  <div class="card-body anker" pnumber="${list.p_no}">
 							    <h5 class="card-title title">${list.p_title}</h5>
-							    <p class="card-text price">${list.p_price}원</p>
+							    <p class="card-text price">${list.p_price}</p>
 							  </div>
 							</div>
 						</div>
@@ -105,6 +105,7 @@
 		var isEnd = false;
 		var page = 1;
 		var documentHeight, windowHeight, scrollTop;
+		var category = "${category}";
 		
 		$(window).scroll(function() {
 			documentHeight = $(document).height();
@@ -120,16 +121,19 @@
 						url : "selectProductsByPage",
 						type : "post",
 						dataType : "json",
-						data : {page : page}
+						data : {
+							page : page,
+							category : category
+						}
 					}).done(function(resp){
-						if(resp.length < 5){
+						if(resp.length < 1){
 							isEnd = true;
 						}else{
 							for(var i = 0; i < resp.length; i++){
 								$(".articles").append("<div class='col-4 article'><div class='card cards' style='width: 18rem;'>"
 								+ "<img class='card-img-top eachImg' src='" + resp[i].p_imagepath +"'>"
 								+ "<div class='card-body anker' pnumber='" + resp[i].p_no + "'><h5 class='card-title title'>" + resp[i].p_title 
-								+ "</h5><p class='card-text price'>" + resp[i].p_price + "</p></div></div></div>");
+								+ "</h5><p class='card-text price'>" + numberWithCommas(resp[i].p_price) + "</p></div></div></div>");
 							}	
 						}
 					})
@@ -137,17 +141,16 @@
 			}
 		})
 		
-		/* $(".price").text(
-			$(this).text().format();	
+		$(".price").html(function(){
+			var price = $(this).html();
+			var result = numberWithCommas(price);
+			$(this).html(result);
 		})
+	
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+		}
 		
-		function format() {
-			var reg = "/(^[+-]?\d+)(\d{3})/g";
-			var n = (this + '');
-			
-			while(reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
-			return n;
-		} */
 	</script>
 	
 </body>

@@ -1,6 +1,8 @@
 package my.garden.daoImpl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,13 @@ public class ProductsDAOImpl implements ProductsDAO {
 		}
 	}
 	
-	public List<ProductsDTO> selectProductsList() {
+	public List<ProductsDTO> selectProductsListByCategory(int start, int end, String category) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("category", category);
 		try {
-			return sst.selectList("ProductsDAO.selectProductsList");
+			return sst.selectList("ProductsDAO.selectProductsListByCategory", map);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
