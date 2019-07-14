@@ -19,5 +19,7 @@ m_realpath varchar(300)
 );
 drop table members;
 select * from members;
+select m_pw from members where m_email = 'gmail@gmail';
+delete from members where m_Email = 'sparkss0419@naver.com';
 commit;
 select sysdate from dual;
