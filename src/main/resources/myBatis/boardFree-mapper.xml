@@ -13,6 +13,14 @@
 		select * from board_free where bf_no = #{bf_no}
 	</select>
 	
+	<delete id="delete">
+	 	delete from board_free where bf_no = #{bf_no}
+	</delete>
+	
+	<update id="modify">
+		update board_free set #{column}=#{value} where bf_no = #{bf_no}
+	</update>
+	
 	<update id="viewCount">
 		update board_free set bf_viewcount=bf_viewcount+1 where bf_no = #{bf_no}
 	</update>
@@ -22,15 +30,22 @@
 	</insert>
 	
 	<select id="cmtList" resultType="my.garden.dto.CommentFreeDTO">
-		select * from (select row_number() over(order by cf_bf_no desc) as rown, comment_free.* from comment_free where cf_bf_no = #{bf_no}) where rown between #{start} and #{end}
+		select * from (select row_number() over(order by cf_no) as rown, comment_free.* from comment_free where cf_bf_no = #{bf_no}) where rown between #{start} and #{end}
 	</select>
 	
 	<select id="boardCountAll" resultType="Integer">
 		select count(*) from board_free
 	</select>
 	
-	<select id="CmtCountAll" resultType="Integer">
+	<select id="cmtCountAll" resultType="Integer">
 		select count(*) from comment_free where cf_bf_no = #{cf_bf_no}
 	</select>
 	
+	<update id="cmtModify">
+		update comment_free set cf_comment = #{cf_comment} where cf_no = #{cf_no}
+	</update>
+	
+	<delete id="cmtDelete">
+		delete from comment_free where ${column}=${value}
+	</delete>
 </mapper>

@@ -35,6 +35,18 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		return sst.selectOne("BoardFreeDAO.read", bf_no);
 	}
 	
+	public int delete(int bf_no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("column", "cf_bf_no");
+		map.put("value", bf_no);
+		sst.delete("BoardFreeDAO.cmtDelete", map);//글삭제시 관련 댓글도 다 삭제
+		return sst.delete("BoardFreeDAO.delete",bf_no);
+	}
+	
+	public int modify(int bf_no, String column, String value) {
+		return sst.delete("BoardFreeDAO.modify",bf_no);
+	}
+	
 	public int boardCountAll() {
 		return sst.selectOne("BoardFreeDAO.boardCountAll");
 	}
@@ -42,8 +54,8 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 	
 	
 	//댓글 관련 DAO
-	public int CmtCountAll(int cf_bf_no) {
-		return sst.selectOne("BoardFreeDAO.CmtCountAll", cf_bf_no);
+	public int cmtCountAll(int cf_bf_no) {
+		return sst.selectOne("BoardFreeDAO.cmtCountAll", cf_bf_no);
 	}
 	
 	public int cmtWrite(CommentFreeDTO dto) {
@@ -57,6 +69,22 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		map.put("end", end);
 		return sst.selectList("BoardFreeDAO.cmtList", map);
 	}
+	
+	public int cmtModify(String cf_comment, int cf_no) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("cf_comment", cf_comment);
+		map.put("cf_no", cf_no);
+		return sst.update("BoardFreeDAO.cmtModify",map);
+	}
+	
+	public int cmtDelete(String column, int value) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("column", column);
+		map.put("value", value);
+		return sst.delete("BoardFreeDAO.cmtDelete", map);
+	}
+	
+	
 		
 	//게시판 네비
 	public List<String> getBoardNavi(int currentPage) throws Exception {
@@ -129,10 +157,10 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 	}	
 	
 	public List<String> getCmtNavi(int currentPage, int bf_no) throws Exception {
-		int recordTotalCount = this.CmtCountAll(bf_no);
+		int recordTotalCount = this.cmtCountAll(bf_no);
 		System.out.println("댓글 레코드토탈카운트:"+recordTotalCount);
 		
-		int recordCountPerPage = 5; 
+		int recordCountPerPage = 10; 
 		int naviCountPerPage = 5;	
 		int pageTotalCount = 0; // 변수만드는 용
 		if(recordTotalCount % recordCountPerPage == 0) {

@@ -18,6 +18,7 @@
 <style>
 #titleImg {
 	overflow: hidden;
+	height: 600px;
 	padding: 0px;
 	margin-bottom: 50px;
 }
@@ -70,11 +71,31 @@ hr {
 }
 
 .comment {
-	margin-top: 30px;
+	margin-top: 10px;
 	border: 1px solid #9e9e9e;
 	height: 100px;
 	width: 100%;
 	text-align: center;
+}
+
+#modifyBox {
+	width: 88%;
+	height: 100%;
+	color: #44b27d;
+	background-color:#ecf7e9;
+	border:0px;
+	margin-right:5px;
+}
+
+.mdBtn {
+	background-color:none;
+	border:0px;
+	color: #44b27d;
+	height:40px;
+	margin-right:5px;
+}
+.mdBtn:hover{
+	text-decoration: underline;
 }
 
 .commentList {
@@ -90,45 +111,84 @@ hr {
 	color: grey;
 }
 
-.rContent {
+.rContents {
 	margin: 10px 5px;
+}
+
+.rIcons {
+	width: 100%;
+	text-align: right;
+}
+
+.rIcons img {
+	width: 20px;
+	margin: 0 10px;
+	position: relative;
+	bottom: 10px;
+	cursor: pointer;
 }
 
 #rContentWrite {
 	padding: 15px;
 	text-align: left;
+	margin: 0px;
 }
 
 #navi {
 	width: 100%;
 	text-align: center;
+	margin-bottom: 15px;
+}
+
+.naviBtn {
+	width: 30px;
+	text-align: center;
+	color: #44b27d;
+	font-weight: bold;
+	margin: 0px 10px;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+.naviBtn:hover {
+	text-decoration: underline;
+	color: #c1b1fc;
+}
+
+.nowPage {
+	color: #c1b1fc;
 }
 
 .footBtn {
-	text-align: center;
-	margin: 40px 0;
+	padding: 0px;
+	text-align: left;
+	margin: 20px 0px;
+	text-align: left;
 }
 
-#submitBtn {
-	height: 80px;
-	width: 100px;
-	margin: 40px 40px;
-}
-
-#back {
+.bfBtn {
+	width: 90px;
 	height: 40px;
-}
-
-#submitBtn, #back {
-	width: 100px;
 	background-color: #44b27d;
 	color: white;
 	border: 0px;
+	border-radius: 5px;
+	margin-right: 10px;
 }
 
-#submitBtn:hover, #back:hover {
+.bfBtn:hover {
 	background-color: #b4d9b5;
-	border: 0px;
+	color: white;
+}
+
+.submitDiv {
+	text-align: right;
+}
+
+#submitBtn {
+	height: 100%;
+	width: 70%;
+	margin: 0px;
 }
 </style>
 <body>
@@ -152,30 +212,40 @@ hr {
 			</div>
 
 			<div id=content class=col-12>${page.bf_content }</div>
-
 			<div class="col-12 commentList">
 				<c:forEach var="tmp" items="${list }">
-					<span class=rWriter> <img
-						src="resources/img/boardFreeCmtWriter.png">${tmp.cf_name }
-					</span>
-					<span class=rWritedate><fmt:formatDate
-							pattern="yyyy-MM-dd HH:mm:ss" value="${tmp.cf_writedate}" /></span>
-					<div class=rContent>${tmp.cf_comment }</div>
-					<hr>
+					<div class=commentOne>
+						<span class=rWriter> <img
+							src="resources/img/boardFreeCmtWriter.png">${tmp.cf_name }
+						</span> <span class=rWritedate>${tmp.cf_stringdate}</span>
+						<div class="rContents row">
+							<div class="rContent col-10">${tmp.cf_comment }</div>
+							<div class="rIcons col-2">
+								<span class=cmtChange flag=true> <img
+									src="resources/img/boardFreeCmtChange.png"></span> <input
+									type=hidden value=${tmp.cf_no }> <span class=cmtDelete>
+									<img src="resources/img/boardFreeCmtDelete.png">
+								</span>
+							</div>
+						</div>
+						<hr>
+					</div>
 				</c:forEach>
 			</div>
 			<div class="col-12" id=navi>
 				<c:forEach var="navi" items="${navi}">
-					<span>${navi }</span>
+					<span class=naviBtn>${navi }</span>
 				</c:forEach>
 			</div>
 
 			<div class="col-10 comment" contenteditable id=rContentWrite></div>
-			<div class="col-2">
-				<button type="button" class="btn" id="submitBtn">댓글 등록</button>
+			<div class="col-2 submitDiv">
+				<button type="button" class="bfBtn" id="submitBtn">댓글 등록</button>
 			</div>
 			<div class="col-12 footBtn">
-				<button type="button" class="btn" id=back>목록으로</button>
+				<button type="button" class="bfBtn" id=back>목록으로</button>
+				<button type="button" class="bfBtn" id=modify>글수정</button>
+				<button type="button" class="bfBtn" id=delete>글삭제</button>
 			</div>
 		</div>
 	</div>
@@ -184,7 +254,93 @@ hr {
 		$("#back").on("click", function() {
 			location.href = "boardFreeList?page=1";
 		})
-
+		//글 수정, 삭제
+		$("#delete").on("click", function(){
+			if(confirm("정말 삭제하시겠습니까?")==true){
+			location.href="boardFreeDelete?no="+${page.bf_no};
+			}
+		})
+		
+		//댓글 수정
+		$(document).on("click",".cmtChange",function(){
+			if($(this).attr("flag")=="true"){//여러번 클릭 막기
+			var origin=$(this).parent().prev().text();
+			var change="<input type=text id=modifyBox value="+origin+"><button type=button class=mdBtn id=modifyBtn>수정</button>"
+			+"<button type=button class=mdBtn id=cancelBtn>취소</button>";
+			$(this).attr("flag","false");
+			$(this).parent().prev().html(change);
+			}
+			var seq = $(this).next().val();		
+			$(document).on("click","#modifyBtn",function(){
+				var cmt = $("#modifyBox").val();
+			$.ajax({
+				url:"freeCmtModify",
+				data:{
+					no:${page.bf_no},
+					seq: seq,
+					cmt:cmt
+				}
+			}).done(function(resp){
+					if(resp.result > 0){
+						alert("댓글이 수정되었습니다.");
+						history.go(0);
+						location.reload(true);
+					}
+				})						
+		})
+		
+			$(document).on("click","#cancelBtn",function(){
+				
+			})
+		})
+		
+		//댓글 삭제
+		$(document).on("click",".cmtDelete",function(){
+			var seq = $(this).prev().val();		
+			if(confirm("정말 삭제하시겠습니까?")==true){
+			$.ajax({
+				url:"freeCmtDelete",
+				data:{
+					seq: seq,
+					no:${page.bf_no}
+				}
+			}).done(function(resp){
+				if(resp.result>0){
+					alert("댓글이 삭제되었습니다.");
+					location.reload(true);
+					//$(this).parent().parent().parent().parent().html("");
+					 //댓글 목록
+// 					  $(".commentList").html("");
+// 					 console.log(resp.list);
+// 					 var cmtList = "";
+// 					 for(var i=0; i<resp.list.length; i++){			
+// 						 var cmtList = cmtList + 
+// 						 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
+// 						 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
+// 						+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
+// 						+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
+// 						+"<input type=hidden value="+resp.list[i].cf_no+">"
+// 						+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+// 					 }
+					// $(".commentList").html(cmtList);
+					//네비 목록
+// 					 $("#navi").html("");
+// 					var naviList = "";			
+// 					for(var i=0; i<resp.navi.length; i++){
+// 						var num = (parseInt(resp.navi.length))-1;
+// 						if(i==num){
+// 							naviList = naviList + "<span class='naviBtn nowPage'>"+resp.navi[i]+"</span>"
+// 						}else{
+// 							naviList = naviList + "<span class='naviBtn'>"+resp.navi[i]+"</span>"
+// 						}			
+// 					}
+					//$("#navi").html(naviList);
+				}			
+				})			
+			}
+		})
+		
+		
 		$("#submitBtn").on("click", function() {
 			if($("#rContentWrite").text() == ""){
 				alert("댓글을 입력해주세요.");
@@ -193,24 +349,90 @@ hr {
 				 url:"freeCmtWrite",
 				 type:"post",
 				 data:{				 
-					cf_bf_no:${page.bf_no},
-					content:$("#rContentWrite").text(),
-					cmtPage:$("#naviBtn").text()
+					no:${page.bf_no},
+					content:$("#rContentWrite").text()
 				 } 
 			 }).done(function (resp) {	
-				 console.log(resp);
-				console.log(resp.list);
-				 $("#rContentWrite").text(""); //썼던 댓글 지우기		
+				 $("#rContentWrite").text(""); //등록하면 썼던 댓글 지우기	
+				 //댓글 목록
 				 $(".commentList").html("");
 				 var cmtList = "";
-				 for(var i=0; i<list.length; i++){			
-					 var cmtList = cmtList + "<span class=rWriter><img src='resources/img/boardFreeCmtWriter.png'>"+resp.map.list[i].cf_name+"</span>"
-							+"<span class=rWritedate>"+resp.map.list[i].cf_stringdate+ "</span><div class=rContent>"+resp.map.list[i].cf_comment+"</div><hr>";				 					
+				 for(var i=0; i<resp.list.length; i++){			
+					 var cmtList = cmtList + 
+					 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
+					 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
+					+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
+					+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
+					+"<input type=hidden value="+resp.list[i].cf_no+">"
+					+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
 				 }
-				 console.log(cmtList);
 				 $(".commentList").html(cmtList);
+				//네비 목록
+				 $("#navi").html("");
+				var naviList = "";
+				
+				for(var i=0; i<resp.navi.length; i++){
+					var num = (parseInt(resp.navi.length))-1;
+					if(i==num){
+						naviList = naviList + "<span class='naviBtn nowPage'>"+resp.navi[i]+"</span>"
+					}else{
+						naviList = naviList + "<span class='naviBtn'>"+resp.navi[i]+"</span>"
+					}			
+				}
+				$("#navi").html(naviList);
 			})
 			}
 		})
+		
+		$(document).on('click',".naviBtn",function(){
+			var nowPage = $(this).text();
+			if(nowPage==">"){
+				var nowPage=parseInt($(this).prev().text())+1;
+			}else if(nowPage=="<"){
+				var nowPage=parseInt($(this).next().text())-1;
+			}
+			$.ajax({
+				url:"freeCmtNaviProc",
+				data:{
+					no:${page.bf_no},
+					page: nowPage
+				}
+			}).done(function (resp) {
+				//댓글 목록
+				 $(".commentList").html("");
+				 var cmtList = "";
+				 for(var i=0; i<resp.list.length; i++){			
+					 var cmtList = cmtList + 
+					 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
+					 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
+					+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
+					+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
+					+"<input type=hidden value="+resp.list[i].cf_no+">"
+					+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+				 }
+				 $(".commentList").html(cmtList);
+				//네비 목록
+				 $("#navi").html("");
+				var naviList = "";
+				
+				for(var i=0; i<resp.navi.length; i++){			
+					if(resp.navi[i]==resp.page){
+						naviList = naviList + "<span class='naviBtn nowPage'>"+resp.navi[i]+"</span>"
+					}else{
+					naviList = naviList + "<span class='naviBtn'>"+resp.navi[i]+"</span>"
+					}
+				}
+				$("#navi").html(naviList);
+			})
+		})
+	
+		$(".naviBtn").each(function(i, item){
+			if($(this).text()==${now}){
+				$(this).css("color","#c1b1fc");
+			}
+		})
+		
+
+		
 	</script>
 </html>

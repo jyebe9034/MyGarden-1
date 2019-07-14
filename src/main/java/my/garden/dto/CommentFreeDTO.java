@@ -16,6 +16,8 @@ public class CommentFreeDTO {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public CommentFreeDTO(int cf_bf_no, int cf_no, String cf_name, String cf_email, Timestamp cf_writedate,
 			String cf_comment, String cf_stringdate) {
 		super();
@@ -27,6 +29,7 @@ public class CommentFreeDTO {
 		this.cf_comment = cf_comment;
 		this.cf_stringdate = cf_stringdate;
 	}
+
 
 	public int getCf_bf_no() {
 		return cf_bf_no;
@@ -84,7 +87,4 @@ public class CommentFreeDTO {
 		this.cf_stringdate = cf_stringdate;
 	}
 
-	
-	
-	
 }

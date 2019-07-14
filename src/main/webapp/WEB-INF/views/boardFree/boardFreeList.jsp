@@ -131,7 +131,7 @@ hr {
 						<span class=viewCount><img
 							src="resources/img/boardFreeView.png">${tmp.bf_viewcount }</span>
 						<span class=comment><img
-							src="resources/img/boardFreeReply.png">${cmtCount[tmp.bf_no-1]}</span>
+							src="resources/img/boardFreeReply.png">${tmp.bf_cmtcount}</span>
 					</div>
 				</div>
 				<hr size="3">

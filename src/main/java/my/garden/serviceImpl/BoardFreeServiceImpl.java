@@ -23,6 +23,15 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	}
 	
 	@Transactional("txManager")
+	public int serviceDelete(int bf_no) {
+		return dao.delete(bf_no);
+	}
+	
+	@Transactional("txManager")
+	public int serviceModify(int bf_no, String column, String value) {
+		return dao.modify(bf_no, column, value);
+	}
+	@Transactional("txManager")
 	public List<BoardFreeDTO> serviceList(int start, int end) {
 		return dao.list(start, end);
 		
@@ -50,13 +59,23 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	}
 	
 	@Transactional("txManager")
+	public int serviceCmtModify(String cf_comment, int cf_no) {
+		return dao.cmtModify(cf_comment, cf_no);
+	}
+	
+	@Transactional("txManager")
+	public int serviceCmtDelete(String column, int value) {
+		return dao.cmtDelete(column, value);
+	}
+	
+	@Transactional("txManager")
 	public List<CommentFreeDTO> serviceCmtList(int bf_no, int start, int end){
 		return dao.cmtList(bf_no, start, end);
 	}
 	
 	@Transactional("txManager")
 	public int serviceCmtCountAll(int cf_bf_no) {
-		return dao.CmtCountAll(cf_bf_no);
+		return dao.cmtCountAll(cf_bf_no);
 	}
 	
 	@Transactional("txManager")
