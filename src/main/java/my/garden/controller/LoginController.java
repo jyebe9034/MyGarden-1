@@ -79,9 +79,16 @@ public class LoginController {
 		session.invalidate();
 		return "home";
 	}
+
+	@RequestMapping("/reLogin")
+	public String reLogin() {
+		session.invalidate();
+		return "login/login";
+	}
 	
 	@RequestMapping("/mypageFirst")
-	public String Mypage() {
+	public String Mypage(MembersDTO dto) {
+		session.setAttribute("memDTO", loginserv.memSelectAll(dto));
 		return "login/mypageFirst";
 	}
 
@@ -100,7 +107,34 @@ public class LoginController {
 	@RequestMapping("/updateInfo")
 	public String updateInfo(MembersDTO dto) {
 		loginserv.memUpdateAll(dto);
-		return "login/mypageInfo";
+		return "login/mypageInfoThrough";
+	}
+	
+	@RequestMapping("/mailSender")
+	public String mailSender() throws Exception {
+		String m_email = (String)session.getAttribute("loginId");
+		loginserv.mailSender(m_email);
+		return "login/findAccountAfterLogin";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findId")
+	public String findId(String key) {
+		return loginserv.findId(key);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/findPwGetCode")
+	public String findPwGetCode(String key) {
+		String pwCode = loginserv.findPwGetCode(key);
+		return pwCode;
+	}
+
+	@ResponseBody
+	@RequestMapping("/findPwChange")
+	public String findPwChange(String email, String pw) {
+		loginserv.updateOne(email, pw);
+		return null;
 	}
 	
 }

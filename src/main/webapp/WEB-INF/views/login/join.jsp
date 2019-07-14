@@ -18,6 +18,7 @@
 .fontGreen{font-weight:bold; color:#4f9c87;}
 .onblur{font-size:13px; color:#4f9c87;}
 .postCode{position:relative;}
+.modal-body{max-height:270px; overflow-y:auto;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
@@ -438,7 +439,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			            <div class="tab-content">
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 회원가입</h3>
-			                    <h6 class="pt-2 pb-4 text-muted">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
+			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
 			                    <form class="pl-5 pr-5 formSubmit" action="joinSubmit" method="post" enctype="multipart/form-data">
 			                    	<div class="filebox"> 
 			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
@@ -484,9 +485,42 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 								<script src="resources/js/zipcode.js"></script>
 								<!-- 	address js end-->
 		                        <p id="formFooter">
-		                        	<a href="#" class="text-muted">서비스 이용약관 /</a>
-		                       		<a href="#" class="text-muted">개인정보취급방침</a>
+		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">서비스 이용약관 및 개인정보취급방침</a>
 		                       	</p>
+		                       	<!-- Modal -->
+								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalCenterTitle">서비스 이용약관 및 개인정보취급방침</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								             개인정보 수집항목 및 수집방법	<br>
+										① 회사는 원활한 서비스 제공을 위해 최초 서비스 설치 후 서비스 이용에 대한 동의를 완료하는 시점에 아래와 같은 최소한의 개인정보를 수집하고 있습니다.	<br>
+										1. 회원의 서비스 이용정보	<br>
+										- 국가 코드, 폰 사용 언어, 앱 버전, 이메일·페이스북계정·구글플러스계정, 비밀번호	<br>
+										2. 회원이 사용하는 단말기의 정보	<br>
+										- 통신사, 모델명, OS버전 정보, UUID	<br>
+										② 회사는 필수항목 이외에 회원이 서비스 이용을 목적으로 직접 작성한 개인정보를 선택항목으로 수집하고 있습니다.	<br>
+										1. 서비스 이용문의 회신에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<!-- modal end -->
 			                </div>
 			                <div id="signup">
 			                </div>

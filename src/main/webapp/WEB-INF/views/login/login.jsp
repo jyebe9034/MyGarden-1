@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +17,7 @@
 span.mr-2{font-size:25px; display:inline-block; margin-bottom:20px;}
 .event{background:rgba(0,0,0,0.3); text-shadow: 1px 1px #444; max-width:250px; font-size:17px; padding:20px; bottom:20%; right:15%; color:#fff;}
 .onblur{font-size:13px; color:#4f9c87;}
+#newPw{display:none;}
 .tab-group a {
   text-decoration: none;
   color: #1ab188;
@@ -307,6 +309,82 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
               		$('#loginForm').submit();
               	}
               });
+              $('#idModal').on('click', function(){
+              	$('#m_phone').val("");
+              	$("#m_email").html("");
+              });
+		      $('#findId').on('click', function(){
+		    	  if($("#m_phone").val()!=""){
+		           		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
+		           		if(regexPhone.exec($("#m_phone").val())){
+					      	$.ajax({
+					      		url:"/findId",
+					      		type:"post",
+					      		data:{key:$('#m_phone').val()}
+					      	}).done(function(resp){
+					      		if(resp==""){
+					      			$("#m_email").html("<h6 class='mb-2'>해당 번호에 대한 아이디가 존재하지 않습니다<h6>");
+					      		}else{
+						      		$("#m_email").html("<h6 class='mb-2'>해당 번호에 대한 아이디는 <span class='font-weight-bold'>" + resp + "</span> 입니다</h6>");
+					      		}
+					      	});
+		           		}else{
+		           			$("#m_email").text("형식에 맞지 않는 번호입니다");
+		           		}
+		    	  }else{
+		    		  $("#m_email").text("번호를 입력하세요"); 
+		    	  }
+			  });
+		      var pwCode;
+		      $('#sendMail').on('click', function(){
+	           		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
+	           		if(regexMail.exec($("#findPwMail").val())){
+	               		$.ajax({
+	               			url:"/emailCheck",
+	               			type:"post",
+	               			data : {key : $("#findPwMail").val()}
+	               		}).done(function(resp){
+	               			if(resp==true){
+	    	           			$("#result").text("");
+	         		        	$("#findPw").removeAttr("class", "d-block");
+	         		        	$("#newPw").attr("class", "d-block btn btn-primary");
+	         		        	$.ajax({
+	         		        		url:"/findPwGetCode",
+	         		        		type:"post",
+	         		        		data:{key:$("#findPwMail").val()}
+	         		        	}).done(function(resp){
+	         		        		pwCode=resp;
+	         		        	});
+	               			}else{
+	    	           			$("#result").text("존재하지 않는 메일입니다");
+	         		        	$("#findPw").attr("class", "d-none");
+	         		        	$("#newPw").removeAttr("class");
+	    	           			$("#findPwMail").val("");
+	               			}
+	               		});
+	           		}else{
+	           			$("#result").text("사용할 수 없는 형식의 메일입니다");
+	           			$("#findPwMail").val("");
+	           		}
+	           	});
+		        $('#newPw').on('click', function(){
+		        	if($('#findPw').val()==""){
+		        		$('#result').text("임시 비밀번호를 입력하세요");
+		        	}else{
+		        		$('#result').text("");
+		        		if($('#findPw').val()==pwCode){
+		        			$.ajax({
+		        				url:"/findPwChange",
+		        				type:"post",
+		        				data:{email:$("#findPwMail").val(), pw:$('#findPw').val()}
+		        			}).done(function(resp){
+		        				$(location).attr('href', '/reLogin');
+		        			});
+		        		}else{
+		        			$('#result').text("임시 비밀번호가 맞지 않습니다");
+		        		}
+		        	}
+		        });
 		});
 	</script>
 <!-- header -->
@@ -353,8 +431,63 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 								      <label><input type="checkbox" class="form-check-input text-muted">이 계정을 기억합니다</label>
 								    </div>
 			                        <input type="button" class="font-weight-bold mt-2" id="loginBtn" value="로그인"></input>
-			                        <p id="formFooter"><a href="#" class="text-muted">아이디 / 비밀번호 찾기</a></p>
+			                        <p id="formFooter">
+			                        	<a href="#" id="idModal" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter1">아이디 / </a>
+			                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter2">비밀번호 찾기</a>
+			                        </p>
 			                    </form> 
+		                       	<!-- Modal id -->
+									<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalCenterTitle">아이디 찾기 </h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									          <div class="form-group">
+									          	<label for="m_phone" class="col-form-label">가입 당시 기재한 핸드폰 번호를 입력하세요</label>
+									            <input type="text" class="form-control" placeholder="000-0000-0000" id="m_phone">
+									          </div>
+									          <div id="m_email"></div>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-primary" id="findId">아이디 찾기</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								<!-- modal id end -->
+		                       	<!-- Modal pw -->
+									<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalCenterTitle">비밀번호 찾기</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									          <div class="form-group">
+									            <input type="email" class="form-control" placeholder="나의 정원에 가입한 메일주소를 입력하세요" id="findPwMail">
+									          </div>
+									          <div class="form-group">							            
+									  		    <input type="password" class="form-control d-none" placeholder="발송된 임시 비밀번호를 입력하세요" id="findPw">
+									          </div>
+									          <div id="result"></div>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-primary" id="sendMail">메일 발송하기</button>
+									        <button type="button" class="btn btn-primary" id="newPw">임시 비밀번호로 변경하기</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								<!-- modal pw end -->
+			                    
 			                </div>
 			                <div id="signup">
 			                    <h3 class="m-3 font-weight-bold text-dark">나의 정원 소셜로그인</h3>

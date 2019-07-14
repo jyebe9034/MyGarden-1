@@ -23,11 +23,11 @@
 			<div class="row pt-2 my">
 				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 overview my">
 					<div class="mb-2"><img src="resources/img/public.jpg" width="90" height="90"></div>
-					<h4>님의</h4> 
-					<h4 class="font-weight-bold">gardenName</h4>
+					<h4>${memDTO.m_name}님의</h4> 
+					<h4 class="font-weight-bold">${memDTO.m_garden}</h4>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 overview mb-4 my">
-					<div class="gardenImg"><img src="resources/img/mypage2.jpg"></div>
+					<div class="gardenImg"><img src="${memDTO.m_profile}"></div>
 				</div>
 			</div>	
 		</div>

@@ -145,7 +145,7 @@ input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #60a593;
 }
-input:disabled{
+input:readonly{
   background:#D1E5DF;
   border: 2px solid #D1E5DF;
 }
@@ -376,7 +376,18 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
    			$(location).attr('href', '/mypageFirst');
    		});
    		$('#updateInfo').on('click', function(){
-   			if($('.inputStuff').val()!="" && $('#zonecode').val()!=""){
+   			if($('input[name="m_name"]').val()!="" 
+   					&& $('input[name="m_email"]').val()!=""
+   					&& $('#pastPw').val()!=""
+   					&& $('input[name="m_pw"]').val()!=""
+   	   				&& $('#password').val()!=""
+   	    			&& $('input[name="m_phone"]').val()!=""
+   	    	   		&& $('input[name="m_zipcode"]').val()!=""
+   	    	    	&& $('input[name="m_birth"]').val()!=""
+   	   	    	    && $('input[name="m_gender"]').val()!=""
+   	    	    	&& $('input[name="m_address1"]').val()!=""
+   	    	   	    && $('input[name="m_address2"]').val()!=""
+   	    	    	&& $('#zonecode').val()!=""){
        			var con = confirm('이대로 제출하시겠습니까?');
  				if(con){
                 		$('.formSubmit').submit();	
@@ -385,6 +396,9 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
    				alert('다시 확인 후 제출하세요');
    			}
         });	
+   		$('#findPwBtn').on('click', function(){
+   			$(location).attr('href', '/mailSender');
+   		});
 	});
 </script>
 <!-- header -->
@@ -428,11 +442,11 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			            <div class="tab-content pt-1">
 			                <div id="signin">
 			                    <h3 class="font-weight-bold text-dark pt-5">나의 정원 정보수정</h3>
-			                    <h6 class="pt-2 pb-4 text-muted">나의 정보를 확인 후 언제든 업데이트 하세요</h6>
+			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">나의 정보를 확인 후 언제든 업데이트 하세요</h6>
 			                    <form class="pl-5 pr-5 formSubmit" action="updateInfo" method="post" enctype="multipart/form-data">	
 			                        <input type="text" value="${memDTO.m_name}" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        	<div class="onblur" id="userName"></div>
-			                        <input type="email" value="${memDTO.m_email}" class="fadeIn inputStuff" disabled>
+			                        <input type="email" value="${memDTO.m_email}" name="m_email" class="fadeIn inputStuff" readonly>
 			                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
 			                        	<div class="onblur" id="pastPwName"></div>
 			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
@@ -447,8 +461,8 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        </div>	
 			                        <input type="text" value="${memDTO.m_address1}" placeholder="주소" class="fadeIn inputStuff50" id="m_address1" name="m_address1" readonly>
 			                        <input type="text" value="${memDTO.m_address2}" placeholder="상세주소" class="fadeIn inputStuff50" id="m_address2" name="m_address2" readonly>
-			                        <input type="text" value="${memDTO.m_birth}" placeholder="생년월일" class="fadeIn inputStuff50" name="m_birth" disabled>
-			                        <input type="text" value="${memDTO.m_gender}" placeholder="성별" class="fadeIn inputStuff50" name="m_gender" disabled>
+			                        <input type="text" value="${memDTO.m_birth}" placeholder="생년월일" class="fadeIn inputStuff50" name="m_birth" readonly>
+			                        <input type="text" value="${memDTO.m_gender}" placeholder="성별" class="fadeIn inputStuff50" name="m_gender" readonly>
 			                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
 			                        <input type="button" value="수정하기" id="updateInfo">
 			                    </form>
@@ -457,9 +471,30 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 								<script src="resources/js/zipcode.js"></script>
 								<!-- 	address js end-->
 		                        <p id="formFooter">
-		                        	<a href="#" class="text-muted">서비스 이용약관 /</a>
-		                       		<a href="#" class="text-muted">개인정보취급방침</a>
+		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">비밀번호 찾기</a>
 		                       	</p>
+		                       	<!-- Modal -->
+									<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalCenterTitle">비밀번호 찾기</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									          <div>${memDTO.m_email}로 임시 비밀번호를 보내드립니다</div>
+									          <div>발급 버튼을 클릭 후 임시 비밀번호로 다시 로그인 하세요</div>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+									        <button type="button" class="btn btn-primary" id="findPwBtn">임시 비밀번호 발급받기</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								<!-- modal end -->
 			                </div>
 			                <div id="signup">
 			                </div>

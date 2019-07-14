@@ -1,5 +1,8 @@
 package my.garden.serviceImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,6 +71,38 @@ public class LoginService {
 	public int memUpdateAll(MembersDTO dto) {
 		dto.setM_pw(logDao.SHA256(dto.getM_pw()));
 		return logDao.memUpdateAll(dto);
+	}
+	
+	public int mailSender(String m_email) throws Exception {
+		String randomCode = logDao.mailSender(m_email);
+		Map<String, String> map = new HashMap();
+		map.put("col", "m_pw");
+		map.put("colVal", logDao.SHA256(randomCode));
+		map.put("whereCol", "m_email");
+		map.put("value", m_email);
+		return logDao.findAccountChange(map);
+	}
+	
+	public String findId(String key) {
+		return logDao.findId(key);
+	}
+	
+	public String findPwGetCode(String key) {
+		try {
+			return logDao.mailSender(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public int updateOne(String m_email, String m_pw) {
+		Map<String, String> map = new HashMap();
+		map.put("col", "m_pw");
+		map.put("colVal", logDao.SHA256(m_pw));
+		map.put("whereCol", "m_email");
+		map.put("value", m_email);
+		return logDao.findAccountChange(map);
 	}
 	
 }
