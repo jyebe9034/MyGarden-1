@@ -8,37 +8,64 @@
 	</insert>
 	<!-- 상세페이지에서 후기목록-->
 	<select id="reviewList" resultType="my.garden.dto.BoardReviewDTO" parameterType="hashmap">
-		select * from (select row_number() over(order by br_no desc) as rown, board_review.* from board_review where br_p_no=#{br_p_no}) where rown between #{startNum} and #{endNum}
+	select * from (select row_number() over(order by br_no desc) as rown, board_review.* 
+	from board_review where br_p_no=#{br_p_no}) where rown between #{startNum} and #{endNum}
+<!-- select * from (select row_number() over(order by t1.br_no desc) as rown, t1.*,recommend  -->
+<!-- from board_review t1, (select BR_NO as T2brNo, count(*) as recommend from br_recommend group by BR_NO order by br_no) t2 -->
+<!-- where t1.br_no = T2brNo and t1.br_p_no=#{br_p_no}) where rown between #{startNum} and #{endNum} -->
 	</select>
+	
 	<!-- 상세페이지에서 총 후기 개수 -->
 	<select id="reviewCount" resultType="Integer">
 		select count(*) from board_review where br_p_no=#{br_p_no}
 	</select>
-	<!-- 추천 수(도움돼요) -->
-	<update id="recommendCountUp">
+	
+ 	<!-- board_review 테이블에서 추천 수 업데이트(후기목록에서 사용) --> 
+	<update id="updateRecommendCount">
 		update board_review set br_recommend=#{br_recommend} where br_no=#{br_no}
 	</update>
 	
-	
-	
 	<!-- 동일 게시글 추천 여부 검색 -->
-	<select id="rec_check" parameterType="map" resultType="int">
-		select count(*) from br_recommend where br_p_no=#{br_p_no} and br_no=#{br_no} and br_writer=#{br_writer}
+	<select id="recommendCheck" parameterType="map" resultType="int">
+		select count(*) from br_recommend where br_no=#{br_no} and br_email=#{br_email}
 	</select>
 	
 	<!-- 게시글 추천 -->
-	<insert id="rec_update" parameterType="map">
-		insert into br_recommend values(#{br_writer},#{br_p_no},#{br_no},#{br_title})
+	<insert id="recommendUpdate" parameterType="map">
+		insert into br_recommend values(#{br_email},#{br_no},#{br_title})
 	</insert>
 	
-	<!-- 게시글 추천 취소 -->
-	<delete id="rec_delete" parameterType="map">
-		delete from br_recommend where br_p_no=#{br_p_no} and br_no=#{br_no} and br_writer=#{br_writer}
+	<!-- 게시글 추천 취소 (cancelRecommend로 바꾸기)-->
+	<delete id="recommendDelete" parameterType="map">
+		delete from br_recommend where br_no=#{br_no} and br_email=#{br_email}
 	</delete>
 	
 	<!-- 게시글 추천수 -->
-	<select id="rec_count" parameterType="int" resultType="int">
-		select count(*) from br_recommend where br_p_no=#{br_p_no} and br_no=#{br_no}
+	<select id="recommendCount" parameterType="int" resultType="int">
+		select count(*) from br_recommend where br_no=#{br_no}
 	</select>
+	
+	
+	
+	<!-- 후기 수정 전 정보 -->
+	<select id="oneReview" resultType="my.garden.dto.BoardReviewDTO">
+		select * from board_review where br_no =#{br_no}
+	</select>
+
+	<!-- 	후기 수정 -->
+	<update id="updateReview" parameterType="map">
+		update BOARD_REVIEW set br_title = #{br_title}, br_content=#{br_content}, br_imagepath=#{br_imagepath}, br_writedate=default where br_no=#{br_no}
+	</update>
+
+	<!-- 후기 삭제 -->
+	<delete id="deleteReview">
+		delete BOARD_REVIEW where br_no=#{br_no}
+	</delete>
+	
+	<delete id="deleteRecommend">
+		delete BR_RECOMMEND where br_no=#{br_no}
+	</delete>
+	
+	
 	
 </mapper>

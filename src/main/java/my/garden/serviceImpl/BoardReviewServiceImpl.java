@@ -27,8 +27,8 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 	private BoardReviewDAO brDao;
 	
 	@Transactional("txManager")
-	public int writeReview(BoardReviewDTO dto, MultipartFile image) throws Exception{
-		return brDao.writeReview(dto, image);
+	public int writeReview(BoardReviewDTO dto) throws Exception{
+		return brDao.writeReview(dto);
 	}
 	
 	@Transactional("txManager")
@@ -41,10 +41,61 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 		return brDao.getNavi(currentPage, br_p_no);
 	}
 	
+//	@Transactional("txManager")
+//	public int RecommendCountUp(int br_recommend, int br_no) throws Exception{
+//		return brDao.RecommendCountUp(br_recommend, br_no);
+//	}
+	
 	@Transactional("txManager")
-	public int RecommendCountUp(int br_recommend, int br_no) throws Exception{
-		return brDao.RecommendCountUp(br_recommend, br_no);
+	public int recommendCheck(int br_no, String br_email) throws Exception {
+		return brDao.recommendCheck(br_no, br_email);
 	}
+	@Transactional("txManager")
+	public int recommendUpdate(String br_email, int br_no, String br_title) throws Exception {
+		return brDao.recommendUpdate(br_email, br_no, br_title);
+	}
+	@Transactional("txManager")
+	public int recommendDelete(int br_no, String br_email) throws Exception {
+		return brDao.recommendDelete(br_no, br_email);
+	}
+	@Transactional("txManager")
+	public int recommendCount(int br_recommend, int br_no) throws Exception {
+		br_recommend = brDao.recommendCount(br_no);
+		brDao.updateRecommendCount(br_recommend, br_no);	
+		return brDao.recommendCount(br_no);
+	}
+	
+//	@Transactional("txManager")
+//	public int recommend(String br_email, int br_no, String br_title) throws Exception{
+//		System.out.println("원래 도움돼요 수 : " + brDao.recommendCount(br_no));
+//		int recommendCheck = brDao.recommendCheck(br_no, br_email);
+//		if(recommendCheck > 0) { //도움돼요 취소
+//			brDao.recommendDelete(br_no, br_email);
+//			System.out.println("도움돼요 취소");
+//		}else { //도움돼요 (추천하기)
+//			brDao.recommendUpdate(br_email, br_no, br_title);
+//			System.out.println("도움돼요");
+//		}
+//		System.out.println("도움돼요 수 : " + brDao.recommendCount(br_no));
+//		return brDao.recommendCount(br_no);
+//	}
+	
+	@Transactional("txManager")
+	public BoardReviewDTO oneReview(int br_no) throws Exception {
+		return brDao.oneReview(br_no);
+	}
+	
+	@Transactional("txManager")
+	public int updateReview(Map<String, Object> map) throws Exception {
+		return brDao.updateReview(map);
+	}
+	
+	@Transactional("txManager")
+	public void deleteReview(int br_no) throws Exception {	
+		brDao.deleteReview(br_no);
+		brDao.deleteRecommend(br_no);
+	}
+	
 	
 	
 }

@@ -6,7 +6,7 @@
 <!-- style -->
 <style>
 	div {
-/* 	    border: 1px solid black; */
+ 	    border: 1px solid black; 
 		
 	}
 	
@@ -65,11 +65,16 @@
 		height:40%;
 	}
 	
+	.reviewTitle{
+		cursor: pointer;
+	}
+	.reviewTitle:hover{
+		font-weight: bold;
+	}
+	
 	.reviewWriter {
 		float: left;
 	}
-	
-
 	
 	.reviewWriteDate {
 		float: left;
@@ -123,6 +128,11 @@
 		border: 0px;
 		cursor: pointer;
 	}
+	
+	/*Q & A*/
+	.qnaTitleRow{
+	 text-align : center;
+	}
 </style>
 
 <script>
@@ -151,20 +161,34 @@
 			/*추천 수(도움돼요)증가*/
 			$(".recommendBtn").on("click",function(){
 // 				var br_no = $(".recommendBtn").prev().val();
+				  var data = {
+							br_email : "aa",
+							br_no : $(this).next().val(),
+	 						//br_title : $(this).prev().val()		
+							br_title : "제목 ㅋ"
+				  };
+				  
 				$.ajax({
-					url: "recommendCountUp",
+					url: "recommend",
 					type: "post",
-					data:{
-						"br_no": $(this).prev().val(),
- 						"br_recommend" : $(this).next().val()		
+					dataType: "json",
+ 					async: true,
+					data: data
+				}).done(function(result){					
+ 					var recommend = result.recommendUpdate;
+ 					console.log("도움돼요 : " + result.recommendUpdate);
+ 					var cancelRecommend = result.recommendDelete;
+ 					console.log("도움돼요 취소 : " + result.recommendDelete);
+ 					var recommendCount = result.recommendCount;
+					console.log("도움돼요 수 : " + result.recommendCount);
+					if(recommend=1){ //추천
+						$(this).html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
+						//$(this).html().attr("src","/resources/img/reviewLike.png");
+					}else if(cancelRecommend=1){ //추천 취소
+						$(this).html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
 					}
-				}).done(function(resp){
-					console.log("resp : " + resp);
- 					//$(".Helpful").text(resp);
- 					//$(this).children(".helpful").text(resp);
- 					
- 					//$(".recommendBtn").html("<img src='/resources/img/reviewLike.png' width='25px' class='HelpfulImage'>");
-					
+// 					$("input").val(result.br_no).next().text(result.recommendCount);
+					alert(recommendCount);
 				})
 			})
 			
@@ -176,6 +200,31 @@
 				//	$(this).css("background-color","#b4d9b5");
 				}
 			})
+			
+			/*후기 수정 폼으로 이동*/
+			$(".modifyBtn").on("click",function(){
+				var br_no = $(this).val();
+				$(location).attr("href","reviewUpdateForm?br_no="+br_no);
+			})
+			
+			/*후기 삭제*/
+			$(".deleteBtn").on("click",function(){
+				var br_no = $(this).val();
+			    var deleteCheck = confirm("정말 삭제하시겠습니까?");
+			    if(deleteCheck){
+			    	$(location).attr("href","reviewDelete?br_no="+br_no);
+			    }
+			})
+			//-----------------------------------------------------------
+			$("#qBtn").on("click",function(){
+				//var bq_p_no = $(this).val(); //상품글번호벨류값으로 넣어주기
+				//$(location).attr("href","qnaWriteForm?bq_p_no="+br_no);
+				$(location).attr("href","qnaWriteForm?bq_p_no=1");
+			})
+			
+			
+			
+			
 	})
 
 </script>
@@ -216,8 +265,6 @@
                                     <div class="reviewContent" display="none">
                                         	${reviewList.br_content }
                                     </div>
-<%-- 					<input type="hidden" class="reviewContent" value="${reviewList.br_content }"> --%>
-                     
                                 </div>
                                 
                                 <div class="reviewRightBottom">
@@ -231,15 +278,18 @@
                                         <fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.br_writedate }"/>
                                     </div>
                                     <div class="reviewRecommend" value="${reviewList.br_recommend}">
-										<input type="hidden" value="${reviewList.br_no}">
+	<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>									
                                     	<span class="mb-1 recommendBtn">
                                     		<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">
                                         </span>
-                                    	<input type="hidden" value="${reviewList.br_recommend}">
-                                      	  도움돼요 <span class="helpful">${reviewList.br_recommend}</span>
+										 <input type="hidden" value="${reviewList.br_no}">
+                                      	   도움돼요
+                                      	 <span class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
+                                      	 
                                     </div>
                                     <div class="reviewUpdateBtn d-flex justify-content-end">
-                                        <button class="btn" id="modifyBtn">수정하기</button>
+                                        <button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
+                                        <button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
                                     </div>       
                                 </div>
                    
@@ -270,7 +320,43 @@
 			</div>
 			
       </div>
-      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+      
+<!--===================Q&A========================================-->
+      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      	
+      	<div class="container qnaContainer">
+	      		<div class="row qnaTitleRow">
+	      			<div class="col-2">글번호</div>
+	      			<div class="col-6">글제목</div>
+	      			<div class="col-2">작성자</div>
+	      			<div class="col-2">작성일</div>
+	      		</div>
+	      		<div class="row qnaRow">
+	      			<c:forEach var="qnaList" items="${qnaList }">
+	      				<div class="col-2">1</div>
+		      			<div class="col-6">
+		      				<button class="btns" disabled="disabled">답변완료</button>
+		      				<span class="qnaTitle" value="${qnaList.bq_no }">${qnaList.bq_title }</span>
+		      			</div>
+		      			<div class="col-2">${qnaList.bq_writer }</div>
+		      			<div class="col-2">${qnaList.bq_writedate }</div>
+	      			
+	      			</c:forEach>
+	      		</div>
+	      		<!--pagination/  -->
+				<div class="pageNaviBox">				
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination">				  	
+					  	${getNaviForQnA }				    
+					  </ul>
+					</nav>				
+				</div>
+			<!--/pagination  -->
+	      		<button id="qBtn">문의하기</button>
+
+      	</div>
+      	
+      </div>
     </div>
 
 </div>

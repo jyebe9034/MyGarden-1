@@ -9,6 +9,7 @@ public class CommentQnADTO {
 	private Timestamp cq_writedate;
 	private String cq_comment;
 	
+	
 	public CommentQnADTO() {
 		super();
 	}
@@ -49,6 +50,5 @@ public class CommentQnADTO {
 	public void setCq_comment(String cq_comment) {
 		this.cq_comment = cq_comment;
 	}
-	
-	
+
 }

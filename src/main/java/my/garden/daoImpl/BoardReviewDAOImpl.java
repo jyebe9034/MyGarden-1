@@ -20,43 +20,14 @@ import my.garden.dto.BoardReviewDTO;
 public class BoardReviewDAOImpl implements BoardReviewDAO{
 	@Autowired
 	private SqlSessionTemplate sst;
-	@Autowired
-	private HttpSession session;
-
-	public int writeReview(BoardReviewDTO dto, MultipartFile image) {	//글작성	
-		String id = "aa"; //나중에 아이디 받아오기!!!!!★
-		int br_p_no = 1;//글번호 받아오기!!!!!★
-		dto.setBr_p_no(br_p_no);
-		
-		System.out.println("이미지" + image);
-		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
-		File dir = new File(path + id + "/"); //폴더경로
-		//System.out.println("폴더 존재? : " + dir.isDirectory());
-		if(!dir.isDirectory()) { // 폴더가 있는지 확인.
-			System.out.println("폴더생성");
-			dir.mkdirs(); // 없으면 생성
-		}
-		String resourcePath = session.getServletContext().getRealPath("/resources/"+id);
-		System.out.println("resourcePath : " + resourcePath);
-
-		File newFile = new File(resourcePath + "/" + System.currentTimeMillis() + "_review.png");
-		try {
-			image.transferTo(newFile);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String filePath = "/resources/"+ id +"/" + newFile.getName();
-		System.out.println("filePath : " + filePath);
-		dto.setBr_imagepath(filePath);
 
 
+	public int writeReview(BoardReviewDTO dto) {	//글작성	
+	
 		return sst.insert("boardReviewMB.writeReview",dto);
 	}
 
 	public List<BoardReviewDTO> reviewList(int br_p_no, int startNum, int endNum){ //상세페이지에서 후기목록
-		System.out.println("dao왔음");
 		Map<String,Integer> map = new HashMap<>();
 		map.put("br_p_no", br_p_no);
 		map.put("startNum",startNum);
@@ -113,15 +84,15 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 
 		if(needPrev) {
 			int prevStartNavi = startNavi-1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage="+prevStartNavi+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+prevStartNavi+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
 
 		}
 		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<li class=\"page-item\"><a class=\"page-link pageNumber\" href=\"reviewAndQnA?br_p_no=1&currentPage="+ i +"\">" + i + "</a></li>");
+			sb.append("<li class=\"page-item\"><a class=\"page-link pageNumber\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+ i +"\">" + i + "</a></li>");
 		}
 		if(needNext) {
 			int nextEndNavi = endNavi+1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage="+ nextEndNavi++ +"\""+ 
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+ nextEndNavi++ +"\""+ 
 					"							aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>" + 
 					"						</a></li>");
 		}
@@ -130,12 +101,62 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 	}
 
 	/*도움돼요 +씩 카운트*/
-	public int RecommendCountUp(int br_recommend, int br_no) {
+	public int updateRecommendCount(int br_recommend, int br_no) {
 		Map<String,Integer> map = new HashMap<>();
 		map.put("br_recommend", br_recommend);
 		map.put("br_no",br_no);
-		return sst.update("boardReviewMB.recommendCountUp",map);
+		return sst.update("boardReviewMB.updateRecommendCount",map);
 	}
-
-
+	
+	/*동일 후기글 추천(도움돼요) 여부 검색*/
+	public int recommendCheck(int br_no, String br_email) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("br_no", br_no);
+		map.put("br_email", br_email);
+		return sst.selectOne("boardReviewMB.recommendCheck", map);
+	}
+	
+	/*추천(도움돼요)*/
+	public int recommendUpdate(String br_email, int br_no, String br_title) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("br_email", br_email);
+		map.put("br_no", br_no);
+		map.put("br_title", br_title);
+		return sst.insert("boardReviewMB.recommendUpdate", map);
+	}
+	
+	/*추천(도움돼요) 취소*/
+	public int recommendDelete(int br_no, String br_email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("br_no", br_no);
+		map.put("br_email", br_email);
+		return sst.delete("boardReviewMB.recommendDelete", map);
+	}
+	
+	/*추천(도움돼요) 수*/
+	public int recommendCount(int br_no) {
+		return sst.selectOne("boardReviewMB.recommendCount", br_no);
+	}
+	
+	
+	/*후기 수정 전 정보*/
+	public BoardReviewDTO oneReview(int br_no) {
+		return sst.selectOne("boardReviewMB.oneReview", br_no);
+	}
+	
+	/*후기 수정*/
+	public int updateReview(Map<String, Object> map) {
+		return sst.update("boardReviewMB.updateReview", map);
+	}
+	
+	/*후기 삭제*/
+	public int deleteReview(int br_no) {
+		return sst.delete("boardReviewMB.deleteReview", br_no);
+	}
+	/*후기 글 삭제시 해당 추천수 삭제*/
+	public int deleteRecommend(int br_no) {
+		return sst.delete("boardReviewMB.deleteRecommend", br_no);
+	}
+	
+	
 }

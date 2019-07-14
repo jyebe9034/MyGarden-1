@@ -171,7 +171,7 @@
 										<a class="dropdown-item" href="#">하위분류1</a>
 										<div class="dropdown-divider"></div>
 									</div></li>
-								<li class="nav-item"><a class="nav-link mt-2" href="reviewAndQnA?currentPage=1&br_p_no=1">공유정원</a></li>
+								<li class="nav-item"><a class="nav-link mt-2" href="reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1">공유정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">비밀정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">About&nbsp;&nbsp;|</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">자유게시판</a></li>
