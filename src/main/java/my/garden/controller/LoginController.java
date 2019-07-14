@@ -1,5 +1,11 @@
 package my.garden.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +20,12 @@ public class LoginController {
 	
 	@Autowired
 	LoginService loginserv;
+	@Autowired
+	HttpServletResponse response;
+	@Autowired
+	HttpSession session;
+	
+	PrintWriter out;
 	
 	@RequestMapping("/login")
 	public String Login() {
@@ -27,8 +39,8 @@ public class LoginController {
 	
 	@RequestMapping("/joinSubmit")
 	public String JoinSubmit(MembersDTO dto, MultipartFile ex_file) {
-		loginserv.insertJoinSubmit(dto, ex_file);
-		return "login/login";
+		loginserv.joinSubmit(dto, ex_file);
+		return "login/joinThrough";
 	}
 	
 	@ResponseBody
@@ -43,5 +55,52 @@ public class LoginController {
 		return loginserv.phoneDupCheck(key);
 	}
 	
+	@ResponseBody
+	@RequestMapping("/gardenCheck")
+	public boolean gardenCheck(String key) {
+		return loginserv.gardenDupCheck(key);
+	}
+
+	@RequestMapping("/isLoginOk")
+	public String IsLoginOk(String loginId, String loginPw) {
+		loginserv.isLoginOk(loginId, loginPw);
+		if(loginserv.isLoginOk(loginId, loginPw)==null) {
+			return "login/loginThrough";
+		}else {
+			session.setAttribute("loginId", loginId);
+			String loginName = loginserv.getName(loginId);
+			session.setAttribute("loginName", loginName);
+			return "home";
+		}
+	}
+
+	@RequestMapping("/logout")
+	public String logout() {
+		session.invalidate();
+		return "home";
+	}
+	
+	@RequestMapping("/mypageFirst")
+	public String Mypage() {
+		return "login/mypageFirst";
+	}
+
+	@RequestMapping("/mypageInfo")
+	public String MypageInfo(MembersDTO dto) {
+		session.setAttribute("memDTO", loginserv.memSelectAll(dto));
+		return "login/mypageInfo";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/pwCheck")
+	public boolean pwCheck(String key, String pw) {
+		return loginserv.pwDupCheck(key, pw);
+	}
+
+	@RequestMapping("/updateInfo")
+	public String updateInfo(MembersDTO dto) {
+		loginserv.memUpdateAll(dto);
+		return "login/mypageInfo";
+	}
 	
 }

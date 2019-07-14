@@ -284,6 +284,126 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				readURL(this);
 			});	
 			//profile local image insert end
+			
+			//input form
+           	$("input[name=ex_file]").on("input", function(){
+           		if($('#ex_file').val()!=""){
+           			$("#fileName").text("");
+           		}
+           	});
+			//파일 이미지 확장자 검증
+           	$("input[name=ex_file]").on("change", function(){
+           		var selectedFile = this.files[0];
+           		var idxDot = selectedFile.name.lastIndexOf(".") + 1;
+           		var extFile = selectedFile.name.substr(idxDot, selectedFile.name.length).toLowerCase();
+           		if (extFile == "jpg" || extFile == "jpeg" || extFile == "png" || extFile == "svg" || extFile == "gif") {
+           		   //do whatever want to do
+           		} else {
+           		     alert("Only jpg/jpeg, png, gif and svg files are allowed!");
+           		}
+           	});
+           	$("input[name=m_garden]").on("blur", function(){
+           		var regexGarden=/^[가-힣\w]{2,12}$/;
+           		if(regexGarden.exec($("input[name=m_garden]").val())){
+           			$("#phoneName").text("");
+           		}else{
+           			$("#phoneName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
+           			$("input[name=m_phone]").val("");
+           		}
+           	});
+           	$("input[name=m_name]").on("blur", function(){
+           		var regexName=/^[가-힣A-z]{2,}$/;
+           		if(regexName.exec($("input[name=m_name]").val())){
+           			$("#userName").text("");
+           		}else{
+           			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
+           			$("input[name=m_name]").val("");
+           		}
+           	});
+           	$("input[name=m_email]").on("blur", function(){
+           		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
+           		if(regexMail.exec($("input[name=m_email]").val())){
+               		$.ajax({
+               			url:"/emailCheck",
+               			type:"post",
+               			data : {key : $("input[name=m_email]").val()}
+               		}).done(function(resp){
+               			if(resp==true){
+                   			$("#eamilName").text("중복되는 메일입니다");
+                   			$("input[name=m_email]").val("");
+               			}else{
+                   			$("#eamilName").text("");
+               			}
+               		});
+           		}else{
+           			$("#eamilName").text("사용할 수 없는 형식의 메일입니다");
+           			$("input[name=m_email]").val("");
+           		}
+           	});
+           	$("input[name=m_pw]").on("blur", function(){
+           		var regexPw=/^(?=.*\d)(?=.*[a-z]).{8,15}$/;
+           		if($("#password").val()==""){
+               		if(regexPw.exec($("input[name=m_pw]").val())){
+               			$("#pwName").text("");
+               			$("#password").focus();
+               		}else{
+               			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
+               			$("input[name=m_pw]").val("");
+               		}
+           		}else{
+               		if(regexPw.exec($("input[name=m_pw]").val())){
+               			$("#pwName").text("");
+               			$("#password").focus();
+               			$("#password").blur();
+               		}else{
+               			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
+               			$("input[name=m_pw]").val("");
+               		}
+           		}
+           	});
+           	$("#password").on("blur", function(){
+           		if($("input[name=m_pw]").val()==$("#password").val()){
+           			$("#pwCheck").text("");
+           		}else{
+           			$("#pwCheck").text("비밀번호 형식이 맞지 않거나 일치하지 않습니다");
+           			$("#password").val("");
+           		}
+           	});
+           	$("input[name=m_phone]").on("blur", function(){
+           		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
+           		if(regexPhone.exec($("input[name=m_phone]").val())){
+               		$.ajax({
+               			url:"/phoneCheck",
+               			type:"post",
+               			data : {key : $("input[name=m_phone]").val()}
+               		}).done(function(resp){
+               			if(resp==true){
+                   			$("#phoneName").text("중복되는 번호입니다");
+                   			$("input[name=m_phone]").val("");
+               			}else{
+                   			$("#phoneName").text("");
+               			}
+               		});
+           		}else{
+           			$("#phoneName").text("형식에 맞지 않는 번호입니다");
+           			$("input[name=m_phone]").val("");
+           		}
+           	});
+       		$('#joinSubmit').on('click', function(){
+           		if($('#ex_file').val()!=""){
+           			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
+               			var con = confirm('이대로 제출하시겠습니까?');
+        				if(con){
+	                   		$('.formSubmit').submit();	
+                   		}
+           			}else{
+           				alert('다시 확인 후 제출하세요');
+           			}
+           		}else{
+       				$('html, body').stop().animate({scrollTop:$(".filebox").offset().top-30}); 
+           			$("#fileName").text("프로필 사진이 선택되지 않았거나 이미지 파일이 아닙니다");
+           		}
+            });	
 		});
 	</script>
 <!-- header -->
@@ -323,97 +443,9 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                    	<div class="filebox"> 
 			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
 			                    		<label for="ex_file">프로필&#x02295;</label> 
-			                    		<input type="file" id="ex_file" name="ex_file"/> 
-			                    	</div>	                    	
-			                   <script>
-			                   $(function(){
-				                   	$("input[name=m_garden]").on("blur", function(){
-				                   		var regexGarden=/^[가-힣\w]{2,12}$/;
-				                   		if(regexGarden.exec($("input[name=m_garden]").val())){
-				                   			$("#gardenName").text("");
-				                   		}else{
-				                   			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-				                   			$("input[name=m_garden]").val("");
-				                   		}
-				                   	});
-				                   	$("input[name=m_name]").on("blur", function(){
-				                   		var regexName=/^[가-힣A-z]{2,}$/;
-				                   		if(regexName.exec($("input[name=m_name]").val())){
-				                   			$("#userName").text("");
-				                   		}else{
-				                   			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
-				                   			$("input[name=m_name]").val("");
-				                   		}
-				                   	});
-				                   	$("input[name=m_email]").on("blur", function(){
-				                   		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
-				                   		if(regexMail.exec($("input[name=m_email]").val())){
-					                   		$.ajax({
-					                   			url:"/emailCheck",
-					                   			type:"post",
-					                   			data : {key : $("input[name=m_email]").val()}
-					                   		}).done(function(resp){
-					                   			if(resp==true){
-						                   			$("#eamilName").text("중복되는 메일입니다");
-						                   			$("input[name=m_email]").val("");
-					                   			}else{
-						                   			$("#eamilName").text("");
-					                   			}
-					                   		});
-				                   		}else{
-				                   			$("#eamilName").text("사용할 수 없는 형식의 메일입니다");
-				                   			$("input[name=m_email]").val("");
-				                   		}
-				                   	});
-				                   	$("input[name=m_pw]").on("blur", function(){
-				                   		var regexPw=/^(?=.*\d)(?=.*[a-z]).{8,15}$/;
-				                   		if(regexPw.exec($("input[name=m_pw]").val())){
-				                   			$("#pwName").text("");
-				                   		}else{
-				                   			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
-				                   			$("input[name=m_pw]").val("");
-				                   		}
-				                   	});
-				                   	$("#password").on("blur", function(){
-				                   		if($("input[name=m_pw]").val()==$("#password").val()){
-				                   			$("#pwCheck").text("");
-				                   		}else{
-				                   			$("#pwCheck").text("비밀번호 형식이 맞지 않거나 일치하지 않습니다");
-				                   			$("#password").val("");
-				                   		}
-				                   	});
-				                   	$("input[name=m_phone]").on("blur", function(){
-				                   		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
-				                   		if(regexPhone.exec($("input[name=m_phone]").val())){
-					                   		$.ajax({
-					                   			url:"/phoneCheck",
-					                   			type:"post",
-					                   			data : {key : $("input[name=m_phone]").val()}
-					                   		}).done(function(resp){
-					                   			if(resp==true){
-						                   			$("#phoneName").text("중복되는 번호입니다");
-						                   			$("input[name=m_phone]").val("");
-					                   			}else{
-						                   			$("#phoneName").text("");
-					                   			}
-					                   		});
-				                   		}else{
-				                   			$("#phoneName").text("형식에 맞지 않는 번호입니다");
-				                   			$("input[name=m_phone]").val("");
-				                   		}
-				                   	});
-			                   		$('#joinSubmit').on('click', function(){
-			                   			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#customSwitch').is(":checked")){
-				                   			var con = confirm('이대로 제출하시겠습니까?');
-				            				if(con){
-						                   		$('.formSubmit').submit();	
-					                   		}
-			                   			}else{
-			                   				alert('다시 확인 후 제출하세요');
-			                   			}
-					                });	
-			                   });
-			                   </script> 	
+			                    		<input type="file" id="ex_file" name="ex_file" accept='image/jpeg,image/gif,image/png' />
+			                    		<p class="onblur" id="fileName"></p>
+			                    	</div>		
 			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">

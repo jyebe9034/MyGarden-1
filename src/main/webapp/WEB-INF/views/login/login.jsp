@@ -15,6 +15,7 @@
 .joinSuggestion:hover{color:#fff; border:1px solid #4f9c87; background:#4f9c87;}
 span.mr-2{font-size:25px; display:inline-block; margin-bottom:20px;}
 .event{background:rgba(0,0,0,0.3); text-shadow: 1px 1px #444; max-width:250px; font-size:17px; padding:20px; bottom:20%; right:15%; color:#fff;}
+.onblur{font-size:13px; color:#4f9c87;}
 .tab-group a {
   text-decoration: none;
   color: #1ab188;
@@ -299,6 +300,13 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			  $('.joinSuggestion').on('click', function(){
 				  $(location).attr('href', '/join');
 			  });
+              $('#loginBtn').on('click', function(){
+              	if($('input[name=loginId]').val()=="" || $('input[name=loginPw]').val()==""){
+              		alert('아이디 혹은 비밀번호를 입력하세요');
+              	}else{
+              		$('#loginForm').submit();
+              	}
+              });
 		});
 	</script>
 <!-- header -->
@@ -336,17 +344,17 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			            <div class="tab-content">
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark">나의 정원 로그인</h3>
-			                    <form>
-			                        <input type="email" required autocomplete="off" placeholder="이메일을 입력하세요" id="signin"
+			                    <form action="/isLoginOk" method="post" id="loginForm">
+			                        <input type="email" placeholder="이메일을 입력하세요" name="loginId"
 			                            class="fadeIn" />
-			                        <input type="password" required autocomplete="off" placeholder="비밀번호를 입력하세요" id="password"
+			                        <input type="password" placeholder="비밀번호를 입력하세요" name="loginPw"
 			                            class="fadeIn mb-4">
 			                        <div class="fadeIn mb-2">
-								      <label><input type="checkbox" class="form-check-input text-muted" id="exampleCheck1">이 계정을 기억합니다</label>
+								      <label><input type="checkbox" class="form-check-input text-muted">이 계정을 기억합니다</label>
 								    </div>
-			                        <input type="submit" class="font-weight-bold mt-2" value="로그인"></input>
+			                        <input type="button" class="font-weight-bold mt-2" id="loginBtn" value="로그인"></input>
 			                        <p id="formFooter"><a href="#" class="text-muted">아이디 / 비밀번호 찾기</a></p>
-			                    </form>
+			                    </form> 
 			                </div>
 			                <div id="signup">
 			                    <h3 class="m-3 font-weight-bold text-dark">나의 정원 소셜로그인</h3>

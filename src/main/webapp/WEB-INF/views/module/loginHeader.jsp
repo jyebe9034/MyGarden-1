@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- style -->
 <style>
@@ -130,7 +131,7 @@
 			<div class="row">
 				<div
 					class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-					<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
+					<a href="/mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
 						href="#">고객센터</a>
 				</div>
 			</div>
