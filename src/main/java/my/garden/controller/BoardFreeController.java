@@ -100,7 +100,7 @@ public class BoardFreeController {
 		request.setAttribute("page", dao.serviceRead(no)); //글번호에 해당하는 페이지dto
 
 		//댓글관련
-
+		session.removeAttribute("now"); //새로 글을 읽을때는 제일 최신 댓글페이지 필요-->세션제거
 		int lastPage=0;
 		if(cmtPage == null) {		
 			if(dao.serviceCmtCountAll(no)%10==0) {
@@ -109,7 +109,7 @@ public class BoardFreeController {
 				lastPage=(dao.serviceCmtCountAll(no)/10)+1;
 			}
 			System.out.println("마지막 댓글페이지:"+lastPage);
-			request.setAttribute("now", lastPage);		
+			request.setAttribute("now", lastPage);	
 		}else {
 			lastPage = Integer.parseInt(cmtPage); 
 		}
@@ -139,10 +139,10 @@ public class BoardFreeController {
 		CommentFreeDTO dto = new CommentFreeDTO(no, 0, "yeonji", "y@gmail.com", null, content, null);
 		dao.serviceCmtWrite(dto); //1.댓글 등록		
 		int lastPage=0;
-		if(dao.serviceCmtCountAll(no)%5==0) {
-			lastPage=(dao.serviceCmtCountAll(no)/5);
+		if(dao.serviceCmtCountAll(no)%10==0) {
+			lastPage=(dao.serviceCmtCountAll(no)/10);
 		}else {
-			lastPage=(dao.serviceCmtCountAll(no)/5)+1;
+			lastPage=(dao.serviceCmtCountAll(no)/10)+1;
 		}
 		System.out.println("마지막 댓글페이지:"+lastPage);
 
@@ -169,6 +169,7 @@ public class BoardFreeController {
 	@ResponseBody
 	@RequestMapping("freeCmtNaviProc")
 	public Map<String, Object> freeCmtNaviProc(int no, int page){
+		session.setAttribute("now", page); //네비 클릭시 세션에 저장!
 		int start = (page*10)-9;
 		int end= page*10;
 		List<CommentFreeDTO> list = dao.serviceCmtList(no, start, end);
@@ -193,32 +194,24 @@ public class BoardFreeController {
 	@RequestMapping("freeCmtModify")
 	public Map<String,Object> freeCmtModify(int no, int seq, String cmt){
 		System.out.println(seq+":"+cmt);
-		int result = dao.serviceCmtModify(cmt, seq);
-		Map<String,Object> map = new HashMap<>();
-		map.put("result", result);
-		map.put("cmt", cmt);
-		return map;
-	}
+		int result = dao.serviceCmtModify(cmt, seq); //1.댓글 수정
 
-	@ResponseBody
-	@RequestMapping("freeCmtDelete")
-	public Map<String,Object> freeCmtDelete(int seq, int no, String page){
-		int nowPage=0;
-		int result = dao.serviceCmtDelete("cf_no",seq); //1. 댓글 삭제
-		if(page==null) {
+		//2.현재페이지구하기
+		int now = 0;
+		if(session.getAttribute("now") == null) {
 			if(dao.serviceCmtCountAll(no)%10==0) {
-				nowPage=(dao.serviceCmtCountAll(no)/10);		
+				now=(dao.serviceCmtCountAll(no)/10);
 			}else {
-				nowPage=(dao.serviceCmtCountAll(no)/10)+1;			
-			}
+				now=(dao.serviceCmtCountAll(no)/10)+1;
+			}	
 		}else {
-			nowPage=Integer.parseInt(page);
+			now = (Integer)session.getAttribute("now");
 		}
-		System.out.println("현재 댓글페이지:"+nowPage);
-		
-		//2. 댓글리스트
-		int start = (nowPage*10)-9;
-		int end= nowPage*10;
+		System.out.println("현재 댓글페이지:"+now);
+
+		//3. 댓글리스트
+		int start = (now*10)-9;
+		int end= now*10;
 		List<CommentFreeDTO> list = dao.serviceCmtList(no, start, end);
 		for(int i=0 ; i<list.size();i++) {
 			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
@@ -228,12 +221,52 @@ public class BoardFreeController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		try {
-			List<String> navi = dao.serviceGetCmtNavi(nowPage, no);
+			List<String> navi = dao.serviceGetCmtNavi(now, no);
 			map.put("navi", navi);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
-		map.put("page", page);	
+		map.put("page", now);	
+		map.put("result", result);	
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping("freeCmtDelete")
+	public Map<String,Object> freeCmtDelete(int seq, int no){
+		int result = dao.serviceCmtDelete("cf_no",seq); //1. 댓글 삭제
+
+		//2.현재페이지구하기
+		int now = 0;
+		if(session.getAttribute("now") == null) {
+			if(dao.serviceCmtCountAll(no)%10==0) {
+				now=(dao.serviceCmtCountAll(no)/10);
+			}else {
+				now=(dao.serviceCmtCountAll(no)/10)+1;
+			}	
+		}else {
+			now = (Integer)session.getAttribute("now");
+		}
+		System.out.println("현재 댓글페이지:"+now);
+
+		//3. 댓글리스트
+		int start = (now*10)-9;
+		int end= now*10;
+		List<CommentFreeDTO> list = dao.serviceCmtList(no, start, end);
+		for(int i=0 ; i<list.size();i++) {
+			SimpleDateFormat sdf = new SimpleDateFormat("MM-dd HH:mm");
+			String stringdate = sdf.format(list.get(i).getCf_writedate());
+			list.get(i).setCf_stringdate(stringdate);
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		try {
+			List<String> navi = dao.serviceGetCmtNavi(now, no);
+			map.put("navi", navi);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		map.put("page", now);	
 		map.put("result", result);	
 		return map;
 	}

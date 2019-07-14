@@ -271,6 +271,7 @@ hr {
 			$(this).parent().prev().html(change);
 			}
 			var seq = $(this).next().val();		
+			alert(seq);
 			$(document).on("click","#modifyBtn",function(){
 				var cmt = $("#modifyBox").val();
 			$.ajax({
@@ -282,9 +283,32 @@ hr {
 				}
 			}).done(function(resp){
 					if(resp.result > 0){
-						alert("댓글이 수정되었습니다.");
-						history.go(0);
-						location.reload(true);
+						// 댓글 목록
+						  $(".commentList").html("");
+						 console.log(resp.list);
+						 var cmtList = "";
+						 for(var i=0; i<resp.list.length; i++){			
+							 var cmtList = cmtList + 
+							 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
+							 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
+							+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
+							+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
+							+"<input type=hidden value="+resp.list[i].cf_no+">"
+							+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+						 }
+						$(".commentList").html(cmtList);
+						//네비 목록
+						 $("#navi").html("");
+						var naviList = "";			
+						for(var i=0; i<resp.navi.length; i++){
+							var num = (parseInt(resp.page))-1;
+							if(i==num){
+								naviList = naviList + "<span class='naviBtn nowPage'>"+resp.navi[i]+"</span>"
+							}else{
+								naviList = naviList + "<span class='naviBtn'>"+resp.navi[i]+"</span>"
+							}			
+						}
+						$("#navi").html(naviList);
 					}
 				})						
 		})
@@ -307,34 +331,34 @@ hr {
 			}).done(function(resp){
 				if(resp.result>0){
 					alert("댓글이 삭제되었습니다.");
-					location.reload(true);
-					//$(this).parent().parent().parent().parent().html("");
-					 //댓글 목록
-// 					  $(".commentList").html("");
-// 					 console.log(resp.list);
-// 					 var cmtList = "";
-// 					 for(var i=0; i<resp.list.length; i++){			
-// 						 var cmtList = cmtList + 
-// 						 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
-// 						 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
-// 						+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-// 						+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
-// 						+"<input type=hidden value="+resp.list[i].cf_no+">"
-// 						+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
-// 					 }
-					// $(".commentList").html(cmtList);
+					//location.reload(true);
+					$(this).parent().parent().parent().parent().html("");
+					// 댓글 목록
+					  $(".commentList").html("");
+					 console.log(resp.list);
+					 var cmtList = "";
+					 for(var i=0; i<resp.list.length; i++){			
+						 var cmtList = cmtList + 
+						 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
+						 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
+						+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
+						+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
+						+"<input type=hidden value="+resp.list[i].cf_no+">"
+						+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+					 }
+					$(".commentList").html(cmtList);
 					//네비 목록
-// 					 $("#navi").html("");
-// 					var naviList = "";			
-// 					for(var i=0; i<resp.navi.length; i++){
-// 						var num = (parseInt(resp.navi.length))-1;
-// 						if(i==num){
-// 							naviList = naviList + "<span class='naviBtn nowPage'>"+resp.navi[i]+"</span>"
-// 						}else{
-// 							naviList = naviList + "<span class='naviBtn'>"+resp.navi[i]+"</span>"
-// 						}			
-// 					}
-					//$("#navi").html(naviList);
+					 $("#navi").html("");
+					var naviList = "";			
+					for(var i=0; i<resp.navi.length; i++){
+						var num = (parseInt(resp.page))-1;
+						if(i==num){
+							naviList = naviList + "<span class='naviBtn nowPage'>"+resp.navi[i]+"</span>"
+						}else{
+							naviList = naviList + "<span class='naviBtn'>"+resp.navi[i]+"</span>"
+						}			
+					}
+					$("#navi").html(naviList);
 				}			
 				})			
 			}
