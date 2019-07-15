@@ -464,10 +464,21 @@ button.btn_select_all, button.btn_select_del {
 												"div:nth-child(10)").find(
 												"input:nth-child(2)").val(
 												(count + 1) * price);
-								$("#totalWon").html(
-										(totalWon + price).toString().replace(
-												/\B(?=(\d{3})+(?!\d))/g, ","));
-								$("#totalWonPrice").val(totalWon + price);
+
+								if ($(this).parent().parent().parent().parent()
+										.parent().parent().find(
+												"div:nth-child(2)").find(
+												"input:nth-child(2)").prop(
+												"checked")) {
+									$("#totalWon")
+											.html(
+													(totalWon + price)
+															.toString()
+															.replace(
+																	/\B(?=(\d{3})+(?!\d))/g,
+																	","));
+									$("#totalWonPrice").val(totalWon + price);
+								}
 							}
 						})
 		$(".down")
@@ -507,10 +518,20 @@ button.btn_select_all, button.btn_select_del {
 												"input:nth-child(2)").val(
 												(count - 1) * price);
 
-								$("#totalWon").html(
-										(totalWon - price).toString().replace(
-												/\B(?=(\d{3})+(?!\d))/g, ","));
-								$("#totalWonPrice").val(totalWon - price);
+								if ($(this).parent().parent().parent().parent()
+										.parent().parent().find(
+												"div:nth-child(2)").find(
+												"input:nth-child(2)").prop(
+												"checked")) {
+									$("#totalWon")
+											.html(
+													(totalWon - price)
+															.toString()
+															.replace(
+																	/\B(?=(\d{3})+(?!\d))/g,
+																	","));
+									$("#totalWonPrice").val(totalWon - price);
+								}
 							}
 						})
 
