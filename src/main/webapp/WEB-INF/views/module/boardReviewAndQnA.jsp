@@ -6,7 +6,7 @@
 <!-- style -->
 <style>
 	div {
- 	    border: 1px solid black; 
+/*  	    border: 1px solid black;  */
 		
 	}
 	
@@ -15,7 +15,7 @@
 		width: 800px;
 		height: 1000px;
 	}
-	
+
 	#revAndQnAWrapper .tabs a {
 		border-radius: 0px !important;
 		border: 1px solid lightgray;
@@ -43,6 +43,13 @@
 		color: #44b27d;
 		background-color: white;
 		border-bottom: 2px solid white;
+	}
+	
+	#reviewWrapper{
+		margin : 300px 0;
+	}
+	#qnaWrapper{
+		margin : 300px 0;
 	}
 	
 	.qnaTab {
@@ -106,10 +113,13 @@
 		
 	}
 	
-	
-	.reviewUpdateBtn{
-		line
+	#revAndQnAWrapper button{
+		width:90px;
+		height:30px;
+		font-size: 10px;
+		margin : 0 2px;
 	}
+	
 	#writeReviewBtn, .reviewUpdateBtn button {
 		background-color: #44b27d;
 		color: white;
@@ -138,7 +148,7 @@
 <script>
 <!--임시 버튼 나중에 마이페이지로 옮기기-->
 	$(function(){
-			
+		
 			$("#writeReviewBtn").on("click",function(){
 				$(location).attr("href","reviewWriteForm");
 			})
@@ -160,10 +170,11 @@
 			
 			/*추천 수(도움돼요)증가*/
 			$(".recommendBtn").on("click",function(){
-// 				var br_no = $(".recommendBtn").prev().val();
+				var br_no = $(this).next().val();
+				console.log("클릭한글번호:"+br_no);
 				  var data = {
 							br_email : "aa",
-							br_no : $(this).next().val(),
+							br_no : br_no,
 	 						//br_title : $(this).prev().val()		
 							br_title : "제목 ㅋ"
 				  };
@@ -182,24 +193,37 @@
  					var recommendCount = result.recommendCount;
 					console.log("도움돼요 수 : " + result.recommendCount);
 					if(recommend=1){ //추천
-						$(this).html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
-						//$(this).html().attr("src","/resources/img/reviewLike.png");
-					}else if(cancelRecommend=1){ //추천 취소
-						$(this).html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
+						$("."+br_no+"").prev().html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
+					}else if(cancelRecommend=1){ //추천 취소(사진왜 안바뀌냐고ㅡㅡ)
+						$("."+br_no+"").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
 					}
-// 					$("input").val(result.br_no).next().text(result.recommendCount);
-					alert(recommendCount);
+					//location.reload(true); //자동새로고침
+				
+					$("."+br_no+"").next().text(result.recommendCount);
+					
 				})
 			})
 			
 			/*현재페이지 표시해주는 스타일*/
-			$(".pageNumber").each(function(){
+			$(".reviewPageNumber").each(function(){
 				if($(this).text()==${currentPage}){
 					$(this).css("color","#44b27d");
 					$(this).css("font-weight","bold");
 				//	$(this).css("background-color","#b4d9b5");
 				}
 			})
+			$(".qnaPageNumber").each(function(){
+				if($(this).text()==${qnaCurrentPage}){
+					$(this).css("color","#44b27d");
+					$(this).css("font-weight","bold");
+				//	$(this).css("background-color","#b4d9b5");
+				}
+			})
+// 			$(".qnaPagenation li").on("click",function(){ //페이지 이동시 시점 고정ㅠ수정하기ㅠ
+// 				var offset = $(this).offset();
+// 				alert(offset.top);
+// 				$('html, body').animate({scrollTop : offset.top}, 10);
+// 			})
 			
 			/*후기 수정 폼으로 이동*/
 			$(".modifyBtn").on("click",function(){
@@ -224,6 +248,18 @@
 			
 			
 			
+			$("#goQnaTab").on("click",function(){
+				var offset = $("#qnaWrapper").offset();
+				//alert("offset.top : " + offset.top);
+				$('html, body').animate({scrollTop : offset.top - 200}, 10);
+			})			
+			$("#goReviewTab").on("click",function(){
+				var offset = $("#reviewWrapper").offset();
+				//alert("offset.top : " + offset.top);
+				$('html, body').animate({scrollTop : offset.top - 100}, 10);
+			})
+			
+			
 			
 	})
 
@@ -231,136 +267,147 @@
 
 <!-- 	html -->
 <div id="revAndQnAWrapper" class="container">
- 
-    <ul class="nav nav-pills mb-3" id="pills-tabs" role="tablist">
-      <li class="nav-item tabs reviewTab">
-        <a class="nav-link active" id="pills-review-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">상품후기</a>
-      </li>
-      <li class="nav-item tabs qnaTab">
-        <a class="nav-link" id="pills-qna-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">상품문의</a>
-      </li>      
-    </ul>
-    <hr class="aa">
-    <div class="tab-content" id="pills-tabContent">
-      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                          <!--                   review/                   -->
-                    <p>
-                        Product Review<br>
-                        <small class="test">상품의 후기를 올리는 곳입니다.</small>
-                    </p>
-                    <hr>
-						<!-- reviewList/ -->
-                    <div class="container reviewBox">
-                        <div class="row">
-                        
-                        <c:forEach var="reviewList" items="${reviewList }">
-                            <div class="col-4 reviewImage">
-                                <img src="${reviewList.br_imagepath }">
-                            </div>
-                            <div class="col-8">
-                                <div class="reviewRightTop">
-                                    <div class="reviewTitle">
-                                      		 ${reviewList.br_title }
-                                    </div>
-                                    <div class="reviewContent" display="none">
-                                        	${reviewList.br_content }
-                                    </div>
-                                </div>
-                                
-                                <div class="reviewRightBottom">
-                         		  <hr>
-                                    <div class="reviewWriter">
-                                     	  <img src="/resources/img/boardFreeWriter.png" width="20px"> 
-                                     	  ${reviewList.br_name }
-                                    </div>
-                                    <div class="reviewWriteDate">
-                                        <img src="/resources/img/boardFreeWriteDate.png" width="20px"> 
-                                        <fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.br_writedate }"/>
-                                    </div>
-                                    <div class="reviewRecommend" value="${reviewList.br_recommend}">
-	<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>									
-                                    	<span class="mb-1 recommendBtn">
-                                    		<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">
-                                        </span>
-										 <input type="hidden" value="${reviewList.br_no}">
-                                      	   도움돼요
-                                      	 <span class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
-                                      	 
-                                    </div>
-                                    <div class="reviewUpdateBtn d-flex justify-content-end">
-                                        <button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
-                                        <button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
-                                    </div>       
-                                </div>
-                   
-                            </div>
-                            <hr width="770px">
-                        </c:forEach>
-         
-                            
-                            
-                        </div>
-                     <!-- /reviewList -->
-          
-                    </div>
-<!--                   /review                   -->
+<!--=========================review===============================-->
+	<div id="reviewWrapper" class="container">
+		<ul class="nav nav-pills mb-3" id="pills-tabs" role="tablist">
+			<li class="nav-item tabs reviewTab">
+				<a class="nav-link revAndQnATabs active" id="pills-review-tab"
+				data-toggle="pill" href="#qnaWrapper" role="tab"
+				aria-controls="pills-home" aria-selected="true">상품후기</a></li>
+			<li class="nav-item tabs qnaTab">
+				<a class="nav-link revAndQnATabs" id="goQnaTab"
+				href="#pills-qna">상품문의</a></li>
+		</ul>
+		<hr class="aa">
+<!--================================================================-->
+		<div class="tab-content" id="pills-tabContent">
 
-			<!--pagination/  -->
-			<div class="pageNaviBox">				
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">				  	
-				  	${getNavi }				    
-				  </ul>
-				</nav>				
-			</div>
-			<!--/pagination  -->
-			
-			<div class="writeReviewBtnWrapper d-flex justify-content-end">
-				<button class="btn" id="writeReviewBtn">후기쓰기</button>
-			</div>
-			
-      </div>
-      
-<!--===================Q&A========================================-->
-      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-      	
-      	<div class="container qnaContainer">
-	      		<div class="row qnaTitleRow">
-	      			<div class="col-2">글번호</div>
-	      			<div class="col-6">글제목</div>
-	      			<div class="col-2">작성자</div>
-	      			<div class="col-2">작성일</div>
-	      		</div>
-	      		<div class="row qnaRow">
-	      			<c:forEach var="qnaList" items="${qnaList }">
-	      				<div class="col-2">1</div>
-		      			<div class="col-6">
-		      				<button class="btns" disabled="disabled">답변완료</button>
-		      				<span class="qnaTitle" value="${qnaList.bq_no }">${qnaList.bq_title }</span>
-		      			</div>
-		      			<div class="col-2">${qnaList.bq_writer }</div>
-		      			<div class="col-2">${qnaList.bq_writedate }</div>
-	      			
-	      			</c:forEach>
-	      		</div>
-	      		<!--pagination/  -->
-				<div class="pageNaviBox">				
-					<nav aria-label="Page navigation example">
-					  <ul class="pagination">				  	
-					  	${getNaviForQnA }				    
-					  </ul>
-					</nav>				
+			<div class="tab-pane fade show active" id="pills-home"
+				role="tabpanel" aria-labelledby="pills-home-tab">
+				<p>
+					Product Review<br> <small class="test">상품의 후기를 올리는
+						곳입니다.</small>
+				</p>
+				<hr>
+				
+				<div class="container reviewBox">
+					<div class="row">
+
+						<c:forEach var="reviewList" items="${reviewList }">
+							<div class="col-4 reviewImage">
+								<img src="${reviewList.br_imagepath }">
+							</div>
+							<div class="col-8">
+								<div class="reviewRightTop">
+									<div class="reviewTitle">${reviewList.br_title }</div>
+									<div class="reviewContent" display="none">
+										${reviewList.br_content }</div>
+								</div>
+
+								<div class="reviewRightBottom">
+									<hr>
+									<div class="reviewWriter">
+										<img src="/resources/img/boardFreeWriter.png" width="20px">
+										${reviewList.br_name }
+									</div>
+									<div class="reviewWriteDate">
+										<img src="/resources/img/boardFreeWriteDate.png" width="20px">
+										<fmt:formatDate pattern="yyyy-MM-dd"
+											value="${reviewList.br_writedate }" />
+									</div>
+									<div class="reviewRecommend" value="${reviewList.br_recommend}">
+										<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>
+										<span class="mb-1 recommendBtn"> <img
+											src="/resources/img/reviewHate.png" width="25px"
+											class="recommendImage">
+										</span> <input type="hidden" class="${reviewList.br_no}"
+											value="${reviewList.br_no}"> 도움돼요 <span
+											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
+
+									</div>
+									<div class="reviewUpdateBtn d-flex justify-content-end">
+										<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
+										<button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
+									</div>
+								</div>
+
+							</div>
+							<hr width="770px">
+						</c:forEach>
+					</div>
 				</div>
-			<!--/pagination  -->
-	      		<button id="qBtn">문의하기</button>
 
-      	</div>
-      	
-      </div>
-    </div>
+				<!--pagination/  -->
+				<div class="pageNaviBox">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">${getNavi }
+						</ul>
+					</nav>
+				</div>
+				<!--/pagination  -->
 
-</div>
+				<div class="writeReviewBtnWrapper d-flex justify-content-end">
+					<button class="btn" id="writeReviewBtn">후기쓰기</button>
+				</div>
 
+			</div>
+<!--=============================review/=================================-->
+		</div>
+	</div>
 
+<!--===========================Q&A========================================-->
+	<div id="qnaWrapper" class="container">
+		<ul class="nav nav-pills mb-3" id="pills-tabs" role="tablist">
+			<li class="nav-item tabs reviewTab">
+				<a class="nav-link revAndQnATabs" id="goReviewTab" href="#reviewWrapper">상품후기</a></li>
+			<li class="nav-item tabs qnaTab">
+				<a class="nav-link revAndQnATabs active" id="pills-qna-tab"
+				data-toggle="pill" href="#pills-qna" role="tab"
+				aria-controls="pills-profile" aria-selected="false">상품문의</a></li>
+		</ul>
+		<hr class="aa">
+	<!--==========================================================-->
+		<div class="tab-content" id="pills-tabContent">
 
+			<div class="tab-pane show fade active" id="pills-qna" role="tabpanel"
+				aria-labelledby="pills-qna-tab">
+				<p>
+					Q & A<br> <small class="test">문의하는곳임당ㅋ</small>
+				</p>
+				<hr>
+				<div class="container qnaContainer">
+					<div class="row qnaTitleRow">
+						<div class="col-2">글번호</div>
+						<div class="col-6">글제목</div>
+						<div class="col-2">작성자</div>
+						<div class="col-2">작성일</div>
+					</div>
+					<div class="row qnaRow">
+						<c:forEach var="qnaList" items="${qnaList }">
+							<div class="col-2">1</div>
+							<div class="col-6">
+								<button class="btns" disabled="disabled">답변완료</button>
+								<span class="qnaTitle" value="${qnaList.bq_no }">${qnaList.bq_title }</span>
+							</div>
+							<div class="col-2">${qnaList.bq_writer }</div>
+							<div class="col-2">
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${qnaList.bq_writedate }"/>
+							</div>
 
+						</c:forEach>
+					</div>
+					<!--pagination/  -->
+					<div class="pageNaviBox">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination qnaPagenation">${getNaviForQnA }
+							</ul>
+						</nav>
+					</div>
+					<!--/pagination  -->
+					<button id="qBtn">문의하기</button>
+
+				</div>
+			</div>
+		</div>
+		<!--===================Q&A========================================-->
+	</div>

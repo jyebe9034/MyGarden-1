@@ -27,12 +27,12 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sst.insert("boardQnAMB.writeQnA",dto);
 	}
 	
-	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum, int endNum){ //상세페이지에서 Q&A 목록
+	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum2, int endNum2){ //상세페이지에서 Q&A 목록
 		System.out.println("dao왔음");
 		Map<String,Integer> map = new HashMap<>();
 		map.put("bq_p_no", bq_p_no);
-		map.put("startNum",startNum);
-		map.put("endNum", endNum);
+		map.put("startNum2",startNum2);
+		map.put("endNum2", endNum2);
 		return sst.selectList("boardQnAMB.qnaList",map);
 	}
 
@@ -60,40 +60,40 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		}else if(qnaCurrentPage > pageTotalCount) {
 			qnaCurrentPage = pageTotalCount;
 		}
-		int startNavi = (qnaCurrentPage - 1)/naviCountPerPage * naviCountPerPage + 1;
-		int endNavi = startNavi + (naviCountPerPage - 1); 
+		int startNavi2 = (qnaCurrentPage - 1)/naviCountPerPage * naviCountPerPage + 1;
+		int endNavi2 = startNavi2 + (naviCountPerPage - 1); 
 
-		if(endNavi > pageTotalCount) {
-			endNavi = pageTotalCount;
+		if(endNavi2 > pageTotalCount) {
+			endNavi2 = pageTotalCount;
 		}
 
 		System.out.println("현재 위치 : " + qnaCurrentPage);
-		System.out.println("네비 시작 : " + startNavi);
-		System.out.println("네비 끝 : " + endNavi);
+		System.out.println("네비 시작 : " + startNavi2);
+		System.out.println("네비 끝 : " + endNavi2);
 
 		boolean needPrev = true;
 		boolean needNext = true;
 
-		if(startNavi == 1) { 
+		if(startNavi2 == 1) { 
 			needPrev = false;
 		}
-		if(endNavi == pageTotalCount) {
+		if(endNavi2 == pageTotalCount) {
 			needNext = false;
 		}
 
 		StringBuilder sb = new StringBuilder();
 
 		if(needPrev) {
-			int prevStartNavi = startNavi-1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+prevStartNavi+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+			int prevStartNavi2 = startNavi2-1;
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+prevStartNavi2+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
 
 		}
-		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<li class=\"page-item\"><a class=\"page-link pageNumber\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+ i +"\">" + i + "</a></li>");
+		for(int i = startNavi2; i <= endNavi2; i++) {
+			sb.append("<li class=\"page-item\"><a class=\"page-link qnaPageNumber pageNumber\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+ i +"\">" + i + "</a></li>");
 		}
 		if(needNext) {
-			int nextEndNavi = endNavi+1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+ nextEndNavi++ +"\""+ 
+			int nextEndNavi2 = endNavi2+1;
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+ nextEndNavi2++ +"\""+ 
 					"							aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>" + 
 					"						</a></li>");
 		}

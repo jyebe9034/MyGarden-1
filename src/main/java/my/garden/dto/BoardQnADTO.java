@@ -56,7 +56,7 @@ public class BoardQnADTO {
 	}
 
 
-	public String getBq_secretBtn() {
+	public String getBq_checkedSecret() {
 		return bq_checkedSecret;
 	}
 

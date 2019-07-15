@@ -20,8 +20,8 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 		return qnaDao.writeQnA(dto);
 	}
 	
-	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum, int endNum) throws Exception{
-		return qnaDao.qnaList(bq_p_no, startNum, endNum);
+	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum2, int endNum2) throws Exception{
+		return qnaDao.qnaList(bq_p_no, startNum2, endNum2);
 	}
 	public int qnaCount(int bq_p_no) throws Exception{
 		return qnaDao.qnaCount(bq_p_no);

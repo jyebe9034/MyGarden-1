@@ -44,13 +44,16 @@ public class BoardReviewAndQnAController {
 		
 		int startNum = (5 * currentPage) - 4;
 		int endNum = startNum + 4;
+		
+		int startNum2 = (5 * qnaCurrentPage) - 4;
+		int endNum2 = startNum2 + 4;
 
 		List<BoardReviewDTO> reviewList = null;
 		List<BoardQnADTO> qnaList = null;
 
 		try {
 			request.setAttribute("reviewList", brService.reviewList(br_p_no, startNum, endNum));
-			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum, endNum));
+			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum2, endNum2));
 			request.setAttribute("getNavi", brService.getNavi(currentPage, br_p_no));
 			request.setAttribute("getNaviForQnA", qnaService.getNavi(qnaCurrentPage, br_p_no));
 			request.setAttribute("currentPage", currentPage);
@@ -258,6 +261,9 @@ public class BoardReviewAndQnAController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		request.setAttribute("checkedSecret", dto.getBq_checkedSecret());
+		
 		return "redirect:reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1";
 		
 	}

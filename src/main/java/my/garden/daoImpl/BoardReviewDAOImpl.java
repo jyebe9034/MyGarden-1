@@ -23,7 +23,6 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 
 
 	public int writeReview(BoardReviewDTO dto) {	//글작성	
-	
 		return sst.insert("boardReviewMB.writeReview",dto);
 	}
 
@@ -88,7 +87,7 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 
 		}
 		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<li class=\"page-item\"><a class=\"page-link pageNumber\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+ i +"\">" + i + "</a></li>");
+			sb.append("<li class=\"page-item\"><a class=\"page-link reviewPageNumber pageNumber\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+ i +"\">" + i + "</a></li>");
 		}
 		if(needNext) {
 			int nextEndNavi = endNavi+1;
