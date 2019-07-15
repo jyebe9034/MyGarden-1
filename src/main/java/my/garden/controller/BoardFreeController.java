@@ -60,11 +60,14 @@ public class BoardFreeController {
 
 		//댓글 갯수 관련
 		int count = dao.serviceBoardCountAll();
-		for(int i = 0; i < count; i++) {	
-			int bf_no=list.get(i).getBf_no();
+		System.out.println("카운트"+count+"start:"+start+"end:"+end);
+		for(int i = start; i <= end; i++) {	
+			for(int j=0; j<4; j++) {
+			int bf_no=list.get(j).getBf_no();
 			int tmp = dao.serviceCmtCountAll(bf_no);
-			System.out.println(i+":"+bf_no+":"+tmp);
-			list.get(i).setBf_cmtcount(tmp);
+			System.out.println(i-1+":"+bf_no+":"+tmp);
+			list.get(j).setBf_cmtcount(tmp);
+			}
 		}		
 
 		request.setAttribute("list", list);	

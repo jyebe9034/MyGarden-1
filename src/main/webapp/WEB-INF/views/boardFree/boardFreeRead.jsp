@@ -88,7 +88,7 @@ hr {
 }
 
 .mdBtn {
-	background-color:none;
+	background-color: white;
 	border:0px;
 	color: #44b27d;
 	height:40px;
@@ -152,11 +152,11 @@ hr {
 
 .naviBtn:hover {
 	text-decoration: underline;
-	color: #c1b1fc;
+	color: #eded39;
 }
 
 .nowPage {
-	color: #c1b1fc;
+	color: #eded39;
 }
 
 .footBtn {
@@ -221,9 +221,9 @@ hr {
 						<div class="rContents row">
 							<div class="rContent col-10">${tmp.cf_comment }</div>
 							<div class="rIcons col-2">
-								<span class=cmtChange flag=true> <img
-									src="resources/img/boardFreeCmtChange.png"></span> <input
-									type=hidden value=${tmp.cf_no }> <span class=cmtDelete>
+								<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
+									src="resources/img/boardFreeCmtChange.png"></span>
+									<span class=cmtDelete id='${tmp.cf_no}'>
 									<img src="resources/img/boardFreeCmtDelete.png">
 								</span>
 							</div>
@@ -261,19 +261,25 @@ hr {
 			}
 		})
 		
-		//댓글 수정
+			$(document).on("click","#cancelBtn",function(){
+				$(this).parent().prev().html(origin);
+			})
+		
+		//댓글 수정 1)수정 박스 만들기
 		$(document).on("click",".cmtChange",function(){
 			if($(this).attr("flag")=="true"){//여러번 클릭 막기
 			var origin=$(this).parent().prev().text();
-			var change="<input type=text id=modifyBox value="+origin+"><button type=button class=mdBtn id=modifyBtn>수정</button>"
-			+"<button type=button class=mdBtn id=cancelBtn>취소</button>";
+			var change="<input type=text id=modifyBox value="+origin+"><button type=button class='mdBtn modifyBtn'>수정</button>"
+			+"<button type=button class=mdBtn id=cancelBtn>취소</button>";		
 			$(this).attr("flag","false");
-			$(this).parent().prev().html(change);
+			$(this).parent().prev().html(change);		
 			}
-			var seq = $(this).next().val();		
-			alert(seq);
-			$(document).on("click","#modifyBtn",function(){
-				var cmt = $("#modifyBox").val();
+		})
+		
+		//댓글 수정 2)수정한 값 처리
+			$(document).on("click",".modifyBtn",function(){
+				var seq=$(this).parent().next().children(".cmtChange").attr("id");
+				var cmt = $(this).prev().val();	
 			$.ajax({
 				url:"freeCmtModify",
 				data:{
@@ -292,9 +298,8 @@ hr {
 							 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
 							 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
 							+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-							+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
-							+"<input type=hidden value="+resp.list[i].cf_no+">"
-							+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+							+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
+							+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
 						 }
 						$(".commentList").html(cmtList);
 						//네비 목록
@@ -312,15 +317,10 @@ hr {
 					}
 				})						
 		})
-		
-			$(document).on("click","#cancelBtn",function(){
-				
-			})
-		})
-		
+
 		//댓글 삭제
 		$(document).on("click",".cmtDelete",function(){
-			var seq = $(this).prev().val();		
+			var seq = $(this).attr("id");			
 			if(confirm("정말 삭제하시겠습니까?")==true){
 			$.ajax({
 				url:"freeCmtDelete",
@@ -342,9 +342,8 @@ hr {
 						 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
 						 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
 						+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-						+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
-						+"<input type=hidden value="+resp.list[i].cf_no+">"
-						+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+						+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
+						+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
 					 }
 					$(".commentList").html(cmtList);
 					//네비 목록
@@ -386,9 +385,8 @@ hr {
 					 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
 					 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
 					+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-					+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
-					+"<input type=hidden value="+resp.list[i].cf_no+">"
-					+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+					+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
+					+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
 				 }
 				 $(".commentList").html(cmtList);
 				//네비 목록
@@ -430,9 +428,8 @@ hr {
 					 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
 					 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
 					+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-					+"<div class='rIcons col-2'><span class=cmtChange flag=true><img src='resources/img/boardFreeCmtChange.png'></span>"
-					+"<input type=hidden value="+resp.list[i].cf_no+">"
-					+"<span class=cmtDelete><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
+					+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
+					+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
 				 }
 				 $(".commentList").html(cmtList);
 				//네비 목록
@@ -452,11 +449,9 @@ hr {
 	
 		$(".naviBtn").each(function(i, item){
 			if($(this).text()==${now}){
-				$(this).css("color","#c1b1fc");
+				$(this).css("color","#eded39");
 			}
 		})
-		
 
-		
 	</script>
 </html>
