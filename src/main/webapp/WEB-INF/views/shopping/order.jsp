@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
 	type="text/javascript"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
 <title>나의 정원 - 주문</title>
 <style>
@@ -237,7 +238,8 @@ table.list_table_style td.cell {
 <script>
 	$(function() {
 		var orderer = $("#order_user_name").val();
-		var phone = "${loginId.m_phone}".split("-");
+		var phone = "${loginDTO.m_phone}".split("-");
+		console.log(phone+"");
 		$("#phone1").val(phone[0]);
 		$("#phone2").val(phone[1]);
 		$("#phone3").val(phone[2]);
@@ -264,10 +266,10 @@ table.list_table_style td.cell {
 		})
 		
 		$("#memAddr").on("click",function(){
-			$("#zipcode").val("${loginId.m_zipcode}");
-			$("#address1").val("${loginId.m_address1}");
-			$("#address2").val("${loginId.m_address2}");
-			console.log("${loginId.m_address2}");
+			$("#zipcode").val("${loginDTO.m_zipcode}");
+			$("#address1").val("${loginDTO.m_address1}");
+			$("#address2").val("${loginDTO.m_address2}");
+			console.log("${loginDTO.m_address2}");
 		})
 
 	});
@@ -461,7 +463,7 @@ table.list_table_style td.cell {
 												<tr>
 													<td>이름 <b style="color: red">*</b></td>
 													<td class="fx12"><input type="text"
-														id="order_user_name" value="${loginId.m_name }" size="15" /></td>
+														id="order_user_name" value="${loginDTO.m_name }" size="15" /></td>
 												</tr>
 												<tr>
 													<td height="8"></td>
@@ -469,7 +471,7 @@ table.list_table_style td.cell {
 												<tr>
 													<td>이메일 <b style="color: red">*</b></td>
 													<td class="fx12"><input type="text" name="order_email"
-														value="${loginId.m_email }" size="30" /></td>
+														value="${loginDTO.m_email }" size="30" /></td>
 												</tr>
 												<tr>
 													<td height="8"></td>
@@ -559,9 +561,9 @@ table.list_table_style td.cell {
 														type="radio" name="chkQuickAddress" value="new"
 														id="newAddr" /> 새로운 배송지</label>
 												</div> <input type="text" name="recipient_zipcode[]"
-												value="${loginId.m_zipcode }" size="10" maxlength="3"
+												value="${loginDTO.m_zipcode }" size="10" maxlength="3"
 												readonly id="zipcode" /> <span class="white_btn"><button
-														class="hand" type="button">주소찾기</button></span> <label><input
+														class="hand" type="button" id="search">주소찾기</button></span> <label><input
 													type="checkbox" name="save_delivery_address" value="1" />
 													기본 배송지로 저장</label>
 											</td>
@@ -574,12 +576,12 @@ table.list_table_style td.cell {
 											<td class="fx12" colspan="3">
 												<div>
 													<input type="text" name="recipient_address"
-														value="${loginId.m_address1 }" size="45" readonly
+														value="${loginDTO.m_address1 }" size="45" readonly
 														id="address1" />
 												</div>
 												<div style="margin-top: 5px;">
 													<input type="text" name="recipient_address_detail"
-														value="${loginId.m_address2 }" size="45" id="address2" />
+														value="${loginDTO.m_address2 }" size="45" id="address2" />
 												</div>
 											</td>
 										</tr>
@@ -763,11 +765,11 @@ table.list_table_style td.cell {
             pg : 'inicis', // version 1.1.0부터 지원.
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : "${loginId.m_name}", //결제창에서 보여질 이름 //// 후원명 불러오기
+            name : "${loginDTO.m_name}", //결제창에서 보여질 이름 //// 후원명 불러오기
             amount : ${count}, // 입력받은 금액
-            buyer_email : "${loginId.m_email}",
-            buyer_name : "${loginId.m_name}",
-            buyer_tel : "${loginId.m_phone}",
+            buyer_email : "${loginDTO.m_email}",
+            buyer_name : "${loginDTO.m_name}",
+            buyer_tel : "${loginDTO.m_phone}",
             m_redirect_url : 'orderComplete'
          /*  
              모바일 결제시,
@@ -802,6 +804,40 @@ table.list_table_style td.cell {
     	  } 
          
       })
+      
+      
+       document.getElementById("search").onclick = searchAddress;
+                
+                function searchAddress() {
+                    new daum.Postcode({
+                        oncomplete: function(data) {
+                            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                            var roadAddr = data.roadAddress; // 도로명 주소 변수
+                            var extraRoadAddr = ''; // 참고 항목 변수
+
+                            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                extraRoadAddr += data.bname;
+                            }
+                            // 건물명이 있고, 공동주택일 경우 추가한다.
+                            if(data.buildingName !== '' && data.apartment === 'Y'){
+                                extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                            }
+                            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                            if(extraRoadAddr !== ''){
+                                extraRoadAddr = ' (' + extraRoadAddr + ')';
+                            }
+
+                            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                            document.getElementById("zipcode").value = data.zonecode;
+                            document.getElementById("address1").value = roadAddr;
+                        }
+                    }).open();
+                }
       
    </script>
 

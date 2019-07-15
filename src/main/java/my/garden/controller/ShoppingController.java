@@ -30,42 +30,44 @@ public class ShoppingController {
 
 	@RequestMapping("cart")
 	public String toCart(HttpServletRequest request) {
-		MembersDTO mdto = (MembersDTO)session.getAttribute("loginId");		
+		String id = (String)session.getAttribute("loginId");		
 		try {
 			Thread.sleep(500);
-			request.setAttribute("list", shsvc.getCartList(mdto.getM_email()));
+			request.setAttribute("list", shsvc.getCartList(id));
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "error";
 		}
 		return "shopping/cart";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("cartDel")
 	public void cartDel(HttpServletRequest request, CartDTO dto) {
-		MembersDTO mdto = (MembersDTO)session.getAttribute("loginId");
+		String id = (String)session.getAttribute("loginId");
 		System.out.println(dto.getC_p_no());
 		try {
-			if(shsvc.delFromCart(mdto.getM_email(), dto)>0) {
-				System.out.println(mdto.getM_email() + " 님의 장바구니 품목 삭제 성공");
+			if(shsvc.delFromCart(id, dto)>0) {
+				System.out.println(id + " 님의 장바구니 품목 삭제 성공");
 			}
-			request.setAttribute("list", shsvc.getCartList(mdto.getM_email()));
+			request.setAttribute("list", shsvc.getCartList(id));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RequestMapping(value = "order", method = RequestMethod.POST)
-	public String toOrder(HttpServletRequest request, String productList) {	
-		 ObjectMapper mapper = new ObjectMapper();
-	        try {
-	            List<CartDTO> list = Arrays.asList(mapper.readValue(productList, CartDTO[].class));
-	            request.setAttribute("list", list);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-				return "error";
-	        }
+	public String toOrder(HttpServletRequest request, String productList, MembersDTO dto) {
+		String id = (String)session.getAttribute("loginId");
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			List<CartDTO> list = Arrays.asList(mapper.readValue(productList, CartDTO[].class));
+			request.setAttribute("loginDTO", shsvc.getMember(dto, id));
+			request.setAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "shopping/order";
 	}
 

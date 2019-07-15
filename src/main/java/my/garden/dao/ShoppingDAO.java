@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import my.garden.dto.CartDTO;
+import my.garden.dto.MembersDTO;
 
 @Component
 public class ShoppingDAO {
@@ -22,5 +23,9 @@ public class ShoppingDAO {
 		return sst.delete("ShoppingDAO.delFromCart", dto);
 	}
 	
+	public MembersDTO selectMember(MembersDTO dto, String id) {
+		dto.setM_email(id);
+		return sst.selectOne("LoginDAO.memSelectAll", dto);
+	}
 	
 }

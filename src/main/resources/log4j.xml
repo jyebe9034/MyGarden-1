@@ -11,8 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-
-	<logger name="my.garden.db">
+	<logger name="my.garden.controller">
 		<level value="info" />
 	</logger>
 	
