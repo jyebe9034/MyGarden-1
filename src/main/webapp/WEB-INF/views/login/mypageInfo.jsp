@@ -434,6 +434,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				  <a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
 				  <a href="#" class="list-group-item list-group-item-action currentActive">내 정보 수정</a>
 				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 my">	
@@ -457,7 +458,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div class="onblur" id="phoneName"></div>
 			                        <div class="postCode" id="postCode">
 				                        <input type="text" value="${memDTO.m_zipcode}" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
-				                        	<button type="button" id="joinBtn" class="mb-3" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
+				                        	<button type="button" id="joinBtn" class="mb-3 btn" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
 			                        </div>	
 			                        <input type="text" value="${memDTO.m_address1}" placeholder="주소" class="fadeIn inputStuff50" id="m_address1" name="m_address1" readonly>
 			                        <input type="text" value="${memDTO.m_address2}" placeholder="상세주소" class="fadeIn inputStuff50" id="m_address2" name="m_address2" readonly>

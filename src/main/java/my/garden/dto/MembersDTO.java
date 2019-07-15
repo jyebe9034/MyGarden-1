@@ -18,7 +18,7 @@ public class MembersDTO {
 	private String m_grade;
 	private int m_point;
 	private String m_gender;
-	private String m_birth;
+	private Date m_birth;
 	private String m_garden;
 	private String m_profile;
 	private String m_realpath;
@@ -27,7 +27,7 @@ public class MembersDTO {
 	}
 	public MembersDTO(String m_email, String m_pw, String m_name, String m_phone, String m_zipcode, String m_address1,
 			String m_address2, Timestamp m_joindate, String m_ipaddress, String m_grade, int m_point, String m_gender,
-			String m_birth, String m_garden, String m_profile, String m_realpath) {
+			Date m_birth, String m_garden, String m_profile, String m_realpath) {
 		super();
 		this.m_email = m_email;
 		this.m_pw = m_pw;
@@ -46,6 +46,7 @@ public class MembersDTO {
 		this.m_profile = m_profile;
 		this.m_realpath = m_realpath;
 	}
+
 	public String getM_email() {
 		return m_email;
 	}
@@ -118,10 +119,10 @@ public class MembersDTO {
 	public void setM_gender(String m_gender) {
 		this.m_gender = m_gender;
 	}
-	public String getM_birth() {
+	public Date getM_birth() {
 		return m_birth;
 	}
-	public void setM_birth(String m_birth) {
+	public void setM_birth(Date m_birth) {
 		this.m_birth = m_birth;
 	}
 	public String getM_garden() {

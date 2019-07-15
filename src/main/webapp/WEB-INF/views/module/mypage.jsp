@@ -11,6 +11,8 @@
 	.gardenImg img{background-size:cover;}
 	.currentActive{background:#4f9c87; color:#fff;}
 	.bg-f5{background: #f5f5f5;}
+	#gardenUpdateBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color:#fff; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
+	#gardenUpdateBtn:hover{background:#4f9c87; color:#fff;}
 </style>     
 
 <!--      html -->
@@ -22,9 +24,10 @@
 		<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 border border-white bg-f5 my">
 			<div class="row pt-2 my">
 				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 overview my">
-					<div class="mb-2"><img src="resources/img/public.jpg" width="90" height="90"></div>
-					<h4>${memDTO.m_name}님의</h4> 
+<!-- 					<div class="mb-2"><img src="resources/img/public.jpg" width="90" height="90"></div> -->
+					<h4 class="mt-3">${memDTO.m_name}님의</h4> 
 					<h4 class="font-weight-bold">${memDTO.m_garden}</h4>
+					<button type="button" id="gardenUpdateBtn" class="mt-3 btn">수정하기</button>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 overview mb-4 my">
 					<div class="gardenImg"><img src="${memDTO.m_profile}"></div>

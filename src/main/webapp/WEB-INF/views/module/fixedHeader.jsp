@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- style -->
 <style>
@@ -84,6 +85,9 @@
 .socialEmo img:hover, .nav-link img:hover, .clickToCloseBtn:hover {
 	opacity: 0.7;
 }
+.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
+.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
+.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
 </style>
 
 <!-- 	script -->
@@ -120,6 +124,27 @@
 	});
 </script>
 
+<!-- advertise header -->
+			<c:choose>
+		       <c:when test="${loginName!=null}">
+		     	
+<style>.clickToClose{display:none;}</style>
+	  
+	       </c:when>
+	       <c:otherwise>
+	           
+<div class="container-fluid my">
+	<div class="row my">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
+			<span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>
+			<span class="position-absolute clickToCloseBtnBorder"></span>
+			<span class="position-absolute clickToCloseBtn">&Cross;</span>
+		</div>
+	</div>
+</div>
+	       </c:otherwise>
+	    </c:choose>
+	    
 <!-- 	html -->
 <div id="goToTop" class="animated infinite bounce">
 	<img src="resources/img/top.png" width="40" height="40">
@@ -127,13 +152,32 @@
 <div class="container-fluid headerFluid my">
 	<div class="row my">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<div class="row">
-				<div
-					class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-					<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
-						href="#">고객센터</a>
+<!-- 	JSTL	 -->
+			<c:choose>
+		       <c:when test="${loginName!=null}">
+		       
+				<div class="row">
+					<div
+						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
+						<a href="/mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
+							href="#">고객센터</a>
+					</div>
 				</div>
-			</div>
+			
+	       </c:when>
+	       <c:otherwise>	
+	       
+				<div class="row">
+					<div
+						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
+						<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
+							href="#">고객센터</a>
+					</div>
+				</div>
+	       
+	       </c:otherwise>
+	    </c:choose>
+<!-- 	JSTL	 -->		
 			<div
 				class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-1 mb-4 text-center my">
 				<h3 id="myGardenTitle">나의 정원</h3>

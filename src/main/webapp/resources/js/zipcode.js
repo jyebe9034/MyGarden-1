@@ -39,12 +39,12 @@
                 document.getElementById("detailAddress").focus();
                 
                 $("#detailAddress").on('blur', function(){
-               		var regexAddr=/[^</>]/;
+               		var regexAddr=/[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
                		if(regexAddr.exec($("#detailAddress").val())){
-               			$("#addrName").text("");
-               		}else{
                			$("#addrName").text("허용되지 않는 문자입니다");
                			$("#detailAddress").val("");
+               		}else{
+               			$("#addrName").text("");
                		}
                	});
                 

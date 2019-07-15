@@ -126,6 +126,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/findPwGetCode")
 	public String findPwGetCode(String key) {
+		System.out.println(key);
 		String pwCode = loginserv.findPwGetCode(key);
 		return pwCode;
 	}
