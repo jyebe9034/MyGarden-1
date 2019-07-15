@@ -54,8 +54,8 @@ public class LoginService {
 		return logDao.getName(loginId);
 	}
 	
-	public MembersDTO memSelectAll(MembersDTO dto) {
-		return logDao.memSelectAll(dto);
+	public MembersDTO memSelectAll(MembersDTO dto, String id) {
+		return logDao.memSelectAll(dto, id);
 	}
 
 	public boolean pwDupCheck(String key, String pw) {

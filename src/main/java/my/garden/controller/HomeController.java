@@ -13,23 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		return "home";
-//		return "test";
-	}
-	
-	
-	
-	//test
-	@RequestMapping("gender")
-	public String gender(String m_zipcode) {
-		System.out.println(m_zipcode);
+//		return "home";
 		return "test";
 	}
 	
-	@RequestMapping("/profile")
-	public String profile(MultipartFile image) {
-		System.out.println(image);
-		return "test";
-	}
+	
+	
+//	//test
+//	@RequestMapping("/test2")
+//	public String gender(String m_zipcode) {
+//		System.out.println(m_zipcode);
+//		return "test2";
+//	}
+
 	
 }

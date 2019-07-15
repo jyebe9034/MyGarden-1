@@ -75,8 +75,15 @@ public class LoginController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout() {
+	public String logout() throws Exception {
 		session.invalidate();
+		out = response.getWriter();
+//		out.print("<body>\r\n" + 
+//				"		//로그인 시 뒤로가기 방지\r\n" + 
+//				"		history.pushState(null, null, location.href);\r\n" + 
+//				" 			window.onpopstate = function () {\r\n" + 
+//				"        		history.go(1);\r\n" + 
+//				"			};</body>");
 		return "home";
 	}
 
@@ -88,13 +95,19 @@ public class LoginController {
 	
 	@RequestMapping("/mypageFirst")
 	public String Mypage(MembersDTO dto) {
-		session.setAttribute("memDTO", loginserv.memSelectAll(dto));
-		return "login/mypageFirst";
+		String id = (String)session.getAttribute("loginId");
+		if(id==null) {
+			return "login/login";
+		}else {
+			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
+			return "login/mypageFirst";
+		}
 	}
 
 	@RequestMapping("/mypageInfo")
 	public String MypageInfo(MembersDTO dto) {
-		session.setAttribute("memDTO", loginserv.memSelectAll(dto));
+		String id = (String)session.getAttribute("loginId");
+		session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
 		return "login/mypageInfo";
 	}
 	

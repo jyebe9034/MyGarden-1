@@ -29,9 +29,9 @@ public class LoginDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	@Autowired
-	HttpSession session;
-	@Autowired
 	HttpServletRequest request;
+	@Autowired
+	HttpSession session;
 	
 	public static String SHA256(String str){
 		String SHA = ""; 
@@ -114,8 +114,7 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
-	public MembersDTO memSelectAll(MembersDTO dto) {
-		String id = (String)session.getAttribute("loginId");
+	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
 	}
