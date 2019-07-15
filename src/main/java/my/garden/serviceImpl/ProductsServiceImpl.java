@@ -28,6 +28,17 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 	
 	@Transactional("txManager")
+	public int insertImageFileService(String title, String imgs) {
+		try {
+			int result = pdao.insertImageFile(title, imgs);
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	@Transactional("txManager")
 	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category) {
 		try {
 			List<ProductsDTO> result = pdao.selectProductsListByCategory(start, end, category);

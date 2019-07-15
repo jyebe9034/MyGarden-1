@@ -112,7 +112,7 @@
 		<div class="row">
 			<div id="btns" class="col-12">
 				<input id="submit" class="btn btn-sm btn-primary addBtn" type="button" value="등록">
-				<input class="btn btn-sm btn-primary addBtn" type="button" value="취소">
+				<input id="cancel" class="btn btn-sm btn-primary addBtn" type="button" value="취소">
 			</div>
 		</div>
 	</div>
@@ -144,8 +144,10 @@
 		function sendFile(file, editor) {
 			var data = new FormData();
 		   	data.append("file", file);
+		   	console.log($("#inputTitle").val());
+		   	data.append("title", $("#inputTitle").val());
 		    $.ajax({
-		      	url:"uploadImage.board",
+		      	url:"uploadImage",
 		       	data: data,
 		       	type:"POST",
 		       	cache: false,
@@ -161,10 +163,11 @@
 	    	$.ajax({
 	        data: {src : src},
 	        type: "POST",
-	        url: "deleteImage.board", 
+	        url: "deleteImage", 
 	        cache: false,
 	        success: function(resp) {
-	          	if(resp == "true"){
+	        	console.log(resp);
+	          	if(resp == true){
 	           		console.log("정상 삭제");
 	           	}else{
 	           		console.log("삭제 실패");	
@@ -178,14 +181,14 @@
 	     		$("img").each(function(index, item){
 	         		var src = $(this).attr("src");
 	         		$.ajax({
-	         			url: "deleteImage.board",
+	         			url: "deleteImage",
 	         			data: {src : src},
 	         			type: "POST",
 	         			cache: false
 	         		})	
 	         	})
 	         }
-	         location.href="";
+	         location.href="productsList";
 	     })
 	</script>
 	

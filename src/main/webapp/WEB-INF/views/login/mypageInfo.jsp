@@ -402,7 +402,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 	});
 </script>
 <!-- header -->
-	<jsp:include page="/WEB-INF/views/module/loginHeader.jsp"/>
+	<jsp:include page="../module/fixedHeader.jsp"/>
 <!-- 	images -->
 	<div class="container-fluid imageContainer m-0 p-0 my">
 		<div class="row my">

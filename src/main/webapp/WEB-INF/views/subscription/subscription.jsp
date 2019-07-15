@@ -99,13 +99,13 @@
 	}
 	.periodSub{
 		padding-left : 90px;
-		margin-top : 20px;
+		margin-top : 10px;
 		margin-bottom : 5px;
 		font-size : 16px;
 		font-weight : bold;
 	}
 	.period{
-		border : 1px solid black;
+		border : 1px solid #d1d1d1;
 		width : 130px;
 		height : 70px;
 		float : left;
@@ -128,6 +128,13 @@
 		color : white;
 		font-size : 15px;
 		margin-top : 30px;
+	}
+	#selectDate{
+		
+	}
+	#chooseDate{
+		width : 300px;
+		margin : auto;
 	}
 </style>
 </head>
@@ -203,6 +210,7 @@
 			      <div class="modal-title mTitle" id="exampleModalCenterTitle">구독 주기 선택</div>
 			      <div class="foryou">주기에 따라 알맞은 양으로 구성해 드려요!</div>
 		      </div>
+		      <form action="">
 		      <div class="modal-body p-0">
 		        <div id="weekly" class="subscribe">
 		        	<div class="periodSub">주간구독</div>
@@ -215,14 +223,19 @@
 		        </div>
 		        <div id="monthly" class="subscribe">
 		        	<div class="periodSub">월간구독</div>
-		        	<div id="period2" class="period">
-		        		한 달에 한번
-		        	</div>
+		        	<div id="period2" class="period">한 달에 한번</div>
 		        </div>
+		      	<div id="date">
+				  <div id="dateTitle" class="periodSub">첫 배송일 선택</div>
+				  <div id="selectDate">
+				    <input id="chooseDate" class="form-control" type="date" value="2019-07-15">
+				  </div>
+				</div>
 		      </div>
 		      <div id="modalBtn">
 		   		<button id="submitBtn" class="btn" type="button">장바구니</button>
 		      </div>
+		      </form>
 		    </div>
 		  </div>
 		</div>
@@ -236,6 +249,12 @@
 			$("#next").on("click", function(){
 // 				location.href = "subscription2?select=" + item.children("input").val();
 			})
+		})
+		
+		$(".period").on("click", function(){
+			var item = $(this);
+			$(".period").css("border", "1px solid #d1d1d1");
+			item.css("border", "1px solid #44b27d");
 		})
 	</script>
 </body>

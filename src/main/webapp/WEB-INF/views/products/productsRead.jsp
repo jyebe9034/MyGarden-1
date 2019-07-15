@@ -107,6 +107,7 @@
 	}
 	#getProduct:hover{
 		cursor : pointer;
+		background-color : #b4d9b5;
 	}
 </style>
 </head>
@@ -194,6 +195,30 @@
 	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 	
 	<script>
+		/* $("#getProduct").on("click",function(){
+			var data = new FormData();
+			var imgpath = ${result.p_imagepath};
+			imgpath.
+			data.append("image", imgpath);
+			data.append("title", ${result.p_title});
+			data.append("price", $("#total").html());
+			data.append("count", $("#smSelect").val());
+			$.ajax({
+				url : "insertCart",
+				data : data,
+				type : "post",
+				cache : false,
+				contentType : false,
+				processData : false
+			}).done(function(resp){
+				if(resp > 0){
+					alert("성공적으로 처리되었음!");
+				}else{
+					alert("실패함..")
+				}
+			})
+		}) */
+		
 		$("#smPrice").html(function(){
 			var price = $(this).html();
 			var result = numberWithCommas(price);

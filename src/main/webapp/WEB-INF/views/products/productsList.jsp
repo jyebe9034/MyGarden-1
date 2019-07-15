@@ -71,7 +71,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../module/fixedHeader.jsp"></jsp:include>
+	<jsp:include page="../module/fixedHeader.jsp"/>
 	<div id="wrapper">
 		<div id="header">
 			<img id="titleImg" src="resources/img/smtomato.jpg">
@@ -95,10 +95,12 @@
 						</div>
 					</c:forEach>
 				</div>
-				<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 			</div>
 		</div>
 	</div>
+	<%-- <div id="listFooter">
+		<jsp:include page='../module/fixedFooter.jsp'/>
+	</div> --%>
 	
 	<script>
 		<!-- infinite scroll구현 부분 -->

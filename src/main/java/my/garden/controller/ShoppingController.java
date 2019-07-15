@@ -70,5 +70,13 @@ public class ShoppingController {
 		return "shopping/order";
 	}
 
+	@ResponseBody
+	@RequestMapping("insertCart")
+	public int insertCart(CartDTO dto) {
+		String id = (String)session.getAttribute("loginId");
+		dto.setC_m_email(id);
+		// 여기에 백단 로직 들어가야 함.
+		return 1;
+	}
 }
 

@@ -8,6 +8,10 @@
 		#{p_content}, default, default)
 	</insert>
 	
+	<insert id="insertImageFile">
+		insert into image_product values(#{array[0]}, #{array[1]})
+	</insert>
+	
 	<select id="selectProductsListByCategory" parameterType="Map" resultType="my.garden.dto.ProductsDTO">
 		select * from (select row_number() over (order by p_no desc) as rown, products.* from products where p_category=#{category}) where rown between #{start} and #{end}
 	</select>

@@ -26,6 +26,16 @@ public class ProductsDAOImpl implements ProductsDAO {
 		}
 	}
 	
+	public int insertImageFile(String title, String imgs) {
+		String[] info = new String[] {title, imgs};
+		try {
+			return sst.insert("ProductsDAO.insertImageFile", info);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public List<ProductsDTO> selectProductsListByCategory(int start, int end, String category) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", start);
