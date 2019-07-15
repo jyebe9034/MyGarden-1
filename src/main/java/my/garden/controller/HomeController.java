@@ -21,14 +21,8 @@ public class HomeController {
 	
 	//test
 	@RequestMapping("gender")
-	public String gender(String m_garden, String m_gender, String m_name, String m_email, String m_pw, String m_phone, String m_birth) {
-		System.out.println(m_garden);
-		System.out.println(m_gender);
-		System.out.println(m_name);
-		System.out.println(m_email);
-		System.out.println(m_pw);
-		System.out.println(m_phone);
-		System.out.println(m_birth);
+	public String gender(String m_zipcode) {
+		System.out.println(m_zipcode);
 		return "test";
 	}
 	

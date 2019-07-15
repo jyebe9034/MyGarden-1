@@ -20,14 +20,14 @@ public class MembersDTO {
 	private String m_gender;
 	private String m_birth;
 	private String m_garden;
-	private MultipartFile m_profile;
+	private String m_profile;
 	private String m_realpath;
 	public MembersDTO() {
 		super();
 	}
 	public MembersDTO(String m_email, String m_pw, String m_name, String m_phone, String m_zipcode, String m_address1,
 			String m_address2, Timestamp m_joindate, String m_ipaddress, String m_grade, int m_point, String m_gender,
-			String m_birth, String m_garden, MultipartFile m_profile, String m_realpath) {
+			String m_birth, String m_garden, String m_profile, String m_realpath) {
 		super();
 		this.m_email = m_email;
 		this.m_pw = m_pw;
@@ -130,10 +130,10 @@ public class MembersDTO {
 	public void setM_garden(String m_garden) {
 		this.m_garden = m_garden;
 	}
-	public MultipartFile getM_profile() {
+	public String getM_profile() {
 		return m_profile;
 	}
-	public void setM_profile(MultipartFile m_profile) {
+	public void setM_profile(String m_profile) {
 		this.m_profile = m_profile;
 	}
 	public String getM_realpath() {

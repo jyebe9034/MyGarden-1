@@ -19,8 +19,8 @@
    <input type="password"d placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
    <input type="text" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
    <div class="postCode">
-   <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" name="m_zipcode">
-   	<button type="button" id="joinBtn" class="mb-3"><img src="resources/img/post.png" width="38" height="36"></button>
+   <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" />
+   	<button type="button" id="joinBtn" class="mb-3" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
    </div>	
   	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
  		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth"/>
@@ -40,6 +40,11 @@
     <input type="submit" value="가입하기">
 </form>
 
+<!-- 	address js start-->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="resources/js/zipcode.js"></script>
+<!-- 	address js end-->
+								
 <form action="profile" method="post" enctype="multipart/form-data">
 		<input type="text" name="name"><br>
 		<input type="file" name="image"><br>

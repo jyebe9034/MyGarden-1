@@ -11,12 +11,14 @@
 .carousel-inner{margin-top:-120px;}
 .loginForm{background:#399078; color:#fff; height:60px; font-size:27px;}
 .filebox label, #joinBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
-#joinBtn{height:57px; position:absolute; top:6px; right:-6px;} 
+#joinBtn{height:57px; position:absolute; top:6px; right:-5px;} 
 #joinBtn:hover, .filebox label:hover{background:#4f9c87; color:#fff;}
 .filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 .profile{width:130px; height:130px; border-radius:50%; margin:10px auto; overflow:hidden;}
 .fontGreen{font-weight:bold; color:#4f9c87;}
+.onblur{font-size:13px; color:#4f9c87;}
 .postCode{position:relative;}
+.modal-body{max-height:270px; overflow-y:auto;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
@@ -283,6 +285,126 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				readURL(this);
 			});	
 			//profile local image insert end
+			
+			//input form
+           	$("input[name=ex_file]").on("input", function(){
+           		if($('#ex_file').val()!=""){
+           			$("#fileName").text("");
+           		}
+           	});
+			//파일 이미지 확장자 검증
+           	$("input[name=ex_file]").on("change", function(){
+           		var selectedFile = this.files[0];
+           		var idxDot = selectedFile.name.lastIndexOf(".") + 1;
+           		var extFile = selectedFile.name.substr(idxDot, selectedFile.name.length).toLowerCase();
+           		if (extFile == "jpg" || extFile == "jpeg" || extFile == "png" || extFile == "svg" || extFile == "gif") {
+           		   //do whatever want to do
+           		} else {
+           		     alert("Only jpg/jpeg, png, gif and svg files are allowed!");
+           		}
+           	});
+           	$("input[name=m_garden]").on("blur", function(){
+           		var regexGarden=/^[가-힣\w]{2,12}$/;
+           		if(regexGarden.exec($("input[name=m_garden]").val())){
+           			$("#phoneName").text("");
+           		}else{
+           			$("#phoneName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
+           			$("input[name=m_phone]").val("");
+           		}
+           	});
+           	$("input[name=m_name]").on("blur", function(){
+           		var regexName=/^[가-힣A-z]{2,}$/;
+           		if(regexName.exec($("input[name=m_name]").val())){
+           			$("#userName").text("");
+           		}else{
+           			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
+           			$("input[name=m_name]").val("");
+           		}
+           	});
+           	$("input[name=m_email]").on("blur", function(){
+           		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
+           		if(regexMail.exec($("input[name=m_email]").val())){
+               		$.ajax({
+               			url:"/emailCheck",
+               			type:"post",
+               			data : {key : $("input[name=m_email]").val()}
+               		}).done(function(resp){
+               			if(resp==true){
+                   			$("#eamilName").text("중복되는 메일입니다");
+                   			$("input[name=m_email]").val("");
+               			}else{
+                   			$("#eamilName").text("");
+               			}
+               		});
+           		}else{
+           			$("#eamilName").text("사용할 수 없는 형식의 메일입니다");
+           			$("input[name=m_email]").val("");
+           		}
+           	});
+           	$("input[name=m_pw]").on("blur", function(){
+           		var regexPw=/^(?=.*\d)(?=.*[a-z]).{8,15}$/;
+           		if($("#password").val()==""){
+               		if(regexPw.exec($("input[name=m_pw]").val())){
+               			$("#pwName").text("");
+               			$("#password").focus();
+               		}else{
+               			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
+               			$("input[name=m_pw]").val("");
+               		}
+           		}else{
+               		if(regexPw.exec($("input[name=m_pw]").val())){
+               			$("#pwName").text("");
+               			$("#password").focus();
+               			$("#password").blur();
+               		}else{
+               			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
+               			$("input[name=m_pw]").val("");
+               		}
+           		}
+           	});
+           	$("#password").on("blur", function(){
+           		if($("input[name=m_pw]").val()==$("#password").val()){
+           			$("#pwCheck").text("");
+           		}else{
+           			$("#pwCheck").text("비밀번호 형식이 맞지 않거나 일치하지 않습니다");
+           			$("#password").val("");
+           		}
+           	});
+           	$("input[name=m_phone]").on("blur", function(){
+           		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
+           		if(regexPhone.exec($("input[name=m_phone]").val())){
+               		$.ajax({
+               			url:"/phoneCheck",
+               			type:"post",
+               			data : {key : $("input[name=m_phone]").val()}
+               		}).done(function(resp){
+               			if(resp==true){
+                   			$("#phoneName").text("중복되는 번호입니다");
+                   			$("input[name=m_phone]").val("");
+               			}else{
+                   			$("#phoneName").text("");
+               			}
+               		});
+           		}else{
+           			$("#phoneName").text("형식에 맞지 않는 번호입니다");
+           			$("input[name=m_phone]").val("");
+           		}
+           	});
+       		$('#joinSubmit').on('click', function(){
+           		if($('#ex_file').val()!=""){
+           			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
+               			var con = confirm('이대로 제출하시겠습니까?');
+        				if(con){
+	                   		$('.formSubmit').submit();	
+                   		}
+           			}else{
+           				alert('다시 확인 후 제출하세요');
+           			}
+           		}else{
+       				$('html, body').stop().animate({scrollTop:$(".filebox").offset().top-30}); 
+           			$("#fileName").text("프로필 사진이 선택되지 않았거나 이미지 파일이 아닙니다");
+           		}
+            });	
 		});
 	</script>
 <!-- header -->
@@ -310,34 +432,41 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 <!-- 	contents -->
 	<div class="container-fluid my">
 		<div id="row my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl-3 pr-3 pb-5 m-auto my">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl-3 pr-3 pb-4 m-auto my">
 				<div class="blockSign">
 			        <div id="formContent">
 			        	<p class="loginForm font-weight-bold pt-2">Join Us</p>
 			            <div class="tab-content">
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 회원가입</h3>
-			                    <h6 class="pt-2 pb-4 text-muted">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
-			                    <form class="pl-5 pr-5" action="joinSubmit" method="post" enctype="multipart/form-data">
+			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
+			                    <form class="pl-5 pr-5 formSubmit" action="joinSubmit" method="post" enctype="multipart/form-data">
 			                    	<div class="filebox"> 
 			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
 			                    		<label for="ex_file">프로필&#x02295;</label> 
-			                    		<input type="file" id="ex_file" name="m_profile"> 
-			                    	</div>	                    	
-			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden"/>
+			                    		<input type="file" id="ex_file" name="ex_file" accept='image/jpeg,image/gif,image/png' />
+			                    		<p class="onblur" id="fileName"></p>
+			                    	</div>		
+			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
+			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
+			                        	<span class="onblur" id="userName"></span>
 			                        <input type="email" placeholder="사용하실 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
+			                        	<span class="onblur" id="eamilName"></span>
 			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요" class="fadeIn inputStuff" name="m_pw">
-			                        <input type="password"d placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
+			                        	<span class="onblur" id="pwName"></span>
+			                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
+			                        	<span class="onblur" id="pwCheck"></span>
 			                        <input type="text" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
+			                        	<span class="onblur" id="phoneName"></span>
 			                        <div class="postCode" id="postCode">
-			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" disabled />
+			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
 			                        	<button type="button" id="joinBtn" class="mb-3" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
 			                        </div>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
-	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth"/>
+	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">
 			                        <div class="custom-control custom-radio custom-control-inline ml-3">
-									  <input type="radio" id="customRadioInline1" value="f" name="m_gender" class="custom-control-input">
+									  <input type="radio" id="customRadioInline1" value="f" name="m_gender" class="custom-control-input" checked/>
 									  <label class="custom-control-label" for="customRadioInline1">여성</label>
 									</div>
 									<div class="custom-control custom-radio custom-control-inline">
@@ -349,16 +478,49 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 									  <label class="custom-control-label" for="customSwitch">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
 									</div>
 			                        <input type="reset" class="mb-1" value="다시쓰기">
-			                        <input type="submit" value="가입하기">
+			                        <input type="button" value="가입하기" id="joinSubmit">
 			                    </form>
 								<!-- 	address js start-->
 								<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 								<script src="resources/js/zipcode.js"></script>
 								<!-- 	address js end-->
 		                        <p id="formFooter">
-		                        	<a href="#" class="text-muted">서비스 이용약관 /</a>
-		                       		<a href="#" class="text-muted">개인정보취급방침</a>
+		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">서비스 이용약관 및 개인정보취급방침</a>
 		                       	</p>
+		                       	<!-- Modal -->
+								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalCenterTitle">서비스 이용약관 및 개인정보취급방침</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								             개인정보 수집항목 및 수집방법	<br>
+										① 회사는 원활한 서비스 제공을 위해 최초 서비스 설치 후 서비스 이용에 대한 동의를 완료하는 시점에 아래와 같은 최소한의 개인정보를 수집하고 있습니다.	<br>
+										1. 회원의 서비스 이용정보	<br>
+										- 국가 코드, 폰 사용 언어, 앱 버전, 이메일·페이스북계정·구글플러스계정, 비밀번호	<br>
+										2. 회원이 사용하는 단말기의 정보	<br>
+										- 통신사, 모델명, OS버전 정보, UUID	<br>
+										② 회사는 필수항목 이외에 회원이 서비스 이용을 목적으로 직접 작성한 개인정보를 선택항목으로 수집하고 있습니다.	<br>
+										1. 서비스 이용문의 회신에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<!-- modal end -->
 			                </div>
 			                <div id="signup">
 			                </div>
