@@ -16,7 +16,7 @@
 			default,
 			default,
 			#{m_gender},
-			#{m_birth},
+			to_date(#{m_birth}, 'yy/mm/dd'),
 			#{m_garden},
 			#{m_profile},
 			#{m_realpath}
