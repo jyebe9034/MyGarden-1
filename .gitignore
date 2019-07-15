@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+web.xml
+pom.xml
+/.metadata/
+>>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7
 *.java.hsp
 *.sonarj
 *.sw*
@@ -38,5 +44,8 @@ test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
 
+<<<<<<< HEAD
 pom.xml
 web.xml
+=======
+>>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7

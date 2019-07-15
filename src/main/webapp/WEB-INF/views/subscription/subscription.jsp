@@ -101,7 +101,7 @@
 		padding-left : 90px;
 		margin-top : 20px;
 		margin-bottom : 5px;
-		font-size : 18px;
+		font-size : 16px;
 		font-weight : bold;
 	}
 	.period{
