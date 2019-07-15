@@ -83,15 +83,15 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 
 		if(needPrev) {
 			int prevStartNavi = startNavi-1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+prevStartNavi+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
-
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"productsRead?pnumber="+br_p_no+"&qnaPage=1&revPage="+prevStartNavi+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+			
 		}
 		for(int i = startNavi; i <= endNavi; i++) {
-			sb.append("<li class=\"page-item\"><a class=\"page-link reviewPageNumber pageNumber\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+ i +"\">" + i + "</a></li>");
+			sb.append("<li class=\"page-item\"><a class=\"page-link reviewPageNumber pageNumber\" href=\"productsRead?pnumber="+br_p_no+"&qnaPage=1&revPage="+ i +"\">" + i + "</a></li>");
 		}
 		if(needNext) {
 			int nextEndNavi = endNavi+1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&qnaCurrentPage=1&currentPage="+ nextEndNavi++ +"\""+ 
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"productsRead?pnumber="+br_p_no+"&qnaPage=1&revPage="+ nextEndNavi++ +"\""+ 
 					"							aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>" + 
 					"						</a></li>");
 		}

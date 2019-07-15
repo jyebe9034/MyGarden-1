@@ -26,9 +26,11 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 	public int qnaCount(int bq_p_no) throws Exception{
 		return qnaDao.qnaCount(bq_p_no);
 	}
-	public String getNavi(int qnaCurrentPage,int bq_p_no) throws Exception{
-		return qnaDao.getNavi(qnaCurrentPage, bq_p_no);
+	public String getNavi(int qnaPage,int bq_p_no) throws Exception{
+		return qnaDao.getNavi(qnaPage, bq_p_no);
 	}
-	
+	public BoardQnADTO readQnA(int bq_no)  throws Exception{
+		return qnaDao.readQnA(bq_no);
+	}
 	
 }

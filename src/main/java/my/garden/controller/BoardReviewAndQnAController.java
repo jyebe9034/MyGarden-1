@@ -11,14 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dto.BoardQnADTO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.ProductsDTO;
 import my.garden.service.BoardQnAService;
 import my.garden.service.BoardReviewService;
+import my.garden.service.ProductsService;
 
 
 
@@ -32,20 +35,22 @@ public class BoardReviewAndQnAController {
 	@Autowired
 	private BoardQnAService qnaService;
 
-	@RequestMapping("reviewAndQnA")
-	public String reviewAndQnA(HttpServletRequest request, int currentPage, int qnaCurrentPage, int br_p_no) {	
+	@Autowired
+	private ProductsService pservice;
 
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		qnaCurrentPage = Integer.parseInt(request.getParameter("qnaCurrentPage"));
-		
-		br_p_no = Integer.parseInt(request.getParameter("br_p_no"));
-		//      int recordCountPerPage = 10;
-		//      int naviCountPerPage = 10;
-		
-		int startNum = (5 * currentPage) - 4;
+
+	@RequestMapping("productsRead")
+	public String toProductsRead(int pnumber, Model model, HttpServletRequest request, int revPage, int qnaPage) {
+	
+		revPage = Integer.parseInt(request.getParameter("revPage"));
+		qnaPage = Integer.parseInt(request.getParameter("qnaPage"));
+
+		int br_p_no = pnumber; 
+
+		int startNum = (5 * revPage) - 4;
 		int endNum = startNum + 4;
-		
-		int startNum2 = (5 * qnaCurrentPage) - 4;
+
+		int startNum2 = (5 * qnaPage) - 4;
 		int endNum2 = startNum2 + 4;
 
 		List<BoardReviewDTO> reviewList = null;
@@ -54,14 +59,23 @@ public class BoardReviewAndQnAController {
 		try {
 			request.setAttribute("reviewList", brService.reviewList(br_p_no, startNum, endNum));
 			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum2, endNum2));
-			request.setAttribute("getNavi", brService.getNavi(currentPage, br_p_no));
-			request.setAttribute("getNaviForQnA", qnaService.getNavi(qnaCurrentPage, br_p_no));
-			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("qnaCurrentPage", qnaCurrentPage);
+			request.setAttribute("getNavi", brService.getNavi(revPage, br_p_no));
+			request.setAttribute("getNaviForQnA", qnaService.getNavi(qnaPage, br_p_no));
+			request.setAttribute("revPage", revPage);
+			request.setAttribute("qnaPage", qnaPage);
+			session.setAttribute("pnumber", pnumber); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "/boardProducts/reviewAndQnA";
+
+		try{
+			ProductsDTO dto = pservice.selectOneProductService(pnumber);
+			model.addAttribute("result", dto);
+			return "products/productsRead";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@RequestMapping("reviewWriteForm")
@@ -72,11 +86,12 @@ public class BoardReviewAndQnAController {
 	@RequestMapping("writeReview")
 	public String writeReview(BoardReviewDTO dto, MultipartFile image) {
 
-		String id = "aa"; //나중에 아이디 받아오기!!!!!★
-		int br_p_no = 1;//글번호 받아오기!!!!!★
+		String id = (String) session.getAttribute("loginId"); 
+		int br_p_no = (int) session.getAttribute("pnumber");
 
 		dto.setBr_p_no(br_p_no);
-
+		dto.setBr_name(id);
+		
 		//System.out.println("이미지" + image);
 		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
 		File dir = new File(path + id + "/"); //폴더경로
@@ -100,23 +115,22 @@ public class BoardReviewAndQnAController {
 		System.out.println("filePath : " + filePath);
 		dto.setBr_imagepath(filePath);
 
-
-
 		try {
 			brService.writeReview(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("controller");
-		return "redirect:reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1"; //나중에 고치기..글번호
+		//return "redirect:reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1"; //나중에 고치기..글번호
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + br_p_no;
 	}
 
 
 	@ResponseBody
 	@RequestMapping("recommend")
 	public Map<String, Object> recommend(HttpServletRequest request, BoardReviewDTO dto) {
-		String br_email = request.getParameter("br_email");
-		int br_no = Integer.parseInt(request.getParameter("br_no"));
+		String br_email = (String) session.getAttribute("loginId");
+		int br_no = (int) session.getAttribute("pnumber");
 		String br_title = request.getParameter("br_title");
 		//System.out.println("br_no (recommendCount): " + br_no);
 		//System.out.println("br_email (recommendCount): " + br_email);
@@ -212,7 +226,7 @@ public class BoardReviewAndQnAController {
 			e.printStackTrace();
 		}
 
-		return "redirect:reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1";
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + br_no;
 	}
 
 	@RequestMapping("qnaWriteForm")
@@ -225,9 +239,12 @@ public class BoardReviewAndQnAController {
 		String checkedSecret = request.getParameter("checkedSecret");
 		//System.out.println("checkbox: " + checkedSecret);
 		dto.bq_checkedSecret(checkedSecret);
-		
-		String id = "aa"; //나중에 아이디 받아오기!!!!!★
-		int bq_p_no = 1;//글번호 받아오기!!!!!★
+
+		String id = (String) session.getAttribute("loginId");
+		//String writer = (String) session.getAttribute("loginName");
+		System.out.println("loginId : " + id);
+		int bq_p_no = (int) session.getAttribute("pnumber");
+		dto.setBq_writer(id);
 		dto.setBq_p_no(bq_p_no);
 		if(!image.isEmpty()) { //이미지 들어있으면 
 			String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
@@ -261,12 +278,17 @@ public class BoardReviewAndQnAController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		request.setAttribute("checkedSecret", dto.getBq_checkedSecret());
-		
-		return "redirect:reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1";
-		
+
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + bq_p_no;
+
 	}
 
+	@RequestMapping("qnaRead")
+	public String qnaRead(HttpServletRequest request, int bq_no) throws Exception {	
+		request.setAttribute("qnaRead", qnaService.readQnA(bq_no));
+		return "/boardProducts/qnaRead";
+	}
 
 }

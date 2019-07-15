@@ -42,7 +42,7 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 
 
 	/*페이지 네비게이터*/
-	public String getNavi(int qnaCurrentPage,int bq_p_no){
+	public String getNavi(int qnaPage,int bq_p_no){
 
 		int recordTotalCount = qnaCount(bq_p_no);
 		int recordCountPerPage = 5; //5개의 글이 보이게 한다.	
@@ -55,19 +55,19 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 
 		//현재  페이지 오류 검출 및 정정
 		/*보안코드 : 현재페이지가 1보다 작다면 1로, 전체페이지보다 크다면 전체페이지(pageTotalCount)로 표시하겠다*/
-		if(qnaCurrentPage < 1) {
-			qnaCurrentPage = 1;
-		}else if(qnaCurrentPage > pageTotalCount) {
-			qnaCurrentPage = pageTotalCount;
+		if(qnaPage < 1) {
+			qnaPage = 1;
+		}else if(qnaPage > pageTotalCount) {
+			qnaPage = pageTotalCount;
 		}
-		int startNavi2 = (qnaCurrentPage - 1)/naviCountPerPage * naviCountPerPage + 1;
+		int startNavi2 = (qnaPage - 1)/naviCountPerPage * naviCountPerPage + 1;
 		int endNavi2 = startNavi2 + (naviCountPerPage - 1); 
 
 		if(endNavi2 > pageTotalCount) {
 			endNavi2 = pageTotalCount;
 		}
 
-		System.out.println("현재 위치 : " + qnaCurrentPage);
+		System.out.println("현재 위치 : " + qnaPage);
 		System.out.println("네비 시작 : " + startNavi2);
 		System.out.println("네비 끝 : " + endNavi2);
 
@@ -85,15 +85,15 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 
 		if(needPrev) {
 			int prevStartNavi2 = startNavi2-1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+prevStartNavi2+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"productsRead?pnumber="+bq_p_no+"&revPage=1&qnaPage="+prevStartNavi2+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
 
 		}
 		for(int i = startNavi2; i <= endNavi2; i++) {
-			sb.append("<li class=\"page-item\"><a class=\"page-link qnaPageNumber pageNumber\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+ i +"\">" + i + "</a></li>");
+			sb.append("<li class=\"page-item\"><a class=\"page-link qnaPageNumber pageNumber\" href=\"productsRead?pnumber="+bq_p_no+"&revPage=1&qnaPage="+ i +"\">" + i + "</a></li>");
 		}
 		if(needNext) {
 			int nextEndNavi2 = endNavi2+1;
-			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage="+ nextEndNavi2++ +"\""+ 
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"productsRead?pnumber="+bq_p_no+"&revPage=1&qnaPage="+ nextEndNavi2++ +"\""+ 
 					"							aria-label=\"Next\"> <span aria-hidden=\"true\">&raquo;</span>" + 
 					"						</a></li>");
 		}
@@ -101,6 +101,10 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sb.toString();
 	}
 
+	public BoardQnADTO readQnA(int bq_no) {
+		
+		return sst.selectOne("boardQnAMB.readQnA", bq_no);
+	}
 
 	
 }

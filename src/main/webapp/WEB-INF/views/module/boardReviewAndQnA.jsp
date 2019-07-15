@@ -11,11 +11,12 @@
 	}
 	
 	#revAndQnAWrapper {
-		margin: 500px auto;
-		width: 800px;
-		height: 1000px;
+	margin: 50px auto;
+      width: 100%;
+/* 		margin: 500px auto; */
+/* 		width: 800px; */
+		height: 2000px;
 	}
-
 	#revAndQnAWrapper .tabs a {
 		border-radius: 0px !important;
 		border: 1px solid lightgray;
@@ -206,14 +207,14 @@
 			
 			/*현재페이지 표시해주는 스타일*/
 			$(".reviewPageNumber").each(function(){
-				if($(this).text()==${currentPage}){
+				if($(this).text()==${revPage}){
 					$(this).css("color","#44b27d");
 					$(this).css("font-weight","bold");
 				//	$(this).css("background-color","#b4d9b5");
 				}
 			})
 			$(".qnaPageNumber").each(function(){
-				if($(this).text()==${qnaCurrentPage}){
+				if($(this).text()==${qnaPage}){
 					$(this).css("color","#44b27d");
 					$(this).css("font-weight","bold");
 				//	$(this).css("background-color","#b4d9b5");
@@ -259,10 +260,14 @@
 				$('html, body').animate({scrollTop : offset.top - 100}, 10);
 			})
 			
+			$(".qnaTitle").on("click",function(){
+				var bq_no = $(this).next().val();
+				alert("bq_no : " + bq_no);
+				$(location).attr("href","qnaRead?bq_no="+bq_no);
+			})
 			
 			
 	})
-
 </script>
 
 <!-- 	html -->
@@ -384,10 +389,11 @@
 					</div>
 					<div class="row qnaRow">
 						<c:forEach var="qnaList" items="${qnaList }">
-							<div class="col-2">1</div>
+							<div class="col-2">${qnaList.bq_no }</div>
 							<div class="col-6">
 								<button class="btns" disabled="disabled">답변완료</button>
-								<span class="qnaTitle" value="${qnaList.bq_no }">${qnaList.bq_title }</span>
+								<span class="qnaTitle">${qnaList.bq_title }</span>
+								<input type="hidden" value="${qnaList.bq_no }">
 							</div>
 							<div class="col-2">${qnaList.bq_writer }</div>
 							<div class="col-2">

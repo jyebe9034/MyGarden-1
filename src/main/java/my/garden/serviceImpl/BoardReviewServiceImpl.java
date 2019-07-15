@@ -26,19 +26,16 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 	@Autowired
 	private BoardReviewDAO brDao;
 	
-	@Transactional("txManager")
 	public int writeReview(BoardReviewDTO dto) throws Exception{
 		return brDao.writeReview(dto);
 	}
-	
-	@Transactional("txManager")
+
 	public List<BoardReviewDTO> reviewList(int br_p_no, int startNum, int endNum) throws Exception {
 		return brDao.reviewList(br_p_no, startNum, endNum);
 	}
-	
-	@Transactional("txManager")
-	public String getNavi(int currentPage,int br_p_no) throws Exception{
-		return brDao.getNavi(currentPage, br_p_no);
+
+	public String getNavi(int revPage,int br_p_no) throws Exception{
+		return brDao.getNavi(revPage, br_p_no);
 	}
 	
 //	@Transactional("txManager")
@@ -46,15 +43,15 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 //		return brDao.RecommendCountUp(br_recommend, br_no);
 //	}
 	
-	@Transactional("txManager")
+
 	public int recommendCheck(int br_no, String br_email) throws Exception {
 		return brDao.recommendCheck(br_no, br_email);
 	}
-	@Transactional("txManager")
+
 	public int recommendUpdate(String br_email, int br_no, String br_title) throws Exception {
 		return brDao.recommendUpdate(br_email, br_no, br_title);
 	}
-	@Transactional("txManager")
+	
 	public int recommendDelete(int br_no, String br_email) throws Exception {
 		return brDao.recommendDelete(br_no, br_email);
 	}
@@ -80,12 +77,12 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 //		return brDao.recommendCount(br_no);
 //	}
 	
-	@Transactional("txManager")
+	
 	public BoardReviewDTO oneReview(int br_no) throws Exception {
 		return brDao.oneReview(br_no);
 	}
 	
-	@Transactional("txManager")
+	
 	public int updateReview(Map<String, Object> map) throws Exception {
 		return brDao.updateReview(map);
 	}

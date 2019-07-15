@@ -11,7 +11,8 @@ public interface BoardQnAService {
 	
 	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum2, int endNum2) throws Exception;
 	public int qnaCount(int bq_p_no) throws Exception;
-	public String getNavi(int qnaCurrentPage,int bq_p_no) throws Exception;
-	
+	public String getNavi(int qnaPage,int bq_p_no) throws Exception;
+
+	public BoardQnADTO readQnA(int bq_no) throws Exception;
 	
 }
