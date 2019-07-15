@@ -1,37 +1,32 @@
 package my.garden.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
+import my.garden.dto.MembersDTO;
+
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	HttpSession session;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+	@Autowired
+	MembersDTO mdto;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
+	public String home() {
+		mdto.setM_email("dlgodud");
+		mdto.setM_name("이해영");
+		mdto.setM_phone("010-2414-9070");
+		mdto.setM_zipcode("12345");
+		mdto.setM_address1("해영시");
+		mdto.setM_address2("해영아파트");
+		session.setAttribute("loginId", mdto);
 		
 		return "home";
 	}
