@@ -2,15 +2,10 @@
 	pageEncoding="UTF-8"%>
 <!-- style -->
 <style>
-@import
-	url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap')
-	;
-
 .footer {
 	color: #fff;
 	background:
-		url(https://i1.wp.com/www.socialnews.xyz/wp-content/uploads/2019/04/23/dcad5bdae031628e01c872cd31805974.jpg?quality=90&zoom=1&ssl=1)
-		no-repeat top center;
+		url(resources/img/footer.jpg) no-repeat top center;
 	background-size: cover;
 }
 
@@ -50,7 +45,7 @@
 			<div class="row m-auto">
 				<div
 					class="col-lg-6 col-md-5 col-sm-6 col-xs-6 text-center text-shadow m-auto p-2 footerContactBox my">
-					<h4 class="font-weight-bold">고객센터</h4>
+					<h4 class="font-weight-bold m-2">고객센터</h4>
 					<h5 class="font-weight-bold">1588-0000</h5>
 				</div>
 				<div
@@ -62,13 +57,13 @@
 		</div>
 		<div
 			class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2 text-shadow socialEmo my">
-			<span><a href="#"><img src="resources/img/facebook.png"
-					width="50" height="50"></a></span> <span><a href="#"><img
+			<span><a href="facebook.com"><img src="resources/img/facebook.png"
+					width="50" height="50"></a></span> <span><a href="twitter.com"><img
 					src="resources/img/twitter.png" width="50" height="50"></a></span> <span><a
-				href="#"><img src="resources/img/youtube.png" width="50"
-					height="50"></a></span> <span><a href="#"><img
+				href="youtube.com"><img src="resources/img/youtube.png" width="50"
+					height="50"></a></span> <span><a href="instagram.com"><img
 					src="resources/img/instagram.png" width="50" height="50"></a></span> <span><a
-				href="#"><img src="resources/img/share.png" width="50"
+				href="github.com"><img src="resources/img/share.png" width="50"
 					height="50"></a></span>
 		</div>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-1 footerEnd my">

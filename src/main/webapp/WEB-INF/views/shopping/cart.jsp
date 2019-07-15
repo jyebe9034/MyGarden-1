@@ -13,32 +13,26 @@
 #header_v5_wrap_height {
 	height: 190px;
 }
-
 button.btn_select_all, button.btn_select_del, button.btn_select_wishlist
 	{
 	border: 0
 }
-
 .body_sub_area {
 	width: 1160px;
 	margin: auto;
 }
-
 .body_sub_area table {
 	font-size: 12px;
 }
-
 .body_sub_area table th {
 	font-size: 13px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-
 .cart_list_table {
 	font-family: 'Spoqa Han Sans', sans-serif;
 	margin-bottom: 15px;
 }
-
 .cart_list_table tr th {
 	border-top: 2px solid #44b27d;
 	border-bottom: 1px solid #dddddd;
@@ -46,11 +40,9 @@ button.btn_select_all, button.btn_select_del, button.btn_select_wishlist
 	font-weight: normal;
 	color: #515151;
 }
-
 .cart_list_table tr td {
 	padding: 5px 0;
 }
-
 .cart_list_table .td_bottom_line {
 	border-bottom: 1px solid #dddddd;
 }

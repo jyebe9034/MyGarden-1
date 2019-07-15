@@ -32,7 +32,7 @@
 		.menuSearch{border:1px solid #6c757d; background:none;}
 		.menuSearch::placeholder{color:#6c757d;}
 		.carousel-control-prev-icon, .carousel-control-next-icon{margin-top:60%; width:50px; height:50px; border:8px solid #fff; border-radius:50%;}
-		.footer{color:#fff; background:url(https://i1.wp.com/www.socialnews.xyz/wp-content/uploads/2019/04/23/dcad5bdae031628e01c872cd31805974.jpg?quality=90&zoom=1&ssl=1) no-repeat top center; background-size:cover;}
+		.footer{color:#fff; background:url(resources/img/footer.jpg) no-repeat top center; background-size:cover;}
 		.footerContactBox{border:3px solid #fff; box-shadow:0 5px 10px -5px gray; text-shadow: 2px 2px 2px gray;}
 		.footerEnd a{color:#fff; font-size:15px; font-weight:bold; margin-left:10px; text-shadow: 2px 2px 2px gray;}
 		.footerEnd li{font-size:13px; list-style:none; text-shadow: 2px 2px 2px gray;}
