@@ -52,13 +52,11 @@ public class BoardFreeController {
 			request.setAttribute("navi", navi);
 			//댓글 갯수 관련
 			int count = dao.serviceBoardCountAll();
-			System.out.println("카운트"+count+"start:"+start+"end:"+end);
 			if(count==0 || count<4) {
 				for(int i = start; i <= end; i++) {	
 					for(int j=0; j<count; j++) {
 						int bf_no=list.get(j).getBf_no();
 						int tmp = dao.serviceCmtCountAll(bf_no);
-						System.out.println(i-1+":"+bf_no+":"+tmp);
 						list.get(j).setBf_cmtcount(tmp);
 					}
 				}		
@@ -67,7 +65,6 @@ public class BoardFreeController {
 					for(int j=0; j<4; j++) {
 						int bf_no=list.get(j).getBf_no();
 						int tmp = dao.serviceCmtCountAll(bf_no);
-						System.out.println(i-1+":"+bf_no+":"+tmp);
 						list.get(j).setBf_cmtcount(tmp);
 					}
 				}		
@@ -141,9 +138,9 @@ public class BoardFreeController {
 	@RequestMapping("boardFreeFileUpload")
 	public String boardFreeFileUpload(MultipartHttpServletRequest request) {
 		MultipartFile image = request.getFile("image");
-		System.out.println("이미지:"+image);	
 		String resourcesPath = session.getServletContext().getRealPath("/resources/");
-		File dir = new File("D:\\RealFinal\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\write\\loginID");
+		String loginId=(String)session.getAttribute("loginId");
+		File dir = new File("D:\\RealFinal\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\write\\"+loginId);
 		if(!dir.exists()) { // 폴더가 있는지 확인.
 			System.out.println("폴더생성");
 			dir.mkdirs(); // 없으면 생성
@@ -151,11 +148,11 @@ public class BoardFreeController {
 		System.out.println(resourcesPath);
 		String imgName = System.currentTimeMillis()+"_write.png"; //앞에 아이디붙이기 또는 아이디별 폴더 만들기
 		try {
-			image.transferTo(new File(resourcesPath+"write/loginID/"+imgName));
+			image.transferTo(new File(resourcesPath+"write/"+loginId+"/"+imgName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		String location = "/resources/write/loginID/"+imgName;
+		String location = "/resources/write/"+loginId+"/"+imgName;
 		return location;
 	}
 
@@ -173,7 +170,7 @@ public class BoardFreeController {
 				}else {
 					lastPage=(dao.serviceCmtCountAll(no)/10)+1;
 				}
-				System.out.println("마지막 댓글페이지:"+lastPage);
+				//System.out.println("마지막 댓글페이지:"+lastPage);
 				request.setAttribute("now", lastPage);	
 			}else {
 				lastPage = Integer.parseInt(cmtPage); 
@@ -183,7 +180,6 @@ public class BoardFreeController {
 			List<String> navi = dao.serviceGetCmtNavi(lastPage, no);
 			request.setAttribute("navi", navi);
 			List<CommentFreeDTO> list = dao.serviceCmtList(no, start, end);
-			System.out.println(list.size());
 			for(int i=0 ; i<list.size();i++) {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
@@ -217,7 +213,7 @@ public class BoardFreeController {
 			}else {
 				now = (Integer)session.getAttribute("now");
 			}
-			System.out.println("현재 댓글페이지:"+now);
+			//System.out.println("현재 댓글페이지:"+now);
 
 			//3. 댓글리스트
 			int start = (now*10)-9;
@@ -284,7 +280,7 @@ public class BoardFreeController {
 			}else {
 				now = (Integer)session.getAttribute("now");
 			}
-			System.out.println("현재 댓글페이지:"+now);
+			//System.out.println("현재 댓글페이지:"+now);
 
 			//3. 댓글리스트
 			int start = (now*10)-9;
@@ -326,7 +322,7 @@ public class BoardFreeController {
 			}else {
 				now = (Integer)session.getAttribute("now");
 			}
-			System.out.println("현재 댓글페이지:"+now);
+			//System.out.println("현재 댓글페이지:"+now);
 
 			//3. 댓글리스트
 			int start = (now*10)-9;
