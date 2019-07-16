@@ -19,17 +19,12 @@ public class HomeController {
 	
 	
 	
-	//test
-	@RequestMapping("gender")
-	public String gender(String m_zipcode) {
-		System.out.println(m_zipcode);
-		return "test";
-	}
-	
-	@RequestMapping("/profile")
-	public String profile(MultipartFile image) {
-		System.out.println(image);
-		return "test";
-	}
+//	//test
+//	@RequestMapping("/test2")
+//	public String gender(String m_zipcode) {
+//		System.out.println(m_zipcode);
+//		return "test2";
+//	}
+
 	
 }

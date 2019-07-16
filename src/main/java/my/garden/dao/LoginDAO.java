@@ -1,14 +1,20 @@
 package my.garden.dao;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -21,6 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import my.garden.dto.MembersDTO;
 
 @Repository
@@ -29,9 +38,9 @@ public class LoginDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	@Autowired
-	HttpSession session;
-	@Autowired
 	HttpServletRequest request;
+	@Autowired
+	HttpSession session;
 	
 	public static String SHA256(String str){
 		String SHA = ""; 
@@ -114,8 +123,7 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
-	public MembersDTO memSelectAll(MembersDTO dto) {
-		String id = (String)session.getAttribute("loginId");
+	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
 	}
@@ -194,6 +202,108 @@ public class LoginDAO {
 		map.put("whereCol", "m_phone");
 		map.put("value", key);
 		return sst.selectOne("LoginDAO.dupCheck", map);
+	}
+	
+	public String NaverLoginMakeUrl() {
+		try {
+		    String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
+		    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
+		    SecureRandom random = new SecureRandom();
+		    String state = new BigInteger(130, random).toString();
+		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		    apiURL += "&client_id=" + clientId;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&state=" + state;
+		    session.setAttribute("state", state);
+		    return apiURL;
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
+	public String NaverLoginCallback() throws Exception {
+		String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "bZgqg3cbjr";//애플리케이션 클라이언트 시크릿값";
+	    String code = request.getParameter("code");
+	    String state = request.getParameter("state");
+	    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
+	    String apiURL;
+	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+	    apiURL += "client_id=" + clientId;
+	    apiURL += "&client_secret=" + clientSecret;
+	    apiURL += "&redirect_uri=" + redirectURI;
+	    apiURL += "&code=" + code;
+	    apiURL += "&state=" + state;
+	    String access_token = "";
+	    String refresh_token = "";
+	    System.out.println("apiURL="+apiURL);
+	    try {
+	      URL url = new URL(apiURL);
+	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	      con.setRequestMethod("GET");
+	      int responseCode = con.getResponseCode();
+	      BufferedReader br;
+	      System.out.print("responseCode="+responseCode);
+	      if(responseCode==200) { // 정상 호출
+	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	      } else {  // 에러 발생
+	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	      }
+	      String inputLine;
+	      StringBuffer res = new StringBuffer();
+	      while ((inputLine = br.readLine()) != null) {
+//	        System.out.println(inputLine); //access_token json
+	        JsonParser parser = new JsonParser();
+	        JsonObject jObject = parser.parse(inputLine).getAsJsonObject();
+	        String result = jObject.get("access_token").getAsString();
+	        return result;
+	      }
+	      br.close();
+	      if(responseCode==200) {
+//	        System.out.println(res.toString()); //responseCode
+	      }
+	    } catch (Exception e) {
+	      System.out.println(e);
+	    }
+	     return null;
+	}
+	
+	public String NaverLoginGetInfo(String token) {
+		//String token : 네이버 로그인 접근 토큰;
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        try {
+            String apiURL = "https://openapi.naver.com/v1/nid/me";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+            response.toString(); //사용자 정보 리턴
+            JsonParser parser = new JsonParser();
+            JsonObject jObject = parser.parse(response.toString()).getAsJsonObject();
+            JsonObject infoGroup = jObject.get("response").getAsJsonObject();
+            //뽑아낸 정보
+            return infoGroup.get("email").getAsString();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		return null;
+	}
+	
+	public int socialJoinSubmit(MembersDTO dto) {
+		return sst.insert("LoginDAO.socialJoinSubmit", dto);
 	}
 	
 }

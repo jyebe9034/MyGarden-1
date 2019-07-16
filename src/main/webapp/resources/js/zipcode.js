@@ -31,7 +31,7 @@
                 
                 // 우편번호와 주소 정보를 부모 문서의 해당 필드에 넣는다.
                 $("#zonecode").val(data.zonecode);
-                $("#postCode", parent.document.body).append('<input type="text" class="fadeIn inputStuff" value="'+addr+'" name="m_address1"/>'
+                $("#addressSet", parent.document.body).html('<input type="text" class="fadeIn inputStuff" value="'+addr+'" name="m_address1"/>'
                 		+ '<input type="text" placeholder="상세주소를 입력하세요" class="fadeIn inputStuff" id="detailAddress" name="m_address2"/>'
                 		+ '<div class="onblur" id="addrName"></div>');
                 // 커서를 상세주소 필드로 이동한다.
