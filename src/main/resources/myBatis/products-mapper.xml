@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductsDAO">
+
+	<insert id="insertProducts">
+		insert into products values(p_seq.nextval, #{p_imagepath}, #{p_title}, #{p_subtitle},
+		#{p_category}, #{p_inventory}, #{p_unit}, #{p_seller}, #{p_origin}, #{p_price},
+		#{p_content}, default, default)
+	</insert>
+	
+	<select id="selectProductsListByCategory" parameterType="Map" resultType="my.garden.dto.ProductsDTO">
+		select * from (select row_number() over (order by p_no desc) as rown, products.* from products where p_category=#{category}) where rown between #{start} and #{end}
+	</select>
+	
+	<select id="selectProductsListByPage" resultType="my.garden.dto.ProductsDTO">
+		select * from (select row_number() over (order by p_no desc) as rown, products.* from products) where rown between #{array[0]} and #{array[1]}
+	</select>
+	
+	<select id="selectOneProduct" resultType="my.garden.dto.ProductsDTO">
+		select * from products where p_no=#{p_no}
+	</select>
+
+</mapper>
