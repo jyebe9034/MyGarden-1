@@ -25,147 +25,8 @@
 	-o-text-overflow: ellipsis
 }
 
-.shipping_method {
-	padding-right: 10px;
-	display: inline-block;
-}
-
-.goods_option {
-	padding-top: 3px;
-	font-color: #848484
-}
-
-.goods_input {
-	padding-top: 3px;
-	font-color: #848484
-}
-
-.sub_bg {
-	background-color: #f7f7f7
-}
-
 .cell {
 	border-left: 1px solid #ddd
-}
-
-#shippingMainContainer {
-	border: 2px solid #fff
-}
-
-#shippingMainContainer .shippingAddBtn {
-	display: none;
-}
-
-#shippingMainContainer .shippingAddBtn img {
-	cursor: pointer
-}
-
-#shippingMainContainer .shippingGoodsList {
-	display: none;
-}
-
-#shippingMainContainer.multiShipping {
-	position: relative;
-	border: 2px solid #000
-}
-
-#shippingMainContainer.multiShipping .shippingAddBtn {
-	display: block;
-	position: absolute;
-	width: 100%;
-	top: 100%;
-	margin-top: 2px;
-	text-align: center;
-}
-
-#shippingMainContainer.multiShipping .shippingGoodsList {
-	display: block;
-}
-
-#shippingMainContainer .shippingMainContainerTitle {
-	display: none;
-}
-
-#shippingMainContainer.multiShipping .shippingMainContainerTitle {
-	display: block;
-	background-color: #000;
-	color: #fff;
-	line-height: 25px;
-	height: 25px;
-	text-align: center;
-}
-
-.multiShippingItemDefault {
-	display: none;
-}
-
-#multiShippingContainer {
-	display: none;
-	margin-top: 63px;
-	position: relative;
-	border: 3px solid #c9c9c9
-}
-
-#multiShippingContainer .multiShippingItem {
-	
-}
-
-#multiShippingContainer .multiShippingItemTitle {
-	height: 32px;
-	background-color: #e9e9e9;
-	border-top: 1px solid #999;
-	border-bottom: 1px solid #999;
-}
-
-#multiShippingContainer .multiShippingItemPrnNo {
-	font-weight: bold;
-}
-
-div.shippingGoodsList {
-	
-}
-
-div.shippingGoodsList tr.sglHeader		th {
-	height: 28px;
-	border-top: 2px solid #d9d9d9;
-	border-bottom: 1px solid #d9d9d9;
-	background-color: #f7f7f7;
-	font-weight: normal;
-}
-
-div.shippingGoodsList tr.sglRecord		td {
-	height: 26px;
-	border-top: 1px dashed #d9d9d9;
-}
-
-div.shippingGoodsList tr.sglRecordFirst	td {
-	border-top: 1px solid #cecece;
-}
-
-div.shippingGoodsList tr.sglRecordFirst:first-child td {
-	border-top: 0px;
-}
-
-div.shippingGoodsList tr.sglRecordEaZero td {
-	background-color: #f3f3f3
-}
-
-div.shippingGoodsList tr.sglFooter		th {
-	height: 33px;
-	border-top: 1px solid #d9d9d9;
-	border-bottom: 0px;
-	background-color: #f5f5f5;
-	font-weight: normal;
-}
-
-div.shippingGoodsList .remainEa {
-	color: #e90000;
-	font-weight: bold;
-}
-
-input[name='emoney_view']
-input[name='cash_view'], input[name='cartpromotioncode'] {
-	background-color: #f7f7f7;
 }
 
 input {
@@ -242,6 +103,7 @@ table.list_table_style td.cell {
 		$("#phone1").val(phone[0]);
 		$("#phone2").val(phone[1]);
 		$("#phone3").val(phone[2]);
+		
 		var orderDate = new Date();
 		$(".goods_input").html(orderDate);
 
@@ -338,7 +200,7 @@ table.list_table_style td.cell {
 												</table>
 											</td>
 
-											<td class="cell"><span class="goods_input"></span></td>
+											<td class="cell"><span class="goods_input">${orderDate }</span></td>
 
 											<td class="cell">${dto.c_count }</td>
 											<td class="cell center"><span><fmt:formatNumber
@@ -362,12 +224,8 @@ table.list_table_style td.cell {
 								</tr>
 
 							</table>
-
-							<div class="cboth"></div>
-
-
 							<div style="height: 10px"></div>
-							<div align="center" id="facebook_mgs"></div> <!-- 최종결제금액 -->
+
 							<table width="100%" border="0" cellpadding="10" cellspacing="0">
 								<col />
 								<col width="300" />
@@ -394,8 +252,8 @@ table.list_table_style td.cell {
 											<col />
 											<tr>
 												<td>총 상품금액</td>
-												<td align="right" class="fx12"><span id="total_price"><fmt:formatNumber
-															value="${count }" type="number" /></span> 원</td>
+												<td align="right" class="fx12"><span id="total_price">
+												<fmt:formatNumber value="${count }" type="number" /></span> 원</td>
 											</tr>
 											<tr>
 												<td height="8"></td>
@@ -408,9 +266,9 @@ table.list_table_style td.cell {
 											<tr class="goods_delivery_info">
 												<td>예상 적립금</td>
 												<td align="right" class="fx12"><span
-													class="total_bonus_price"> <fmt:parseNumber
-															var="bonus" value="${count*0.05}" integerOnly="true" />
-														${bonus }
+													class="total_bonus_price"> <fmt:formatNumber
+															value="${count*0.05}" type="number" />
+
 												</span> 원</td>
 											</tr>
 											<tr class="goods_delivery_info">
@@ -494,7 +352,6 @@ table.list_table_style td.cell {
 													<td height="8"></td>
 												</tr>
 												<tr>
-
 													<td>유선전화</td>
 													<td class="fx12"><input type="text"
 														name="order_phone[]" value="" size="10" /> - <input
@@ -502,31 +359,6 @@ table.list_table_style td.cell {
 														<input type="text" name="order_phone[]" value="" size="10" /></td>
 												</tr>
 											</table>
-										</td>
-										<td valign="top">
-											<!-- 설명 --> <!--
-						<table width="100%" border="0" cellpadding="0" cellspacing="3">
-						<col width="10" />
-						<tr>
-							<td valign="top"><span style="font-family:'arial black'; line-height:10px; ">·</span></td>
-							<td class="desc" style="color:#333;">
-								비회원의 주문배송조회를 위한 로그인은 주문번호와 이메일 정보로 확인할 수 있습니다.
-							</td>
-						</tr>
-						<tr>
-							<td valign="top"><span style="font-family:'arial black'; line-height:10px; ">·</span></td>
-							<td class="desc" style="color:#333;">
-								구매내역을 이메일과 SMS로 안내해 드립니다.
-							</td>
-						</tr>
-						<tr>
-							<td valign="top"><span style="font-family:'arial black'; line-height:10px; ">·</span></td>
-							<td class="desc" style="color:#333;">
-								정확한 이메일과 휴대폰번호를 입력해 주십시오.
-							</td>
-						</tr>
-						</table>
-						-->
 										</td>
 									</tr>
 								</table>
@@ -550,98 +382,96 @@ table.list_table_style td.cell {
 									<td height="10"></td>
 								</tr>
 							</table>
-							<div id="shippingMainContainer">
-								<div style="padding: 10px">
-									<table width="100%" border="0" cellpadding="0" cellspacing="0">
-										<col width="130" />
-										<tr class="goods_delivery_info">
-											<td height="10"></td>
-										</tr>
-										<tr class="domestic goods_delivery_info">
-											<td>배송주소 <b style="color: red">*</b>
-											</td>
-											<td class="fx12" colspan="3">
+							<div style="padding: 10px">
+								<table width="100%" border="0" cellpadding="0" cellspacing="0">
+									<col width="130" />
+									<tr class="goods_delivery_info">
+										<td height="10"></td>
+									</tr>
+									<tr class="domestic goods_delivery_info">
+										<td>배송주소 <b style="color: red">*</b>
+										</td>
+										<td class="fx12" colspan="3">
 
-												<div style="padding-bottom: 8px">
-													<label><input type="radio" name="chkQuickAddress"
-														value="often" checked id="memAddr" /> 회원 정보 주소</label> <label><input
-														type="radio" name="chkQuickAddress" value="new"
-														id="newAddr" /> 새로운 배송지</label>
-												</div> <input type="text" name="recipient_zipcode[]"
-												value="${loginDTO.m_zipcode }" size="10" maxlength="3"
-												readonly id="zipcode" /> <span class="white_btn"><button
-														class="hand" type="button" id="search">주소찾기</button></span> <label><input
-													type="checkbox" name="save_delivery_address" value="1" />
-													기본 배송지로 저장</label>
-											</td>
-										</tr>
-										<tr class="goods_delivery_info">
-											<td height="5"></td>
-										</tr>
-										<tr class="domestic goods_delivery_info">
-											<td></td>
-											<td class="fx12" colspan="3">
-												<div>
-													<input type="text" name="recipient_address"
-														value="${loginDTO.m_address1 }" size="45" readonly
-														id="address1" />
-												</div>
-												<div style="margin-top: 5px;">
-													<input type="text" name="recipient_address_detail"
-														value="${loginDTO.m_address2 }" size="45" id="address2" />
-												</div>
-											</td>
-										</tr>
-										<tr class="domestic goods_delivery_info">
-											<td height="5"></td>
-										</tr>
+											<div style="padding-bottom: 8px">
+												<label><input type="radio" name="chkQuickAddress"
+													value="often" checked id="memAddr" /> 회원 정보 주소</label> <label><input
+													type="radio" name="chkQuickAddress" value="new"
+													id="newAddr" /> 새로운 배송지</label>
+											</div> <input type="text" name="recipient_zipcode[]"
+											value="${loginDTO.m_zipcode }" size="10" maxlength="3"
+											readonly id="zipcode" /> <span class="white_btn"><button
+													class="hand" type="button" id="search">주소찾기</button></span> <label><input
+												type="checkbox" name="save_delivery_address" value="1" />
+												기본 배송지로 저장</label>
+										</td>
+									</tr>
+									<tr class="goods_delivery_info">
+										<td height="5"></td>
+									</tr>
+									<tr class="domestic goods_delivery_info">
+										<td></td>
+										<td class="fx12" colspan="3">
+											<div>
+												<input type="text" name="recipient_address"
+													value="${loginDTO.m_address1 }" size="45" readonly
+													id="address1" />
+											</div>
+											<div style="margin-top: 5px;">
+												<input type="text" name="recipient_address_detail"
+													value="${loginDTO.m_address2 }" size="45" id="address2" />
+											</div>
+										</td>
+									</tr>
+									<tr class="domestic goods_delivery_info">
+										<td height="5"></td>
+									</tr>
 
-										<tr>
-											<td class="pb-3">받는분 <b style="color: red">*</b></td>
-											<td class="fx12 pt-2 pb-1" colspan="3"><input
-												type="text" id="recipient_user_name" value="" size="15"
-												class="mr-1" /><label class="small"><input
-													type="checkbox" id="copy_order_info" /> 주문자 정보와 동일</label>
+									<tr>
+										<td class="pb-3">받는분 <b style="color: red">*</b></td>
+										<td class="fx12 pt-2 pb-1" colspan="3"><input type="text"
+											id="recipient_user_name" value="" size="15" class="mr-1" /><label
+											class="small"><input type="checkbox"
+												id="copy_order_info" /> 주문자 정보와 동일</label>
 
-												<div class="overseasInfo hide" style="color: #ff0000;">*
-													받는 분의 이름은 개인통관고유번호를 발급받을 때 사용한 이름과 동일하여야 합니다.</div></td>
-										</tr>
-										<tr class="international">
-											<td>받는분 휴대폰 <b style="color: red">*</b></td>
-											<td class="fx12" colspan="3"><input type="text"
-												name="international_recipient_cellphone[]" value=""
-												size="10" id="recvPhone1" /> - <input type="text"
-												name="international_recipient_cellphone[]" value=""
-												size="10" id="recvPhone2" /> - <input type="text"
-												name="international_recipient_cellphone[]" value=""
-												size="10" id="recvPhone3" /></td>
-										</tr>
-										<tr>
-											<td height="8"></td>
-										</tr>
-										<tr class="international">
-											<td>받는분 전화</td>
-											<td class="fx12" style="width: 300px" colspan="3"><input
-												type="text" name="international_recipient_phone[]" value=""
-												size="10" /> - <input type="text"
-												name="international_recipient_phone[]" value="" size="10" />
-												- <input type="text" name="international_recipient_phone[]"
-												value="" size="10" /></td>
-										</tr>
-										<tr class="goods_delivery_info">
-											<td height="5"></td>
-										</tr>
-										<tr class="goods_delivery_info">
-											<td>배송요청사항</td>
-											<td class="fx12" colspan="3"><div
-													style="padding: 5px; border: 1px solid #ddd;">
-													<textarea name="memo" id="shipMemo"
-														style="padding: 0px; width: 100%; overflow: auto; border: 0px;"
-														rows="2" title="이곳은 택배기사님이 확인하는 메세지란입니다."></textarea>
-												</div></td>
-										</tr>
-									</table>
-								</div>
+											<div class="overseasInfo hide" style="color: #ff0000;">*
+												받는 분의 이름은 개인통관고유번호를 발급받을 때 사용한 이름과 동일하여야 합니다.</div></td>
+									</tr>
+									<tr class="international">
+										<td>받는분 휴대폰 <b style="color: red">*</b></td>
+										<td class="fx12" colspan="3"><input type="text"
+											name="international_recipient_cellphone[]" value="" size="10"
+											id="recvPhone1" /> - <input type="text"
+											name="international_recipient_cellphone[]" value="" size="10"
+											id="recvPhone2" /> - <input type="text"
+											name="international_recipient_cellphone[]" value="" size="10"
+											id="recvPhone3" /></td>
+									</tr>
+									<tr>
+										<td height="8"></td>
+									</tr>
+									<tr class="international">
+										<td>받는분 전화</td>
+										<td class="fx12" style="width: 300px" colspan="3"><input
+											type="text" name="international_recipient_phone[]" value=""
+											size="10" /> - <input type="text"
+											name="international_recipient_phone[]" value="" size="10" />
+											- <input type="text" name="international_recipient_phone[]"
+											value="" size="10" /></td>
+									</tr>
+									<tr class="goods_delivery_info">
+										<td height="5"></td>
+									</tr>
+									<tr class="goods_delivery_info">
+										<td>배송요청사항</td>
+										<td class="fx12" colspan="3"><div
+												style="padding: 5px; border: 1px solid #ddd;">
+												<textarea name="memo" id="shipMemo"
+													style="padding: 0px; width: 100%; overflow: auto; border: 0px;"
+													rows="2" title="이곳은 택배기사님이 확인하는 메세지란입니다."></textarea>
+											</div></td>
+									</tr>
+								</table>
 							</div>
 
 							<div style="height: 60px" class="shippingDataViewTitle"></div>
@@ -801,7 +631,6 @@ table.list_table_style td.cell {
                }).done(function(data) {
 
                })
-               
      					var jArray = new Array();
        					//JsonArray를 위한 배열생성
 
@@ -810,6 +639,7 @@ table.list_table_style td.cell {
        								var jobj = new Object();
        								//JsonObject를 위한 객체생성
 									jobj.s_email = "${loginId}";
+									jobj.s_phone = $("#recvPhone1").val()+"-"+$("#recvPhone2").val()+"-"+$("#recvPhone3").val();
        								jobj.s_p_no = $(this).find("input:nth-child(1)").val();
        								jobj.s_p_imagepath = $(this).find("input:nth-child(2)").val();
        								jobj.s_p_title = $(this).find("input:nth-child(3)").val();
@@ -817,25 +647,50 @@ table.list_table_style td.cell {
        								jobj.s_p_price = $(this).find("input:nth-child(5)").val();
 									jobj.s_m_recipient = $("#recipient_user_name").val();
 									jobj.s_m_memo = $("#shipMemo").html();
+									jobj.s_m_paymethod = "카드 결제";
        								jobj.s_m_zipcode = $("#zipcode").val();
        								jobj.s_m_address1 = $("#address1").val();
        								jobj.s_m_address2 = $("#address2").val();
-       								jobj.s_statement = "결제 완료";
-       								
+       								jobj.s_statement = "결제 완료";     								
        								jArray.push(jobj);
        							});
        					var stringJson = JSON.stringify(jArray);
-
-       					$("#orderList").val(stringJson);            
-               
-               $("#payForm").submit();
+       					$("#orderList").val(stringJson);                          
+						$("#payForm").submit();
             } else {
                alert('결제에 실패하였습니다.');
             }
          });
          
     	  }else{
-    		  alert("무통장 입금한다");
+    		  alert("무통장 입금으로 결제를 진행합니다.");
+    		  var jArray = new Array();
+					//JsonArray를 위한 배열생성
+
+					$('.eachOrder').each(
+							function() {
+								var jobj = new Object();
+								//JsonObject를 위한 객체생성
+								jobj.s_email = "${loginId}";
+								jobj.s_phone = $("#recvPhone1").val()+"-"+$("#recvPhone2").val()+"-"+$("#recvPhone3").val();
+								jobj.s_p_no = $(this).find("input:nth-child(1)").val();
+								jobj.s_p_imagepath = $(this).find("input:nth-child(2)").val();
+								jobj.s_p_title = $(this).find("input:nth-child(3)").val();
+								jobj.s_p_count = $(this).find("input:nth-child(4)").val();
+								jobj.s_p_price = $(this).find("input:nth-child(5)").val();
+								jobj.s_m_recipient = $("#recipient_user_name").val();
+								jobj.s_m_memo = $("#shipMemo").html();
+								jobj.s_m_paymethod = "무통장 입금";
+								jobj.s_m_zipcode = $("#zipcode").val();
+								jobj.s_m_address1 = $("#address1").val();
+								jobj.s_m_address2 = $("#address2").val();
+								jobj.s_statement = "입금 대기";						
+								jArray.push(jobj);
+							});
+					var stringJson = JSON.stringify(jArray);
+					$("#orderList").val(stringJson);            
+					$("#payForm").submit();
+
     	  } 
 		}else{
 			alert("필수 항목을 모두 입력해주세요.");

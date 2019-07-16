@@ -121,6 +121,13 @@
       $("#myGardenTitle").on("click", function() {
          $(location).attr("href", "/")
       });
+      
+      /* 검색기능 by 지혜 */
+      $("#searchBtn").on("click", function(){
+    	  var keyword = $("#keyword").val();
+    	  console.log(keyword);
+    	  $(location).attr("href", "searchKeyword?keyword=" + keyword);
+      })
    });
 </script>
 
@@ -220,10 +227,10 @@
                         <li class="nav-item ml-3">
                            <form class="form-inline my-2 my-lg-0">
                               <div class="input-group topAnchorSearch">
-                                 <input class="form-control menuSearch ml-4" type="search"
-                                    placeholder="Search..." aria-label="Search"
+                                 <input id="keyword" class="form-control menuSearch ml-4" type="search"
+                                    placeholder="검색할 상품 입력" aria-label="Search"
                                     aria-describedby="basic-addon2">
-                                 <div class="input-group-append">
+                                 <div id="searchBtn" class="input-group-append">
                                     <button class="btn btn-outline-secondary mr-4" type="button"
                                        id="button-addon2">&telrec;</button>
                                  </div>

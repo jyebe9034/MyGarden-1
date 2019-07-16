@@ -89,4 +89,14 @@ public class ProductsServiceImpl implements ProductsService {
 			return -1;
 		}
 	}
+	
+	@Transactional("txManager")
+	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword){
+		try {
+			return pdao.selectProductsListByKeyword(start, end, keyword);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

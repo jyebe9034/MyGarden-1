@@ -140,6 +140,7 @@
 		var page = 1;
 		var documentHeight, windowHeight, scrollTop;
 		var category = "${category}";
+		var keyword = "${keyword}";
 		
 		$(window).scroll(function() {
 			documentHeight = $(document).height();
@@ -157,7 +158,8 @@
 						dataType : "json",
 						data : {
 							page : page,
-							category : category
+							category : category,
+							keyword : keyword
 						}
 					}).done(function(resp){
 						if(resp.length < 1){

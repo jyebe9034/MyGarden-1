@@ -12,4 +12,5 @@ public interface ProductsService {
 	public ProductsDTO selectOneProductService(int pnumber);
 	public int deleteProductService(int pnumber);
 	public int updateProductService(ProductsDTO dto);
+	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword);
 }

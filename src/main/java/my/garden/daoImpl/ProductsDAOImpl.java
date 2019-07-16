@@ -79,12 +79,23 @@ public class ProductsDAOImpl implements ProductsDAO {
 	
 	public int updateProduct(ProductsDTO dto) {
 		try {
-			System.out.println(dto.getP_no());
-			System.out.println(dto.getP_category());
 			return sst.update("ProductsDAO.updateProduct", dto);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;
+		}
+	}
+	
+	public List<ProductsDTO> selectProductsListByKeyword(int start, int end, String keyword){
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		try {
+			return sst.selectList("ProductsDAO.selectProductsListByKeyword", map);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

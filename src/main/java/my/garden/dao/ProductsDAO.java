@@ -12,4 +12,5 @@ public interface ProductsDAO {
 	public ProductsDTO selectOneProduct(int pnumber);
 	public int deleteProduct(int p_no);
 	public int updateProduct(ProductsDTO dto);
+	public List<ProductsDTO> selectProductsListByKeyword(int start, int end, String keyword);
 }

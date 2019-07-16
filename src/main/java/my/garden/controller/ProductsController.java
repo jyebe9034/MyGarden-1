@@ -85,7 +85,6 @@ public class ProductsController {
 
 	@RequestMapping(value={"fruit", "vegetable", "egg", "grain", "source"})
 	public String selectFruitsList(Model model, String category) {
-		System.out.println(category);
 		int start = 1;
 		int end = start+5;
 		try {
@@ -107,6 +106,7 @@ public class ProductsController {
 			List<ProductsDTO> result = pservice.selectProductsListByPageService(start, end);
 			model.addAttribute("result", result);
 			model.addAttribute("category", "all");
+			model.addAttribute("keyword","all");
 			return "products/productsList";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -116,14 +116,16 @@ public class ProductsController {
 
 	@ResponseBody
 	@RequestMapping("selectProductsByPage")
-	public List<ProductsDTO> selectProductsListByPage(int page, String category){
+	public List<ProductsDTO> selectProductsListByPage(int page, String category, String keyword){
 		int end = page*6;
 		int start = end-5;
 		try {
-			if(category.equals("all")) {
+			if(category.equals("all") && keyword.equals("all")) {
 				return pservice.selectProductsListByPageService(start, end);
-			}else {
+			}else if(keyword.equals("all")) {
 				return pservice.selectProductsListByCategoryService(start, end, category);
+			}else {
+				return pservice.selectProductsListByKeywordService(start, end, keyword);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -152,7 +154,6 @@ public class ProductsController {
 				if(result > 0) {
 					continue;
 				}else {
-					System.out.println("삭제 중 오류발생");
 					break;
 				}
 			}
@@ -184,7 +185,6 @@ public class ProductsController {
 	
 	@RequestMapping("productEditFin")
 	public String updateProduct(Model model, ProductsDTO dto) {
-		System.out.println("글번호" + dto.getP_no());
 		String resourcePath = session.getServletContext().getRealPath("/resources");
 		String title = dto.getP_title();
 		try {
@@ -192,7 +192,6 @@ public class ProductsController {
 			dto.getImage().transferTo(newFile);
 			dto.setP_imagepath("/resources/products/" + title + "/" + newFile.getName());
 			int result = pservice.updateProductService(dto);
-			System.out.println("수정결과 : " + result);
 			model.addAttribute("pno", dto.getP_no());
 			model.addAttribute("result", result);
 			if(result > 0) {
@@ -213,4 +212,18 @@ public class ProductsController {
 		return "products/updateCheck";
 	}
 	
+	@RequestMapping("searchKeyword")
+	public String selectProductsListByKeyword(Model model, String keyword) {
+		int start = 1;
+		int end = start+5;
+		try {
+			List<ProductsDTO> result = pservice.selectProductsListByKeywordService(start, end, keyword);
+			model.addAttribute("result", result);
+			model.addAttribute("keyword", keyword);
+			return "products/productsList";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
