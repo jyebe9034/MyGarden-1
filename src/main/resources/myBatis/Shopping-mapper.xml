@@ -10,7 +10,15 @@
 		delete from cart where c_m_email = #{c_m_email} and c_p_no = #{c_p_no}
 </delete>
 
+<delete id="delExpiredCart">
+		delete from cart where sysdate - cast(c_selectdate as date) >= 7
+</delete>
 
+<insert id="insertIntoShopList">
+		insert into shoplist values(s_orderno_seq.nextval,#{s_orderno},#{s_email},#{s_p_no},
+		#{s_p_imagepath},#{s_p_title},#{s_p_count},#{s_p_price},#{s_m_recipient},
+		#{s_m_memo},#{s_m_zipcode},#{s_m_address1},#{s_m_address2},#{s_statement}, 'n')
+</insert>
 
 
 </mapper>

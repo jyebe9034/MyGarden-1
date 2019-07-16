@@ -4,6 +4,7 @@ import java.util.List;
 
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 
 public interface ShoppingService {
 	
@@ -12,4 +13,6 @@ public interface ShoppingService {
 	public int delFromCart(String userId, CartDTO dto) throws Exception;
 	
 	public MembersDTO getMember(MembersDTO dto, String id) throws Exception;
+	
+	public void insertIntoShopList(List<ShopListDTO> list) throws Exception;
 }

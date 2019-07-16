@@ -168,7 +168,11 @@
 								<li class="nav-item"><a class="nav-link mt-2" href="#">공유정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">비밀정원</a></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="#">About&nbsp;&nbsp;|</a></li>
+<<<<<<< HEAD
 								<li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>
+=======
+								<li class="nav-item"><a class="nav-link mt-2" href="#">자유게시판</a></li>
+>>>>>>> d8d5a6304a3688eb55cec3e91c939f52efaf1557
 								<li class="nav-item"><a class="nav-link" href="#"> 
 									<img src="resources/img/person.png" width="40" height="40" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
 									<img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">

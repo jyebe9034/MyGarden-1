@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 import my.garden.service.ShoppingService;
 
 @Controller
@@ -68,6 +69,19 @@ public class ShoppingController {
 			return "error";
 		}
 		return "shopping/order";
+	}
+	
+	@RequestMapping(value = "orderComplete")
+	public String orderComplete(HttpServletRequest request, String orderList) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			List<ShopListDTO> list = Arrays.asList(mapper.readValue(orderList, ShopListDTO[].class));
+			shsvc.insertIntoShopList(list);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}	
+		return "shopping/orderComplete";
 	}
 
 }
