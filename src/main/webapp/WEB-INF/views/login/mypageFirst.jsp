@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- header -->
-	<jsp:include page="../module/fixedHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
 <!-- 	images -->
 	<div class="container-fluid imageContainer m-0 p-0 my">
 		<div class="row my">

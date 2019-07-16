@@ -27,7 +27,7 @@
        <c:when test="${loginName!=null}">
        
 <!-- after login header -->
-	<jsp:include page="module/fixedHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
 	
        </c:when>
        <c:otherwise>
