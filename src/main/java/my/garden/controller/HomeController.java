@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 
+
 	@Autowired
 	HttpSession session;
 	
@@ -19,5 +20,15 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	@RequestMapping("productsAdd")
+	   public String toProductsAdd() {
+	      return "products/productsAdd";
+	   }
+	   
+	   @RequestMapping("subscription")
+	   public String toSubscribe() {
+	      return "subscription/subscription";
+	   }
 
 }
