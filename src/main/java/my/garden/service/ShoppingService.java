@@ -14,5 +14,9 @@ public interface ShoppingService {
 	
 	public MembersDTO getMember(MembersDTO dto, String id) throws Exception;
 	
-	public void insertIntoShopList(List<ShopListDTO> list) throws Exception;
+	public void insertIntoShopList(List<ShopListDTO> list, Long orderNo, String id) throws Exception;
+
+	public List<List<ShopListDTO>> getOrderList(String id) throws Exception;
+	
+
 }

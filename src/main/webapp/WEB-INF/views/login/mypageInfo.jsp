@@ -433,6 +433,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				<div class="list-group">
 				  <a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
 				  <a href="#" class="list-group-item list-group-item-action currentActive">내 정보 수정</a>
+				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
 				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 				</div>
 			</div>

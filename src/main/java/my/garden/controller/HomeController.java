@@ -13,10 +13,10 @@ public class HomeController {
 
 	@Autowired
 	HttpSession session;
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-
+		
 		return "home";
 	}
 

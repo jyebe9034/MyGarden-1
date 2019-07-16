@@ -8,6 +8,10 @@
 <title>나의 정원 - 마이페이지</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
+.wrapper{
+	margin-bottom : 200px;
+}
+
 </style>
 </head>
 <body>
@@ -35,7 +39,7 @@
 	</div>
 	
 <!-- 	contents -->
-	<div class="container my">
+	<div class="container my wrapper">
 		<div class="row text-center mt-5 my">
 			
 		<jsp:include page="/WEB-INF/views/module/mypage.jsp"/>
@@ -45,7 +49,7 @@
 				<div class="list-group">
 				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
-				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
 				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 				</div>
 			</div>
