@@ -3,9 +3,14 @@ package my.garden.serviceImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import my.garden.dao.LoginDAO;
 import my.garden.dto.MembersDTO;
@@ -15,6 +20,8 @@ public class LoginService {
 
 	@Autowired
 	LoginDAO logDao;
+	@Autowired
+	HttpServletRequest request;
 	
 	public int joinSubmit(MembersDTO dto, MultipartFile ex_file) {
 		logDao.profile(dto, ex_file);
@@ -103,6 +110,26 @@ public class LoginService {
 		map.put("whereCol", "m_email");
 		map.put("value", m_email);
 		return logDao.findAccountChange(map);
+	}
+	
+	public String naverLogin() {
+		return logDao.NaverLoginMakeUrl();
+	}
+	
+	public String NaverLoginCallback() throws Exception{
+		return logDao.NaverLoginCallback();
+	}
+	
+	public String NaverLoginGetInfo(String code) {
+		String socialEmail = logDao.NaverLoginGetInfo(code);
+		String check = logDao.emailDupCheck(socialEmail);
+        return socialEmail;
+	}
+	
+	public int socialJoinSubmit(MembersDTO dto) {
+		dto.setM_social(request.getSession().getAttribute("social").toString());
+		dto.setM_ipaddress(request.getRemoteAddr());
+		return logDao.socialJoinSubmit(dto);
 	}
 	
 }
