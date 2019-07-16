@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dao.BoardQnADAO;
@@ -101,10 +102,31 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sb.toString();
 	}
 
-	public BoardQnADTO readQnA(int bq_no) {
-		
+	public BoardQnADTO readQnA(int bq_no, String mine) {		
 		return sst.selectOne("boardQnAMB.readQnA", bq_no);
 	}
-
+	
+	public int updateQnA(BoardQnADTO dto, int bq_no) {
+//		Map<String,Object> map = new HashMap<>();
+//		map.put("bq_checkedSecret", dto.getBq_checkedSecret());
+//		map.put("bq_title", dto.getBq_title());
+//		map.put("bq_content", dto.getBq_content());
+//		map.put("bq_imagepath1", dto.getBq_imagepath1());
+//		map.put("bq_imagepath2", dto.getBq_imagepath2());
+//		map.put("bq_imagepath3", dto.getBq_imagepath3());
+//		
+		return sst.update("boardQnAMB.updateQnA", dto);
+	}
+	
+	/*관리자확인*/
+	public String checkAdmin(String m_email) {
+		return sst.selectOne("boardQnAMB.checkAdmin", m_email);
+	}
+	
+	public int writeComment() {
+		return sst.insert("boardQnAMB.writeComment");
+	}
+	public int setAnsY(int cq_no) {
+		return sst.update("boardQnAMB.setAnsY");	}
 	
 }

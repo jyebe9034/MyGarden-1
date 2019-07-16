@@ -64,8 +64,12 @@
 		
 		$(".writeBtn").on("click",function(){
 			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
-			alert(checkedSecret);
-			$("#secretBtn").val(checkedSecret);
+			alert("checkedSecret : " + checkedSecret);
+// 			if(checkedSecret==true){
+// 				$("#secretBtn").val("y");	
+// 			}
+			$(this).val(checkedSecret);
+			
 			var inputContent = $("#inputContent").html();
 			$("#content").val(inputContent);
 			$("#writeQnAForm").submit();

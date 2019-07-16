@@ -41,10 +41,22 @@ public class BoardReviewAndQnAController {
 
 	@RequestMapping("productsRead")
 	public String toProductsRead(int pnumber, Model model, HttpServletRequest request, int revPage, int qnaPage) {
-	
+		
+		/*관리자 체크*/
+		String id = (String) session.getAttribute("loginId");
+		String checkAdmin;
+		try {
+			checkAdmin = qnaService.checkAdmin(id);
+			System.out.println("관리자체크? : " + checkAdmin);
+			request.setAttribute("checkAdmin", checkAdmin);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		
 		revPage = Integer.parseInt(request.getParameter("revPage"));
 		qnaPage = Integer.parseInt(request.getParameter("qnaPage"));
-
+				
 		int br_p_no = pnumber; 
 
 		int startNum = (5 * revPage) - 4;
@@ -88,9 +100,11 @@ public class BoardReviewAndQnAController {
 
 		String id = (String) session.getAttribute("loginId"); 
 		int br_p_no = (int) session.getAttribute("pnumber");
-
+		String name = (String) session.getAttribute("loginName");
+		System.out.println("name : " + name);
 		dto.setBr_p_no(br_p_no);
-		dto.setBr_name(id);
+		dto.setBr_email(id);
+		dto.setBr_name(name);
 		
 		//System.out.println("이미지" + image);
 		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
@@ -130,16 +144,17 @@ public class BoardReviewAndQnAController {
 	@RequestMapping("recommend")
 	public Map<String, Object> recommend(HttpServletRequest request, BoardReviewDTO dto) {
 		String br_email = (String) session.getAttribute("loginId");
-		int br_no = (int) session.getAttribute("pnumber");
+		int br_no = Integer.parseInt(request.getParameter("br_no"));
 		String br_title = request.getParameter("br_title");
-		//System.out.println("br_no (recommendCount): " + br_no);
-		//System.out.println("br_email (recommendCount): " + br_email);
+//		System.out.println("br_no (recommendCount): " + br_no);
+//		System.out.println("br_title (recommendCount): " + br_title);
+//		System.out.println("br_email (recommendCount): " + br_email);
 		int br_recommend = dto.getBr_recommend();
-
+//		System.out.println("br_recommend : " + br_recommend);
 		Map<String, Object> result = new HashMap<>();
 		//	result.put("br_no", br_no);
 		try {
-			//System.out.println("원래 도움돼요 수 : " + brService.recommendCount(br_recommend, br_no));
+//			System.out.println("원래 도움돼요 수 : " + brService.recommendCount(br_recommend, br_no));
 			int recommendCheck = brService.recommendCheck(br_no, br_email);
 			if(recommendCheck > 0) { //도움돼요 취소
 				brService.recommendDelete(br_no, br_email);
@@ -152,7 +167,7 @@ public class BoardReviewAndQnAController {
 			}
 			int recommendCount = brService.recommendCount(br_recommend, br_no);
 			result.put("recommendCount", recommendCount);
-			System.out.println("도움돼요 수 : " + brService.recommendCount(br_recommend, br_no));
+//			System.out.println("도움돼요 수 : " + brService.recommendCount(br_recommend, br_no));
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -176,7 +191,7 @@ public class BoardReviewAndQnAController {
 		int br_no = Integer.parseInt(request.getParameter("br_no"));
 		String br_title = request.getParameter("br_title");
 		String br_content = request.getParameter("br_content");
-		String id = "aa"; //session에 담은 아이디가져오기
+		String id = (String) session.getAttribute("loginId"); 
 		Map<String, Object> map = new HashMap<>();
 		//		map.put("br_imagepath", dto.getBr_imagepath());
 		System.out.println("br_imagepath 처음 : "+dto.getBr_imagepath());
@@ -236,16 +251,22 @@ public class BoardReviewAndQnAController {
 	}
 	@RequestMapping("writeQnA")
 	public String writeQnA(HttpServletRequest request, BoardQnADTO dto, MultipartFile image) {
+		System.out.println("writeQnAㅡㅡ");
 		String checkedSecret = request.getParameter("checkedSecret");
-		//System.out.println("checkbox: " + checkedSecret);
-		dto.bq_checkedSecret(checkedSecret);
-
+		if(checkedSecret==null) {
+			dto.setBq_checkedSecret("n");
+		}else{
+			dto.setBq_checkedSecret("y");
+		}
 		String id = (String) session.getAttribute("loginId");
+		String name = (String) session.getAttribute("loginName");
 		//String writer = (String) session.getAttribute("loginName");
 		System.out.println("loginId : " + id);
 		int bq_p_no = (int) session.getAttribute("pnumber");
-		dto.setBq_writer(id);
+		dto.setBq_email(id);
+		dto.setBq_name(name);
 		dto.setBq_p_no(bq_p_no);
+		System.out.println(dto.getBq_title());
 		if(!image.isEmpty()) { //이미지 들어있으면 
 			String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
 			File dir = new File(path + id + "/"); //폴더경로
@@ -279,16 +300,52 @@ public class BoardReviewAndQnAController {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("checkedSecret", dto.getBq_checkedSecret());
-
 		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + bq_p_no;
 
 	}
 
-	@RequestMapping("qnaRead")
-	public String qnaRead(HttpServletRequest request, int bq_no) throws Exception {	
-		request.setAttribute("qnaRead", qnaService.readQnA(bq_no));
+	@RequestMapping("readQnA")
+	public String readQnA(HttpServletRequest request, int bq_no, String mine) throws Exception {	
+		//System.out.println("mine?" + mine);
+		request.setAttribute("mine", mine);
+		request.setAttribute("readQnA", qnaService.readQnA(bq_no, mine));
+		
+		/*관리자 체크*/
+		String id = (String) session.getAttribute("loginId");
+		String checkAdmin = qnaService.checkAdmin(id);
+		request.setAttribute("checkAdmin", checkAdmin);
+		
 		return "/boardProducts/qnaRead";
 	}
 
+	@RequestMapping("updateQnAForm")
+	public String updateQnAForm(HttpServletRequest request,int bq_no) throws Exception {	
+		request.setAttribute("readQnA", qnaService.readQnA(bq_no, "y"));		
+		return "/boardProducts/qnaUpdateForm";
+	}
+	
+	@RequestMapping("updateQnA") 
+	public String updateQnA(HttpServletRequest request,BoardQnADTO dto,int bq_no) throws Exception {	
+		bq_no = Integer.parseInt(request.getParameter("bq_no"));
+
+		String title = request.getParameter("bq_title");
+		String checkedSecret = request.getParameter("checkedSecret");
+		if(checkedSecret==null) {
+			dto.setBq_checkedSecret("n");
+		}else{
+			dto.setBq_checkedSecret("y");
+		}
+		qnaService.updateQnA(dto, bq_no);
+		
+		return "redirect:/readQnA?mine=y&bq_no="+bq_no;
+	}
+	
+	@ResponseBody
+	@RequestMapping("writeComment"){
+		//에이젝스로 관리자 답변..
+	}
+	
+	
+	
+	
 }

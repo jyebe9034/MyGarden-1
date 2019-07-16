@@ -58,12 +58,12 @@
 <!-- script -->
 <script>
 	$(function(){
-		$(".goMainBtn").on("click",function(){
-			$(location).attr("href","/");
+		$(".goBackBtn").on("click",function(){
+			history.back();
 		})
 		
 		$(".writeBtn").on("click",function(){
-			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
+			var checkedSecret = $("#secretBtn").prop("checked"); 
 			alert(checkedSecret);
 			$("#secretBtn").val(checkedSecret);
 			var inputContent = $("#inputContent").html();
@@ -97,11 +97,12 @@
 	<div id="wrapper">
 		<span>문의 수정하기</span>
 		<hr>
-		<form action="writeQnA" id="writeQnAForm" method="post" enctype="multipart/form-data">
+		<form action="updateQnA" id="writeQnAForm" method="post" enctype="multipart/form-data">
 		  <div class="form-group row">
 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputTitle" name="bq_title" value="${qnaRead.bq_title }">
+		      <input type=hidden name="bq_no" value="${readQnA.bq_no }">
+		      <input type="text" class="form-control" id="inputTitle" name="bq_title" value="${readQnA.bq_title }">
 		    </div>
 		  </div>
 		  <div class="form-group form-check row secretBtnRow">
@@ -111,7 +112,7 @@
 		 <div class="form-group row">
 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
 		    <div class="col-sm-10">
-               <div contenteditable="true" id="inputContent">${qnaRead.bq_content }</div>
+               <div contenteditable="true" id="inputContent">${readQnA.bq_content }</div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>
@@ -126,8 +127,8 @@
 			
 		  <div class="form-group row">
 		    <div class="col-sm-10 d-flex justify-content-center btns">
-		      <button type="button" class="btn goMainBtn" >메인으로</button>
-		      <button type="submit" class="btn writeBtn" >등록</button>
+		      <button type="button" class="btn goBackBtn" >돌아가기</button>
+		      <button type="submit" class="btn writeBtn" >수정</button>
 		    </div>
 		  </div>		  
 		</form>

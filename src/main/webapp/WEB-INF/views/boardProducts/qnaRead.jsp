@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -80,17 +81,26 @@
 <!-- script -->
 <script>
 	$(function(){
-		$(".goMainBtn").on("click",function(){
-			$(location).attr("href","/");
+		$(".goBackBtn").on("click",function(){
+			//$(location).attr("href","/");
+			var pnumber = ${readQnA.bq_p_no};
+			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
+			
 		})
 		
-		$(".writeBtn").on("click",function(){
-			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
-			alert(checkedSecret);
-			$("#secretBtn").val(checkedSecret);
-			var inputContent = $("#inputContent").html();
-			$("#content").val(inputContent);
-			$("#writeQnAForm").submit();
+// 		$(".writeBtn").on("click",function(){
+// 			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
+// 			alert(checkedSecret);
+// 			$("#secretBtn").val(checkedSecret);
+// 			var inputContent = $("#inputContent").html();
+// 			$("#content").val(inputContent);
+// 			$("#writeQnAForm").submit();
+// 		})
+		
+		$(".updateBtn").on("click",function(){
+			var bq_no = ${readQnA.bq_no};
+			
+			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
 		
 		
@@ -123,7 +133,7 @@
 		  <div class="form-group row">
 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
 		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputTitle" name="bq_title" value="${qnaRead.bq_title }" readOnly>
+		      <input type="text" class="form-control" id="inputTitle" name="bq_title" value="${readQnA.bq_title }" readOnly>
 		    </div>
 		  </div>
 <!-- 		  <div class="form-group form-check row secretBtnRow"> -->
@@ -133,7 +143,7 @@
 		 <div class="form-group row">
 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
 		    <div class="col-sm-10">
-               <div contenteditable="false" id="inputContent">${qnaRead.bq_content }</div>
+               <div contenteditable="false" id="inputContent">${readQnA.bq_content }</div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>
@@ -148,29 +158,37 @@
 			
 		  <div class="form-group row">
 		    <div class="col-sm-12 d-flex justify-content-end btns">
-		      <button type="button" class="btn goMainBtn" >메인으로</button>
-		      <button type="submit" class="btn updateBtn" >수정</button>
+		      <button type="button" class="btn goBackBtn" >돌아가기</button>
+		      <c:choose>
+				<c:when test="${mine eq 'y'}">
+					<button type="button" class="btn updateBtn" >수정</button>	
+				</c:when>
+			 </c:choose>
+		      
 		    </div>
 		  </div>		  
 		</form>
 		
-		<!-- ========================답변============================== -->
-
-		<div id="AnswerWrapper">
-			<div class="form-group row">
-				<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
-				<div class="col-sm-10">
-
-					<div contenteditable="true" id="inputComment"></div>
-					<input type="hidden" class="form-control" id="cq_comment"
-						name="cq_comment">
+		<c:if test="${checkAdmin eq 'admin' }">
+		<!-- ========================답변(관리자만 가능)============================= -->
+	
+			<div id="AnswerWrapper">
+				<div class="form-group row">
+					<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
+					<div class="col-sm-10">
+	
+						<div contenteditable="true" id="inputComment"></div>
+						<input type="hidden" class="form-control" id="cq_comment"
+							name="cq_comment">
+					</div>
+				</div>
+	
+				<div class="row d-flex justify-content-end">
+					<button class="btn commentBtn">답변등록</button>
 				</div>
 			</div>
-
-			<div class="row d-flex justify-content-end">
-				<button class="btn commentBtn">답변등록</button>
-			</div>
-		</div>
+		</c:if>
+		
 
 
 

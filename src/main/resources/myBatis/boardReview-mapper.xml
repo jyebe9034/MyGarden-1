@@ -4,7 +4,7 @@
 
 	<!-- 글작성 -->
 	<insert id="writeReview">
-		insert into board_review values(#{br_p_no},board_review_seq.nextval,#{br_imagepath,jdbcType=VARCHAR},#{br_title},#{br_name,jdbcType=VARCHAR},#{br_content},default,default)
+		insert into board_review values(#{br_p_no},board_review_seq.nextval,#{br_imagepath,jdbcType=VARCHAR},#{br_title},#{br_email},#{br_name},#{br_content},default,default)
 	</insert>
 	<!-- 상세페이지에서 후기목록-->
 	<select id="reviewList" resultType="my.garden.dto.BoardReviewDTO" parameterType="hashmap">

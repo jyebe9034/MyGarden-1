@@ -144,6 +144,10 @@
 	.qnaTitleRow{
 	 text-align : center;
 	}
+	.qnaTitle:hover{
+		cursor: pointer;
+		font-weight: bolder;
+	}
 </style>
 
 <script>
@@ -170,11 +174,12 @@
 			})
 			
 			/*추천 수(도움돼요)증가*/
-			$(".recommendBtn").on("click",function(){
+			$(document).on("click",".recommendBtn",function(){
 				var br_no = $(this).next().val();
+				var email = '${loginId}';
 				console.log("클릭한글번호:"+br_no);
 				  var data = {
-							br_email : "aa",
+							br_email : email,
 							br_no : br_no,
 	 						//br_title : $(this).prev().val()		
 							br_title : "제목 ㅋ"
@@ -193,9 +198,11 @@
  					console.log("도움돼요 취소 : " + result.recommendDelete);
  					var recommendCount = result.recommendCount;
 					console.log("도움돼요 수 : " + result.recommendCount);
+				
 					if(recommend=1){ //추천
 						$("."+br_no+"").prev().html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
-					}else if(cancelRecommend=1){ //추천 취소(사진왜 안바뀌냐고ㅡㅡ)
+					}else if(cancelRecommend=0){ //추천 취소(사진왜 안바뀌냐고ㅡㅡ)
+						alert("일로오냐고ㅡㅡ"); //못옴 ㅠ
 						$("."+br_no+"").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
 					}
 					//location.reload(true); //자동새로고침
@@ -260,11 +267,31 @@
 				$('html, body').animate({scrollTop : offset.top - 100}, 10);
 			})
 			
+		
+			
 			$(".qnaTitle").on("click",function(){
+				var checkedSecret = $(this).prev().val();
+				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
-				alert("bq_no : " + bq_no);
-				$(location).attr("href","qnaRead?bq_no="+bq_no);
+				var writer = $(this).prev().prev().val();
+				alert("writer : " + writer);
+				alert("admin : " + "${checkAdmin}");
+				
+				if("${checkAdmin}"=="admin"){
+					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no);	
+				}else if(checkedSecret=="y" & writer!="${loginId}"){					
+					alert("비밀글은 작성자만 볼 수 있습니다.");
+				}else{
+// 					alert("bq_no : " + bq_no);
+					if(writer=="${loginId}"){ //내 글을 클릭했을 때
+						$(location).attr("href","readQnA?mine=y&bq_no="+bq_no);		
+					}else{
+						$(location).attr("href","readQnA?mine=n&bq_no="+bq_no);	
+					}
+					
+				}
 			})
+			
 			
 			
 	})
@@ -322,13 +349,12 @@
 									</div>
 									<div class="reviewRecommend" value="${reviewList.br_recommend}">
 										<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>
-										<span class="mb-1 recommendBtn"> <img
-											src="/resources/img/reviewHate.png" width="25px"
+										<span class="mb-1 recommendBtn"> 
+										<img src="/resources/img/reviewHate.png" width="25px"
 											class="recommendImage">
 										</span> <input type="hidden" class="${reviewList.br_no}"
 											value="${reviewList.br_no}"> 도움돼요 <span
 											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
-
 									</div>
 									<div class="reviewUpdateBtn d-flex justify-content-end">
 										<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
@@ -389,13 +415,27 @@
 					</div>
 					<div class="row qnaRow">
 						<c:forEach var="qnaList" items="${qnaList }">
-							<div class="col-2">${qnaList.bq_no }</div>
-							<div class="col-6">
-								<button class="btns" disabled="disabled">답변완료</button>
+							<div class="col-1">${qnaList.bq_no }</div>
+							<div class="col-2 checkedAnsBtn">
+								<c:choose>
+									<c:when test="${qnaList.bq_checkedAns eq 'y'}">
+										<button class="btns" disabled="disabled">답변완료</button>
+									</c:when>
+								</c:choose>
+									<input type="hidden" class="checkedAns" value="${qnaList.bq_checkedAns }">
+							</div>
+							<div class="col-5">
+								<input type="hidden" class="hidQnAWriter" value="${qnaList.bq_email}">
+								<input type="hidden" class="hidCheckedSecret" value="${qnaList.bq_checkedSecret }">
 								<span class="qnaTitle">${qnaList.bq_title }</span>
 								<input type="hidden" value="${qnaList.bq_no }">
+								<c:choose>
+									<c:when test="${qnaList.bq_checkedSecret eq 'y'}">
+										<img src="/resources/img/boardQnALock.JPG" width="15px">
+									</c:when>
+								</c:choose>
 							</div>
-							<div class="col-2">${qnaList.bq_writer }</div>
+							<div class="col-2">${qnaList.bq_name }</div>
 							<div class="col-2">
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${qnaList.bq_writedate }"/>
 							</div>
