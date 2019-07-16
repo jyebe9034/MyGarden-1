@@ -29,7 +29,8 @@
 		padding : 0px;
 	}
 	#viewheight{
-		height : 100vh;;
+		height : 100vh;
+		margin : auto;
 	}
 	#header{
 		overflow : hidden;
@@ -56,6 +57,17 @@
 	.anker:hover{
 		cursor : pointer;
 	}
+	.check{
+		text-align : left;
+	}
+	#deleteBtn{
+		background-color : #44b27d;
+		color : white;
+	}
+	#deleteBtn:hover{
+		background-color : #b4d9b5;
+		color : white;
+	}
 </style>
 <script>
 	$(function(){
@@ -67,6 +79,15 @@
 			var pnumber = $(this).attr("pnumber");
 			location.href = "productsRead?pnumber=" + pnumber;
 		})
+		
+		var arr = [];
+		$("#wrap").on("click", ".checkDelete", function(){
+			var checked = $(this).val();
+			arr.push(checked);
+			$("#deleteBtn").on("click", function(){
+				location.href = "productsDelete?arr=" + checked;
+			})
+		})
 	})
 </script>
 </head>
@@ -76,15 +97,25 @@
 		<div id="header">
 			<img id="titleImg" src="resources/img/smtomato.jpg">
 		</div>
-		<div id="viewheight" class="container">
-			<div id="sharedWrap" class="row">
-				<img id="sharedFarm" src="resources/img/sharedFarm.jpg">
-				<div id="sharedTitle">공유 정원</div>
-			</div>
-			<div id="wrap">
+		<div id="viewheight" class="container-fluid">
+			<div id="wrap" class="container">
+				<div id="sharedWrap" class="row">
+					<img id="sharedFarm" src="resources/img/sharedFarm.jpg">
+					<div id="sharedTitle">공유 정원</div>
+				</div>
+				<c:if test="${grade=='admin'}">
+					<div class="row">
+						<input id="deleteBtn" class="btn btn-sm" type="button" value="삭제">
+					</div>
+				</c:if>
 				<div class="row articles">
 					<c:forEach var="list" items="${result}">
 						<div class="col-4 article">
+							<c:if test="${grade=='admin'}">
+								<div class="check">
+									<input type="checkbox" class="checkDelete" name="checked" value="${list.p_no}">
+								</div>
+							</c:if>
 							<div class="card cards" style="width: 18rem;">
 							  <img src="${list.p_imagepath}" class="card-img-top eachImg">
 							  <div class="card-body anker" pnumber="${list.p_no}">
@@ -96,11 +127,12 @@
 					</c:forEach>
 				</div>
 			</div>
+			<div id="listFooter">
+				<jsp:include page='../module/fixedFooter.jsp'/>
+			</div> 
 		</div>
 	</div>
-	<%-- <div id="listFooter">
-		<jsp:include page='../module/fixedFooter.jsp'/>
-	</div> --%>
+	
 	
 	<script>
 		<!-- infinite scroll구현 부분 -->
@@ -132,11 +164,27 @@
 							isEnd = true;
 						}else{
 							for(var i = 0; i < resp.length; i++){
-								$(".articles").append("<div class='col-4 article'><div class='card cards' style='width: 18rem;'>"
-								+ "<img class='card-img-top eachImg' src='" + resp[i].p_imagepath +"'>"
-								+ "<div class='card-body anker' pnumber='" + resp[i].p_no + "'><h5 class='card-title title'>" + resp[i].p_title 
-								+ "</h5><p class='card-text price'>" + numberWithCommas(resp[i].p_price) + "</p></div></div></div>");
-							}	
+								var root = $("<div class='col-4 article'></div>");
+								<c:if test="${grade == 'admin'}">
+									var tmp = $("<div class='check'></div>");
+									tmp.append( "<input type='checkbox' class='checkDelete' name='checked' value=" + resp[i].p_no +">");
+									$(root).append(tmp);
+								</c:if>
+								
+								var divCards = $("<div class='card cards' style='width: 18rem;'></div>");
+								var imgEach = $("<img class='card-img-top eachImg' src='" + resp[i].p_imagepath +"'>");
+								var cb_anker = $("<div class='card-body anker' pnumber='" + resp[i].p_no + "'></div>");
+								var h5title = $("<h5 class='card-title title'>" + resp[i].p_title  + "</h5>");
+								var priceP = $("<p class='card-text price'>" + numberWithCommas(resp[i].p_price) + "</p>");
+								
+								$(cb_anker).append(h5title);
+								$(cb_anker).append(priceP);
+								
+								$(divCards).append(imgEach);
+								$(divCards).append(cb_anker);
+								$(root).append(divCards);
+								$(".articles").append(root);
+							}
 						}
 					})
 				}

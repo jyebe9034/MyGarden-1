@@ -10,4 +10,6 @@ public interface ProductsService {
 	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category);
 	public List<ProductsDTO> selectProductsListByPageService(int start, int end);
 	public ProductsDTO selectOneProductService(int pnumber);
+	public int deleteProductService(int pnumber);
+	public int updateProductService(ProductsDTO dto);
 }

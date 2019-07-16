@@ -10,4 +10,6 @@ public interface ProductsDAO {
 	public List<ProductsDTO> selectProductsListByCategory(int start, int end, String Category);
 	public List<ProductsDTO> selectProductsListByPage(int start, int end);
 	public ProductsDTO selectOneProduct(int pnumber);
+	public int deleteProduct(int p_no);
+	public int updateProduct(ProductsDTO dto);
 }

@@ -67,4 +67,24 @@ public class ProductsDAOImpl implements ProductsDAO {
 			return null;
 		}
 	}
+	
+	public int deleteProduct(int p_no) {
+		try {
+			return sst.delete("ProductsDAO.deleteProduct", p_no);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	public int updateProduct(ProductsDTO dto) {
+		try {
+			System.out.println(dto.getP_no());
+			System.out.println(dto.getP_category());
+			return sst.update("ProductsDAO.updateProduct", dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }

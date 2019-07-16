@@ -142,4 +142,75 @@ public class ProductsController {
 			return null;
 		}
 	}
+	
+	@RequestMapping("productsDelete")
+	public String deleteProducts(String[] arr, Model model) {
+		int result = 0;
+		try {
+			for(int i = 0; i < arr.length; i++) {
+				result = pservice.deleteProductService(Integer.parseInt(arr[i]));
+				if(result > 0) {
+					continue;
+				}else {
+					System.out.println("삭제 중 오류발생");
+					break;
+				}
+			}
+			model.addAttribute("result", result);
+			return "redirect:/deleteCheck";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "redirect:/deleteCheck"; 
+		}
+	}
+	
+	@RequestMapping("deleteCheck")
+	public String deleteCheck(Model model, int result) {
+		model.addAttribute("result", result);
+		return "products/deletecheck";
+	}
+	
+	@RequestMapping("productsUpdate")
+	public String selectProduct(Model model, int pnumber) {
+		try {
+			ProductsDTO dto = pservice.selectOneProductService(pnumber);
+			model.addAttribute("result", dto);
+			return "products/productsEdit";
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping("productEditFin")
+	public String updateProduct(Model model, ProductsDTO dto) {
+		System.out.println("글번호" + dto.getP_no());
+		String resourcePath = session.getServletContext().getRealPath("/resources");
+		String title = dto.getP_title();
+		try {
+			File newFile = new File(resourcePath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
+			dto.getImage().transferTo(newFile);
+			dto.setP_imagepath("/resources/products/" + title + "/" + newFile.getName());
+			int result = pservice.updateProductService(dto);
+			System.out.println("수정결과 : " + result);
+			model.addAttribute("pno", dto.getP_no());
+			model.addAttribute("result", result);
+			if(result > 0) {
+				return "redirect:/updatecheck";
+			}else {
+				return "redirect:/updatecheck";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@RequestMapping("updatecheck")
+	public String updatecheck(Model model, int result, int pno) {
+		model.addAttribute("result", result);
+		model.addAttribute("pno", pno);
+		return "products/updateCheck";
+	}
+	
 }

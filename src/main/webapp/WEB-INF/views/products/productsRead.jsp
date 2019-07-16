@@ -15,7 +15,7 @@
 		background-color : #deca92;		
 	}
 	#titleImg{
-		margin-top : 30px;
+		margin-top : 10px;
 		width : 100%;
 		height : 350px;
 	}
@@ -36,7 +36,7 @@
 		padding-left : 10px;
 	}
 	#main{
-		margin-top : 50px;
+		margin-top : 30px;
 		text-align : center;
 	}
 	#title{
@@ -109,6 +109,18 @@
 		cursor : pointer;
 		background-color : #b4d9b5;
 	}
+	#adBtns{
+		margin-top : 10px;
+	}
+	.adminBtn{
+		background-color : #44b27d;
+		color : white;
+		margin : 5px;
+	}
+	.adminBtn:hover{
+		background-color : #b4d9b5;
+		color : white;
+	}
 </style>
 </head>
 <body>
@@ -116,6 +128,12 @@
 	<div id="wrapper">
 		<div id="bcolor"></div>
 		<div class="container">
+			<c:if test="${grade=='admin'}">
+				<div id="adBtns" class="row">
+					<input id="updateBtn" class="btn btn-sm adminBtn" type="button" value="수정">
+					<input id="deleteBtn" class="btn btn-sm adminBtn" type="button" value="삭제">
+				</div>
+			</c:if>
 			<div class="row">
 				<div id="main" class="col-12">
 					<img id="titleImg" src="${result.p_imagepath}">
@@ -218,6 +236,14 @@
 				}
 			})
 		}) */
+		
+		$("#updateBtn").on("click", function(){
+			location.href = "productsUpdate?pnumber=" + ${result.p_no};
+		})
+		
+		$("#deleteBtn").on("click", function(){
+			location.href = "productsDelete?arr=" + ${result.p_no};
+		})
 		
 		$("#smPrice").html(function(){
 			var price = $(this).html();

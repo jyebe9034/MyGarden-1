@@ -69,4 +69,24 @@ public class ProductsServiceImpl implements ProductsService {
 			return null;
 		}
 	}
+	
+	@Transactional("txManager")
+	public int deleteProductService(int pnumber) {
+		try {
+			return pdao.deleteProduct(pnumber);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	@Transactional("txManager")
+	public int updateProductService(ProductsDTO dto) {
+		try {
+			return pdao.updateProduct(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
 }
