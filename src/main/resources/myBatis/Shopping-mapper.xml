@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ShoppingDAO">
+
+<select id="selectCartList" resultType="my.garden.dto.CartDTO">
+		select * from cart where c_m_email = #{userId}
+</select>
+
+<delete id="delFromCart">
+		delete from cart where c_m_email = #{c_m_email} and c_p_no = #{c_p_no}
+</delete>
+
+
+
+
+</mapper>

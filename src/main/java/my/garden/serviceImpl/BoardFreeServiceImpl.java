@@ -1,5 +1,6 @@
 package my.garden.serviceImpl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,69 +18,72 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	@Autowired
 	private BoardFreeDAO dao;
 	
-	@Transactional("txManager")
-	public int serviceWrite(BoardFreeDTO dto) {
+	
+	public int serviceWrite(BoardFreeDTO dto) throws Exception{
 		return dao.write(dto);
 	}
 	
-	@Transactional("txManager")
-	public int serviceDelete(int bf_no) {
+	
+	public int serviceDelete(int bf_no) throws Exception{
 		return dao.delete(bf_no);
 	}
 	
-	@Transactional("txManager")
-	public int serviceModify(int bf_no, String column, String value) {
+	public int serviceModify(int bf_no, String column, String value)  throws Exception{
 		return dao.modify(bf_no, column, value);
 	}
+	
 	@Transactional("txManager")
-	public List<BoardFreeDTO> serviceList(int start, int end) {
+	public int serviceBFmodify(int bf_no, String title, String content ) throws Exception{
+		int tmp1 = dao.modify(bf_no, "bf_title", title);
+		int tmp2 = dao.modify(bf_no, "bf_content", content);
+		return tmp1+tmp2;
+	}
+	
+	
+	public List<BoardFreeDTO> serviceList(int start, int end) throws Exception{
 		return dao.list(start, end);
 		
 	}
 	
-	@Transactional("txManager")
-	public BoardFreeDTO serviceRead(int bf_no) {
+
+	public BoardFreeDTO serviceRead(int bf_no) throws Exception{
 		return dao.read(bf_no);
 	}
 	
-	@Transactional("txManager")
-	public int serviceBoardCountAll() {
+	
+	public int serviceBoardCountAll() throws Exception{
 		return dao.boardCountAll();
 	}
 	
-	@Transactional("txManager")
+	
 	public List<String> serviceGetBoardNavi(int currentPage) throws Exception{
 		return dao.getBoardNavi(currentPage);
 	}
 	
 	//댓글
-	@Transactional("txManager")
-	public int serviceCmtWrite(CommentFreeDTO dto) {
+	public int serviceCmtWrite(CommentFreeDTO dto)  throws Exception{
 		return dao.cmtWrite(dto);
 	}
 	
-	@Transactional("txManager")
-	public int serviceCmtModify(String cf_comment, int cf_no) {
+	public int serviceCmtModify(String cf_comment, int cf_no)  throws Exception{
 		return dao.cmtModify(cf_comment, cf_no);
 	}
 	
-	@Transactional("txManager")
-	public int serviceCmtDelete(String column, int value) {
+	public int serviceCmtDelete(String column, int value)  throws Exception{
 		return dao.cmtDelete(column, value);
 	}
 	
-	@Transactional("txManager")
-	public List<CommentFreeDTO> serviceCmtList(int bf_no, int start, int end){
+	public List<CommentFreeDTO> serviceCmtList(int bf_no, int start, int end)  throws Exception{
 		return dao.cmtList(bf_no, start, end);
 	}
 	
-	@Transactional("txManager")
-	public int serviceCmtCountAll(int cf_bf_no) {
+	public int serviceCmtCountAll(int cf_bf_no)  throws Exception{
 		return dao.cmtCountAll(cf_bf_no);
 	}
 	
-	@Transactional("txManager")
 	public List<String> serviceGetCmtNavi(int currentPage, int cf_bf_no) throws Exception{
 		return dao.getCmtNavi(currentPage, cf_bf_no);
 	}
+
 }
+

@@ -82,19 +82,20 @@ hr {
 	width: 88%;
 	height: 100%;
 	color: #44b27d;
-	background-color:#ecf7e9;
-	border:0px;
-	margin-right:5px;
+	background-color: #ecf7e9;
+	border: 0px;
+	margin-right: 5px;
 }
 
 .mdBtn {
 	background-color: white;
-	border:0px;
+	border: 0px;
 	color: #44b27d;
-	height:40px;
-	margin-right:5px;
+	height: 40px;
+	margin-right: 5px;
 }
-.mdBtn:hover{
+
+.mdBtn:hover {
 	text-decoration: underline;
 }
 
@@ -220,13 +221,15 @@ hr {
 						</span> <span class=rWritedate>${tmp.cf_stringdate}</span>
 						<div class="rContents row">
 							<div class="rContent col-10">${tmp.cf_comment }</div>
-							<div class="rIcons col-2">
-								<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
-									src="resources/img/boardFreeCmtChange.png"></span>
-									<span class=cmtDelete id='${tmp.cf_no}'>
-									<img src="resources/img/boardFreeCmtDelete.png">
-								</span>
-							</div>
+							<c:if test="${loginName==tmp.cf_name }">
+								<div class="rIcons col-2">
+									<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
+										src="resources/img/boardFreeCmtChange.png"></span> <span
+										class=cmtDelete id='${tmp.cf_no}'> <img
+										src="resources/img/boardFreeCmtDelete.png">
+									</span>
+								</div>
+							</c:if>
 						</div>
 						<hr>
 					</div>
@@ -244,8 +247,11 @@ hr {
 			</div>
 			<div class="col-12 footBtn">
 				<button type="button" class="bfBtn" id=back>목록으로</button>
-				<button type="button" class="bfBtn" id=modify>글수정</button>
-				<button type="button" class="bfBtn" id=delete>글삭제</button>
+
+				<c:if test="${loginId==page.bf_email}">
+					<button type="button" class="bfBtn" id=modify>글수정</button>
+					<button type="button" class="bfBtn" id=delete>글삭제</button>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -254,16 +260,24 @@ hr {
 		$("#back").on("click", function() {
 			location.href = "boardFreeList?page=1";
 		})
+		
+		
 		//글 수정, 삭제
+		$("#modify").on("click",function(){
+			location.href="boardFreeModify?no="+${page.bf_no};
+		})
+		
 		$("#delete").on("click", function(){
 			if(confirm("정말 삭제하시겠습니까?")==true){
 			location.href="boardFreeDelete?no="+${page.bf_no};
 			}
 		})
+
 		
-			$(document).on("click","#cancelBtn",function(){
+		
+		$(document).on("click","#cancelBtn",function(){
 				$(this).parent().prev().html(origin);
-			})
+		})
 		
 		//댓글 수정 1)수정 박스 만들기
 		$(document).on("click",".cmtChange",function(){
@@ -275,6 +289,7 @@ hr {
 			$(this).parent().prev().html(change);		
 			}
 		})
+		
 		
 		//댓글 수정 2)수정한 값 처리
 			$(document).on("click",".modifyBtn",function(){
@@ -291,16 +306,27 @@ hr {
 					if(resp.result > 0){
 						// 댓글 목록
 						  $(".commentList").html("");
-						 console.log(resp.list);
 						 var cmtList = "";
-						 for(var i=0; i<resp.list.length; i++){			
-							 var cmtList = cmtList + 
-							 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
-							 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
-							+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-							+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
-							+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
-						 }
+						 for(var i=0; i<resp.list.length; i++){	
+							 var commentOne = $("<div class=commentOne></div>");
+						        var rWriter= $("<span class=rWriter></span>");
+						        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+						        var rContents = $("<div class='rContents row'></div>");
+						        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+						        if('${loginId}' == resp.list[i].cf_email){
+						        var rIcons = $("<div class='rIcons col-2'></div>");  		    
+						        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
+						        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+						        rContents.append(rIcons); 
+						        }        
+						        commentOne.append(rWriter);
+						        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
+						        commentOne.append(rContents);
+						        commentOne.append('<hr>');
+						        var root = $("<div></div>");
+						        root.append(commentOne);      
+						       	cmtList=cmtList+commentOne[0].innerHTML;
+						 }		 	 		
 						$(".commentList").html(cmtList);
 						//네비 목록
 						 $("#navi").html("");
@@ -337,15 +363,28 @@ hr {
 					  $(".commentList").html("");
 					 console.log(resp.list);
 					 var cmtList = "";
-					 for(var i=0; i<resp.list.length; i++){			
-						 var cmtList = cmtList + 
-						 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
-						 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
-						+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-						+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
-						+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
-					 }
+					 for(var i=0; i<resp.list.length; i++){	
+						 var commentOne = $("<div class=commentOne></div>");
+					        var rWriter= $("<span class=rWriter></span>");
+					        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+					        var rContents = $("<div class='rContents row'></div>");
+					        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+					        if('${loginId}' == resp.list[i].cf_email){
+					        var rIcons = $("<div class='rIcons col-2'></div>");  		    
+					        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
+					        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+					        rContents.append(rIcons); 
+					        }        
+					        commentOne.append(rWriter);
+					        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
+					        commentOne.append(rContents);
+					        commentOne.append('<hr>');
+					        var root = $("<div></div>");
+					        root.append(commentOne);      
+					       	cmtList=cmtList+commentOne[0].innerHTML;
+					 }		 	 			 
 					$(".commentList").html(cmtList);
+					
 					//네비 목록
 					 $("#navi").html("");
 					var naviList = "";			
@@ -365,9 +404,11 @@ hr {
 		
 		
 		$("#submitBtn").on("click", function() {
-			if($("#rContentWrite").text() == ""){
-				alert("댓글을 입력해주세요.");
-			}else{			
+			if('${loginId}'==""){
+				alert("로그인 후 이용하실수 있습니다.");
+			}else if($("#rContentWrite").text() == ""){
+				alert("댓글을 입력해주세요.")
+				}else{			
 			 $.ajax({
 				 url:"freeCmtWrite",
 				 type:"post",
@@ -380,15 +421,28 @@ hr {
 				 //댓글 목록
 				 $(".commentList").html("");
 				 var cmtList = "";
-				 for(var i=0; i<resp.list.length; i++){			
-					 var cmtList = cmtList + 
-					 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
-					 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
-					+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-					+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
-					+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
-				 }
+				 for(var i=0; i<resp.list.length; i++){	
+					 var commentOne = $("<div class=commentOne></div>");
+				        var rWriter= $("<span class=rWriter></span>");
+				        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+				        var rContents = $("<div class='rContents row'></div>");
+				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+				        if('${loginId}' == resp.list[i].cf_email){
+				        var rIcons = $("<div class='rIcons col-2'></div>");  		    
+				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
+				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+				        rContents.append(rIcons); 
+				        }        
+				        commentOne.append(rWriter);
+				        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
+				        commentOne.append(rContents);
+				        commentOne.append('<hr>');
+				        var root = $("<div></div>");
+				        root.append(commentOne);      
+				       	cmtList=cmtList+commentOne[0].innerHTML;
+				 }		 	 		 
 				 $(".commentList").html(cmtList);
+				
 				//네비 목록
 				 $("#navi").html("");
 				var naviList = "";
@@ -423,14 +477,26 @@ hr {
 				//댓글 목록
 				 $(".commentList").html("");
 				 var cmtList = "";
-				 for(var i=0; i<resp.list.length; i++){			
-					 var cmtList = cmtList + 
-					 "<div class=commentOne><span class=rWriter> <img src='resources/img/boardFreeCmtWriter.png'>"+resp.list[i].cf_name+"</span>"
-					 +"<span class=rWritedate>"+resp.list[i].cf_stringdate+"</span>"
-					+"<div class='rContents row'><div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>"
-					+"<div class='rIcons col-2'><span class=cmtChange flag=true id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtChange.png'></span>"
-					+"<span class=cmtDelete id="+resp.list[i].cf_no+"><img src='resources/img/boardFreeCmtDelete.png'></span></div></div><hr></div>";
-				 }
+				 for(var i=0; i<resp.list.length; i++){	
+					 var commentOne = $("<div class=commentOne></div>");
+				        var rWriter= $("<span class=rWriter></span>");
+				        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+				        var rContents = $("<div class='rContents row'></div>");
+				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+				        if('${loginId}' == resp.list[i].cf_email){
+				        var rIcons = $("<div class='rIcons col-2'></div>");  		    
+				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
+				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+				        rContents.append(rIcons); 
+				        }        
+				        commentOne.append(rWriter);
+				        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
+				        commentOne.append(rContents);
+				        commentOne.append('<hr>');
+				        var root = $("<div></div>");
+				        root.append(commentOne);      
+				       	cmtList=cmtList+commentOne[0].innerHTML;
+				 }		 	 		
 				 $(".commentList").html(cmtList);
 				//네비 목록
 				 $("#navi").html("");

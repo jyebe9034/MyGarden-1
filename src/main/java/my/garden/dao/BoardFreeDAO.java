@@ -1,5 +1,6 @@
 package my.garden.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,5 @@ public interface BoardFreeDAO {
 	public int cmtCountAll(int bf_no);
 	public int cmtModify(String cf_comment, int cf_no);
 	public int cmtDelete(String column, int value);
+
 }

@@ -84,8 +84,8 @@
 				<div id=content class=col-12></div>
 				<input type="hidden" id=sendContent name=bf_content>
 				<p id=contentExplain>
-					<img src="/resources/img/boardFreeWarning.png">
-					게시글 작성 시 <span id=green>회원님의 소중한 개인정보를 포함하지 않도록</span> 주의 부탁드립니다.
+					<img src="/resources/img/boardFreeWarning.png"> 게시글 작성 시 <span
+						id=green>회원님의 소중한 개인정보를 포함하지 않도록</span> 주의 부탁드립니다.
 				</p>
 				<div class="col-12 footBtn">
 					<button type="button" class="btn" id="submitBtn">등록하기</button>
@@ -104,18 +104,40 @@
 			$('#content').summernote({
 				placeholder : '내용을 입력해주세요.',
 				tabsize : 5,
-				height : 500
-			});
+				height : 500,
+				callbacks : {
+					onImageUpload : function(files, editor, welEditable) {
+						for (var i = files.length - 1; i >= 0; i--) {
+							sendFile(files[i], this);
+						}
+					}
+				}
+			})
 		});
-			
-		$("#submitBtn").on("click",function(){
-			$("#sendTitle").val($("#title").text());	
+
+		function sendFile(file, el) {
+			var formdata = new FormData();
+			formdata.append('image', file);
+			$.ajax({
+				data : formdata,
+				type : "POST",
+				url : "boardFreeFileUpload",
+				cache : false,
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false
+				}).done(function(resp) {
+					$(".note-editable").append("<img src="+resp+">")
+				})
+		}
+
+		$("#submitBtn").on("click", function() {
+			$("#sendTitle").val($("#title").text());
 			$("#sendContent").val($(".note-editable").html());
-			if($("#sendTitle").val()=="" || $("#sendContent").val()==""){
+			if ($("#sendTitle").val() == "" || $("#sendContent").val() == "") {
 				alert("제목 또는 내용을 입력해주세요.");
 			}
 			$("#freeForm").submit();
 		})
-		
 	</script>
 </html>

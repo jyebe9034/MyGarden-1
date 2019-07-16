@@ -1,5 +1,7 @@
 package my.garden.daoImpl;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +46,11 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 	}
 	
 	public int modify(int bf_no, String column, String value) {
-		return sst.delete("BoardFreeDAO.modify",bf_no);
+		Map<String, Object> map = new HashMap<>();
+		map.put("bf_no", bf_no);
+		map.put("column", column);
+		map.put("value", value);
+		return sst.delete("BoardFreeDAO.modify",map);
 	}
 	
 	public int boardCountAll() {
@@ -83,8 +89,6 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		map.put("value", value);
 		return sst.delete("BoardFreeDAO.cmtDelete", map);
 	}
-	
-	
 		
 	//게시판 네비
 	public List<String> getBoardNavi(int currentPage) throws Exception {

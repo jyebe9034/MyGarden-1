@@ -1,6 +1,7 @@
 package my.garden.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class CommentFreeDTO {
 	private int cf_bf_no;
@@ -80,11 +81,37 @@ public class CommentFreeDTO {
 	}
 
 	public String getCf_stringdate() {
-		return cf_stringdate;
+		return this.formedTime();
 	}
 
 	public void setCf_stringdate(String cf_stringdate) {
 		this.cf_stringdate = cf_stringdate;
 	}
+
+	//time 형식 두개 (메서드)
+		public String contentTime() { 
+			Timestamp date = this.cf_writedate;
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+			String writeDate = simpleDate.format(date.getTime());
+			return writeDate;
+		}
+		
+		public String formedTime(){
+			long currentTime = System.currentTimeMillis();
+			long writeTime = this.cf_writedate.getTime();
+			if(currentTime - writeTime < (1000*60)) {
+				long time = currentTime - writeTime;
+				return time / 1000 + "초 전";
+			}else if(currentTime - writeTime < (1000*60*60)) {
+				long time = currentTime - writeTime;
+				return time / 1000 / 60 + "분 전";
+			}else if(currentTime - writeTime < (1000*60*60*24)) {
+				long time = currentTime - writeTime;
+				return time / 1000 / 60 / 60 + "시간 전";
+			}else {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+				return sdf.format(writeTime);
+			}
+		}
 
 }

@@ -27,13 +27,17 @@
 	margin-bottom: 40px;
 }
 
-.img {
+.realImg {
 	margin-top: 5px;
+	padding: 0px;
+	width: 100%;
+	text-align: center;
 }
 
-img {
+.img img {
+	max-width: 100%;
+	max-height: 150px;
 	border-radius: 5px;
-	width: auto;
 }
 
 .title {
@@ -94,7 +98,6 @@ hr {
 	font-size: 20px;
 	font-weight: bold;
 	margin: 0px 15px;
-	padding-left: 5px;
 	cursor: pointer;
 }
 
@@ -112,11 +115,11 @@ hr {
 
 		<c:forEach var="tmp" items="${list}">
 			<div class="row content">
-				<div class="col-2">
-					<div class=img>
-						<img src="resources/img/boardFreeExample1.PNG" height=130px;>
-					</div>
+				<div class="col-2 realImg">
+					<div class=tmpImg>${tmp.bf_content }</div>
+					<div class=img></div>
 				</div>
+
 				<div class="col-10">
 					<div class=title>
 						${tmp.bf_title }
@@ -127,7 +130,7 @@ hr {
 						<span class=writer><img
 							src="resources/img/boardFreeWriter.png">${tmp.bf_writer }</span> <span
 							class=writeDate><img
-							src="resources/img/boardFreeWriteDate.png">${tmp.bf_writedate }</span>
+							src="resources/img/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
 						<span class=viewCount><img
 							src="resources/img/boardFreeView.png">${tmp.bf_viewcount }</span>
 						<span class=comment><img
@@ -141,7 +144,7 @@ hr {
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
-					<input class="form-control freeSearch ml-3" type="search"
+					<input class="form-control freeSearch" type="search"
 						placeholder="필요한 레시피 검색" aria-label="Search"
 						aria-describedby="basic-addon2">
 					<div class="input-group-append">
@@ -158,14 +161,29 @@ hr {
 			</c:forEach>
 		</div>
 
-
-		<div class="col-12 footBtn">
-			<button type="button" class="btn" id=write>글쓰기</button>
-		</div>
-
+		<c:if test="${loginId!=null}">
+			<div class="col-12 footBtn">
+				<button type="button" class="btn" id=write>글쓰기</button>
+			</div>
+		</c:if>
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
+	console.log($(".tmpImg"));
+	$(".tmpImg").each(function (i, item) {
+		var tmp = $(this).html();
+		console.log(tmp);
+		var regex = /(\/re.+?png)/;
+		var result = regex.exec(tmp);
+		console.log(result);
+			$(".tmpImg").hide(); //자꾸 튀어나와서 숨겼음ㅡㅡ
+			if(result!=null){
+			$(this).next().html("<img src='"+result[1]+"'>");
+			}else{
+				$(this).next().html("<img src='/resources/img/noImg.png'>");
+			}
+	})
+
 		$(".title").on("click",function(){
 			var seq = $(this).next().val();
 			$(location).attr("href","boardFreeRead?no="+seq);

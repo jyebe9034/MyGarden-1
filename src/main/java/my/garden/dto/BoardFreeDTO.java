@@ -1,35 +1,65 @@
 package my.garden.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BoardFreeDTO {
 	private int bf_no;
 	private String bf_title;
 	private String bf_writer;
+	private String bf_email;
 	private String bf_content;
+	private String bf_thumbnail;
 	private int bf_viewcount;
 	private Timestamp bf_writedate;
 	private int bf_recommend;
 	private String bf_stringdate;
 	private int bf_cmtcount;
 	
-	public BoardFreeDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public BoardFreeDTO(int bf_no, String bf_title, String bf_writer, String bf_content, int bf_viewcount,
-			Timestamp bf_writedate, int bf_recommend, String bf_stringdate, int bf_cmtcount) {
+	
+	
+	public BoardFreeDTO(int bf_no, String bf_title, String bf_writer, String bf_email, String bf_content,
+			String bf_thumbnail, int bf_viewcount, Timestamp bf_writedate, int bf_recommend, String bf_stringdate,
+			int bf_cmtcount) {
 		super();
 		this.bf_no = bf_no;
 		this.bf_title = bf_title;
 		this.bf_writer = bf_writer;
+		this.bf_email = bf_email;
 		this.bf_content = bf_content;
+		this.bf_thumbnail = bf_thumbnail;
 		this.bf_viewcount = bf_viewcount;
 		this.bf_writedate = bf_writedate;
 		this.bf_recommend = bf_recommend;
 		this.bf_stringdate = bf_stringdate;
 		this.bf_cmtcount = bf_cmtcount;
+	}
+
+	
+	public String getBf_email() {
+		return bf_email;
+	}
+
+
+	public void setBf_email(String bf_email) {
+		this.bf_email = bf_email;
+	}
+
+
+	public BoardFreeDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getBf_thumbnail() {
+		return bf_thumbnail;
+	}
+
+	public void setBf_thumbnail(String bf_thumbnail) {
+		this.bf_thumbnail = bf_thumbnail;
 	}
 
 	public int getBf_no() {
@@ -89,7 +119,7 @@ public class BoardFreeDTO {
 	}
 
 	public String getBf_stringdate() {
-		return bf_stringdate;
+		return this.formedTime();
 	}
 
 	public void setBf_stringdate(String bf_stringdate) {
@@ -104,4 +134,30 @@ public class BoardFreeDTO {
 		this.bf_cmtcount = bf_cmtcount;
 	}
 	
+	//time 형식 두개 (메서드)
+		public String contentTime() { 
+			Timestamp date = this.bf_writedate;
+			SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+			String bf_writedate = simpleDate.format(date.getTime());
+			return bf_writedate;
+		}
+		
+		public String formedTime(){
+			long currentTime = System.currentTimeMillis();
+			long writeTime = this.bf_writedate.getTime();
+			if(currentTime - writeTime < (1000*60)) {
+				long time = currentTime - writeTime;
+				return time / 1000 + "초 전";
+			}else if(currentTime - writeTime < (1000*60*60)) {
+				long time = currentTime - writeTime;
+				return time / 1000 / 60 + "분 전";
+			}else if(currentTime - writeTime < (1000*60*60*24)) {
+				long time = currentTime - writeTime;
+				return time / 1000 / 60 / 60 + "시간 전";
+			}else {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				return sdf.format(writeTime);
+			}
+		}
+
 }

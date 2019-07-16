@@ -1,26 +1,9 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+<<<<<<< HEAD
+=======
+web.xml
+pom.xml
+/.metadata/
+>>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7
 *.java.hsp
 *.sonarj
 *.sw*
@@ -37,8 +20,6 @@ derby.log
 spring-test/test-output/
 .gradle
 argfile*
-pom.xml
-web.xml
 activemq-data/
 
 classes/
@@ -62,3 +43,9 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+
+<<<<<<< HEAD
+pom.xml
+web.xml
+=======
+>>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7
