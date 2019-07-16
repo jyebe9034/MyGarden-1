@@ -334,11 +334,11 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            		}
            	});
            	$("input[name=m_name]").on("blur", function(){
-           		var regexName=/^[가-힣A-z]{2,}$/;
+           		var regexName=/^[가-힣A-z]{2,12}$/;
            		if(regexName.exec($("input[name=m_name]").val())){
            			$("#userName").text("");
            		}else{
-           			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
+           			$("#userName").text("2~12단어 이상으로 이루어진 영어, 한글만 가능합니다");
            			$("input[name=m_name]").val("");
            		}
            	});
@@ -510,6 +510,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        <div class="postCode" id="postCode">
 			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
 			                        	<button type="button" id="joinBtn" class="mb-3 btn" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
+			                        	<div id="addressSet"></div>
 			                        </div>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
 	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">

@@ -39,7 +39,7 @@ public class LoginController {
 	
 	@RequestMapping("/joinSubmit")
 	public String JoinSubmit(MembersDTO dto, MultipartFile ex_file) {
-		loginserv.joinSubmit(dto, ex_file);
+		int result = loginserv.joinSubmit(dto, ex_file);
 		return "login/joinThrough";
 	}
 	
