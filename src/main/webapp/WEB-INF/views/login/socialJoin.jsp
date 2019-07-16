@@ -108,10 +108,6 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
-input:readonly{
-  background:#D1E5DF;
-  border: 2px solid #D1E5DF;
-}
 .inputStuff50{
   background-color: #f6f6f6;
   border: none;
@@ -158,6 +154,10 @@ input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
 }
 input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]:placeholder {
   color: #cccccc;
+}
+input[type=email]{
+  background:#D1E5DF;
+  border: 2px solid #D1E5DF;
 }
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
@@ -419,7 +419,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 소셜회원가입</h3>
 			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">사이트 이용에 필요한 인증과 최소한의 정보를 입력하세요</h6>
-			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post" enctype="multipart/form-data">		
+			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post"">		
 			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
@@ -428,7 +428,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div class="onblur" id="eamilName"></div>
 			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
 			                      <div id="verifingCode">  	
-			                        <input type="text" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
+			                        <input type="password" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
 			                        	<button type="button" id="verCodeBtn" class="btn">인증하기</button>
 			                      </div>  	
 <!-- 			             surplusForm -->

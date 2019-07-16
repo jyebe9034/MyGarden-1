@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>나의 정원 - 나의 정보 업데이트</title>
 </head>
 <body>
 	<script>

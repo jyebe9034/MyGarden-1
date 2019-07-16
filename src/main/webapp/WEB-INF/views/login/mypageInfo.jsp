@@ -13,6 +13,7 @@
 .fontGreen{font-weight:bold; color:#4f9c87;}
 .onblur{font-size:13px; color:#4f9c87;}
 .postCode{position:relative;}
+input[name=m_social]{pointer-events: none; visibility: hidden;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
@@ -245,7 +246,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 } 
 * {
   box-sizing: border-box;
-}
+} 
 </style>
 </head>
 <body>
@@ -440,28 +441,36 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 my">	
 				<div class="blockSign">
 			        <div id="formContent">
-			            <div class="tab-content pt-1">
 			                <div id="signin">
-			                    <h3 class="font-weight-bold text-dark pt-5">나의 정원 정보수정</h3>
-			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">나의 정보를 확인 후 언제든 업데이트 하세요</h6>
+			                    <h3 class="font-weight-bold text-dark pt-5 pr-2">나의 정원 정보수정
+			                    </h3>
+			                    <h6 class="pt-2 text-muted mr-2 ml-2">나의 정보를 확인 후 언제든 업데이트 하세요</h6>
 			                    <form class="pl-5 pr-5 formSubmit" action="updateInfo" method="post" enctype="multipart/form-data">	
+									<input type="text" value="${memDTO.m_social}" name="m_social" readonly>
 			                        <input type="text" value="${memDTO.m_name}" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        	<div class="onblur" id="userName"></div>
 			                        <input type="email" value="${memDTO.m_email}" name="m_email" class="fadeIn inputStuff" readonly>
-			                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
-			                        	<div class="onblur" id="pastPwName"></div>
-			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
-			                        	<div class="onblur" id="pwName"></div>
-			                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요*" id="password" class="fadeIn inputStuff">
-			                        	<div class="onblur" id="pwCheck"></div>
+					<!-------------------- jstl ------------------------->
+			                        <c:if test="${memDTO.m_social == MG}">
+				                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
+				                        	<div class="onblur" id="pastPwName"></div>
+				                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
+				                        	<div class="onblur" id="pwName"></div>
+				                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요*" id="password" class="fadeIn inputStuff">
+				                        	<div class="onblur" id="pwCheck"></div>
+									</c:if>
+					<!-------------------- jstl ------------------------->
 			                        <input type="text" value="${memDTO.m_phone}" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
 			                        	<div class="onblur" id="phoneName"></div>
 			                        <div class="postCode" id="postCode">
 				                        <input type="text" value="${memDTO.m_zipcode}" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
 				                        	<button type="button" id="joinBtn" class="mb-3 btn" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
 			                        </div>	
-			                        <input type="text" value="${memDTO.m_address1}" placeholder="주소" class="fadeIn inputStuff50" id="m_address1" name="m_address1" readonly>
-			                        <input type="text" value="${memDTO.m_address2}" placeholder="상세주소" class="fadeIn inputStuff50" id="m_address2" name="m_address2" readonly>
+			                        <div id="addressSet">
+				                        <input type="text" value="${memDTO.m_address1}" placeholder="주소" class="fadeIn inputStuff50" id="m_address1" name="m_address1" readonly>
+				                        <input type="text" value="${memDTO.m_address2}" placeholder="상세주소" class="fadeIn inputStuff50" id="m_address2" name="m_address2" readonly>
+				                    </div>
+				                    <div class="onblur" id="addrName"></div>
 			                        <input type="text" value="${memDTO.m_birth}" placeholder="생년월일" class="fadeIn inputStuff50" name="m_birth" readonly>
 			                        <input type="text" value="${memDTO.m_gender}" placeholder="성별" class="fadeIn inputStuff50" name="m_gender" readonly>
 			                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">

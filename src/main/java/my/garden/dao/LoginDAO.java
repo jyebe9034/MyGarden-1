@@ -10,7 +10,9 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -22,6 +24,12 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -29,6 +37,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import my.garden.dto.MembersDTO;
 
@@ -151,28 +170,28 @@ public class LoginDAO {
 	}
 	
 	public String mailSender(String m_email) throws Exception {
-		// ³×ÀÌ¹öÀÏ °æ¿ì smtp.naver.com À» ÀÔ·ÂÇÕ´Ï´Ù. 
-		// GoogleÀÏ °æ¿ì smtp.gmail.com À» ÀÔ·ÂÇÕ´Ï´Ù. 
+		// ë„¤ì´ë²„ì¼ ê²½ìš° smtp.naver.com ì„ ì…ë ¥í•©ë‹ˆë‹¤. 
+		// Googleì¼ ê²½ìš° smtp.gmail.com ì„ ì…ë ¥í•©ë‹ˆë‹¤. 
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; //³×ÀÌ¹ö ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. @nave.comÀº ÀÔ·ÂÇÏÁö ¸¶½Ã±¸¿ä. 
-		final String password = "scum-hasser0692"; //³×ÀÌ¹ö ÀÌ¸ŞÀÏ ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. 
-		int port=465; //Æ÷Æ®¹øÈ£ 
+		final String username = "sparkss0419"; //ë„¤ì´ë²„ ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”. @nave.comì€ ì…ë ¥í•˜ì§€ ë§ˆì‹œêµ¬ìš”. 
+		final String password = "scum-hasser0692"; //ë„¤ì´ë²„ ì´ë©”ì¼ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”. 
+		int port=465; //í¬íŠ¸ë²ˆí˜¸ 
 		
-		// ¸ŞÀÏ ³»¿ë 
-		String recipient = m_email; //¹Ş´Â »ç¶÷ÀÇ ¸ŞÀÏÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä. 
-		String subject = "³ªÀÇ Á¤¿ø¿¡¼­ ÄÚµå ¹øÈ£¸¦ º¸³»µå¸³´Ï´Ù"; //¸ŞÀÏ Á¦¸ñ ÀÔ·ÂÇØÁÖ¼¼¿ä. 
+		// ë©”ì¼ ë‚´ìš© 
+		String recipient = m_email; //ë°›ëŠ” ì‚¬ëŒì˜ ë©”ì¼ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”. 
+		String subject = "ë‚˜ì˜ ì •ì›ì—ì„œ ì½”ë“œ ë²ˆí˜¸ë¥¼ ë³´ë‚´ë“œë¦½ë‹ˆë‹¤"; //ë©”ì¼ ì œëª© ì…ë ¥í•´ì£¼ì„¸ìš”. 
 			String randomCode = this.randomCode();
-		String body = "ÄÚµå ¹øÈ£´Â " + randomCode + "ÀÔ´Ï´Ù. "; //¸ŞÀÏ ³»¿ë ÀÔ·ÂÇØÁÖ¼¼¿ä. 
-		Properties props = System.getProperties(); // Á¤º¸¸¦ ´ã±â À§ÇÑ °´Ã¼ »ı¼º 
+		String body = "ì½”ë“œ ë²ˆí˜¸ëŠ” " + randomCode + "ì…ë‹ˆë‹¤. "; //ë©”ì¼ ë‚´ìš© ì…ë ¥í•´ì£¼ì„¸ìš”. 
+		Properties props = System.getProperties(); // ì •ë³´ë¥¼ ë‹´ê¸° ìœ„í•œ ê°ì²´ ìƒì„± 
 		
-		// SMTP ¼­¹ö Á¤º¸ ¼³Á¤ 
+		// SMTP ì„œë²„ ì •ë³´ ì„¤ì • 
 		props.put("mail.smtp.host", host); 
 		props.put("mail.smtp.port", port); 
 		props.put("mail.smtp.auth", "true"); 
 		props.put("mail.smtp.ssl.enable", "true"); 
 		props.put("mail.smtp.ssl.trust", host); 
 		
-		//Session »ı¼º 
+		//Session ìƒì„± 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
 			String un=username; 
 			String pw=password; 
@@ -181,13 +200,13 @@ public class LoginDAO {
 				} 
 			}); 
 		session.setDebug(true); //for debug 
-		Message mimeMessage = new MimeMessage(session); //MimeMessage »ı¼º 
-		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); //¹ß½ÅÀÚ ¼ÂÆÃ , º¸³»´Â »ç¶÷ÀÇ ÀÌ¸ŞÀÏÁÖ¼Ò¸¦ ÇÑ¹ø ´õ ÀÔ·ÂÇÕ´Ï´Ù. ÀÌ¶§´Â ÀÌ¸ŞÀÏ Ç® ÁÖ¼Ò¸¦ ´Ù ÀÛ¼ºÇØÁÖ¼¼¿ä. 
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //¼ö½ÅÀÚ¼ÂÆÃ //.TO ¿Ü¿¡ .CC(ÂüÁ¶) .BCC(¼ûÀºÂüÁ¶) µµ ÀÖÀ½
+		Message mimeMessage = new MimeMessage(session); //MimeMessage ìƒì„± 
+		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); //ë°œì‹ ì ì…‹íŒ… , ë³´ë‚´ëŠ” ì‚¬ëŒì˜ ì´ë©”ì¼ì£¼ì†Œë¥¼ í•œë²ˆ ë” ì…ë ¥í•©ë‹ˆë‹¤. ì´ë•ŒëŠ” ì´ë©”ì¼ í’€ ì£¼ì†Œë¥¼ ë‹¤ ì‘ì„±í•´ì£¼ì„¸ìš”. 
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //ìˆ˜ì‹ ìì…‹íŒ… //.TO ì™¸ì— .CC(ì°¸ì¡°) .BCC(ìˆ¨ì€ì°¸ì¡°) ë„ ìˆìŒ
 		
-		mimeMessage.setSubject(subject); //Á¦¸ñ¼ÂÆÃ 
-		mimeMessage.setText(body); //³»¿ë¼ÂÆÃ 
-		Transport.send(mimeMessage); //javax.mail.Transport.send() ÀÌ¿ë
+		mimeMessage.setSubject(subject); //ì œëª©ì…‹íŒ… 
+		mimeMessage.setText(body); //ë‚´ìš©ì…‹íŒ… 
+		Transport.send(mimeMessage); //javax.mail.Transport.send() ì´ìš©
 		
 		return randomCode;
 	}
@@ -206,7 +225,7 @@ public class LoginDAO {
 	
 	public String NaverLoginMakeUrl() {
 		try {
-		    String clientId = "zoUb6lNYx8sC2suyUmcS";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª";
+		    String clientId = "zoUb6lNYx8sC2suyUmcS";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””ê°’";
 		    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
 		    SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
@@ -222,8 +241,8 @@ public class LoginDAO {
 	}
 	
 	public String NaverLoginCallback() throws Exception {
-		String clientId = "zoUb6lNYx8sC2suyUmcS";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ°ª";
-	    String clientSecret = "bZgqg3cbjr";//¾ÖÇÃ¸®ÄÉÀÌ¼Ç Å¬¶óÀÌ¾ğÆ® ½ÃÅ©¸´°ª";
+		String clientId = "zoUb6lNYx8sC2suyUmcS";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””ê°’";
+	    String clientSecret = "bZgqg3cbjr";//ì• í”Œë¦¬ì¼€ì´ì…˜ í´ë¼ì´ì–¸íŠ¸ ì‹œí¬ë¦¿ê°’";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
 	    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
@@ -236,17 +255,17 @@ public class LoginDAO {
 	    apiURL += "&state=" + state;
 	    String access_token = "";
 	    String refresh_token = "";
-	    System.out.println("apiURL="+apiURL);
+//	    System.out.println("apiURL="+apiURL);
 	    try {
 	      URL url = new URL(apiURL);
 	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
 	      con.setRequestMethod("GET");
 	      int responseCode = con.getResponseCode();
 	      BufferedReader br;
-	      System.out.print("responseCode="+responseCode);
-	      if(responseCode==200) { // Á¤»ó È£Ãâ
+//	      System.out.print("responseCode="+responseCode);
+	      if(responseCode==200) { // ì •ìƒ í˜¸ì¶œ
 	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	      } else {  // ¿¡·¯ ¹ß»ı
+	      } else {  // ì—ëŸ¬ ë°œìƒ
 	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	      }
 	      String inputLine;
@@ -269,8 +288,8 @@ public class LoginDAO {
 	}
 	
 	public String NaverLoginGetInfo(String token) {
-		//String token : ³×ÀÌ¹ö ·Î±×ÀÎ Á¢±Ù ÅäÅ«;
-        String header = "Bearer " + token; // Bearer ´ÙÀ½¿¡ °ø¹é Ãß°¡
+		//String token : ë„¤ì´ë²„ ë¡œê·¸ì¸ ì ‘ê·¼ í† í°;
+        String header = "Bearer " + token; // Bearer ë‹¤ìŒì— ê³µë°± ì¶”ê°€
         try {
             String apiURL = "https://openapi.naver.com/v1/nid/me";
             URL url = new URL(apiURL);
@@ -279,9 +298,9 @@ public class LoginDAO {
             con.setRequestProperty("Authorization", header);
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if(responseCode==200) { // Á¤»ó È£Ãâ
+            if(responseCode==200) { // ì •ìƒ í˜¸ì¶œ
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // ¿¡·¯ ¹ß»ı
+            } else {  // ì—ëŸ¬ ë°œìƒ
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
             String inputLine;
@@ -290,11 +309,11 @@ public class LoginDAO {
                 response.append(inputLine);
             }
             br.close();
-            response.toString(); //»ç¿ëÀÚ Á¤º¸ ¸®ÅÏ
+            response.toString(); //ì‚¬ìš©ì ì •ë³´ ë¦¬í„´
             JsonParser parser = new JsonParser();
             JsonObject jObject = parser.parse(response.toString()).getAsJsonObject();
             JsonObject infoGroup = jObject.get("response").getAsJsonObject();
-            //»Ì¾Æ³½ Á¤º¸
+            //ë½‘ì•„ë‚¸ ì •ë³´
             return infoGroup.get("email").getAsString();
         } catch (Exception e) {
             System.out.println(e);
@@ -304,6 +323,66 @@ public class LoginDAO {
 	
 	public int socialJoinSubmit(MembersDTO dto) {
 		return sst.insert("LoginDAO.socialJoinSubmit", dto);
+	}
+	
+	public JsonNode kakaoLoginMakeUrl(String code) {
+		final String RequestUrl = "https://kauth.kakao.com/oauth/token"; // Host
+        final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+ 
+        postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // ë¦¬ë‹¤ì´ë ‰íŠ¸ URI
+        postParams.add(new BasicNameValuePair("code", code)); // ë¡œê·¸ì¸ ê³¼ì •ì¤‘ ì–»ì€ code ê°’
+ 
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        JsonNode returnNode = null;
+ 
+        try {
+            post.setEntity(new UrlEncodedFormEntity(postParams));
+ 
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+ 
+//            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+//            System.out.println("Post parameters : " + postParams);
+//            System.out.println("Response Code : " + responseCode);
+ 
+            // JSON í˜•íƒœ ë°˜í™˜ê°’ ì²˜ë¦¬
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnNode;
+	}
+	
+	public JsonNode kakaoLoginGetInfo(JsonNode accessToken) {
+		final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        // add header
+        post.addHeader("Authorization", "Bearer " + accessToken);
+ 
+        JsonNode returnNode = null;
+ 
+        try {
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+ 
+//            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+//            System.out.println("Response Code : " + responseCode);
+ 
+            // JSON Ã‡Ã¼Ã…Ã‚ Â¹ÃÃˆÂ¯Â°Âª ÃƒÂ³Â¸Â®
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnNode;
 	}
 	
 }

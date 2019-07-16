@@ -1,7 +1,7 @@
 package my.garden.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -170,11 +170,13 @@ public class LoginController {
 		boolean result = loginserv.emailDupCheck(socialEmail);
 		if(result==true) { //그 외 - 홈으로 이동
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
+			session.setAttribute("loginId", socialEmail);
 			return "home";
 		}else { //최초 로그인 - 정보입력 페이지로 이동
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("social", "naver");
-			return "login/naverLoginThrough";
+//			session.setAttribute("profile", "null");
+			return "login/socialLoginThrough";
 		}
 	}
 	
@@ -187,6 +189,32 @@ public class LoginController {
 	public String socialJoinSubmit(MembersDTO dto) {
 		loginserv.socialJoinSubmit(dto);
 		return "login/findAccountAfterLogin";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/kakaoLogin")
+	public String kakaoLogin() {
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=5a8617254e6227196ff9c31a66275c78&redirect_uri=http://localhost/kakaoCallback&response_type=code";
+		return url;
+	}
+	
+	@RequestMapping("/kakaoCallback")
+	public String kakaoLoginMakeUrl(String code) {
+		Map<String, String> map = loginserv.kakaoLoginMakeUrl(code);
+		String socialEmail = map.get("socialEmail");
+		String profile = map.get("profile");
+		
+		boolean result = loginserv.emailDupCheck(socialEmail);
+		if(result==true) { //그 외 - 홈으로 이동
+			session.setAttribute("loginName", loginserv.getName(socialEmail));
+			session.setAttribute("loginId", socialEmail);
+			return "home";
+		}else { //최초 로그인 - 정보입력 페이지로 이동
+			session.setAttribute("loginId", socialEmail);
+			session.setAttribute("profile", profile);
+			session.setAttribute("social", "kakao");
+			return "login/socialLoginThrough";
+		}
 	}
 	
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>소셜회원가입 - 네이버</title>
+<title>소셜회원가입</title>
 </head>
 <body>
 	<script>

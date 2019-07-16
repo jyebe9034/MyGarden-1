@@ -25,8 +25,8 @@
 	</insert>
 	
 	<insert id="socialJoinSubmit">
-		insert into members(m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_gender, m_birth, m_garden) 
-			values(#{m_email}, #{m_name}, #{m_phone}, default, default, default, #{m_social}, default, #{m_gender}, #{m_birth}, #{m_garden})
+		insert into members(m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_gender, m_birth, m_garden, m_profile) 
+			values(#{m_email}, #{m_name}, #{m_phone}, default, default, default, #{m_social}, default, #{m_gender}, #{m_birth}, #{m_garden}, #{m_profile})
 	</insert>
 	
 	<select id="dupCheck" parameterType="map" resultType="String">

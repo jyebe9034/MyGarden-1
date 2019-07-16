@@ -5,12 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.codehaus.jackson.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import my.garden.dao.LoginDAO;
 import my.garden.dto.MembersDTO;
@@ -76,7 +74,11 @@ public class LoginService {
 	}
 	
 	public int memUpdateAll(MembersDTO dto) {
-		dto.setM_pw(logDao.SHA256(dto.getM_pw()));
+		if(dto.getM_social().equals("MG")) {
+			dto.setM_pw(logDao.SHA256(dto.getM_pw()));
+		}else {
+			dto.setM_pw("N");
+		}
 		return logDao.memUpdateAll(dto);
 	}
 	
@@ -129,7 +131,46 @@ public class LoginService {
 	public int socialJoinSubmit(MembersDTO dto) {
 		dto.setM_social(request.getSession().getAttribute("social").toString());
 		dto.setM_ipaddress(request.getRemoteAddr());
+//		System.out.println(request.getSession().getAttribute("profile").toString());
+		if(request.getSession().getAttribute("profile").toString()==null) {
+			dto.setM_profile("resources/img/profile.png");
+		}else {
+			dto.setM_profile(request.getSession().getAttribute("profile").toString());
+		}
+		System.out.println(dto.getM_email());
+		
 		return logDao.socialJoinSubmit(dto);
+	}
+	
+	public Map<String, String> kakaoLoginMakeUrl(String code) {
+		JsonNode jsonToken = logDao.kakaoLoginMakeUrl(code);
+		JsonNode accessToken = jsonToken.get("access_token");
+		JsonNode userInfo = logDao.kakaoLoginGetInfo(accessToken);
+		
+//		System.out.println("userInfo : " + userInfo);
+		
+		// Get id
+        String id = userInfo.path("id").asText();
+        String name = null;
+        String profile = null;
+        String socialEmail = null;
+
+        // 유저정보 카카오에서 가져오기 Get properties
+        JsonNode properties = userInfo.path("properties");
+        JsonNode kakao_account = userInfo.path("kakao_account");
+ 
+        name = properties.path("nickname").asText();
+        profile = properties.path("profile_image").asText();
+        socialEmail = kakao_account.path("email").asText();
+ 
+//        System.out.println("id : " + id);
+//        System.out.println("name : " + name);
+//        System.out.println("email : " + email);
+        
+        Map<String, String> map = new HashMap();
+        map.put("socialEmail", socialEmail);
+        map.put("profile", profile);
+        return map;
 	}
 	
 }
