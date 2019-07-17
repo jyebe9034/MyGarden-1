@@ -120,7 +120,9 @@
       $("#myGardenTitle").on("click", function() {
          $(location).attr("href", "/")
       });
-      
+		$('#toMypage').on('click', function(){
+			$(location).attr('href', '/mypageFirst');
+		});
       /* 검색기능 by 지혜 */
       $("#searchBtn").on("click", function(){
     	  var keyword = $("#keyword").val();
