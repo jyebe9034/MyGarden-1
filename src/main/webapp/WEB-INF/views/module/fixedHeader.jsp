@@ -92,7 +92,7 @@
 <!--    script -->
 <script>
    $(function() {
-      var topMenuOffset = $('.menuScrollOption').offset();
+      var topMenuOffset = $('.menuScrollOption').offset(); 
       $(window).scroll(function() {
          if ($(document).scrollTop() > topMenuOffset.top) {
             $('.menuScrollOption').addClass('menuPosition-fixed');
