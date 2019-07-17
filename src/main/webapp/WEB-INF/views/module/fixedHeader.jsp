@@ -207,7 +207,7 @@
 								<li class="nav-item active dropdown"><a
 									class="nav-link dropdown-toggle mt-2" href="#" role="button"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> 상품 전체보기 </a>
+									aria-expanded="false"> 상세 카테고리 </a>
 									<div class="dropdown-menu text-center"
 										aria-labelledby="navbarDropdown">
 										  <a class="dropdown-item" href="fruit?category=fruit">과일</a> 
@@ -220,7 +220,7 @@
 		                        <li class="nav-item"><a class="nav-link mt-2" href="productsAdd">비밀정원</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="#">|&nbsp;&nbsp;About</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="#">자유게시판</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>
 								<li class="nav-item"><a class="nav-link" href="#"> 
 									<img src="resources/img/person.png" width="40" height="40" id="toMypage" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
 									<img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">

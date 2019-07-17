@@ -187,7 +187,7 @@ table.list_table_style td.cell {
 													<tr>
 														<td class="center" width="60" height="60" valign="middle"
 															style="border: 1px solid #eeeeee;"><img
-															class="orderImg" src="/resources/${dto.c_p_imagepath }"
+															class="orderImg" src="${dto.c_p_imagepath }"
 															align="absmiddle"
 															style="max-height: 60px; max-width: 60px;" /></td>
 														<td class="left" style="padding-left: 10px;">
@@ -401,9 +401,7 @@ table.list_table_style td.cell {
 											</div> <input type="text" name="recipient_zipcode[]"
 											value="${loginDTO.m_zipcode }" size="10" maxlength="3"
 											readonly id="zipcode" /> <span class="white_btn"><button
-													class="hand" type="button" id="search">주소찾기</button></span> <label><input
-												type="checkbox" name="save_delivery_address" value="1" />
-												기본 배송지로 저장</label>
+													class="hand" type="button" id="search">주소찾기</button></span>
 										</td>
 									</tr>
 									<tr class="goods_delivery_info">

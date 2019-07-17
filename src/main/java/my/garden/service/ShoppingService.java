@@ -18,5 +18,5 @@ public interface ShoppingService {
 
 	public List<List<ShopListDTO>> getOrderList(String id) throws Exception;
 	
-
+	public int insertIntoCart(CartDTO dto) throws Exception;
 }

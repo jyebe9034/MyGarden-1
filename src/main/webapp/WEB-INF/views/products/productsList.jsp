@@ -77,7 +77,9 @@
 			3. $(document).on( eventName, selector, function(){} ); */
 		$(".articles").on("click",".anker", function(){
 			var pnumber = $(this).attr("pnumber");
-			location.href = "productsRead?pnumber=" + pnumber;
+ 		//	location.href = "productsRead?pnumber=" + pnumber;
+// 			location.href = "productsRead?br_p_no=1&currentPage=1&qnaCurrentPage=1&pnumber=" + pnumber;
+			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 		})
 		
 		var arr = [];

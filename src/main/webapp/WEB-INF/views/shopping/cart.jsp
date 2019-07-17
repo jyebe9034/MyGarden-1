@@ -387,6 +387,7 @@ button.btn_select_all, button.btn_select_del {
 		$("#buyAll").on(
 				"click",
 				function() {
+					$(".goodsCheckbox").prop("checked", true);
 					var checked = 0;
 					$(".goodsCheckbox").each(function() {
 						if ($(this).prop("checked")) {
@@ -435,7 +436,7 @@ button.btn_select_all, button.btn_select_del {
 				});
 		
 		$("#keepShopping").on("click", function() {
-			$(location).attr("href", "/")
+			$(location).attr("href", "productsList")
 		})
 		
 		$(".up")
@@ -633,7 +634,7 @@ button.btn_select_all, button.btn_select_del {
 																<div class="row">
 																	<div class="col-4">
 																		<img class="goodsImg"
-																			src="/resources/${dto.c_p_imagepath }">
+																			src="${dto.c_p_imagepath }">
 																	</div>
 																	<div class="col-6 nameWrapper ml-3" align="left">
 																		<span class="goodsName">${dto.c_p_title }</span>

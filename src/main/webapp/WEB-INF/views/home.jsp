@@ -18,7 +18,6 @@
 	});
 	</script>
 
-
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
 	

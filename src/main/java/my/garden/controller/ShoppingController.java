@@ -96,8 +96,6 @@ public class ShoppingController {
 	public String toOrderList(HttpServletRequest request) {
 		String id = (String)session.getAttribute("loginId");		
 		try {
-			List<List<ShopListDTO>> list = shsvc.getOrderList(id);
-			System.out.println(list.get(0).get(0).getS_orderno() + " : " + list.get(0).get(0).getS_m_paymethod());
 			request.setAttribute("listWrapper", shsvc.getOrderList(id));
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -121,12 +119,15 @@ public class ShoppingController {
 //	}
 
 	@ResponseBody
-	@RequestMapping("insertCart")
-	public int insertCart(CartDTO dto) {
+	@RequestMapping(value = "insertCart", method = RequestMethod.POST)
+	public void insertCart(CartDTO dto) {
 		String id = (String)session.getAttribute("loginId");
 		dto.setC_m_email(id);
-		// 여기에 백단 로직 들어가야 함.
-		return 1;
+		try {
+			shsvc.insertIntoCart(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
