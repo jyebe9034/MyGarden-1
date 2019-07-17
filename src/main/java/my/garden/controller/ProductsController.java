@@ -133,17 +133,17 @@ public class ProductsController {
 		}
 	}
 
-	@RequestMapping("productsRead")
-	public String toProductsRead(int pnumber, Model model) {
-		try{
-			ProductsDTO dto = pservice.selectOneProductService(pnumber);
-			model.addAttribute("result", dto);
-			return "products/productsRead";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+//	@RequestMapping("productsRead") //지혜씨 이거 제 컨트롤러로 옮겼어여 ㅋ (BoardReviewAndQnAController)
+//	public String toProductsRead(int pnumber, Model model) {
+//		try{
+//			ProductsDTO dto = pservice.selectOneProductService(pnumber);
+//			model.addAttribute("result", dto);
+//			return "products/productsRead";
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
 	
 	@RequestMapping("productsDelete")
 	public String deleteProducts(String[] arr, Model model) {
@@ -226,4 +226,5 @@ public class ProductsController {
 			return null;
 		}
 	}
+
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardQnAMB">
+
+
+<!-- 상세페이지에서 총 문의 글 개수 -->
+	<select id="qnaCount" resultType="Integer">
+		select count(*) from board_qna where bq_p_no=#{bq_p_no}
+	</select>
+	
+<!-- 문의 굴목록 -->
+	<select id="qnaList" resultType="my.garden.dto.BoardQnADTO" parameterType="hashmap">
+		select * 
+		from (select row_number() over(order by bq_no desc) as rown, board_qna.* from board_qna where bq_p_no=#{bq_p_no}) 
+		where rown between #{startNum2} and #{endNum2}
+	</select>
+
+<!-- 문의 글 작성 -->
+	<insert id="writeQnA">
+		insert into board_qna values(#{bq_p_no},board_qna_seq.nextval,default,#{bq_checkedSecret,jdbcType=VARCHAR},#{bq_title},#{bq_email},#{bq_name},#{bq_content},default,#{bq_imagepath1,jdbcType=VARCHAR},#{bq_imagepath2,jdbcType=VARCHAR},#{bq_imagepath3,jdbcType=VARCHAR})
+	</insert>
+
+<!-- 문의 글 읽기 -->
+	<select id="readQnA" resultType="my.garden.dto.BoardQnADTO">
+		select * from board_qna where bq_no=#{bq_no}
+	</select>
+
+<!-- 문의 글 수정 -->
+	<update id="updateQnA">
+		update board_qna set
+		bq_checkedSecret=#{bq_checkedSecret,jdbcType=VARCHAR},
+		bq_title=#{bq_title}, 
+		bq_content=#{bq_content}, 
+		bq_writedate=default, 
+		bq_imagepath1=#{bq_imagepath1,jdbcType=VARCHAR}, 
+		bq_imagepath2=#{bq_imagepath2,jdbcType=VARCHAR},
+		bq_imagepath3=#{bq_imagepath3,jdbcType=VARCHAR}
+		where bq_no=#{bq_no}
+	</update>
+
+<!-- 문의 글 삭제 -->
+	<delete id="deleteQnA">
+		delete board_qna where BQ_NO=#{bq_no};
+	</delete>
+
+<!-- 관리자인지 확인 -->
+<!-- 	<select id="checkAdmin" resultType="String"> -->
+<!-- 		select m_grade from members where m_email=#{m_email} -->
+<!-- 	</select> -->
+
+
+<!-- 답변 글 목록 -->
+
+
+<!-- 답변 글 등록 -->
+	<insert id="writeComment">
+		insert into comment_qna 
+		values(#{cq_p_no},#{cq_no},#{cq_name},#{cq_email},default,#{cq_comment})
+	</insert>
+	<update id="setAnsY">
+		update board_qna set bq_checkedAns='y' 
+		where bq_no=#{cq_no};--답변완료
+	</update>
+
+<!-- 답변 글 수정 -->
+
+
+<!-- 답변 글 삭제 -->
+
+
+
+
+
+</mapper>
