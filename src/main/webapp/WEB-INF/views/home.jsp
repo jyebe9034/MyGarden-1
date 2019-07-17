@@ -11,6 +11,29 @@
 		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
 		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
 		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
+		
+		#chatboxWrap{
+			border-radius : 5px;
+			width : 350px;
+			height : 500px;
+		}
+		#chatBox{
+			position : fixed;
+			left : 20px;
+			bottom : 100px;
+			display : none;
+		}
+		#chatWrap{
+			width : 80px;
+			height : 80px;
+			position : fixed;
+			left : 30px;
+			bottom : 25px;
+		}
+		#chatBtn{
+			width : 80px;
+			height : 80px;
+		}
 	</style>
 </head>
 <body>
@@ -151,6 +174,23 @@
 		</div>
 	</div>
 	
+	<div id="chatboxWrap">
+		<iframe id="chatBox" src="chat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+	</div>
+	<div id="chatWrap">
+		<img id="chatBtn" src="/resources/img/chat.png">
+	</div>
+	
+	<script>
+		$("#chatBtn").on("click",function(){
+			if($("#chatBox").css("display") == "none"){
+				$("#chatBox").show();
+			}else{
+				$("#chatBox").hide();
+			}
+		})
+	</script>
+
 <!-- 	footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 </body>
