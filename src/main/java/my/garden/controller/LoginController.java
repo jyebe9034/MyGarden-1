@@ -1,6 +1,9 @@
 package my.garden.controller;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -215,6 +218,32 @@ public class LoginController {
 			session.setAttribute("social", "kakao");
 			return "login/socialLoginThrough";
 		}
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		ArrayList<Integer> list = new ArrayList();
+		int yyyy = 0;
+		int mm = 0;
+		int maxDay = 0;
+		Integer[] arr = new Integer[12];
+		//Calendar
+		Calendar cal = Calendar.getInstance();
+
+		// 1~12
+		for(int month=0; month<12; month++) {
+			yyyy = cal.get(Calendar.YEAR); //연도
+			System.out.println(yyyy);
+			cal.set(Calendar.MONTH, month);
+			mm = cal.get(Calendar.MONTH)+1; //달
+			System.out.println(mm);
+			maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println(maxDay); //마지막 날짜
+			arr[month] = maxDay;
+		}
+		session.setAttribute("year", yyyy);
+		session.setAttribute("maxDay", arr);
+		return "test";
 	}
 	
 }

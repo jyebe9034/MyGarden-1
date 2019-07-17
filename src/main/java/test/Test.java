@@ -1,35 +1,65 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Test {
-	public void calendar() {
-		//Calendar °´Ã¼ »ý¼º(Ãß»óÅ¬·¡½º ÀÌ±â ¶§¹®¿¡ getInstance·Î °´Ã¼¸¦ »ý¼ºÇÑ´Ù.)
+	public void test(){
+		ArrayList<Integer> list = new ArrayList();
+		String yyyy = null;
+		String mm = null;
+		int dd = 0;
+		//Calendar
 		Calendar cal = Calendar.getInstance();
 
-		// 1~12 ¿ù
+		// 1~12
 		for(int month=0; month<12; month++) {
-			System.out.println(cal.get(Calendar.YEAR));
-			// ¿ù ¼³Á¤
+			yyyy = cal.get(Calendar.YEAR)+""; //ì—°ë„
 			cal.set(Calendar.MONTH, month);
-			System.out.println(cal.get(Calendar.MONTH)+1+"¿ù");
+			mm = cal.get(Calendar.MONTH)+1+""; //ë‹¬
+			int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+			cal.set(Calendar.DATE,1);
+			for(int i=1; i<=maxDay; i++) {
+				cal.set(Calendar.DATE, i);
+				dd = cal.get(Calendar.DATE); //ë‚ ì§œ
+				cal.set(Calendar.DATE, i + 1);
+			}
+			list.add(dd); //ê° ë‹¬ì˜ ë§ˆì§€ë§‰ ë‚ ì§œ
+		}
+		for(int i : list) {
+			System.out.println(i);
+		}
+	}
+	
+	
+	public void calendar() {
+		//Calendar
+		Calendar cal = Calendar.getInstance();
 
-			// ¿ùÀÇ ¸¶Áö¸·ÀÏÀ» º¯¼ö maxDay¿¡ ÀúÀå
+		// 1~12
+		for(int month=0; month<12; month++) {
+			int yyyy = cal.get(Calendar.YEAR);
+			System.out.println(cal.get(Calendar.YEAR));
+			
+			cal.set(Calendar.MONTH, month);
+			int mm = cal.get(Calendar.MONTH)+1;
+			System.out.println(mm+"-month-");
+
+			// maxDay
 			int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			cal.set(Calendar.DATE,1);
 
-			// 1ÀÏºÎÅÍ ¸¶Áö¸· ÀÏ ±îÁö
 			for(int i=1; i<=maxDay; i++) {
 				cal.set(Calendar.DATE, i);
 
-				//ÁÖ Á¡ÇÁ¸¦ ÇÏ±â À§ÇØ ¿À´ÃÀÌ ¸î¹øÂ° ÁÖÀÎÁö ÀúÀå
-//				int wom1 = cal.get(Calendar.WEEK_OF_MONTH);
-
-				//day Ãâ·Â
-				System.out.print(cal.get(Calendar.DATE) + " ");
-				//¿À´Ã°ú ³»ÀÏÀÌ ¸î¹øÂ° ÁÖÀÎÁö ºñ±³ÇÏ±â À§ÇØ¼­ ´ÙÀ½³¯À» set
+				//day
+				int dd = cal.get(Calendar.DATE);
+				System.out.print(dd + " ");
+				
 				cal.set(Calendar.DATE, i + 1);
-//				int wom2 = cal.get(Calendar.WEEK_OF_MONTH);
 			}
 			System.out.println();
 		}
@@ -38,7 +68,8 @@ public class Test {
 
 		public static void main(String[] args) {
 			Test t = new Test();
-			t.calendar();
+//			t.calendar();
+			t.test();
 		}
 
 }

@@ -420,7 +420,7 @@ input[type=email]{
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 소셜회원가입</h3>
 			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">사이트 이용에 필요한 인증과 최소한의 정보를 입력하세요</h6>
-			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post"">		
+			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post">		
 			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">

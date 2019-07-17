@@ -1,26 +1,112 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="ko">
+<%@ page import="java.net.URLEncoder" %>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %><html>
 <head>
-  <meta charset="utf-8">
-  <title>네이버 로그인</title>
-  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style>
+p{border:1px solid #000; float:left; margin:10px; padding:10px; cursor:pointer; text-indent:-9999;}
+p:hover{background:#eee;}
+</style>
 <body>
-  <!-- '네이버 아이디로 로그인하기' 버튼 -->
- 	<!-- 원하는 곳에 넣습니다. -->
-	<div id="naver_id_login"></div>
-	
-	<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-	<script type="text/javascript">
- 		var naver_id_login = new naver_id_login("zoUb6lNYx8sC2suyUmcS", "test2");	// Client ID, CallBack URL 삽입
-											// 단 'localhost'가 포함된 CallBack URL
- 		var state = naver_id_login.getUniqState();
-		
- 		naver_id_login.setButton("white", 2, 40);
- 		naver_id_login.setDomain("http://localhost/test.jsp");	//  URL
- 		naver_id_login.setState(state);
- 		naver_id_login.setPopup();
- 		naver_id_login.init_naver_id_login();
-	</script>
+  <script>
+  
+//   var lastDay = ( new Date( 년도입력, 월입력, 0) ).getDate();
+
+//   int_d = new Date(2011, 7,0);    // 구하고자 하는 년,월,일
+
+//   d = new Date(int_d);
+
+//   console.log(d.getDate()); 
+
+// var today = new Date();
+// var dd = today.getDate();
+// var mm = today.getMonth()+1; //January is 0!
+// var yyyy = today.getFullYear();
+// console.log(yyyy+"-"+mm+"-"+dd);
+// if(dd<10) {
+//     dd='0'+dd
+// } 
+
+// if(mm<10) {
+//     mm='0'+mm
+// } 
+
+// today = mm+'/'+dd+'/'+yyyy;
+// document.write(today);
+
+
+//----------------------------
+
+// function getInputDayLabel() {
+    
+//     var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
+    
+//     var today = new Date(yyyy+"-"+mm+"-"+dd).getDay();
+//     var todayLabel = week[today];
+    
+//     return todayLabel;
+// }
+ 
+ 
+// console.log(getInputDayLabel())
+// // 목요일
+
+//---------------------------
+
+
+// var today = new Date();
+// var dd = today.getDate();
+// var mm = today.getMonth()+1; //January is 0!
+// var yyyy = today.getFullYear();
+  
+//   for(var i=0; i<12; i++){
+// 	  $('.month:nth-child('+i+1+')').text(i+1);
+// 	  var chooseMonth = new Date(yyyy, i+1, 0);
+// 	  var maxDay = new Date(chooseMonth).getDate();
+// 	  for(var j=1; j<=maxDay; j++){
+// 		  $('.day').after("<span>"+j+"</span>");
+// 	  }
+//   }
+<!--   </script> -->
+  
+ 
+<!--   <div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!-- 	  <div class="month"></div> -->
+<!--    </div>  -->
+<button id="btn">button</button>
+<script>
+	$('#btn').on('click', function(){
+		$(location).attr('href', '/test');
+	});
+</script>
+	<br> ${year } <br>
+	<div id="div"></div>
+	<h6>1월</h6>
+		<c:forEach begin="1" end="${maxDay[0]}" step="1" var="x">
+		  <div><p>${ x }</p></div>
+		</c:forEach>
+	<h6>2월</h6>
+		<c:forEach begin="1" end="${maxDay[1]}" step="1" var="x">
+		  <div><p>${ x }</p></div>
+		</c:forEach>
+	<h6>3월</h6>
+		<c:forEach begin="1" end="${maxDay[2]}" step="1" var="x">
+		  <div><p>${ x }</p></div>
+		</c:forEach>
+
+</body>
 </html>
