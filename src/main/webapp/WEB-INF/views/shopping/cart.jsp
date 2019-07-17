@@ -423,9 +423,11 @@ button.btn_select_all, button.btn_select_del {
 					$("#productList").val(stringJson);
 					$("#cartForm").submit();
 				});
+		
 		$("#keepShopping").on("click", function() {
 			$(location).attr("href", "/")
 		})
+		
 		$(".up")
 				.on(
 						"click",
