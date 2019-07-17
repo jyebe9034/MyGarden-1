@@ -70,9 +70,6 @@ public class LoginController {
 			session.setAttribute("loginId", loginId);
 			String loginName = loginserv.getName(loginId);
 			session.setAttribute("loginName", loginName);
-			
-			session.setAttribute("grade", "admin"); // ì„ì‹œë¡œ ê´€ë¦¬ìë¡œ ë„£ì–´ë‘ 
-			System.out.println("ë¡œê·¸ì¸ ì„±ê³µ!");
 			return "home";
 		}
 	}
@@ -82,7 +79,7 @@ public class LoginController {
 		session.invalidate();
 		out = response.getWriter();
 //		out.print("<body>\r\n" + 
-//				"		//·Î±×ÀÎ ½Ã µÚ·Î°¡±â ¹æÁö\r\n" + 
+//				"		//ë¡œê·¸ì¸ ì‹œ ë’¤ë¡œê°€ê¸° ë°©ì§€\r\n" + 
 //				"		history.pushState(null, null, location.href);\r\n" + 
 //				" 			window.onpopstate = function () {\r\n" + 
 //				"        		history.go(1);\r\n" + 
@@ -171,19 +168,19 @@ public class LoginController {
 		String code = loginserv.NaverLoginCallback();
 		String socialEmail = loginserv.NaverLoginGetInfo(code);
 		boolean result = loginserv.emailDupCheck(socialEmail);
-		if(result==true) { //±× ¿Ü - È¨À¸·Î ÀÌµ¿
+		if(result==true) { //ê·¸ ì™¸ - í™ˆìœ¼ë¡œ ì´ë™
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
 			return "home";
-		}else { //ÃÖÃÊ ·Î±×ÀÎ - Á¤º¸ÀÔ·Â ÆäÀÌÁö·Î ÀÌµ¿
+		}else { //ìµœì´ˆ ë¡œê·¸ì¸ - ì •ë³´ì…ë ¥ í˜ì´ì§€ë¡œ ì´ë™
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("social", "naver");
-//			session.setAttribute("profile", "null");
+			session.setAttribute("profile", "");
 			return "login/socialLoginThrough";
 		}
 	}
 	
-	@RequestMapping("/socialJoin")
+	@RequestMapping("/socialJoin") //ëª¨ë“  ì†Œì…œ ë¡œê·¸ì¸ í›„ í˜ì´ì§€ ì´ë™
 	public String socialJoin(MembersDTO dto) {
 		return "login/socialJoin";
 	}
@@ -208,11 +205,11 @@ public class LoginController {
 		String profile = map.get("profile");
 		
 		boolean result = loginserv.emailDupCheck(socialEmail);
-		if(result==true) { //±× ¿Ü - È¨À¸·Î ÀÌµ¿
+		if(result==true) { //ê·¸ ì™¸ - í™ˆìœ¼ë¡œ ì´ë™
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
 			return "home";
-		}else { //ÃÖÃÊ ·Î±×ÀÎ - Á¤º¸ÀÔ·Â ÆäÀÌÁö·Î ÀÌµ¿
+		}else { //ìµœì´ˆ ë¡œê·¸ì¸ - ì •ë³´ì…ë ¥ í˜ì´ì§€ë¡œ ì´ë™
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("profile", profile);
 			session.setAttribute("social", "kakao");
