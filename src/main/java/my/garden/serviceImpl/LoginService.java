@@ -131,12 +131,13 @@ public class LoginService {
 	public int socialJoinSubmit(MembersDTO dto) {
 		dto.setM_social(request.getSession().getAttribute("social").toString());
 		dto.setM_ipaddress(request.getRemoteAddr());
-//		System.out.println(request.getSession().getAttribute("profile").toString());
+		//System.out.println(request.getSession().getAttribute("profile").toString());
 		if(request.getSession().getAttribute("profile").toString()==null) {
 			dto.setM_profile("resources/img/profile.png");
 		}else {
 			dto.setM_profile(request.getSession().getAttribute("profile").toString());
 		}
+		
 		System.out.println(dto.getM_email());
 		
 		return logDao.socialJoinSubmit(dto);
@@ -155,7 +156,7 @@ public class LoginService {
         String profile = null;
         String socialEmail = null;
 
-        // À¯ÀúÁ¤º¸ Ä«Ä«¿À¿¡¼­ °¡Á®¿À±â Get properties
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Get properties
         JsonNode properties = userInfo.path("properties");
         JsonNode kakao_account = userInfo.path("kakao_account");
  
