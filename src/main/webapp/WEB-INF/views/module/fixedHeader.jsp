@@ -118,6 +118,11 @@
       $("#cart").on("click", function() {
          $(location).attr("href", "cart")
       });
+      
+      $("#admin").on("click", function() {
+          $(location).attr("href", "adminView")
+       });
+      
       $("#myGardenTitle").on("click", function() {
          $(location).attr("href", "/")
       });
@@ -214,7 +219,7 @@
                               <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
                               <li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>
                         <li class="nav-item"><a class="nav-link" href="#"> 
-                           <img src="resources/img/person.png" width="40" height="40" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
+                           <img src="resources/img/person.png" width="40" height="40" id="admin" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
                            <img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">
                         </a></li>
                         <li class="nav-item ml-3">

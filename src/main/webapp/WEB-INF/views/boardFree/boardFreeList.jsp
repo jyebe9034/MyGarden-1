@@ -109,7 +109,7 @@ hr {
 </style>
 <body>
 	<div class=col-12 id=titleImg>
-		<img src="resources/img/boardFree.png">
+		<img src="resources/free/boardFree.png">
 	</div>
 
 	<div class=container>
@@ -129,13 +129,13 @@ hr {
 					<input type=hidden value=${tmp.bf_no }>
 					<div class=otherContents>
 						<span class=writer><img
-							src="resources/img/boardFreeWriter.png">${tmp.bf_writer }</span> <span
+							src="resources/free/boardFreeWriter.png">${tmp.bf_writer }</span> <span
 							class=writeDate><img
-							src="resources/img/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
+							src="resources/free/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
 						<span class=viewCount><img
-							src="resources/img/boardFreeView.png">${tmp.bf_viewcount }</span>
+							src="resources/free/boardFreeView.png">${tmp.bf_viewcount }</span>
 						<span class=comment><img
-							src="resources/img/boardFreeReply.png">${tmp.bf_cmtcount}</span>
+							src="resources/free/boardFreeReply.png">${tmp.bf_cmtcount}</span>
 					</div>
 				</div>
 				<hr size="3">
@@ -181,7 +181,7 @@ hr {
 			if(result!=null){
 			$(this).next().html("<img src='"+result[1]+"'>");
 			}else{
-				$(this).next().html("<img src='/resources/img/noImg.png'>");
+				$(this).next().html("<img src='/resources/free/noImg.png'>");
 			}
 	})
 

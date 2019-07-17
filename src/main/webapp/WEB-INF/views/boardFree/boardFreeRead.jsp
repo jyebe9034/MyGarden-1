@@ -195,7 +195,7 @@ hr {
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/img/boardFree.png">
+		<img src="resources/free/boardFree.png">
 	</div>
 	<div class=container>
 		<div class=row>
@@ -205,11 +205,11 @@ hr {
 			</div>
 
 			<div id=info>
-				<span id=writer><img src="resources/img/boardFreeWriter.png">${page.bf_writer }</span>
+				<span id=writer><img src="resources/free/boardFreeWriter.png">${page.bf_writer }</span>
 				<span id=writedate><img
-					src="resources/img/boardFreeWriteDate.png"> <fmt:formatDate
+					src="resources/free/boardFreeWriteDate.png"> <fmt:formatDate
 						pattern="yyyy-MM-dd HH:mm" value="${page.bf_writedate }" /></span> <span
-					id=viewcount><img src="resources/img/boardFreeView.png">${page.bf_viewcount }</span>
+					id=viewcount><img src="resources/free/boardFreeView.png">${page.bf_viewcount }</span>
 			</div>
 
 			<div id=content class=col-12>${page.bf_content }</div>
@@ -217,16 +217,16 @@ hr {
 				<c:forEach var="tmp" items="${list }">
 					<div class=commentOne>
 						<span class=rWriter> <img
-							src="resources/img/boardFreeCmtWriter.png">${tmp.cf_name }
+							src="resources/free/boardFreeCmtWriter.png">${tmp.cf_name }
 						</span> <span class=rWritedate>${tmp.cf_stringdate}</span>
 						<div class="rContents row">
 							<div class="rContent col-10">${tmp.cf_comment }</div>
 							<c:if test="${loginName==tmp.cf_name }">
 								<div class="rIcons col-2">
 									<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
-										src="resources/img/boardFreeCmtChange.png"></span> <span
+										src="resources/free/boardFreeCmtChange.png"></span> <span
 										class=cmtDelete id='${tmp.cf_no}'> <img
-										src="resources/img/boardFreeCmtDelete.png">
+										src="resources/free/boardFreeCmtDelete.png">
 									</span>
 								</div>
 							</c:if>
@@ -310,13 +310,13 @@ hr {
 						 for(var i=0; i<resp.list.length; i++){	
 							 var commentOne = $("<div class=commentOne></div>");
 						        var rWriter= $("<span class=rWriter></span>");
-						        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+						        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 						        var rContents = $("<div class='rContents row'></div>");
 						        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 						        if('${loginId}' == resp.list[i].cf_email){
 						        var rIcons = $("<div class='rIcons col-2'></div>");  		    
-						        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
-						        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+						        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
+						        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 						        rContents.append(rIcons); 
 						        }        
 						        commentOne.append(rWriter);
@@ -366,13 +366,13 @@ hr {
 					 for(var i=0; i<resp.list.length; i++){	
 						 var commentOne = $("<div class=commentOne></div>");
 					        var rWriter= $("<span class=rWriter></span>");
-					        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+					        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 					        var rContents = $("<div class='rContents row'></div>");
 					        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 					        if('${loginId}' == resp.list[i].cf_email){
 					        var rIcons = $("<div class='rIcons col-2'></div>");  		    
-					        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
-					        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+					        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
+					        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 					        rContents.append(rIcons); 
 					        }        
 					        commentOne.append(rWriter);
@@ -424,13 +424,13 @@ hr {
 				 for(var i=0; i<resp.list.length; i++){	
 					 var commentOne = $("<div class=commentOne></div>");
 				        var rWriter= $("<span class=rWriter></span>");
-				        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+				        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 				        var rContents = $("<div class='rContents row'></div>");
 				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 				        if('${loginId}' == resp.list[i].cf_email){
 				        var rIcons = $("<div class='rIcons col-2'></div>");  		    
-				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
-				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
+				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 				        rContents.append(rIcons); 
 				        }        
 				        commentOne.append(rWriter);
@@ -480,13 +480,13 @@ hr {
 				 for(var i=0; i<resp.list.length; i++){	
 					 var commentOne = $("<div class=commentOne></div>");
 				        var rWriter= $("<span class=rWriter></span>");
-				        rWriter.append('<img src="resources/img/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+				        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 				        var rContents = $("<div class='rContents row'></div>");
 				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 				        if('${loginId}' == resp.list[i].cf_email){
 				        var rIcons = $("<div class='rIcons col-2'></div>");  		    
-				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtChange.png"></span>'
-				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/img/boardFreeCmtDelete.png"></span>');
+				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
+				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 				        rContents.append(rIcons); 
 				        }        
 				        commentOne.append(rWriter);
