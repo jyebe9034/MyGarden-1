@@ -7,11 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나의 정원</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
-	<style>
-		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
-		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
-		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
-	</style>
 </head>
 <body>
 <!-- script -->
@@ -22,31 +17,9 @@
 		 });
 	});
 	</script>
-	
-	<c:choose>
-       <c:when test="${loginName!=null}">
-       
-<!-- after login header -->
-	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
-       </c:when>
-       <c:otherwise>
 
-<!-- before login header -->
-<div class="container-fluid my">
-	<div class="row my">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
-			<span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>
-			<span class="position-absolute clickToCloseBtnBorder"></span>
-			<span class="position-absolute clickToCloseBtn">&Cross;</span>
-		</div>
-	</div>
-</div>		
+<!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
-       </c:otherwise>
-   </c:choose>
-<!------------------- 	JSTL ----------------------------->
 	
 	
 <!-- 			carousel -->

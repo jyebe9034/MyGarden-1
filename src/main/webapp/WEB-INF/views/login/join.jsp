@@ -10,15 +10,16 @@
 .imageContainer{height:300px; overflow:hidden;}
 .carousel-inner{margin-top:-120px;}
 .loginForm{background:#399078; color:#fff; height:60px; font-size:27px;}
-.filebox label, #joinBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
+#verMailBtn, #verCodeBtn, .filebox label, #joinBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
 #joinBtn{height:57px; position:absolute; top:6px; right:-5px;} 
-#joinBtn:hover, .filebox label:hover{background:#4f9c87; color:#fff;}
+#verMailBtn:hover, #verCodeBtn:hover, #joinBtn:hover, .filebox label:hover{background:#4f9c87; color:#fff;}
 .filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 .profile{width:130px; height:130px; border-radius:50%; margin:10px auto; overflow:hidden;}
 .fontGreen{font-weight:bold; color:#4f9c87;}
 .onblur{font-size:13px; color:#4f9c87;}
 .postCode{position:relative;}
 .modal-body{max-height:270px; overflow-y:auto;}
+#surplusForm, #verifingCode{display:none;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
@@ -107,6 +108,26 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
+.inputStuff50{
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 46%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
 .inputStuff{
   background-color: #f6f6f6;
   border: none;
@@ -175,11 +196,9 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
   -webkit-animation:fadeIn ease-in 1;
   -moz-animation:fadeIn ease-in 1;
   animation:fadeIn ease-in 1;
-
   -webkit-animation-fill-mode:forwards;
   -moz-animation-fill-mode:forwards;
   animation-fill-mode:forwards;
-
   -webkit-animation-duration:1s;
   -moz-animation-duration:1s;
   animation-duration:1s;
@@ -313,15 +332,16 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            		}
            	});
            	$("input[name=m_name]").on("blur", function(){
-           		var regexName=/^[가-힣A-z]{2,}$/;
+           		var regexName=/^[가-힣A-z]{2,12}$/;
            		if(regexName.exec($("input[name=m_name]").val())){
            			$("#userName").text("");
            		}else{
-           			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
+           			$("#userName").text("2~12단어 이상으로 이루어진 영어, 한글만 가능합니다");
            			$("input[name=m_name]").val("");
            		}
            	});
-           	$("input[name=m_email]").on("blur", function(){
+           	var pwCode;
+           	$("#verMailBtn").on("click", function(){
            		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
            		if(regexMail.exec($("input[name=m_email]").val())){
                		$.ajax({
@@ -333,12 +353,31 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
                    			$("#eamilName").text("중복되는 메일입니다");
                    			$("input[name=m_email]").val("");
                			}else{
-                   			$("#eamilName").text("");
+               				$.ajax({
+               					url:"/findPwGetCode",
+               					type:"post",
+               					data:{key:$("input[name=m_email]").val()}
+               				}).done(function(resp){
+               					pwCode=resp;
+                       			$("#eamilName").text("메일로 발송된 인증번호를 입력하고 버튼을 누르세요");
+                       			$('#verText').val("");
+                       			$('#verifingCode').slideDown();
+               				});
                			}
                		});
            		}else{
            			$("#eamilName").text("사용할 수 없는 형식의 메일입니다");
            			$("input[name=m_email]").val("");
+           		}
+           	});
+           	$('#verCodeBtn').on('click', function(){
+           		if(pwCode==$('#verText').val()){
+           			$("#eamilName").text("");
+           			$('#surplusForm').slideDown();
+           			$('#verifingCode').slideUp();
+           		}else{
+           			$("#eamilName").text("인증번호가 맞지 않습니다");
+           			$('#verText').val("");
            		}
            	});
            	$("input[name=m_pw]").on("blur", function(){
@@ -451,8 +490,15 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        	<span class="onblur" id="userName"></span>
-			                        <input type="email" placeholder="사용하실 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
-			                        	<span class="onblur" id="eamilName"></span>
+			                        <input type="email" placeholder="사용할 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
+			                        	<div class="onblur" id="eamilName"></div>
+			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
+			                      <div id="verifingCode">  	
+			                        <input type="text" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
+			                        	<button type="button" id="verCodeBtn" class="btn">인증하기</button>
+			                      </div>  	
+<!-- 			             surplusForm -->
+			                      <div id="surplusForm">  	
 			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요" class="fadeIn inputStuff" name="m_pw">
 			                        	<span class="onblur" id="pwName"></span>
 			                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
@@ -461,23 +507,25 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<span class="onblur" id="phoneName"></span>
 			                        <div class="postCode" id="postCode">
 			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
-			                        	<button type="button" id="joinBtn" class="mb-3" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
+			                        	<button type="button" id="joinBtn" class="mb-3 btn" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
+			                        	<div id="addressSet"></div>
 			                        </div>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
 	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">
 			                        <div class="custom-control custom-radio custom-control-inline ml-3">
-									  <input type="radio" id="customRadioInline1" value="f" name="m_gender" class="custom-control-input" checked/>
+									  <input type="radio" id="customRadioInline1" value="여성" name="m_gender" class="custom-control-input" checked/>
 									  <label class="custom-control-label" for="customRadioInline1">여성</label>
 									</div>
 									<div class="custom-control custom-radio custom-control-inline">
-									  <input type="radio" id="customRadioInline2" value="m" name="m_gender" class="custom-control-input">
+									  <input type="radio" id="customRadioInline2" value="남성" name="m_gender" class="custom-control-input">
 									  <label class="custom-control-label" for="customRadioInline2">남성</label>
 									</div>
-									<div class="custom-control custom-switch mt-4 mb-4">
+									<div class="custom-control custom-switch mt-3 mb-3">
 									  <input type="checkbox" class="custom-control-input" id="customSwitch">
 									  <label class="custom-control-label" for="customSwitch">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
 									</div>
-			                        <input type="reset" class="mb-1" value="다시쓰기">
+								</div>	
+			                        <input type="reset" class="mt-4 mb-1" value="다시쓰기">
 			                        <input type="button" value="가입하기" id="joinSubmit">
 			                    </form>
 								<!-- 	address js start-->

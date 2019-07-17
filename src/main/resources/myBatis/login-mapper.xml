@@ -11,16 +11,22 @@
 			#{m_zipcode},
 			#{m_address1},
 			#{m_address2},
-			default,
+			default, <!--m_joindate timestamp default sysdate-->
 			#{m_ipaddress},
-			default,
-			default,
+			default, <!--m_grade varchar(10) default 'public'-->
+			default, <!--m_social varchar(12) default 'MG'-->
+			default, <!--m_point number default 0-->
 			#{m_gender},
 			to_date(#{m_birth}, 'yy/mm/dd'),
 			#{m_garden},
 			#{m_profile},
 			#{m_realpath}
 		)
+	</insert>
+	
+	<insert id="socialJoinSubmit">
+		insert into members(m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_gender, m_birth, m_garden, m_profile) 
+			values(#{m_email}, #{m_name}, #{m_phone}, default, default, default, #{m_social}, default, #{m_gender}, #{m_birth}, #{m_garden}, #{m_profile})
 	</insert>
 	
 	<select id="dupCheck" parameterType="map" resultType="String">

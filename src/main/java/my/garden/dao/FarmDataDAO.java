@@ -20,7 +20,6 @@
 //
 //import my.garden.dto.getCroppingSeasonDataListDTO;
 //import my.garden.dto.getIdentityDataListDTO;
-//
 //@Repository
 //public class FarmDataDAO {
 //	

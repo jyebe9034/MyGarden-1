@@ -1,49 +1,70 @@
 package my.garden.dto;
 
+import java.sql.Timestamp;
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class ShopListDTO {
-	private int s_orderno;
+	private int s_orderno_seq;
+	private Long s_orderno;
 	private String s_email;
+	private String s_phone;
 	private int s_p_no;
 	private String s_p_imagepath;
 	private String s_p_title;
 	private int s_p_count;
 	private int s_p_price;
-	private int s_total_price;	
+	private String s_m_recipient;
+	private String s_m_memo;
+	private String s_m_paymethod;
 	private String s_m_zipcode;
 	private String s_m_address1;
 	private String s_m_address2;
 	private String s_statement;
+	private Timestamp s_orderdate;
 	private String s_reviewok;
 	
 	public ShopListDTO() {
 	}
 
-	public ShopListDTO(int s_orderno, String s_email, int s_p_no, String s_p_imagepath, String s_p_title, int s_p_count,
-			int s_p_price, int s_total_price, String s_m_zipcode, String s_m_address1, String s_m_address2,
-			String s_statement, String s_reviewok) {
+	public ShopListDTO(int s_orderno_seq, Long s_orderno, String s_email, String s_phone, int s_p_no,
+			String s_p_imagepath, String s_p_title, int s_p_count, int s_p_price, String s_m_recipient, String s_m_memo,
+			String s_m_paymethod, String s_m_zipcode, String s_m_address1, String s_m_address2, String s_statement,
+			Timestamp s_orderdate, String s_reviewok) {
+		this.s_orderno_seq = s_orderno_seq;
 		this.s_orderno = s_orderno;
 		this.s_email = s_email;
+		this.s_phone = s_phone;
 		this.s_p_no = s_p_no;
 		this.s_p_imagepath = s_p_imagepath;
 		this.s_p_title = s_p_title;
 		this.s_p_count = s_p_count;
 		this.s_p_price = s_p_price;
-		this.s_total_price = s_total_price;
+		this.s_m_recipient = s_m_recipient;
+		this.s_m_memo = s_m_memo;
+		this.s_m_paymethod = s_m_paymethod;
 		this.s_m_zipcode = s_m_zipcode;
 		this.s_m_address1 = s_m_address1;
 		this.s_m_address2 = s_m_address2;
 		this.s_statement = s_statement;
+		this.s_orderdate = s_orderdate;
 		this.s_reviewok = s_reviewok;
 	}
 
-	public int getS_orderno() {
+	public int getS_orderno_seq() {
+		return s_orderno_seq;
+	}
+
+	public void setS_orderno_seq(int s_orderno_seq) {
+		this.s_orderno_seq = s_orderno_seq;
+	}
+
+	public Long getS_orderno() {
 		return s_orderno;
 	}
 
-	public void setS_orderno(int s_orderno) {
+	public void setS_orderno(Long s_orderno) {
 		this.s_orderno = s_orderno;
 	}
 
@@ -53,6 +74,14 @@ public class ShopListDTO {
 
 	public void setS_email(String s_email) {
 		this.s_email = s_email;
+	}
+
+	public String getS_phone() {
+		return s_phone;
+	}
+
+	public void setS_phone(String s_phone) {
+		this.s_phone = s_phone;
 	}
 
 	public int getS_p_no() {
@@ -95,12 +124,28 @@ public class ShopListDTO {
 		this.s_p_price = s_p_price;
 	}
 
-	public int getS_total_price() {
-		return s_total_price;
+	public String getS_m_recipient() {
+		return s_m_recipient;
 	}
 
-	public void setS_total_price(int s_total_price) {
-		this.s_total_price = s_total_price;
+	public void setS_m_recipient(String s_m_recipient) {
+		this.s_m_recipient = s_m_recipient;
+	}
+
+	public String getS_m_memo() {
+		return s_m_memo;
+	}
+
+	public void setS_m_memo(String s_m_memo) {
+		this.s_m_memo = s_m_memo;
+	}
+
+	public String getS_m_paymethod() {
+		return s_m_paymethod;
+	}
+
+	public void setS_m_paymethod(String s_m_paymethod) {
+		this.s_m_paymethod = s_m_paymethod;
 	}
 
 	public String getS_m_zipcode() {
@@ -135,6 +180,14 @@ public class ShopListDTO {
 		this.s_statement = s_statement;
 	}
 
+	public Timestamp getS_orderdate() {
+		return s_orderdate;
+	}
+
+	public void setS_orderdate(Timestamp s_orderdate) {
+		this.s_orderdate = s_orderdate;
+	}
+
 	public String getS_reviewok() {
 		return s_reviewok;
 	}
@@ -142,6 +195,7 @@ public class ShopListDTO {
 	public void setS_reviewok(String s_reviewok) {
 		this.s_reviewok = s_reviewok;
 	}
+
 
 	
 	

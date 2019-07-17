@@ -1,5 +1,6 @@
 package my.garden.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 import my.garden.service.ShoppingService;
 
 @Controller
@@ -61,6 +63,8 @@ public class ShoppingController {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			List<CartDTO> list = Arrays.asList(mapper.readValue(productList, CartDTO[].class));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			request.setAttribute("orderDate", sdf.format(System.currentTimeMillis()));
 			request.setAttribute("loginDTO", shsvc.getMember(dto, id));
 			request.setAttribute("list", list);
 		} catch (Exception e) {
@@ -69,6 +73,60 @@ public class ShoppingController {
 		}
 		return "shopping/order";
 	}
+	
+	@RequestMapping(value = "orderComplete", method = RequestMethod.POST)
+	public String orderComplete(HttpServletRequest request, String orderList) {
+		String id = (String)session.getAttribute("loginId");
+		ObjectMapper mapper = new ObjectMapper();
+		Long orderNo = System.currentTimeMillis();
+		try {
+			List<ShopListDTO> list = Arrays.asList(mapper.readValue(orderList, ShopListDTO[].class));
+			shsvc.insertIntoShopList(list, orderNo, id);		
+			request.setAttribute("orderNo", orderNo);
+			request.setAttribute("orderDTO", list.get(0));
+			request.setAttribute("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}	
+		return "shopping/orderComplete";
+	}
+	
+	@RequestMapping("orderList")
+	public String toOrderList(HttpServletRequest request) {
+		String id = (String)session.getAttribute("loginId");		
+		try {
+			List<List<ShopListDTO>> list = shsvc.getOrderList(id);
+			System.out.println(list.get(0).get(0).getS_orderno() + " : " + list.get(0).get(0).getS_m_paymethod());
+			request.setAttribute("listWrapper", shsvc.getOrderList(id));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/orderList";
+	}
+	
+//	@RequestMapping(value = "orderComplete2")
+//	public String orderTest(HttpServletRequest request, String orderList) {
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			List<ShopListDTO> list = Arrays.asList(mapper.readValue(orderList, ShopListDTO[].class));
+//			shsvc.insertIntoShopList(list);	
+//			request.setAttribute("list", list);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "error";
+//		}	
+//		return "shopping/orderComplete";
+//	}
 
+	@ResponseBody
+	@RequestMapping("insertCart")
+	public int insertCart(CartDTO dto) {
+		String id = (String)session.getAttribute("loginId");
+		dto.setC_m_email(id);
+		// 여기에 백단 로직 들어가야 함.
+		return 1;
+	}
 }
 

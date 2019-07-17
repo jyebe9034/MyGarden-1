@@ -75,11 +75,11 @@
 						<label class="col-2">카테고리</label>
 						<div id="category" class="col-10">
 							<select name="p_category" id="itemSelect" class="items">
-								<option value="fruit">과일</option>
-								<option value="vagetable">야채</option>
-								<option value="egg">달걀/유제품</option>
-								<option value="grain">곡물</option>
-								<option value="source">소스/조미료</option>
+								<option value="fruit">fruit</option>
+								<option value="vagetable">vegetable</option>
+								<option value="egg">egg</option>
+								<option value="grain">grain</option>
+								<option value="source">source</option>
 							</select>
 						</div>
 						<label class="col-2">재고</label>
@@ -112,10 +112,12 @@
 		<div class="row">
 			<div id="btns" class="col-12">
 				<input id="submit" class="btn btn-sm btn-primary addBtn" type="button" value="등록">
-				<input class="btn btn-sm btn-primary addBtn" type="button" value="취소">
+				<input id="cancel" class="btn btn-sm btn-primary addBtn" type="button" value="취소">
 			</div>
 		</div>
 	</div>
+	
+	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 	
 	<script>
 		$("#submit").on("click", function(){
@@ -144,8 +146,10 @@
 		function sendFile(file, editor) {
 			var data = new FormData();
 		   	data.append("file", file);
+		   	console.log($("#inputTitle").val());
+		   	data.append("title", $("#inputTitle").val());
 		    $.ajax({
-		      	url:"uploadImage.board",
+		      	url:"uploadImage",
 		       	data: data,
 		       	type:"POST",
 		       	cache: false,
@@ -161,10 +165,11 @@
 	    	$.ajax({
 	        data: {src : src},
 	        type: "POST",
-	        url: "deleteImage.board", 
+	        url: "deleteImage", 
 	        cache: false,
 	        success: function(resp) {
-	          	if(resp == "true"){
+	        	console.log(resp);
+	          	if(resp == true){
 	           		console.log("정상 삭제");
 	           	}else{
 	           		console.log("삭제 실패");	
@@ -178,17 +183,15 @@
 	     		$("img").each(function(index, item){
 	         		var src = $(this).attr("src");
 	         		$.ajax({
-	         			url: "deleteImage.board",
+	         			url: "deleteImage",
 	         			data: {src : src},
 	         			type: "POST",
 	         			cache: false
 	         		})	
 	         	})
 	         }
-	         location.href="";
+	         location.href="productsList";
 	     })
 	</script>
-	
-	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 </body>
 </html>

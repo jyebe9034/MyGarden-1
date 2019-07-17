@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-=======
+
 web.xml
 pom.xml
 /.metadata/
->>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7
+
 *.java.hsp
 *.sonarj
 *.sw*
@@ -51,8 +50,12 @@ atlassian-ide-plugin.xml
 =======
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 pom.xml
 web.xml
 =======
 >>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7
 >>>>>>> d2d7218911ad742607a637c8a53dcf3b83c9cbf0
+=======
+
+>>>>>>> 43a176c15621490cf7c21da50cf862601ff05e8e

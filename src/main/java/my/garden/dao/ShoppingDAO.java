@@ -1,6 +1,8 @@
 package my.garden.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 
 @Component
 public class ShoppingDAO {
@@ -23,9 +26,33 @@ public class ShoppingDAO {
 		return sst.delete("ShoppingDAO.delFromCart", dto);
 	}
 	
-	public MembersDTO selectMember(MembersDTO dto, String id) {
+	public int delExpiredCart() throws Exception{
+		return sst.delete("ShoppingDAO.delExpiredCart");
+	}
+	
+	public MembersDTO selectMember(MembersDTO dto, String id) throws Exception{
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
 	}
+	
+	public int insertIntoShopList(ShopListDTO dto) throws Exception{
+		return sst.insert("ShoppingDAO.insertIntoShopList", dto);
+	}
+	
+	public void delCartOrderd(String id, String title) throws Exception{
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("title", title);
+		sst.delete("ShoppingDAO.delCartOrderd", map);
+	}
+	
+	public List<ShopListDTO> selectOrderList(ShopListDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.selectOrderList", dto);
+	}
+	
+	public List<Long> selectOrderNo(String id) throws Exception{
+		return sst.selectList("ShoppingDAO.selectOrderNo", id);
+	}
+	
 	
 }
