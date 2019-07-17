@@ -155,6 +155,10 @@ input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
 input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]:placeholder {
   color: #cccccc;
 }
+input[type=email]{
+  background:#D1E5DF;
+  border: 2px solid #D1E5DF;
+}
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
@@ -196,9 +200,11 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
   -webkit-animation:fadeIn ease-in 1;
   -moz-animation:fadeIn ease-in 1;
   animation:fadeIn ease-in 1;
+
   -webkit-animation-fill-mode:forwards;
   -moz-animation-fill-mode:forwards;
   animation-fill-mode:forwards;
+
   -webkit-animation-duration:1s;
   -moz-animation-duration:1s;
   animation-duration:1s;
@@ -290,38 +296,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 // 			    $('.tab-content > div').not(target).hide();
 // 			    $(target).fadeIn(600);
 // 			  });
-			//profile local image insert start
-			function readURL(input) {
-				if (input.files && input.files[0]) {
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						$('.profile').html('<img src='+e.target.result+' width=130 height=130>');
-					}
-					reader.readAsDataURL(input.files[0]);
-				}
-			}
-			$("#ex_file").change(function() {
-				readURL(this);
-			});	
-			//profile local image insert end
-			
-			//input form
-           	$("input[name=ex_file]").on("input", function(){
-           		if($('#ex_file').val()!=""){
-           			$("#fileName").text("");
-           		}
-           	});
-			//파일 이미지 확장자 검증
-           	$("input[name=ex_file]").on("change", function(){
-           		var selectedFile = this.files[0];
-           		var idxDot = selectedFile.name.lastIndexOf(".") + 1;
-           		var extFile = selectedFile.name.substr(idxDot, selectedFile.name.length).toLowerCase();
-           		if (extFile == "jpg" || extFile == "jpeg" || extFile == "png" || extFile == "svg" || extFile == "gif") {
-           		   //do whatever want to do
-           		} else {
-           		     alert("Only jpg/jpeg, png, gif and svg files are allowed!");
-           		}
-           	});
            	$("input[name=m_garden]").on("blur", function(){
            		var regexGarden=/^[가-힣\w]{2,12}$/;
            		if(regexGarden.exec($("input[name=m_garden]").val())){
@@ -380,35 +354,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            			$('#verText').val("");
            		}
            	});
-           	$("input[name=m_pw]").on("blur", function(){
-           		var regexPw=/^(?=.*\d)(?=.*[a-z]).{8,15}$/;
-           		if($("#password").val()==""){
-               		if(regexPw.exec($("input[name=m_pw]").val())){
-               			$("#pwName").text("");
-               			$("#password").focus();
-               		}else{
-               			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
-               			$("input[name=m_pw]").val("");
-               		}
-           		}else{
-               		if(regexPw.exec($("input[name=m_pw]").val())){
-               			$("#pwName").text("");
-               			$("#password").focus();
-               			$("#password").blur();
-               		}else{
-               			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
-               			$("input[name=m_pw]").val("");
-               		}
-           		}
-           	});
-           	$("#password").on("blur", function(){
-           		if($("input[name=m_pw]").val()==$("#password").val()){
-           			$("#pwCheck").text("");
-           		}else{
-           			$("#pwCheck").text("비밀번호 형식이 맞지 않거나 일치하지 않습니다");
-           			$("#password").val("");
-           		}
-           	});
            	$("input[name=m_phone]").on("blur", function(){
            		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
            		if(regexPhone.exec($("input[name=m_phone]").val())){
@@ -430,19 +375,14 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            		}
            	});
        		$('#joinSubmit').on('click', function(){
-           		if($('#ex_file').val()!=""){
-           			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
-               			var con = confirm('이대로 제출하시겠습니까?');
-        				if(con){
-	                   		$('.formSubmit').submit();	
-                   		}
-           			}else{
-           				alert('다시 확인 후 제출하세요');
-           			}
-           		}else{
-       				$('html, body').stop().animate({scrollTop:$(".filebox").offset().top-30}); 
-           			$("#fileName").text("프로필 사진이 선택되지 않았거나 이미지 파일이 아닙니다");
-           		}
+       			if($('.inputStuff').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
+           			var con = confirm('이대로 제출하시겠습니까?');
+    				if(con){
+                		$('.formSubmit').submit();	
+               		}
+       			}else{
+       				alert('다시 확인 후 제출하세요');
+       			}
             });	
 		});
 	</script>
@@ -477,39 +417,24 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			        	<p class="loginForm font-weight-bold pt-2">Join Us</p>
 			            <div class="tab-content">
 			                <div id="signin">
-			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 회원가입</h3>
-			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">나만의 정원을 개설하고 그곳에서 재배된 작물들을 만나 보세요!</h6>
-			                    <form class="pl-5 pr-5 formSubmit" action="joinSubmit" method="post" enctype="multipart/form-data">
-			                    	<div class="filebox"> 
-			                    		<div class="profile"><img id="p_image" src="resources/img/profile.png" width="130" height="130"></div>
-			                    		<label for="ex_file">프로필&#x02295;</label> 
-			                    		<input type="file" id="ex_file" name="ex_file" accept='image/jpeg,image/gif,image/png' />
-			                    		<p class="onblur" id="fileName"></p>
-			                    	</div>		
+			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 소셜회원가입</h3>
+			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">사이트 이용에 필요한 인증과 최소한의 정보를 입력하세요</h6>
+			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post"">		
 			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        	<span class="onblur" id="userName"></span>
-			                        <input type="email" placeholder="사용할 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
+			                        <input type="email" value="${loginId }" class="fadeIn inputStuff" name="m_email" readonly>
 			                        	<div class="onblur" id="eamilName"></div>
 			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
 			                      <div id="verifingCode">  	
-			                        <input type="text" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
+			                        <input type="password" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
 			                        	<button type="button" id="verCodeBtn" class="btn">인증하기</button>
 			                      </div>  	
 <!-- 			             surplusForm -->
 			                      <div id="surplusForm">  	
-			                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요" class="fadeIn inputStuff" name="m_pw">
-			                        	<span class="onblur" id="pwName"></span>
-			                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요" id="password" class="fadeIn inputStuff">
-			                        	<span class="onblur" id="pwCheck"></span>
 			                        <input type="text" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
-			                        	<span class="onblur" id="phoneName"></span>
-			                        <div class="postCode" id="postCode">
-			                        <input type="text" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
-			                        	<button type="button" id="joinBtn" class="mb-3 btn" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
-			                        	<div id="addressSet"></div>
-			                        </div>	
+			                        	<span class="onblur" id="phoneName"></span>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
 	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">
 			                        <div class="custom-control custom-radio custom-control-inline ml-3">
@@ -528,10 +453,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        <input type="reset" class="mt-4 mb-1" value="다시쓰기">
 			                        <input type="button" value="가입하기" id="joinSubmit">
 			                    </form>
-								<!-- 	address js start-->
-								<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-								<script src="resources/js/zipcode.js"></script>
-								<!-- 	address js end-->
 		                        <p id="formFooter">
 		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">서비스 이용약관 및 개인정보취급방침</a>
 		                       	</p>
