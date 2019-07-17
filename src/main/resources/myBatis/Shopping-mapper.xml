@@ -15,10 +15,22 @@
 </delete>
 
 <insert id="insertIntoShopList">
-		insert into shoplist values(s_orderno_seq.nextval,#{s_orderno},#{s_email},#{s_p_no},
+		insert into shoplist values(s_orderno_seq.nextval,#{s_orderno},#{s_email},#{s_phone},#{s_p_no},
 		#{s_p_imagepath},#{s_p_title},#{s_p_count},#{s_p_price},#{s_m_recipient},
-		#{s_m_memo},#{s_m_zipcode},#{s_m_address1},#{s_m_address2},#{s_statement}, 'n')
+		#{s_m_memo},#{s_m_paymethod},#{s_m_zipcode},#{s_m_address1},#{s_m_address2},#{s_statement}, sysdate, 'n')
 </insert>
+
+<delete id="delCartOrderd" parameterType="map">
+	    delete from cart where c_p_title = #{title} and c_m_email = #{id}
+</delete>
+
+<select id="selectOrderList" resultType="my.garden.dto.ShopListDTO">
+		select * from shoplist where s_email = #{s_email} and s_orderno = #{s_orderno}
+</select>
+
+<select id="selectOrderNo" resultType="java.lang.Long">
+		select distinct s_orderno from shoplist where s_email = #{id}
+</select>
 
 
 </mapper>

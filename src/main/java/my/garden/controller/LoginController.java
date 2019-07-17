@@ -1,7 +1,7 @@
 package my.garden.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -39,7 +39,7 @@ public class LoginController {
 	
 	@RequestMapping("/joinSubmit")
 	public String JoinSubmit(MembersDTO dto, MultipartFile ex_file) {
-		loginserv.joinSubmit(dto, ex_file);
+		int result = loginserv.joinSubmit(dto, ex_file);
 		return "login/joinThrough";
 	}
 	
@@ -70,13 +70,23 @@ public class LoginController {
 			session.setAttribute("loginId", loginId);
 			String loginName = loginserv.getName(loginId);
 			session.setAttribute("loginName", loginName);
+			
+			session.setAttribute("grade", "admin"); // ÏûÑÏãúÎ°ú Í¥ÄÎ¶¨ÏûêÎ°ú ÎÑ£Ïñ¥Îë†
+			System.out.println("Î°úÍ∑∏Ïù∏ ÏÑ±Í≥µ!");
 			return "home";
 		}
 	}
 
 	@RequestMapping("/logout")
-	public String logout() {
+	public String logout() throws Exception {
 		session.invalidate();
+		out = response.getWriter();
+//		out.print("<body>\r\n" + 
+//				"		//∑Œ±◊¿Œ Ω√ µ⁄∑Œ∞°±‚ πÊ¡ˆ\r\n" + 
+//				"		history.pushState(null, null, location.href);\r\n" + 
+//				" 			window.onpopstate = function () {\r\n" + 
+//				"        		history.go(1);\r\n" + 
+//				"			};</body>");
 		return "home";
 	}
 
@@ -88,14 +98,26 @@ public class LoginController {
 	
 	@RequestMapping("/mypageFirst")
 	public String Mypage(MembersDTO dto) {
-		session.setAttribute("memDTO", loginserv.memSelectAll(dto));
-		return "login/mypageFirst";
+		String loginName = (String)session.getAttribute("loginName");
+		if(loginName==null) {
+			return "login/login";
+		}else {
+			String id = (String)session.getAttribute("loginId");
+			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
+			return "login/mypageFirst";
+		}
 	}
 
 	@RequestMapping("/mypageInfo")
 	public String MypageInfo(MembersDTO dto) {
-		session.setAttribute("memDTO", loginserv.memSelectAll(dto));
-		return "login/mypageInfo";
+		String loginName = (String)session.getAttribute("loginName");
+		if(loginName==null) {
+			return "login/login";
+		}else {
+			String id = (String)session.getAttribute("loginId");
+			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
+			return "login/mypageInfo";
+		}
 	}
 	
 	@ResponseBody
@@ -126,6 +148,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/findPwGetCode")
 	public String findPwGetCode(String key) {
+		System.out.println(key);
 		String pwCode = loginserv.findPwGetCode(key);
 		return pwCode;
 	}
@@ -135,6 +158,66 @@ public class LoginController {
 	public String findPwChange(String email, String pw) {
 		loginserv.updateOne(email, pw);
 		return null;
+	}
+
+	@ResponseBody
+	@RequestMapping("/naverLogin")
+	public String naverLogin() {
+		return loginserv.naverLogin();
+	}
+
+	@RequestMapping("/callbackNaver")
+	public String naverCallback() throws Exception {
+		String code = loginserv.NaverLoginCallback();
+		String socialEmail = loginserv.NaverLoginGetInfo(code);
+		boolean result = loginserv.emailDupCheck(socialEmail);
+		if(result==true) { //±◊ ø‹ - »®¿∏∑Œ ¿Ãµø
+			session.setAttribute("loginName", loginserv.getName(socialEmail));
+			session.setAttribute("loginId", socialEmail);
+			return "home";
+		}else { //√÷√  ∑Œ±◊¿Œ - ¡§∫∏¿‘∑¬ ∆‰¿Ã¡ˆ∑Œ ¿Ãµø
+			session.setAttribute("loginId", socialEmail);
+			session.setAttribute("social", "naver");
+//			session.setAttribute("profile", "null");
+			return "login/socialLoginThrough";
+		}
+	}
+	
+	@RequestMapping("/socialJoin")
+	public String socialJoin(MembersDTO dto) {
+		return "login/socialJoin";
+	}
+
+	@RequestMapping("/socialJoinSubmit")
+	public String socialJoinSubmit(MembersDTO dto) {
+		loginserv.socialJoinSubmit(dto);
+		return "login/findAccountAfterLogin";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/kakaoLogin")
+	public String kakaoLogin() {
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=5a8617254e6227196ff9c31a66275c78&redirect_uri=http://localhost/kakaoCallback&response_type=code";
+		return url;
+	}
+	
+	@RequestMapping("/kakaoCallback")
+	public String kakaoLoginMakeUrl(String code) {
+		Map<String, String> map = loginserv.kakaoLoginMakeUrl(code);
+		String socialEmail = map.get("socialEmail");
+		String profile = map.get("profile");
+		
+		boolean result = loginserv.emailDupCheck(socialEmail);
+		if(result==true) { //±◊ ø‹ - »®¿∏∑Œ ¿Ãµø
+			session.setAttribute("loginName", loginserv.getName(socialEmail));
+			session.setAttribute("loginId", socialEmail);
+			return "home";
+		}else { //√÷√  ∑Œ±◊¿Œ - ¡§∫∏¿‘∑¬ ∆‰¿Ã¡ˆ∑Œ ¿Ãµø
+			session.setAttribute("loginId", socialEmail);
+			session.setAttribute("profile", profile);
+			session.setAttribute("social", "kakao");
+			return "login/socialLoginThrough";
+		}
 	}
 	
 }

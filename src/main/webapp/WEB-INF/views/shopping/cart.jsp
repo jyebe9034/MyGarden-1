@@ -387,6 +387,15 @@ button.btn_select_all, button.btn_select_del {
 		$("#buyAll").on(
 				"click",
 				function() {
+					var checked = 0;
+					$(".goodsCheckbox").each(function() {
+						if ($(this).prop("checked")) {
+							checked++;
+						}
+					});
+					if (checked == 0) {
+						alert("장바구니에 담긴 상품이 상품이 없습니다.");
+					} else {
 					var jArray = new Array();
 					//JsonArray를 위한 배열생성
 
@@ -422,10 +431,13 @@ button.btn_select_all, button.btn_select_del {
 
 					$("#productList").val(stringJson);
 					$("#cartForm").submit();
+					}
 				});
+		
 		$("#keepShopping").on("click", function() {
 			$(location).attr("href", "/")
 		})
+		
 		$(".up")
 				.on(
 						"click",

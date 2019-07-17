@@ -1,10 +1,8 @@
 package my.garden.dto;
-
 import java.security.Timestamp;
 import java.sql.Date;
 
-import org.springframework.stereotype.Component;
-
+import org.springframework.web.multipart.MultipartFile;
 
 public class MembersDTO {
 	private String m_email;
@@ -17,6 +15,7 @@ public class MembersDTO {
 	private Timestamp m_joindate;
 	private String m_ipaddress;
 	private String m_grade;
+	private String m_social; //¼Ò¼È·Î±×ÀÎ ±¸ºÐ : MG / kakao / naver
 	private int m_point;
 	private String m_gender;
 	private Date m_birth;
@@ -27,8 +26,9 @@ public class MembersDTO {
 		super();
 	}
 	public MembersDTO(String m_email, String m_pw, String m_name, String m_phone, String m_zipcode, String m_address1,
-			String m_address2, Timestamp m_joindate, String m_ipaddress, String m_grade, int m_point, String m_gender,
-			Date m_birth, String m_garden, String m_profile, String m_realpath) {
+			String m_address2, Timestamp m_joindate, String m_ipaddress, String m_grade, String m_social, int m_point,
+			String m_gender, Date m_birth, String m_garden, String m_profile, String m_realpath) {
+		super();
 		this.m_email = m_email;
 		this.m_pw = m_pw;
 		this.m_name = m_name;
@@ -39,6 +39,7 @@ public class MembersDTO {
 		this.m_joindate = m_joindate;
 		this.m_ipaddress = m_ipaddress;
 		this.m_grade = m_grade;
+		this.m_social = m_social;
 		this.m_point = m_point;
 		this.m_gender = m_gender;
 		this.m_birth = m_birth;
@@ -106,6 +107,12 @@ public class MembersDTO {
 	public void setM_grade(String m_grade) {
 		this.m_grade = m_grade;
 	}
+	public String getM_social() {
+		return m_social;
+	}
+	public void setM_social(String m_social) {
+		this.m_social = m_social;
+	}
 	public int getM_point() {
 		return m_point;
 	}
@@ -142,7 +149,4 @@ public class MembersDTO {
 	public void setM_realpath(String m_realpath) {
 		this.m_realpath = m_realpath;
 	}
-	
-	
 }
-

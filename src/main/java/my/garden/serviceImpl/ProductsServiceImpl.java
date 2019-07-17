@@ -28,6 +28,17 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 	
 	@Transactional("txManager")
+	public int insertImageFileService(String title, String imgs) {
+		try {
+			int result = pdao.insertImageFile(title, imgs);
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	@Transactional("txManager")
 	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category) {
 		try {
 			List<ProductsDTO> result = pdao.selectProductsListByCategory(start, end, category);
@@ -53,6 +64,36 @@ public class ProductsServiceImpl implements ProductsService {
 	public ProductsDTO selectOneProductService(int pnumber) {
 		try {
 			return pdao.selectOneProduct(pnumber);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Transactional("txManager")
+	public int deleteProductService(int pnumber) {
+		try {
+			return pdao.deleteProduct(pnumber);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	@Transactional("txManager")
+	public int updateProductService(ProductsDTO dto) {
+		try {
+			return pdao.updateProduct(dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	@Transactional("txManager")
+	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword){
+		try {
+			return pdao.selectProductsListByKeyword(start, end, keyword);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;

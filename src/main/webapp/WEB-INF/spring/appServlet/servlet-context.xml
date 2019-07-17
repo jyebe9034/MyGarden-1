@@ -54,7 +54,7 @@
 	
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</beans:bean>
+	</beans:bean>	
 	
 	<beans:bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -62,5 +62,3 @@
 	</beans:bean>
 	
 </beans:beans>
-
-

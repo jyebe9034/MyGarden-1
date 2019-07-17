@@ -1,9 +1,19 @@
 package my.garden.dao;
 
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -15,10 +25,30 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import my.garden.dto.MembersDTO;
 
@@ -28,9 +58,9 @@ public class LoginDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	@Autowired
-	HttpSession session;
-	@Autowired
 	HttpServletRequest request;
+	@Autowired
+	HttpSession session;
 	
 	public static String SHA256(String str){
 		String SHA = ""; 
@@ -113,8 +143,7 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
-	public MembersDTO memSelectAll(MembersDTO dto) {
-		String id = (String)session.getAttribute("loginId");
+	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
 	}
@@ -142,28 +171,28 @@ public class LoginDAO {
 	}
 	
 	public String mailSender(String m_email) throws Exception {
-		// ���̹��� ��� smtp.naver.com �� �Է��մϴ�. 
-		// Google�� ��� smtp.gmail.com �� �Է��մϴ�. 
+		// 네이버일 경우 smtp.naver.com 을 입력합니다. 
+		// Google일 경우 smtp.gmail.com 을 입력합니다. 
 		String host = "smtp.naver.com"; 
-		final String username = "���̵�"; //���̹� ���̵� �Է����ּ���. @nave.com�� �Է����� ���ñ���. 
-		final String password = "��й�ȣ"; //���̹� �̸��� ��й�ȣ�� �Է����ּ���. 
-		int port=465; //��Ʈ��ȣ 
+		final String username = "7878"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
+		final String password = "7878"; //네이버 이메일 비밀번호를 입력해주세요. 
+		int port=465; //포트번호 
 		
-		// ���� ���� 
-		String recipient = m_email; //�޴� ����� �����ּҸ� �Է����ּ���. 
-		String subject = "���� ���� �ӽ� ��й�ȣ"; //���� ���� �Է����ּ���. 
+		// 메일 내용 
+		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
+		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
 			String randomCode = this.randomCode();
-		String body = "�ӽ� ��й�ȣ�� " + randomCode + "�Դϴ�. "; //���� ���� �Է����ּ���. 
-		Properties props = System.getProperties(); // ������ ��� ���� ��ü ���� 
+		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
+		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
 		
-		// SMTP ���� ���� ���� 
+		// SMTP 서버 정보 설정 
 		props.put("mail.smtp.host", host); 
 		props.put("mail.smtp.port", port); 
 		props.put("mail.smtp.auth", "true"); 
 		props.put("mail.smtp.ssl.enable", "true"); 
 		props.put("mail.smtp.ssl.trust", host); 
 		
-		//Session ���� 
+		//Session 생성 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
 			String un=username; 
 			String pw=password; 
@@ -172,13 +201,13 @@ public class LoginDAO {
 				} 
 			}); 
 		session.setDebug(true); //for debug 
-		Message mimeMessage = new MimeMessage(session); //MimeMessage ���� 
-		mimeMessage.setFrom(new InternetAddress("���̵�Ǯ")); //�߽��� ���� , ������ ����� �̸����ּҸ� �ѹ� �� �Է��մϴ�. �̶��� �̸��� Ǯ �ּҸ� �� �ۼ����ּ���. 
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //�����ڼ��� //.TO �ܿ� .CC(����) .BCC(��������) �� ����
+		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성 
+		mimeMessage.setFrom(new InternetAddress("7878")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요. 
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
 		
-		mimeMessage.setSubject(subject); //������� 
-		mimeMessage.setText(body); //������� 
-		Transport.send(mimeMessage); //javax.mail.Transport.send() �̿�
+		mimeMessage.setSubject(subject); //제목셋팅 
+		mimeMessage.setText(body); //내용셋팅 
+		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
 		
 		return randomCode;
 	}
@@ -193,6 +222,168 @@ public class LoginDAO {
 		map.put("whereCol", "m_phone");
 		map.put("value", key);
 		return sst.selectOne("LoginDAO.dupCheck", map);
+	}
+	
+	public String NaverLoginMakeUrl() {
+		try {
+		    String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
+		    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
+		    SecureRandom random = new SecureRandom();
+		    String state = new BigInteger(130, random).toString();
+		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		    apiURL += "&client_id=" + clientId;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&state=" + state;
+		    session.setAttribute("state", state);
+		    return apiURL;
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
+	public String NaverLoginCallback() throws Exception {
+		String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "bZgqg3cbjr";//애플리케이션 클라이언트 시크릿값";
+	    String code = request.getParameter("code");
+	    String state = request.getParameter("state");
+	    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
+	    String apiURL;
+	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+	    apiURL += "client_id=" + clientId;
+	    apiURL += "&client_secret=" + clientSecret;
+	    apiURL += "&redirect_uri=" + redirectURI;
+	    apiURL += "&code=" + code;
+	    apiURL += "&state=" + state;
+	    String access_token = "";
+	    String refresh_token = "";
+//	    System.out.println("apiURL="+apiURL);
+	    try {
+	      URL url = new URL(apiURL);
+	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	      con.setRequestMethod("GET");
+	      int responseCode = con.getResponseCode();
+	      BufferedReader br;
+//	      System.out.print("responseCode="+responseCode);
+	      if(responseCode==200) { // 정상 호출
+	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	      } else {  // 에러 발생
+	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	      }
+	      String inputLine;
+	      StringBuffer res = new StringBuffer();
+	      while ((inputLine = br.readLine()) != null) {
+//	        System.out.println(inputLine); //access_token json
+	        JsonParser parser = new JsonParser();
+	        JsonObject jObject = parser.parse(inputLine).getAsJsonObject();
+	        String result = jObject.get("access_token").getAsString();
+	        return result;
+	      }
+	      br.close();
+	      if(responseCode==200) {
+//	        System.out.println(res.toString()); //responseCode
+	      }
+	    } catch (Exception e) {
+	      System.out.println(e);
+	    }
+	     return null;
+	}
+	
+	public String NaverLoginGetInfo(String token) {
+		//String token : 네이버 로그인 접근 토큰;
+        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        try {
+            String apiURL = "https://openapi.naver.com/v1/nid/me";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if(responseCode==200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+            response.toString(); //사용자 정보 리턴
+            JsonParser parser = new JsonParser();
+            JsonObject jObject = parser.parse(response.toString()).getAsJsonObject();
+            JsonObject infoGroup = jObject.get("response").getAsJsonObject();
+            //뽑아낸 정보
+            return infoGroup.get("email").getAsString();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		return null;
+	}
+	
+	public int socialJoinSubmit(MembersDTO dto) {
+		return sst.insert("LoginDAO.socialJoinSubmit", dto);
+	}
+	
+	public JsonNode kakaoLoginMakeUrl(String code) {
+		final String RequestUrl = "https://kauth.kakao.com/oauth/token"; // Host
+        final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+ 
+        postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
+ 
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        JsonNode returnNode = null;
+ 
+        try {
+            post.setEntity(new UrlEncodedFormEntity(postParams));
+ 
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+ 
+//            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+//            System.out.println("Post parameters : " + postParams);
+//            System.out.println("Response Code : " + responseCode);
+ 
+            // JSON 형태 반환값 처리
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnNode;
+	}
+	
+	public JsonNode kakaoLoginGetInfo(JsonNode accessToken) {
+		final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        // add header
+        post.addHeader("Authorization", "Bearer " + accessToken);
+ 
+        JsonNode returnNode = null;
+ 
+        try {
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+ 
+//            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+//            System.out.println("Response Code : " + responseCode);
+ 
+            // JSON ÇüÅÂ ¹ÝÈ¯°ª Ã³¸®
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return returnNode;
 	}
 	
 }

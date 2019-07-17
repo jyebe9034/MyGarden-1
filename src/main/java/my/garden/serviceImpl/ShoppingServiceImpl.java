@@ -1,5 +1,6 @@
 package my.garden.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Autowired
 	ShoppingDAO dao;
+	
+	@Autowired
+	ShopListDTO dto;
 
 	public List<CartDTO> getCartList(String userId) throws Exception{
 		return dao.selectCartList(userId);
@@ -34,17 +38,27 @@ public class ShoppingServiceImpl implements ShoppingService{
 	}
 
 	@Transactional
-	public void insertIntoShopList(List<ShopListDTO> list) throws Exception {
-		Long time = System.currentTimeMillis();
+	public void insertIntoShopList(List<ShopListDTO> list, Long orderNo, String id) throws Exception {
 		for(ShopListDTO dto : list) {
-			dto.setS_orderno(time);
+			dto.setS_orderno(orderNo);
 			if(dto.getS_m_memo()=="") {
 				dto.setS_m_memo("요청사항 없음");
 			}
 			dao.insertIntoShopList(dto);
+			dao.delCartOrderd(id, dto.getS_p_title());
 		}	
 	}
 
-	
+	@Transactional
+	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{	
+		dto.setS_email(id);
+		List<Long> orderNoList = dao.selectOrderNo(id);
+		List<List<ShopListDTO>> listWrapper = new ArrayList<>();
+		for(Long no : orderNoList) {
+			dto.setS_orderno(no);
+			listWrapper.add(dao.selectOrderList(dto));
+		}		
+		return listWrapper;
+	}
 	
 }

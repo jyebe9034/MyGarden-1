@@ -26,6 +26,16 @@ public class ProductsDAOImpl implements ProductsDAO {
 		}
 	}
 	
+	public int insertImageFile(String title, String imgs) {
+		String[] info = new String[] {title, imgs};
+		try {
+			return sst.insert("ProductsDAO.insertImageFile", info);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public List<ProductsDTO> selectProductsListByCategory(int start, int end, String category) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("start", start);
@@ -52,6 +62,37 @@ public class ProductsDAOImpl implements ProductsDAO {
 	public ProductsDTO selectOneProduct(int p_no) {
 		try {
 			return sst.selectOne("ProductsDAO.selectOneProduct", p_no);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public int deleteProduct(int p_no) {
+		try {
+			return sst.delete("ProductsDAO.deleteProduct", p_no);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	public int updateProduct(ProductsDTO dto) {
+		try {
+			return sst.update("ProductsDAO.updateProduct", dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	public List<ProductsDTO> selectProductsListByKeyword(int start, int end, String keyword){
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("keyword", keyword);
+		try {
+			return sst.selectList("ProductsDAO.selectProductsListByKeyword", map);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
