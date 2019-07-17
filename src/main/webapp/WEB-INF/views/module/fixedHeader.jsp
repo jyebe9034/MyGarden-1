@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- style -->
@@ -157,91 +156,91 @@
    <img src="resources/img/top.png" width="40" height="40">
 </div>
 <div class="container-fluid headerFluid my">
-   <div class="row my">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-<!--    JSTL    -->
-         <c:choose>
-             <c:when test="${loginName!=null}">
-             
-            <div class="row">
-               <div
-                  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-                  <a href="/mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
-                     href="#">고객센터</a>
-               </div>
-            </div>
-         
-          </c:when>
-          <c:otherwise>   
-          
-            <div class="row">
-               <div
-                  class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-                  <a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
-                     href="#">고객센터</a>
-               </div>
-            </div>
-          
-          </c:otherwise>
-       </c:choose>
-<!--    JSTL    -->      
-         <div
-            class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-1 mb-4 text-center my">
-            <h3 id="myGardenTitle">나의 정원</h3>
-         </div>
-      </div>
-      <div
-         class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-0 menuScrollOption my">
-         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 my">
-               <nav class="navbar navbar-expand-lg navbar-light p-0 topMenuNavbar">
-                  <button class="navbar-toggler topMenuToggleBtn" type="button"
-                     data-toggle="collapse" data-target="#navbarSupportedContent"
-                     aria-controls="navbarSupportedContent" aria-expanded="false"
-                     aria-label="Toggle navigation">
-                     <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                     <ul class="navbar-nav m-auto text-center">
-                        <li class="nav-item active dropdown"><a
-                           class="nav-link dropdown-toggle mt-2" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false"> 상품 전체보기 </a>
-                           <div class="dropdown-menu text-center"
-                              aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="fruit?category=fruit">과일</a> 
-                                       <a class="dropdown-item" href="vegetable?category=vegetable">채소</a>
-                                       <a class="dropdown-item" href="egg?category=egg">달걀/유제품</a>
-                                       <a class="dropdown-item" href="grain?category=grain">곡물</a>
-                                       <a class="dropdown-item" href="source?category=source">소스/조미료</a>
-                           </div></li>
-                        <li class="nav-item"><a class="nav-link mt-2" href="productsList">공유정원</a></li>
-                              <li class="nav-item"><a class="nav-link mt-2" href="productsAdd">비밀정원</a></li>
-                              <li class="nav-item"><a class="nav-link mt-2" href="#">|&nbsp;&nbsp;About</a></li>
-                              <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
-                              <li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#"> 
-                           <img src="resources/img/person.png" width="40" height="40" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
-                           <img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">
-                        </a></li>
-                        <li class="nav-item ml-3">
-                           <form class="form-inline my-2 my-lg-0">
-                              <div class="input-group topAnchorSearch">
-                                 <input id="keyword" class="form-control menuSearch ml-4" type="search"
-                                    placeholder="검색할 상품 입력" aria-label="Search"
-                                    aria-describedby="basic-addon2">
-                                 <div id="searchBtn" class="input-group-append">
-                                    <button class="btn btn-outline-secondary mr-4" type="button"
-                                       id="button-addon2">&telrec;</button>
-                                 </div>
-                              </div>
-                           </form>
-                        </li>
-                     </ul>
-                  </div>
-               </nav>
-            </div>
-         </div>
-      </div>
-   </div>
+	<div class="row my">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!-- 	JSTL	 -->
+			<c:choose>
+		       <c:when test="${loginName!=null}">
+		       
+				<div class="row">
+					<div
+						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
+						<a href="/mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
+							href="#">고객센터</a>
+					</div>
+				</div>
+			
+	       </c:when>
+	       <c:otherwise>	
+	       
+				<div class="row">
+					<div
+						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
+						<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
+							href="#">고객센터</a>
+					</div>
+				</div>
+	       
+	       </c:otherwise>
+	    </c:choose>
+<!-- 	JSTL	 -->		
+			<div
+				class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-1 mb-4 text-center my">
+				<h3 id="myGardenTitle">나의 정원</h3>
+			</div>
+		</div>
+		<div
+			class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-0 menuScrollOption my">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 my">
+					<nav class="navbar navbar-expand-lg navbar-light p-0 topMenuNavbar">
+						<button class="navbar-toggler topMenuToggleBtn" type="button"
+							data-toggle="collapse" data-target="#navbarSupportedContent"
+							aria-controls="navbarSupportedContent" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav m-auto text-center">
+								<li class="nav-item active dropdown"><a
+									class="nav-link dropdown-toggle mt-2" href="#" role="button"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> 상품 전체보기 </a>
+									<div class="dropdown-menu text-center"
+										aria-labelledby="navbarDropdown">
+										  <a class="dropdown-item" href="fruit?category=fruit">과일</a> 
+			                              <a class="dropdown-item" href="vegetable?category=vegetable">채소</a>
+			                              <a class="dropdown-item" href="egg?category=egg">달걀/유제품</a>
+			                              <a class="dropdown-item" href="grain?category=grain">곡물</a>
+			                              <a class="dropdown-item" href="source?category=source">소스/조미료</a>
+									</div></li>
+								<li class="nav-item"><a class="nav-link mt-2" href="productsList">공유정원</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="productsAdd">비밀정원</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="#">|&nbsp;&nbsp;About</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="#">자유게시판</a></li>
+								<li class="nav-item"><a class="nav-link" href="#"> 
+									<img src="resources/img/person.png" width="40" height="40" id="toMypage" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
+									<img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">
+								</a></li>
+								<li class="nav-item ml-3">
+									<form class="form-inline my-2 my-lg-0">
+										<div class="input-group topAnchorSearch">
+											<input class="form-control menuSearch ml-4" type="search"
+												placeholder="Search..." aria-label="Search"
+												aria-describedby="basic-addon2">
+											<div class="input-group-append">
+												<button class="btn btn-outline-secondary mr-4" type="button"
+													id="button-addon2">&telrec;</button>
+											</div>
+										</div>
+									</form>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
