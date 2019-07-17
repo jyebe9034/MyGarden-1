@@ -1,4 +1,6 @@
 package my.garden.dao;
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -374,7 +376,7 @@ public class LoginDAO {
 //            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
 //            System.out.println("Response Code : " + responseCode);
  
-            // JSON 형태 반환값 처리
+            // JSON ÇüÅÂ ¹ÝÈ¯°ª Ã³¸®
             ObjectMapper mapper = new ObjectMapper();
             returnNode = mapper.readTree(response.getEntity().getContent());
  
