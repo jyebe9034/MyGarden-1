@@ -356,10 +356,15 @@
 											value="${reviewList.br_no}"> 도움돼요 <span
 											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
 									</div>
-									<div class="reviewUpdateBtn d-flex justify-content-end">
-										<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
-										<button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
-									</div>
+									<c:choose>
+										<c:when test="${loginId eq reviewList.br_email}">
+											<div class="reviewUpdateBtn d-flex justify-content-end">
+												<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
+												<button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
+											</div>	
+										</c:when>
+									</c:choose>
+									
 								</div>
 
 							</div>

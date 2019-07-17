@@ -40,9 +40,9 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 		return qnaDao.updateQnA(dto, bq_no);
 	}
 	
-	public String checkAdmin(String m_email) throws Exception{
-		return qnaDao.checkAdmin(m_email);
-	}
+//	public String checkAdmin(String m_email) throws Exception{
+//		return qnaDao.checkAdmin(m_email);
+//	}
 	
 	@Transactional("txManager")
 	public int writeComment(int cq_no) throws Exception {

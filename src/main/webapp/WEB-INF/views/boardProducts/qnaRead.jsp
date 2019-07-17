@@ -103,6 +103,26 @@
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
 		
+		$(".commentBtn").on("click",function(){ 
+			var inputComment = $("#inputComment").text();
+			//$("#cq_comment").val(inputComment);
+			var data = {
+					cq_p_no : "${readQnA.bq_p_no}",
+					cq_no : ${readQnA.bq_no},
+					cq_name :  ${loginName},
+					cq_email : ${loginId},
+					cq_comment : inputComment
+				  };
+			$.ajax({
+				url: "writeComment",
+				type: "post",
+				dataType: "json",
+				async: true,
+				data: data
+			}).done(function(resp){
+				console.log(resp)
+			})
+		})
 		
 	})
 	

@@ -44,9 +44,9 @@
 	</delete>
 
 <!-- 관리자인지 확인 -->
-	<select id="checkAdmin" resultType="String">
-		select m_grade from members where m_email=#{m_email}
-	</select>
+<!-- 	<select id="checkAdmin" resultType="String"> -->
+<!-- 		select m_grade from members where m_email=#{m_email} -->
+<!-- 	</select> -->
 
 
 <!-- 답변 글 목록 -->
@@ -55,7 +55,7 @@
 <!-- 답변 글 등록 -->
 	<insert id="writeComment">
 		insert into comment_qna 
-		values(#{cq_no},#{cq_name},#{cq_email},default,#{cq_comment})
+		values(#{cq_p_no},#{cq_no},#{cq_name},#{cq_email},default,#{cq_comment})
 	</insert>
 	<update id="setAnsY">
 		update board_qna set bq_checkedAns='y' 

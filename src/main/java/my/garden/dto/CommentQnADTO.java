@@ -3,6 +3,7 @@ package my.garden.dto;
 import java.sql.Timestamp;
 
 public class CommentQnADTO {
+	private int cq_p_no;
 	private int cq_no;
 	private String cq_name;
 	private String cq_email;
@@ -11,14 +12,22 @@ public class CommentQnADTO {
 	
 	
 	public CommentQnADTO() {
-		super();
 	}
-	public CommentQnADTO(int cq_no, String cq_name, String cq_email, Timestamp cq_writedate, String cq_comment) {
+	public CommentQnADTO(int cq_p_no, int cq_no, String cq_name, String cq_email, Timestamp cq_writedate,
+			String cq_comment) {
+		super();
+		this.cq_p_no = cq_p_no;
 		this.cq_no = cq_no;
 		this.cq_name = cq_name;
 		this.cq_email = cq_email;
 		this.cq_writedate = cq_writedate;
 		this.cq_comment = cq_comment;
+	}
+	public int getCq_p_no() {
+		return cq_p_no;
+	}
+	public void setCq_p_no(int cq_p_no) {
+		this.cq_p_no = cq_p_no;
 	}
 	public int getCq_no() {
 		return cq_no;
@@ -50,5 +59,6 @@ public class CommentQnADTO {
 	public void setCq_comment(String cq_comment) {
 		this.cq_comment = cq_comment;
 	}
-
+	
+	
 }

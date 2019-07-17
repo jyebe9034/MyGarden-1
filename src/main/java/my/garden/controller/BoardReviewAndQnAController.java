@@ -43,16 +43,16 @@ public class BoardReviewAndQnAController {
 	public String toProductsRead(int pnumber, Model model, HttpServletRequest request, int revPage, int qnaPage) {
 		
 		/*관리자 체크*/
-		String id = (String) session.getAttribute("loginId");
-		String checkAdmin;
-		try {
-			checkAdmin = qnaService.checkAdmin(id);
-			System.out.println("관리자체크? : " + checkAdmin);
-			request.setAttribute("checkAdmin", checkAdmin);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
+//		String id = (String) session.getAttribute("loginId");
+//		String checkAdmin;
+//		try {
+//			checkAdmin = qnaService.checkAdmin(id);
+//			System.out.println("관리자체크? : " + checkAdmin);
+//			request.setAttribute("checkAdmin", checkAdmin);
+//		} catch (Exception e1) {
+//			e1.printStackTrace();
+//		}
+//		
 		
 		revPage = Integer.parseInt(request.getParameter("revPage"));
 		qnaPage = Integer.parseInt(request.getParameter("qnaPage"));
@@ -311,9 +311,9 @@ public class BoardReviewAndQnAController {
 		request.setAttribute("readQnA", qnaService.readQnA(bq_no, mine));
 		
 		/*관리자 체크*/
-		String id = (String) session.getAttribute("loginId");
-		String checkAdmin = qnaService.checkAdmin(id);
-		request.setAttribute("checkAdmin", checkAdmin);
+//		String id = (String) session.getAttribute("loginId");
+//		String checkAdmin = qnaService.checkAdmin(id);
+//		request.setAttribute("checkAdmin", checkAdmin);
 		
 		return "/boardProducts/qnaRead";
 	}
@@ -341,8 +341,11 @@ public class BoardReviewAndQnAController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("writeComment"){
-		//에이젝스로 관리자 답변..
+	@RequestMapping("writeComment")
+	public int writeAnswer(HttpServletRequest request) throws Exception{
+		int cq_p_no = Integer.parseInt(request.getParameter("cq_p_no"));
+		System.out.println("cq_p_no" + cq_p_no);
+		return cq_p_no;
 	}
 	
 	
