@@ -18,6 +18,7 @@
 	overflow: hidden;
 	padding: 0px;
 	margin-bottom: 50px;
+	height: 600px;
 }
 
 #title {

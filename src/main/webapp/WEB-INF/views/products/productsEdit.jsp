@@ -9,7 +9,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-<title>Product Add</title>
+<title>Product Edit</title>
 <style>
 	#header{
 		overflow : hidden;
@@ -23,6 +23,13 @@
 	#myform{
 		width : 100%;
 	}
+	#titleImage{
+		width : 100%;
+		height : 350px;
+	}
+	#btns{
+		margin-top : 15px;
+	}
 	.addBtn{
 		float : right;
 		margin : 5px;
@@ -32,6 +39,7 @@
 	}
 	.addBtn:hover {
 	    background-color: #b4d9b5;
+	    color : white;
 	    border: 0px;
 	}
 	.note-editor, .note-toolbar{
@@ -57,24 +65,27 @@
 		<img id="titleImg" src="resources/img/test2.jpg">
 	</div>
 	<div class="container">
-			<form id="myform" method="post" action="insertProducts" enctype="multipart/form-data" accept-charset="UTF-8">
+			<form id="myform" method="post" action="productEditFin" enctype="multipart/form-data" accept-charset="UTF-8">
 				<div id="wrapper">
 					<div class="row item">
 						<label class="col-2">상품 이미지</label>
 						<div id="image" class="col-10 items">
+							<img id="titleImage" src="${result.p_imagepath}">
 							<input name="image" id="inputimage" class="form-control" type="file">
 						</div>
+						<input name="p_no" type="hidden" value="${result.p_no}">
 						<label class="col-2">상품명</label>
 						<div id="title" class="col-10 items">
-							<input name="p_title" id="inputTitle" class="form-control" type="text">
+							<input name="p_title" id="inputTitle" class="form-control" type="text" value="${result.p_title}">
 						</div>
 						<label class="col-2">상품간단설명</label>
 						<div id="simpleExplain" class="col-10 items">
-							<input name="p_subtitle" id="inputSimpleExplain" class="form-control" type="text">
+							<input name="p_subtitle" id="inputSimpleExplain" class="form-control" type="text" value="${result.p_subtitle}">
 						</div>
 						<label class="col-2">카테고리</label>
 						<div id="category" class="col-10">
 							<select name="p_category" id="itemSelect" class="items">
+								<option value="${result.p_category}" selected>${result.p_category}</option>
 								<option value="fruit">fruit</option>
 								<option value="vagetable">vegetable</option>
 								<option value="egg">egg</option>
@@ -84,30 +95,30 @@
 						</div>
 						<label class="col-2">재고</label>
 						<div id="inventory" class="col-10 items">
-							<input name="p_inventory" id="inputInventory" class="form-control" type="text">
+							<input name="p_inventory" id="inputInventory" class="form-control" type="text" value="${result.p_inventory}">
 						</div>
 						<label class="col-2">단위</label>
 						<div id="unit" class="col-10 items">
-							<input name="p_unit" id="inputUnit" class="form-control" type="text">
+							<input name="p_unit" id="inputUnit" class="form-control" type="text" value="${result.p_unit}">
 						</div>
 						<label class="col-2">판매자</label>
 						<div id="seller" class="col-10 items">
-							<input name="p_seller" id="inputSeller" class="form-control" type="text">
+							<input name="p_seller" id="inputSeller" class="form-control" type="text" value="${result.p_seller}">
 						</div>
 						<label class="col-2">농장 주소</label>
 						<div id="origin" class="col-10 items">
-							<input name="p_origin" id="inputAddress" class="form-control" type="text">
+							<input name="p_origin" id="inputAddress" class="form-control" type="text" value="${result.p_origin}">
 						</div>
 						<label class="col-2">가격</label>
 						<div id="price" class="col-10 items">
-							<input name="p_price" id="inputPrice" class="form-control" type="text">
+							<input name="p_price" id="inputPrice" class="form-control" type="text" value="${result.p_price}">
 						</div>
 						<input id="myContent" type="hidden" name="p_content">
 					</div>
 				</div>
 			</form> 
 			<div id="content">
-				<div id="summernote"></div>
+				<div id="summernote">${result.p_content}</div>
 			</div>
 		<div class="row">
 			<div id="btns" class="col-12">
@@ -179,7 +190,7 @@
 	    }
 	     
 	     $("#cancel").on("click", function(){ // 취소 버튼을 눌렀을 때 서버측의 사직 삭제
-	     	if(confirm("작성된 글이 모두 삭제됩니다. 정말로 취소하시겠습니까?")){
+	     	if(confirm("수정중인 내용이 모두 삭제됩니다. 정말로 취소하시겠습니까?")){
 	     		$("img").each(function(index, item){
 	         		var src = $(this).attr("src");
 	         		$.ajax({

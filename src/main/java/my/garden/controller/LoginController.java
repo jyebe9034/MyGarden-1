@@ -70,6 +70,9 @@ public class LoginController {
 			session.setAttribute("loginId", loginId);
 			String loginName = loginserv.getName(loginId);
 			session.setAttribute("loginName", loginName);
+			
+			session.setAttribute("grade", "admin"); // 임시로 관리자로 넣어둠
+			System.out.println("로그인 성공!");
 			return "home";
 		}
 	}

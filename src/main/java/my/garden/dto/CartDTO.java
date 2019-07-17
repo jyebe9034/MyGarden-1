@@ -16,6 +16,13 @@ public class CartDTO {
 	public CartDTO() {
 		super();
 	}
+	public CartDTO(String c_p_imagePath, String c_p_title, int c_p_price, int c_count) {
+		super();
+		this.c_p_imagepath = c_p_imagePath;
+		this.c_p_title = c_p_title;
+		this.c_p_price = c_p_price;
+		this.c_count = c_count;
+	}
 	public CartDTO(int c_p_no, String c_p_imagepath, String c_p_title, int c_p_price, String c_m_email, int c_count,
 			Timestamp c_selectdate) {
 		super();
