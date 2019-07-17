@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dao.BoardQnADAO;
 import my.garden.dto.BoardQnADTO;
+import my.garden.dto.CommentFreeDTO;
+import my.garden.dto.CommentQnADTO;
 import my.garden.service.BoardQnAService;
 
 @Service
@@ -45,10 +47,25 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 //	}
 	
 	@Transactional("txManager")
-	public int writeComment(int cq_no) throws Exception {
-		int result1 = qnaDao.writeComment();
+	public int writeComment(int cq_no, CommentQnADTO dto) throws Exception {
+		int result1 = qnaDao.writeComment(dto);
 		int result2 = qnaDao.setAnsY(cq_no);
 		return result1 + result2;
+	}
+	
+	public CommentQnADTO commentList(int cq_no) throws Exception {
+		return qnaDao.commentList(cq_no);
+	}
+	
+	public int updateComment(int cq_no, String cq_comment) throws Exception{
+		return qnaDao.updateComment(cq_no, cq_comment);
+	}
+	
+	@Transactional("txManager")
+	public int deleteComment(int cq_no) throws Exception {
+		int result1 = qnaDao.deleteComment(cq_no);
+		int result2 = qnaDao.setAnsN(cq_no);
+		return result1+result2;
 	}
 	
 }

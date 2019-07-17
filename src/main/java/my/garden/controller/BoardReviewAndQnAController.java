@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dto.BoardQnADTO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.CommentFreeDTO;
+import my.garden.dto.CommentQnADTO;
 import my.garden.dto.ProductsDTO;
 import my.garden.service.BoardQnAService;
 import my.garden.service.BoardReviewService;
@@ -41,18 +43,6 @@ public class BoardReviewAndQnAController {
 
 	@RequestMapping("productsRead")
 	public String toProductsRead(int pnumber, Model model, HttpServletRequest request, int revPage, int qnaPage) {
-		
-		/*관리자 체크*/
-//		String id = (String) session.getAttribute("loginId");
-//		String checkAdmin;
-//		try {
-//			checkAdmin = qnaService.checkAdmin(id);
-//			System.out.println("관리자체크? : " + checkAdmin);
-//			request.setAttribute("checkAdmin", checkAdmin);
-//		} catch (Exception e1) {
-//			e1.printStackTrace();
-//		}
-//		
 		
 		revPage = Integer.parseInt(request.getParameter("revPage"));
 		qnaPage = Integer.parseInt(request.getParameter("qnaPage"));
@@ -305,16 +295,13 @@ public class BoardReviewAndQnAController {
 	}
 
 	@RequestMapping("readQnA")
-	public String readQnA(HttpServletRequest request, int bq_no, String mine) throws Exception {	
+	public String readQnA(HttpServletRequest request, int bq_no, String mine, String checkA) throws Exception {	
 		//System.out.println("mine?" + mine);
 		request.setAttribute("mine", mine);
 		request.setAttribute("readQnA", qnaService.readQnA(bq_no, mine));
-		
-		/*관리자 체크*/
-//		String id = (String) session.getAttribute("loginId");
-//		String checkAdmin = qnaService.checkAdmin(id);
-//		request.setAttribute("checkAdmin", checkAdmin);
-		
+		request.setAttribute("commentList", qnaService.commentList(bq_no));
+		System.out.println(checkA);
+		request.setAttribute("checkAns", checkA);
 		return "/boardProducts/qnaRead";
 	}
 
@@ -342,12 +329,34 @@ public class BoardReviewAndQnAController {
 	
 	@ResponseBody
 	@RequestMapping("writeComment")
-	public int writeAnswer(HttpServletRequest request) throws Exception{
+	public Map<String, String> writeAnswer(HttpServletRequest request, CommentQnADTO dto) throws Exception{
 		int cq_p_no = Integer.parseInt(request.getParameter("cq_p_no"));
-		System.out.println("cq_p_no" + cq_p_no);
-		return cq_p_no;
+		int cq_no = Integer.parseInt(request.getParameter("cq_no"));
+		String cq_name = request.getParameter("cq_name");
+		String cq_email = request.getParameter("cq_email");
+		String cq_comment = request.getParameter("cq_comment");
+		qnaService.writeComment(cq_no, dto);
+		request.setAttribute("checkAns", 'y');
+		Map <String,String> result = new HashMap<>();
+		result.put("cq_comment", cq_comment);
+		result.put("checkAns", "y");
+		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "updateComment", produces = "application/text; charset=utf8")
+	public String updateComment(HttpServletRequest request, int cq_no,String cq_comment) throws Exception {
+		qnaService.updateComment(cq_no, cq_comment);		
+		return cq_comment;
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteComment")
+	public int deleteComment(HttpServletRequest request, int cq_no) throws Exception {
+		int result = qnaService.deleteComment(cq_no);	
+		System.out.println(cq_no);
+		return result; //result=2라면, 성공
+	}
 	
 	
 	

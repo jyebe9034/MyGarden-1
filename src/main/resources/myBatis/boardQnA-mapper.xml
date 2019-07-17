@@ -43,15 +43,6 @@
 		delete board_qna where BQ_NO=#{bq_no};
 	</delete>
 
-<!-- 관리자인지 확인 -->
-<!-- 	<select id="checkAdmin" resultType="String"> -->
-<!-- 		select m_grade from members where m_email=#{m_email} -->
-<!-- 	</select> -->
-
-
-<!-- 답변 글 목록 -->
-
-
 <!-- 답변 글 등록 -->
 	<insert id="writeComment">
 		insert into comment_qna 
@@ -59,15 +50,28 @@
 	</insert>
 	<update id="setAnsY">
 		update board_qna set bq_checkedAns='y' 
-		where bq_no=#{cq_no};--답변완료
+		where bq_no=#{cq_no}
 	</update>
 
+<!-- 답변 글 목록 -->
+	<select id="commentList" resultType="my.garden.dto.CommentQnADTO">
+		select * from comment_qna where cq_no=#{cq_no}
+	</select>
+	
 <!-- 답변 글 수정 -->
-
+	<update id="updateComment">
+		update comment_qna set cq_comment=#{cq_comment} where cq_no=#{cq_no}
+	</update>
 
 <!-- 답변 글 삭제 -->
-
-
+	<delete id="deleteComment">
+		delete comment_qna where cq_no=#{cq_no}
+	</delete>
+	
+	<update id="setAnsN">
+		update board_qna set bq_checkedAns='n' 
+		where bq_no=#{cq_no}
+	</update>
 
 
 

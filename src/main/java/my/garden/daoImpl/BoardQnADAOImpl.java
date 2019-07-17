@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import my.garden.dao.BoardQnADAO;
 import my.garden.dto.BoardQnADTO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.CommentFreeDTO;
+import my.garden.dto.CommentQnADTO;
 
 
 @Repository
@@ -118,15 +120,31 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sst.update("boardQnAMB.updateQnA", dto);
 	}
 	
-	/*관리자확인*/
-	public String checkAdmin(String m_email) {
-		return sst.selectOne("boardQnAMB.checkAdmin", m_email);
+	
+	/*관리자 답변 기능*/
+
+	public int writeComment(CommentQnADTO dto) { //답변작성
+		return sst.insert("boardQnAMB.writeComment",dto);
+	}
+	public int setAnsY(int cq_no) { //답변작성
+		return sst.update("boardQnAMB.setAnsY",cq_no);	
 	}
 	
-	public int writeComment() {
-		return sst.insert("boardQnAMB.writeComment");
+	public CommentQnADTO commentList(int cq_no) { //답변 목록
+		return sst.selectOne("boardQnAMB.commentList", cq_no);
 	}
-	public int setAnsY(int cq_no) {
-		return sst.update("boardQnAMB.setAnsY");	}
 	
+	public int updateComment(int cq_no, String cq_comment) { //답변 수정
+		Map<String,Object> map = new HashMap<>();
+		map.put("cq_no", cq_no);
+		map.put("cq_comment", cq_comment);
+		return sst.update("boardQnAMB.updateComment", map);
+	}
+	
+	public int deleteComment(int cq_no) { //답변 삭제
+		return sst.delete("boardQnAMB.deleteComment", cq_no);
+	}
+	public int setAnsN(int cq_no) { //답변 삭제
+		return sst.update("boardQnAMB.setAnsN",cq_no);	
+	}
 }

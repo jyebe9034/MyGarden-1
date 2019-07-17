@@ -103,26 +103,104 @@
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
 		
-		$(".commentBtn").on("click",function(){ 
+		$(document).on("click","#commentBtn",function(){ 
 			var inputComment = $("#inputComment").text();
 			//$("#cq_comment").val(inputComment);
 			var data = {
 					cq_p_no : "${readQnA.bq_p_no}",
 					cq_no : ${readQnA.bq_no},
-					cq_name :  ${loginName},
-					cq_email : ${loginId},
+					cq_name :  "${loginName}",
+					cq_email : "${loginId}",
 					cq_comment : inputComment
 				  };
 			$.ajax({
 				url: "writeComment",
 				type: "post",
-				dataType: "json",
+				dataType:"json",
 				async: true,
 				data: data
-			}).done(function(resp){
-				console.log(resp)
+			}).done(function(result){
+				var cq_comment = result.cq_comment;
+				var checkAns = result.checkAns;
+				//$(".cq_comment").text(cq_comment);
+				if(checkAns=='y'){
+					//$("#AnswerWrapper").html("");	
+					$("#inputComment").attr("contenteditable","false");
+					$("#inputComment").html(checkAns);
+					$("#inputComment").css("background-color","lightgrey");
+					$(".commentBtnBox").html("<button type='button' class='btn' id='editBtn'>수정하기</button>"
+							+"<button class='btn' id='delCommentBtn'>삭제하기</button>");
+					
+				
+
+				
+				}
+				
 			})
 		})
+				
+			
+				$(document).on("click","#editBtn",function(){
+				
+					$("#inputComment").attr("contenteditable","true");
+					$("#inputComment").css("background-color","lightblue");
+					$(".commentBtnBox").html("<button type='button' class='btn' id='updateCommentBtn'>등록</button>");	
+					
+				})
+					
+				$(document).on("click","#updateCommentBtn",function(){
+					alert("a");
+					$("#inputComment").attr("contenteditable","false");
+					$("#inputComment").css("background-color","lightgrey");
+					$(".commentBtnBox").html("<button type='button' class='btn' id='editBtn'>수정하기</button>"
+							+"<button class='btn' id='delCommentBtn'>삭제하기</button>");
+					
+					var inputComment = $("#inputComment").html();
+					var data = {
+							cq_no : ${readQnA.bq_no},
+							cq_comment : inputComment
+						  };
+
+					$.ajax({
+							url: "updateComment",
+							type: "post",
+							async: true,
+							data: data
+						}).done(function(cq_comment){
+								
+							alert("cq_comment : " + cq_comment)				
+							
+							alert("aaa");
+						})
+				})
+				
+				$(document).on("click","#delCommentBtn",function(){
+
+					$.ajax({
+						url: "deleteComment",
+						type: "post",
+						async: true,
+						data: {"cq_no" : ${readQnA.bq_no}}
+					}).done(function(resp){
+						if(resp=2){
+							$("#AnswerWrapper").html("");
+							$("#AnswerWrapper").append("<div class='form-group row'>"
+									+"<label for=\"cq_comment\" class=\"col-sm-2 col-form-label\">답변</label>"
+									+"<div class=\"col-sm-10\">"
+									+"<div contenteditable=\"true\" id=\"inputComment\"></div>"
+									+"</div></div>"
+									+"<div class=\"row d-flex justify-content-end commentBtnBox\">"
+									+"<button class=\"btn\" id=\"commentBtn\">답변등록</button></div>")
+						}			
+						
+					})
+				})
+			
+				
+				
+	
+		
+
 		
 	})
 	
@@ -189,25 +267,39 @@
 		  </div>		  
 		</form>
 		
-		<c:if test="${checkAdmin eq 'admin' }">
-		<!-- ========================답변(관리자만 가능)============================= -->
-	
-			<div id="AnswerWrapper">
-				<div class="form-group row">
-					<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
-					<div class="col-sm-10">
-	
-						<div contenteditable="true" id="inputComment"></div>
-						<input type="hidden" class="form-control" id="cq_comment"
-							name="cq_comment">
+		<div id="AnswerWrapper">
+		
+		<c:choose>
+			<c:when test="${checkAns eq 'n' and grade eq 'admin'}">
+			<!-- ========================답변(관리자만 가능)============================= -->
+
+					<div class="form-group row">
+						<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
+						<div class="col-sm-10">
+							<div contenteditable="true" id="inputComment"></div>
+						</div>
 					</div>
-				</div>
-	
-				<div class="row d-flex justify-content-end">
-					<button class="btn commentBtn">답변등록</button>
-				</div>
-			</div>
-		</c:if>
+					<div class="row d-flex justify-content-end commentBtnBox">
+						<button class="btn" id="commentBtn">답변등록</button>
+					</div>
+
+			</c:when>
+			<c:otherwise>
+				<div class="form-group row">
+							<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
+							<div class="col-sm-10">
+								<div contenteditable="false" id="inputComment">${commentList.cq_comment }</div>
+							</div>
+						</div>	
+						<div class="row d-flex justify-content-end commentBtnBox">
+							<button class="btn" id="delCommentBtn">삭제하기</button>
+							<button class="btn" id="editBtn">수정하기</button>
+						</div>
+			</c:otherwise>
+		</c:choose>
+
+<!-- 		<div class="cq_comment"></div> -->
+		</div>
 		
 
 

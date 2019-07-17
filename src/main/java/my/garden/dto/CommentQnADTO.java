@@ -3,8 +3,8 @@ package my.garden.dto;
 import java.sql.Timestamp;
 
 public class CommentQnADTO {
-	private int cq_p_no;
-	private int cq_no;
+	private int cq_p_no; //상품글번호
+	private int cq_no; //문의글번호
 	private String cq_name;
 	private String cq_email;
 	private Timestamp cq_writedate;

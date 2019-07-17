@@ -271,22 +271,23 @@
 			
 			$(".qnaTitle").on("click",function(){
 				var checkedSecret = $(this).prev().val();
-				alert("check: " + checkedSecret);
+// 				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
 				var writer = $(this).prev().prev().val();
-				alert("writer : " + writer);
-				alert("admin : " + "${checkAdmin}");
-				
-				if("${checkAdmin}"=="admin"){
-					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no);	
+// 				alert("writer : " + writer);
+// 				alert("admin : " + "${grade}");
+				var bq_checkedAns = $(this).next().next().val();
+				alert("bq_checkedAns : "+bq_checkedAns);
+				if("${grade}"=="admin"){
+					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
 					alert("비밀글은 작성자만 볼 수 있습니다.");
 				}else{
 // 					alert("bq_no : " + bq_no);
 					if(writer=="${loginId}"){ //내 글을 클릭했을 때
-						$(location).attr("href","readQnA?mine=y&bq_no="+bq_no);		
+						$(location).attr("href","readQnA?mine=y&bq_no="+bq_no+"&checkA="+bq_checkedAns);		
 					}else{
-						$(location).attr("href","readQnA?mine=n&bq_no="+bq_no);	
+						$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 					}
 					
 				}
@@ -434,6 +435,7 @@
 								<input type="hidden" class="hidCheckedSecret" value="${qnaList.bq_checkedSecret }">
 								<span class="qnaTitle">${qnaList.bq_title }</span>
 								<input type="hidden" value="${qnaList.bq_no }">
+								<input type="hidden" value="${qnaList.bq_checkedAns }">
 								<c:choose>
 									<c:when test="${qnaList.bq_checkedSecret eq 'y'}">
 										<img src="/resources/img/boardQnALock.JPG" width="15px">
