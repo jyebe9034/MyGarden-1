@@ -207,7 +207,7 @@
 								<li class="nav-item active dropdown"><a
 									class="nav-link dropdown-toggle mt-2" href="#" role="button"
 									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> 상품 전체보기 </a>
+									aria-expanded="false"> 상세 카테고리 </a>
 									<div class="dropdown-menu text-center"
 										aria-labelledby="navbarDropdown">
 										  <a class="dropdown-item" href="fruit?category=fruit">과일</a> 

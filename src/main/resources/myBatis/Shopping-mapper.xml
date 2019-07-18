@@ -32,5 +32,17 @@
 		select distinct s_orderno from shoplist where s_email = #{id}
 </select>
 
+<insert id="insertIntoCart">
+		insert into cart values(#{c_p_no},#{c_p_imagepath},#{c_p_title},#{c_p_price},
+		#{c_m_email},#{c_count},sysdate)
+</insert>
+
+<select id="isCartExist" resultType="java.lang.Integer">
+		select count(*) from cart where c_p_no = #{c_p_no}
+</select>
+
+<update id="updateCart">
+		update cart set c_count = #{c_count} where c_p_no = #{c_p_no}
+</update>
 
 </mapper>

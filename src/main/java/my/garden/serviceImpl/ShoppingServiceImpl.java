@@ -61,4 +61,13 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return listWrapper;
 	}
 	
+	public int insertIntoCart(CartDTO dto) throws Exception{
+		if(dao.isCartExist(dto.getC_p_no())>0) {
+			return dao.updateCart(dto);			
+		}else {
+			return dao.insertIntoCart(dto);
+		}
+	}
+	
+	
 }

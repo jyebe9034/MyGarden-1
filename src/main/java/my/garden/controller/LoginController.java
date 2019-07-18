@@ -78,12 +78,14 @@ public class LoginController {
 	public String logout() throws Exception {
 		session.invalidate();
 		out = response.getWriter();
+
 //		out.print("<body>\r\n" + 
 //				"		//로그인 시 뒤로가기 방지\r\n" + 
 //				"		history.pushState(null, null, location.href);\r\n" + 
 //				" 			window.onpopstate = function () {\r\n" + 
 //				"        		history.go(1);\r\n" + 
 //				"			};</body>");
+
 		return "home";
 	}
 
@@ -168,11 +170,13 @@ public class LoginController {
 		String code = loginserv.NaverLoginCallback();
 		String socialEmail = loginserv.NaverLoginGetInfo(code);
 		boolean result = loginserv.emailDupCheck(socialEmail);
+
 		if(result==true) { //그 외 - 홈으로 이동
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
 			return "home";
 		}else { //최초 로그인 - 정보입력 페이지로 이동
+
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("social", "naver");
 			session.setAttribute("profile", "");
@@ -187,6 +191,7 @@ public class LoginController {
 
 	@RequestMapping("/socialJoinSubmit")
 	public String socialJoinSubmit(MembersDTO dto) {
+		System.out.println(dto.getM_profile());
 		loginserv.socialJoinSubmit(dto);
 		return "login/findAccountAfterLogin";
 	}
@@ -205,7 +210,9 @@ public class LoginController {
 		String profile = map.get("profile");
 		
 		boolean result = loginserv.emailDupCheck(socialEmail);
+
 		if(result==true) { //그 외 - 홈으로 이동
+
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
 			return "home";

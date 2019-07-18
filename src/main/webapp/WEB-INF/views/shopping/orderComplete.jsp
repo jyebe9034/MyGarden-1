@@ -112,7 +112,7 @@
 													cellspacing="0">
 													<tr>
 														<td class="center" width="60" height="60" valign="middle">
-															<img src="/resources/${dto.s_p_imagepath }"
+															<img src="${dto.s_p_imagepath }"
 															class="productsImg" width="70px" height="70px">
 														</td>
 														<td class="left" valign="middle">
@@ -414,7 +414,7 @@
 											</tr>
 										</table>
 									</td>
-									<td width="300" align="right"><a href="/"
+									<td width="300" align="right"><a href="productsList"
 										id="keepShopping"
 										style="color: #fff; font-size: 12px; text-align: center;"><div
 												style="width: 138px; height: 45px; background: #aaafaf; display: table-cell; vertical-align: middle;">쇼핑

@@ -131,11 +131,13 @@ public class LoginService {
 	public int socialJoinSubmit(MembersDTO dto) {
 		dto.setM_social(request.getSession().getAttribute("social").toString());
 		dto.setM_ipaddress(request.getRemoteAddr());
+
 		if(request.getSession().getAttribute("profile").toString().equals("")) {
 			dto.setM_profile("resources/img/profile.png");
 		}else {
 			dto.setM_profile(request.getSession().getAttribute("profile").toString());
 		}		
+
 		return logDao.socialJoinSubmit(dto);
 	}
 	
@@ -152,7 +154,9 @@ public class LoginService {
         String profile = null;
         String socialEmail = null;
 
+
         // 유저정보 카카오에서 가져오기 Get properties
+
         JsonNode properties = userInfo.path("properties");
         JsonNode kakao_account = userInfo.path("kakao_account");
  
