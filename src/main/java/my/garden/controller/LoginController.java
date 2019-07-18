@@ -99,14 +99,31 @@ public class LoginController {
 	@RequestMapping("/mypageFirst")
 	public String Mypage(MembersDTO dto) {
 		String loginName = (String)session.getAttribute("loginName");
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String[] mname = new String[]{"Ja", "Fb", "Mr", "Ap", "Ma", "Ju", "Jl", "Ag", "Sp", "Ot", "Nv", "Dc"};
 		if(loginName==null) {
 			return "login/login";
 		}else {
 			String id = (String)session.getAttribute("loginId");
 			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
+			session.setAttribute("cal", loginserv.getCalender(year));
+			session.setAttribute("year", year);
+			session.setAttribute("mm", mname);
 			return "login/mypageFirst";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("/mypageGardenChange")
+	public Integer[] MypageGardenChange(int key) {
+		session.removeAttribute("cal");
+		session.removeAttribute("year");
+//		session.setAttribute("cal", loginserv.getCalender(key));
+		session.setAttribute("year", key);
+		return loginserv.getCalender(key);
+	}
+	
 
 	@RequestMapping("/mypageInfo")
 	public String MypageInfo(MembersDTO dto) {
@@ -220,30 +237,6 @@ public class LoginController {
 		}
 	}
 	
-	@RequestMapping("/test")
-	public String test() {
-		ArrayList<Integer> list = new ArrayList();
-		int yyyy = 0;
-		int mm = 0;
-		int maxDay = 0;
-		Integer[] arr = new Integer[12];
-		//Calendar
-		Calendar cal = Calendar.getInstance();
-
-		// 1~12
-		for(int month=0; month<12; month++) {
-			yyyy = cal.get(Calendar.YEAR); //연도
-			System.out.println(yyyy);
-			cal.set(Calendar.MONTH, month);
-			mm = cal.get(Calendar.MONTH)+1; //달
-			System.out.println(mm);
-			maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			System.out.println(maxDay); //마지막 날짜
-			arr[month] = maxDay;
-		}
-		session.setAttribute("year", yyyy);
-		session.setAttribute("maxDay", arr);
-		return "test";
-	}
+	
 	
 }

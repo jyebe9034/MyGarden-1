@@ -170,4 +170,8 @@ public class LoginService {
         return map;
 	}
 	
+	public Integer[] getCalender(int year) {
+		return logDao.gardenCalendar(year);
+	}
+	
 }

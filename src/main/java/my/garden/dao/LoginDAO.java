@@ -12,6 +12,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -384,6 +386,23 @@ public class LoginDAO {
             e.printStackTrace();
         }
         return returnNode;
+	}
+	
+	public Integer[] gardenCalendar(int year) {
+		Integer[] calArr = new Integer[12];
+        int day = 1;
+        int daysOfMonth = 0;
+		Calendar cal = Calendar.getInstance();
+		for(int month=0; month<12; month++) {
+	        cal.set(Calendar.MONTH, 0);
+	        int mm=cal.get(Calendar.MONTH)+month;
+//	        System.out.println(mm + 1 + "월");
+	        Calendar result = new GregorianCalendar(year, mm, day);
+	        daysOfMonth = result.getActualMaximum(Calendar.DAY_OF_MONTH);
+//	        System.out.println(year + "년 " + (mm+1) + "월의 일수: " + daysOfMonth);
+	        calArr[month] = daysOfMonth;
+		}
+       return calArr;
 	}
 	
 }
