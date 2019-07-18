@@ -45,31 +45,9 @@
 		 });
 	});
 	</script>
-	
-	<c:choose>
-       <c:when test="${loginName!=null}">
-       
-<!-- after login header -->
-	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
-       </c:when>
-       <c:otherwise>
 
-<!-- before login header -->
-<div class="container-fluid my">
-	<div class="row my">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
-			<span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>
-			<span class="position-absolute clickToCloseBtnBorder"></span>
-			<span class="position-absolute clickToCloseBtn">&Cross;</span>
-		</div>
-	</div>
-</div>		
+<!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
-       </c:otherwise>
-   </c:choose>
-<!------------------- 	JSTL ----------------------------->
 	
 	
 <!-- 			carousel -->
@@ -175,7 +153,7 @@
 	</div>
 	
 	<div id="chatboxWrap">
-		<iframe id="chatBox" src="chat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0></iframe>
+		<iframe id="chatBox" src="chat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 	</div>
 	<div id="chatWrap">
 		<img id="chatBtn" src="/resources/img/chat.png">

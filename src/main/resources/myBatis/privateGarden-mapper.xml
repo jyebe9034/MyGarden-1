@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PrivateGardenDAO">
+
+	<select id="selectMyGardenInfo" resultType="my.garden.dto.PrivateGardenDTO">
+		select * from gardens where g_email=#{g_email}
+	</select>
+
+</mapper>

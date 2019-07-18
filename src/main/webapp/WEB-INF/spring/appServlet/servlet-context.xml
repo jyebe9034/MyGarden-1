@@ -14,15 +14,18 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	<tx:annotation-driven
-		transaction-manager="txManager" />
-	
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
+	<context:component-scan base-package="my.garden" />
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- transction Management -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/resources/**" location="/resources/" /> 
+	<resources mapping="/resources/imgPrivategarden/**" location="/resources/imgPrivategarden/" />
 <!-- 	<resources mapping="/css/**" location="/resources/css/" /> -->
 <!-- 	<resources mapping="/js/**" location="/resources/js/" /> -->
 
@@ -54,7 +57,7 @@
 	
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</beans:bean>
+	</beans:bean>	
 	
 	<beans:bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -62,5 +65,3 @@
 	</beans:bean>
 	
 </beans:beans>
-
-

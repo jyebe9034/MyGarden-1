@@ -50,13 +50,14 @@
 				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
+				  <a href="privateGarden" class="list-group-item list-group-item-action">비밀 정원</a>
 				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pt-5 my">	
 				<div class="row pt-3 my">
 					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 text-right mb-2 pr-5 my">
-						<h3><span class="font-weight-bold">[정원이름]</span>의 기록</h3>
+						<h3><span class="font-weight-bold">[${memDTO.m_garden}]</span>의 기록</h3>
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-left my">
 						<form>

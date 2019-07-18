@@ -387,6 +387,16 @@ button.btn_select_all, button.btn_select_del {
 		$("#buyAll").on(
 				"click",
 				function() {
+					$(".goodsCheckbox").prop("checked", true);
+					var checked = 0;
+					$(".goodsCheckbox").each(function() {
+						if ($(this).prop("checked")) {
+							checked++;
+						}
+					});
+					if (checked == 0) {
+						alert("장바구니에 담긴 상품이 상품이 없습니다.");
+					} else {
 					var jArray = new Array();
 					//JsonArray를 위한 배열생성
 
@@ -422,10 +432,13 @@ button.btn_select_all, button.btn_select_del {
 
 					$("#productList").val(stringJson);
 					$("#cartForm").submit();
+					}
 				});
+		
 		$("#keepShopping").on("click", function() {
-			$(location).attr("href", "/")
+			$(location).attr("href", "productsList")
 		})
+		
 		$(".up")
 				.on(
 						"click",
@@ -621,7 +634,7 @@ button.btn_select_all, button.btn_select_del {
 																<div class="row">
 																	<div class="col-4">
 																		<img class="goodsImg"
-																			src="/resources/${dto.c_p_imagepath }">
+																			src="${dto.c_p_imagepath }">
 																	</div>
 																	<div class="col-6 nameWrapper ml-3" align="left">
 																		<span class="goodsName">${dto.c_p_title }</span>

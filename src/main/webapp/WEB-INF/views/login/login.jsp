@@ -11,7 +11,6 @@
 .imageContainer{height:300px; overflow:hidden;}
 .carousel-inner{margin-top:-120px;}
 .form-check-label, #formFooter{font-size:15px;}
-.socialButton{width:90%; height:50px; box-shadow: 0 10px 30px 0 #666;}
 .joinSuggestion{color:#4f9c87; border:1px solid #4f9c87; margin-top:-8px;}
 .joinSuggestion:hover{color:#fff; border:1px solid #4f9c87; background:#4f9c87;}
 span.mr-2{font-size:25px; display:inline-block; margin-bottom:20px;}
@@ -163,6 +162,39 @@ input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
 }
 input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]:placeholder {
   color: #cccccc;
+}
+.socialButton{
+  border: none;
+  color: white;
+  font-weight:bold;
+  font-size:19px;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+	width:90%; height:50px;
+}
+.bg-primary{
+  -webkit-box-shadow: 0 10px 30px 0 #5CAAFF!important;
+  box-shadow: 0 10px 30px 0 #5CAAFF!important;
+}
+.bg-success{
+  -webkit-box-shadow: 0 10px 30px 0 #91D2A0!important;
+  box-shadow: 0 10px 30px 0 #91D2A0!important;
+}
+.bg-warning{
+  -webkit-box-shadow: 0 10px 30px 0 #FFD761!important;
+  box-shadow: 0 10px 30px 0 #FFD761!important;
 }
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
@@ -385,6 +417,33 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		        		}
 		        	}
 		        });
+		        //social login
+		        $('.bg-success').on('click', function(){
+		        	if(!$('.socialCheck').is(":checked")){
+		        		alert('개인정보 제공에 동의하세요');
+		        		return false;
+		        	}else{
+			        	$.ajax({
+			        		url:"/naverLogin",
+			        		type:"post"
+			        	}).done(function(resp){
+			        		$(location).attr('href', resp);
+			        	});	
+		        	}
+		        });
+		        $('.bg-warning').on('click', function(){
+		        	if(!$('.socialCheck').is(":checked")){
+		        		alert('개인정보 제공에 동의하세요');
+		        		return false;
+		        	}else{
+			        	$.ajax({
+			        		url:"/kakaoLogin",
+			        		type:"post"
+			        	}).done(function(resp){
+			        		$(location).attr('href', resp);
+			        	});	
+		        	}
+		        });
 		});
 	</script>
 <!-- header -->
@@ -492,11 +551,34 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                <div id="signup">
 			                    <h3 class="m-3 font-weight-bold text-dark">나의 정원 소셜로그인</h3>
 			                    <form class="p-4">
-			                        <input type="button" class="socialButton mb-3" value="네이버">
-			                        <input type="button" class="socialButton mb-3" value="카카오">
-			                        <input type="button" class="socialButton mb-3" value="구글">
-			                        <input type="button" class="socialButton mb-5" value="깃허브">
+			                        <input type="button" class="socialButton mb-3 bg-success" value="네이버">
+			                        <input type="button" class="socialButton mb-3 bg-warning" value="카카오">
+			                        <input type="button" class="socialButton mb-4 bg-primary" value="구글">
+								      <label><input type="checkbox" class="form-check-input text-muted socialCheck">개인정보 제공에 동의합니다</label>
 			                    </form>
+		                        <p id="formFooter">
+		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter3">소셜로그인 개인정보수집방침</a>
+		                       	<!-- Modal pw -->
+									<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalCenterTitle">소셜로그인 개인정보수집방침</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									          <div>사용자의 이메일 주소, 이름, 성별, 생일 등<br>회원 식별에 필요한 정보를 수집합니다</div>
+									      </div>
+									      <div class="modal-footer">
+									   		   <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								<!-- modal pw end -->
+		                        </p>
 			                </div>
 			            </div>
 			        </div>

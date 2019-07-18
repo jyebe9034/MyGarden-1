@@ -46,7 +46,7 @@
 	#send{
 		width : 97px;
 		height : 95px;
-		background-color: #b4d9b5;
+		background-color: #4ab336;
 		color : white;
 		border : 0px;
 		border-radius : 5px;
@@ -66,11 +66,11 @@
 		var socket = new SockJS("/webchat");
 		var client = Stomp.over(socket);
 		
-		client.connect({}, function(resp){// 서버로부터 response된 정보를 받아오는 부분
-			client.subscribe("/response", function(msg){
+		client.connect({}, function(resp){ // 접속
+			client.subscribe("/response", function(msg){ // 서버로부터 response된 정보를 받아오는 부분
 				var line = $("<div class='messages'></div>");
 				var result = JSON.parse(msg.body);
-				line.append(result.name + "님의 메세지 : " + result.message);
+				line.append(result.name + " : " + result.message);
 				$("#chatContents").append(line);
 				$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
 			});

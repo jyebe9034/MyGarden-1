@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 
-
 	@Autowired
 	HttpSession session;
 
@@ -30,9 +29,14 @@ public class HomeController {
 	public String toSubscribe() {
 		return "subscription/subscription";
 	}
-	
+
 	@RequestMapping("chat")
 	public String toChat() {
 		return "chat/chat";
+	}
+	
+	@RequestMapping("testimg")
+	public String testImg() {
+		return "privategarden/test01";
 	}
 }
