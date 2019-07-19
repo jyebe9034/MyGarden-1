@@ -114,14 +114,13 @@ public class LoginController {
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping("/mypageGardenChange")
-	public Integer[] MypageGardenChange(int key) {
+	public String MypageGardenChange(int key) {
 		session.removeAttribute("cal");
 		session.removeAttribute("year");
-//		session.setAttribute("cal", loginserv.getCalender(key));
+		session.setAttribute("cal", loginserv.getCalender(key));
 		session.setAttribute("year", key);
-		return loginserv.getCalender(key);
+		return "login/mypageFirst";
 	}
 	
 

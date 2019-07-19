@@ -32,23 +32,8 @@
 			 + '<button type="button" class="btn btn-outline-secondary">'+(yyyy)+'</button>'
 		);
 		$('.btn-group button').on('click', function(){
-			$.ajax({
-				url:"/mypageGardenChange",
-				type:"post",
-				data:{key:$(this).text()}
-			}).done(function(resp){
-				console.log(resp[0]);
-				$('.garden').html("");
-				for(var i=0; i<12; i++){
-					$('.garden').append('<h6 class="m-1 calMonth text-center">'+mt[i]+'</h6>');
-						for(var j=0; j<resp[i].length; j++){
-							$('.calMonth:last-child').after('<div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="123">'+j+'</div>');
-						}
-// 						+'<c:forEach begin="1" end="12" step="1" var="x">'
-// 						+'<div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="123">${ x }</div>'
-// 						+'</c:forEach>'	
-				}
-			});
+			$('input[name=key]').val($(this).text());
+			$('#mypageGardenChange').submit();
 		});
 	});
 </script>
@@ -98,6 +83,9 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 my">
 						<div class="btn-group" role="group" aria-label="Basic example">
 						</div>
+						<form action="/mypageGardenChange" method="post" id="mypageGardenChange">
+							<input type="text" class="d-none" name="key">
+						</form>
 					</div>	
 				</div>	
 				<div class="row my">

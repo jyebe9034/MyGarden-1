@@ -121,6 +121,14 @@ s_statement varchar(20) not null,
 s_orderdate timestamp not null,
 s_reviewok char(1) check(s_reviewok in('y','n'))
 );
+insert into shoplist values(10, 22, 'emial', 'phone', 33, 'imagepath', 'title', 2, 3000, 
+'recipient', 'memo', 'paymethod', 'zipcode', 'address1', 'address2', 'statement', '19/8/4', 'y');
+select s_orderdate, 1 as cnt from shoplist;
+
+--Áßº¹°ª
+select s_orderdate, COUNT(s_orderdate) from shoplist group by(s_orderdate) order by COUNT(s_orderdate);
+
+
 create sequence cf_seq
 start with 1
 increment by 1
