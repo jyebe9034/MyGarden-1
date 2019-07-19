@@ -66,15 +66,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping("private")
-	public String PrivateGarden(Model model) {
+	public String toPrivate(Model model) {
 		String id = (String)session.getAttribute("loginId");
 		try {
 			PrivateGardenDTO dto = gserivce.selectPrivateGardenInfoService(id);
 			if(dto == null) {
-				return "privategarden/firstprivategarden";
+				return "privategarden/firstPrivateGarden";
 			}else {
 				model.addAttribute(dto);
-				return "privategarden/privategarden";
+				return "privategarden/privateGarden";
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -82,8 +82,8 @@ public class MypageController {
 		}
 	}
 	
-	@RequestMapping("secretgarden")
-	public String toSecretGarden() {
+	@RequestMapping("privategarden")
+	public String privateGarden() {
 		return "privategarden/test01";
 	}
 }

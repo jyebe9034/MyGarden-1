@@ -34,9 +34,4 @@ public class HomeController {
 	public String toChat() {
 		return "chat/chat";
 	}
-	
-	@RequestMapping("testimg")
-	public String testImg() {
-		return "privategarden/test01";
-	}
 }

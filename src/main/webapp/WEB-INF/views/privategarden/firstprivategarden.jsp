@@ -54,25 +54,7 @@
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pt-5 my">	
-				<div class="row pt-3 my">
-					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 text-right mb-2 pr-5 my">
-						<h3><span class="font-weight-bold">[${memDTO.m_garden}]</span>의 기록</h3>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-left my">
-						<form>
-						  <div class="form-group pr-3 pl-3">
-						    <select class="form-control" id="exampleFormControlSelect1">
-						      <option>1</option>
-						      <option>2</option>
-						      <option>3</option>
-						      <option>4</option>
-						      <option>5</option>
-						    </select>
-						  </div>
-						</form>	
-					</div>	
-				</div>	
-				
+				<iframe id="privategarden" src="privategarden" width="100%" height="900px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 			</div>
 		</div>
 	</div>	

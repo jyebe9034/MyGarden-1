@@ -10,8 +10,8 @@
 <style>
 .hero-octonaut {
    position: absolute;
-   top: 100px;
-   left: calc(50% - 380px);
+   top: 120px;
+   left: calc(50% - 300px);
    animation: lands 2s alternate ease-in-out infinite;
    will-change: transform;
    user-select: none;
@@ -20,8 +20,8 @@
 }
 
 .r1{
-   top: 260px;
-   left: calc(50% - 360px);
+   top: 310px;
+   left: calc(50% - 270px);
    position: absolute;
    animation: r1 1.5s alternate ease-in-out infinite;
    will-change: transform;
@@ -30,8 +30,8 @@
 }
 
 .r2{
-   top: 280px;
-   left: calc(50% - 310px);
+   top: 350px;
+   left: calc(50% - 220px);
    position: absolute;
    animation: r2 3s alternate ease-in-out infinite;
    will-change: transform;
@@ -40,8 +40,8 @@
 }
 
 .r3{
-   top: 300px;
-   left: calc(50% - 250px);
+   top: 390px;
+   left: calc(50% - 130px);
    position: absolute;
    animation: r3 3s alternate ease-in-out infinite;
    will-change: transform;
@@ -50,8 +50,8 @@
 }
 
 .r4{
-   top: 270px;
-   left: calc(50% - 60px);
+   top: 420px;
+   left: calc(50% - 0px);
    position: absolute;
    animation: r4 5s alternate ease-in-out infinite;
    will-change: transform;
@@ -60,8 +60,8 @@
 }
 
 .r5{
-   top: 290px;
-   left: calc(50% - 120px);
+   top: 370px;
+   left: calc(50% + 85px);
    position: absolute;
    animation: r5 3s alternate ease-in-out infinite;
    will-change: transform;
@@ -70,8 +70,8 @@
 }
 
 .r6{
-   top: 270px;
-   left: calc(50% - 90px);
+   top: 330px;
+   left: calc(50% + 130px);
    position: absolute;
    animation: r6 1.5s alternate ease-in-out infinite;
    will-change: transform;
@@ -80,8 +80,8 @@
 }
 
 .flare{
-   top: -40px;
-   left: calc(50% - 140px);
+   top: -60px;
+   left: calc(50% + 60px);
    position: absolute;
    animation: lands 2s alternate ease-in-out infinite;
    will-change: transform;
@@ -126,14 +126,6 @@
   0%{transform:translateY(-5px);} 
 }
 
-.hero-octonaut:hover{
-   cursor:pointer;
-   width:410px;
-   top: 95px;
-   left: calc(50% - 385px);
-   transition-duration:0.5s;   
-}
-
 .penguin {
     
     /* change code below */
@@ -143,8 +135,8 @@
     /* change code above */
     
     position: fixed;
-    top : 80px;
-    left : 80px;
+    top : 96px;
+    left : 45px;
     display: block;
     width: 120px;
     height: 120px;
@@ -374,8 +366,7 @@
 	  	width : 350px;
 	  	height : 150px;
 	  	position : fixed;
-	  	top : 20px;
-	  	left : 200px;
+	  	left : 160px;
 	  	border-top-left-radius : 20px;
 	  	border-top-right-radius : 20px;
 	  	border-bottom-left-radius: 20px;
@@ -384,7 +375,7 @@
 	}
 	  
 	#bubble{
-	 	margin : 15px 10px 15px 10px;
+	 	margin : 15px 10px 8px 10px;
 	}
 	  
 	#hurbBtn{
@@ -399,14 +390,14 @@
 </head>
 <body>
    <div id="wrapper">
-      <img class="flare" src="/resources/imgPrivategarden/flare.png" width="250px">
-      <img class="hero-octonaut" src="/resources/imgPrivategarden/base.png" width="400px">
-      <img class="r1" src="/resources/imgPrivategarden/00.png" width="20px">
-      <img class="r2" src="/resources/imgPrivategarden/01.png" width="40px">
-      <img class="r3" src="/resources/imgPrivategarden/02.png" width="20px">
-      <img class="r4" src="/resources/imgPrivategarden/03.png" width="30px">
-      <img class="r5" src="/resources/imgPrivategarden/04.png" width="45px">
-      <img class="r6" src="/resources/imgPrivategarden/05.png" width="15px">
+      <img class="flare" src="/resources/imgPrivategarden/flare.png" width="300px">
+      <img class="hero-octonaut" src="/resources/imgPrivategarden/base.png" width="550px">
+      <img class="r1" src="/resources/imgPrivategarden/00.png" width="30px">
+      <img class="r2" src="/resources/imgPrivategarden/01.png" width="50px">
+      <img class="r3" src="/resources/imgPrivategarden/02.png" width="30px">
+      <img class="r4" src="/resources/imgPrivategarden/03.png" width="35px">
+      <img class="r5" src="/resources/imgPrivategarden/04.png" width="55px">
+      <img class="r6" src="/resources/imgPrivategarden/05.png" width="25px">
    </div>
    
    <div class="penguin">
@@ -440,8 +431,9 @@
 			  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!
 		</div>
 		<div id="toHurb">
-			<input id="hurbBtn" class="btn btn-sm" type="button" value="허브 선택 하기">
+			<button id="hurbBtn" class="btn btn-sm">허브 선택 하기</button>
 		</div>
 	</div>
+	
 </body>
 </html>
