@@ -87,23 +87,14 @@
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 			
 		})
-		
-// 		$(".writeBtn").on("click",function(){
-// 			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
-// 			alert(checkedSecret);
-// 			$("#secretBtn").val(checkedSecret);
-// 			var inputContent = $("#inputContent").html();
-// 			$("#content").val(inputContent);
-// 			$("#writeQnAForm").submit();
-// 		})
-		
+	
 		$(".updateBtn").on("click",function(){
 			var bq_no = ${readQnA.bq_no};
 			
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
 		
-		$(document).on("click","#commentBtn",function(){ 
+		$(document).on("click","#commentBtn",function(){  //답변 등록
 			var inputComment = $("#inputComment").text();
 			//$("#cq_comment").val(inputComment);
 			var data = {
@@ -126,11 +117,11 @@
 				if(checkAns=='y'){
 					//$("#AnswerWrapper").html("");	
 					$("#inputComment").attr("contenteditable","false");
-					$("#inputComment").html(checkAns);
+					$("#inputComment").html(inputComment);
 					$("#inputComment").css("background-color","lightgrey");
 					$(".commentBtnBox").html("<button type='button' class='btn' id='editBtn'>수정하기</button>"
 							+"<button class='btn' id='delCommentBtn'>삭제하기</button>");
-					
+					alert("답변이 등록되었습니다.")
 				
 
 				
@@ -140,7 +131,7 @@
 		})
 				
 			
-				$(document).on("click","#editBtn",function(){
+				$(document).on("click","#editBtn",function(){ //답변 수정 가능한 형태로~
 				
 					$("#inputComment").attr("contenteditable","true");
 					$("#inputComment").css("background-color","lightblue");
@@ -148,14 +139,14 @@
 					
 				})
 					
-				$(document).on("click","#updateCommentBtn",function(){
-					alert("a");
+				$(document).on("click","#updateCommentBtn",function(){ //답변 수정
 					$("#inputComment").attr("contenteditable","false");
 					$("#inputComment").css("background-color","lightgrey");
 					$(".commentBtnBox").html("<button type='button' class='btn' id='editBtn'>수정하기</button>"
 							+"<button class='btn' id='delCommentBtn'>삭제하기</button>");
 					
 					var inputComment = $("#inputComment").html();
+		
 					var data = {
 							cq_no : ${readQnA.bq_no},
 							cq_comment : inputComment
@@ -167,14 +158,11 @@
 							async: true,
 							data: data
 						}).done(function(cq_comment){
-								
-							alert("cq_comment : " + cq_comment)				
-							
-							alert("aaa");
+							alert("답변이 수정되었습니다.")	;	
 						})
 				})
 				
-				$(document).on("click","#delCommentBtn",function(){
+				$(document).on("click","#delCommentBtn",function(){ //답변 삭제
 
 					$.ajax({
 						url: "deleteComment",
@@ -191,6 +179,8 @@
 									+"</div></div>"
 									+"<div class=\"row d-flex justify-content-end commentBtnBox\">"
 									+"<button class=\"btn\" id=\"commentBtn\">답변등록</button></div>")
+							alert("답변이 삭제되었습니다.");
+								
 						}			
 						
 					})

@@ -10,9 +10,16 @@
 		
 	}
 	
+	.lines{
+		width : 100%;
+	}
+	.innerLines{
+		width: 102%;
+	}
+	
 	#revAndQnAWrapper {
-	margin: 50px auto;
-      width: 100%;
+		margin: 50px auto;
+        width: 100%;
 /* 		margin: 500px auto; */
 /* 		width: 800px; */
 		height: 2000px;
@@ -27,7 +34,7 @@
 		text-align: center;
 	}
 	
-	#revAndQnAWrapper .aa {
+	#revAndQnAWrapper .tabsUnderlines {
 		margin-top: -17px;
 	}
 	
@@ -57,14 +64,24 @@
 		margin-left: -27px;
 	}
 	
+	p{
+		color: #456152;
+		margin-left : 20px;
+	}
 	
 	.aListBox{
 		border-bottom: 1px solid lightgrey;
 	}
 	
+	.reviewImage{
+		width:100%;
+		height:150px;
+		text-align:center; 
+	}
 	.reviewImage img{
-		height:200px;
-		width:180px;
+ 		max-width:100%; 
+		height:150px;
+		border-radius: 5px;
 	}
 	.reviewRightTop{
 		height:60%;
@@ -74,26 +91,39 @@
 	}
 	
 	.reviewTitle{
+		margin-left: 10px;
+		color: #5b6660;
 		cursor: pointer;
 	}
 	.reviewTitle:hover{
 		font-weight: bold;
 	}
 	
+	.reviewContent{
+		color: #5b6660;
+		height: 80%;
+		width: 100%;
+		border-radius: 10px;
+		padding: 10px;
+	}
+	
 	.reviewWriter {
+		color:#6c736f;
 		float: left;
 	}
 	
 	.reviewWriteDate {
+		color:#6c736f;
 		float: left;
 		margin: 0px 20px;
 	}
 	
 	.reviewRecommend {
+		color:#6c736f;
 		float: left;
 	}
 	.recommendBtn{
-		cursor: pointer;
+		cursor: #44b27d;
 	}
 	
 	.pageNaviBox{
@@ -121,8 +151,18 @@
 		margin : 0 2px;
 	}
 	
-	#writeReviewBtn, .reviewUpdateBtn button {
+	.writeReviewBtnWrapper{
+		width: 99%;
+	}
+	#writeReviewBtn{
 		background-color: #44b27d;
+		color: white;
+		font-weight: bold;
+		border: 0px;
+	} 
+	
+	.reviewUpdateBtn button {
+		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
 		border: 0px;
@@ -142,12 +182,48 @@
 	
 	/*Q & A*/
 	.qnaTitleRow{
-	 text-align : center;
+/*  	 text-align : center;  */
+	color:#6c736f;
 	}
+	
 	.qnaTitle:hover{
 		cursor: pointer;
 		font-weight: bolder;
 	}
+	.qnaBtnBox{
+		width:95%;
+	}
+	
+	#qBtn{
+		background-color: #44b27d;
+		color: white;
+		font-weight: bold;
+		border: 0px;
+		border-radius: 5px;
+	} 
+	
+	#qBtn:hover{
+		background-color: #b4d9b5;
+		color: #44b27d;
+		font-weight: bold;
+		border: 0px;
+		cursor: pointer;
+	}
+	
+	.completedBtnBox{
+		height: 100%;
+	}
+	.completedBtn{
+/* 		border-radius: 5px; */
+		height: 90% !important;
+		width: 60px !important;
+		border: none;
+		border-radius: 2px;
+		background-color : #bf9fd6;
+		color: white;
+	}
+	
+/* 		color: #456152; */
 </style>
 
 <script>
@@ -164,14 +240,24 @@
 				var reviewTitle = $(item).prev();
 				$(reviewTitle).on("click",function(){
 					if($(item).attr("display")=="none"){
+						$(this).css("font-weight","bold");
+// 						$(this).css("font-size","17px");
 						$(item).show();
 						$(item).attr("display", "block");
+						$(item).css("background-color","#f3fff0");  ///
 					}else{
+						$(this).css("font-weight","400");
+// 						$(this).css("font-size","16px");
 						$(item).hide();
 						$(item).attr("display", "none");   
 					}
 				})
 			})
+			
+// 			$(".reviewImage").on("click",function(){
+// 			  var reviewImgSrc = $(this).next().val();
+// 			      $(this).html("<img src='"+reviewImgSrc+"'>");
+// 			})
 			
 			/*추천 수(도움돼요)증가*/
 			$(document).on("click",".recommendBtn",function(){
@@ -311,26 +397,27 @@
 				<a class="nav-link revAndQnATabs" id="goQnaTab"
 				href="#pills-qna">상품문의</a></li>
 		</ul>
-		<hr class="aa">
+		<hr class="tabsUnderlines">
 <!--================================================================-->
 		<div class="tab-content" id="pills-tabContent">
 
 			<div class="tab-pane fade show active" id="pills-home"
 				role="tabpanel" aria-labelledby="pills-home-tab">
 				<p>
-					Product Review<br> <small class="test">상품의 후기를 올리는
+					<b>Product Review</b><br> <small class="test">상품의 후기를 올리는
 						곳입니다.</small>
 				</p>
-				<hr>
+				<hr class="lines">
 				
 				<div class="container reviewBox">
 					<div class="row">
 
 						<c:forEach var="reviewList" items="${reviewList }">
-							<div class="col-4 reviewImage">
+							<div class="col-3 reviewImage">
 								<img src="${reviewList.br_imagepath }">
 							</div>
-							<div class="col-8">
+							<input type="hidden" value="${reviewList.br_imagepath }">
+							<div class="col-9">
 								<div class="reviewRightTop">
 									<div class="reviewTitle">${reviewList.br_title }</div>
 									<div class="reviewContent" display="none">
@@ -338,7 +425,7 @@
 								</div>
 
 								<div class="reviewRightBottom">
-									<hr>
+									<hr class="innerLines">
 									<div class="reviewWriter">
 										<img src="/resources/img/boardFreeWriter.png" width="20px">
 										${reviewList.br_name }
@@ -369,7 +456,7 @@
 								</div>
 
 							</div>
-							<hr width="770px">
+							<hr class="lines">
 						</c:forEach>
 					</div>
 				</div>
@@ -402,16 +489,16 @@
 				data-toggle="pill" href="#pills-qna" role="tab"
 				aria-controls="pills-profile" aria-selected="false">상품문의</a></li>
 		</ul>
-		<hr class="aa">
+		<hr class="tabsUnderlines">
 	<!--==========================================================-->
 		<div class="tab-content" id="pills-tabContent">
 
 			<div class="tab-pane show fade active" id="pills-qna" role="tabpanel"
 				aria-labelledby="pills-qna-tab">
 				<p>
-					Q & A<br> <small class="test">문의하는곳임당ㅋ</small>
+					<b>Q & A</b><br> <small class="test">문의하는곳임당ㅋ</small>
 				</p>
-				<hr>
+				<hr class="lines">
 				<div class="container qnaContainer">
 					<div class="row qnaTitleRow">
 						<div class="col-2">글번호</div>
@@ -419,18 +506,21 @@
 						<div class="col-2">작성자</div>
 						<div class="col-2">작성일</div>
 					</div>
+				<hr width=100% class="mr-0 ml-0">
 					<div class="row qnaRow">
 						<c:forEach var="qnaList" items="${qnaList }">
 							<div class="col-1">${qnaList.bq_no }</div>
-							<div class="col-2 checkedAnsBtn">
+							<div class="col-1 checkedAnsBtn">
 								<c:choose>
 									<c:when test="${qnaList.bq_checkedAns eq 'y'}">
-										<button class="btns" disabled="disabled">답변완료</button>
+										<div class="completedBtnBox">
+											<button class="btns completedBtn" disabled="disabled">답변완료</button>
+										</div>
 									</c:when>
 								</c:choose>
 									<input type="hidden" class="checkedAns" value="${qnaList.bq_checkedAns }">
 							</div>
-							<div class="col-5">
+							<div class="col-6">
 								<input type="hidden" class="hidQnAWriter" value="${qnaList.bq_email}">
 								<input type="hidden" class="hidCheckedSecret" value="${qnaList.bq_checkedSecret }">
 								<span class="qnaTitle">${qnaList.bq_title }</span>
@@ -449,7 +539,12 @@
 
 						</c:forEach>
 					</div>
-					<!--pagination/  -->
+					
+					
+
+				</div>
+				<hr class="lines">
+				<!--pagination/  -->
 					<div class="pageNaviBox">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination qnaPagenation">${getNaviForQnA }
@@ -457,8 +552,8 @@
 						</nav>
 					</div>
 					<!--/pagination  -->
+				<div class="row qnaBtnBox d-flex justify-content-end">
 					<button id="qBtn">문의하기</button>
-
 				</div>
 			</div>
 		</div>
