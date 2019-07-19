@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdminDAO">
+	<select id="allMembers" resultType="my.garden.dto.AdminMemDTO">
+	select m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_point, m_gender, m_garden from members
+	</select>
+	
+	<select id="totalSale" resultType="Integer">
+	select sum(s_p_price*s_p_count) from shoplist
+	</select>
+	
+	<select id="totalCancel" resultType="Integer">
+	select sum(s_p_price*s_p_count) from shoplist where s_statement='구매 취소'
+	</select>
+	
+	<select id="popularProducts" resultType="my.garden.dto.ShopListDTO">
+	select s_p_title, sum(s_p_count) as s_p_count from shoplist where s_statement!='구매 취소' group by s_p_title order by 2 desc
+	</select>
+	
+	<select id="totalSaleCount" resultType="Integer">
+	select sum(s_p_count) from shoplist where s_statement!='구매 취소'
+	</select>
+
+</mapper>
