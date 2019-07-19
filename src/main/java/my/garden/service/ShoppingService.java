@@ -19,4 +19,9 @@ public interface ShoppingService {
 	public List<List<ShopListDTO>> getOrderList(String id) throws Exception;
 	
 	public int insertIntoCart(CartDTO dto) throws Exception;
+	
+	public List<List<ShopListDTO>> getOrderSearch(String id, String orderDuration, String orderStatus) throws Exception;
+
+	
+
 }

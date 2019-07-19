@@ -103,20 +103,6 @@ public class ShoppingController {
 		}
 		return "shopping/orderList";
 	}
-	
-//	@RequestMapping(value = "orderComplete2")
-//	public String orderTest(HttpServletRequest request, String orderList) {
-//		ObjectMapper mapper = new ObjectMapper();
-//		try {
-//			List<ShopListDTO> list = Arrays.asList(mapper.readValue(orderList, ShopListDTO[].class));
-//			shsvc.insertIntoShopList(list);	
-//			request.setAttribute("list", list);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return "error";
-//		}	
-//		return "shopping/orderComplete";
-//	}
 
 	@ResponseBody
 	@RequestMapping(value = "insertCart", method = RequestMethod.POST)
@@ -129,5 +115,26 @@ public class ShoppingController {
 			e.printStackTrace();
 		}
 	}
+	
+		
+	@RequestMapping(value = "orderSearch", method = RequestMethod.POST)
+	public String toOrderSearch(HttpServletRequest request, String orderDuration, String orderStatus) {
+		String id = (String)session.getAttribute("loginId");	
+		try {
+			request.setAttribute("listWrapper", shsvc.getOrderSearch(id, orderDuration, orderStatus));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/orderList";
+	}
+		
+	@RequestMapping("shipping")
+	public String toShipping(HttpServletRequest request) {
+
+		return "shopping/shipping";
+	}
+	
+	
 }
 

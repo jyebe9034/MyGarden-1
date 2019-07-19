@@ -103,9 +103,6 @@ table.list_table_style td.cell {
 		$("#phone1").val(phone[0]);
 		$("#phone2").val(phone[1]);
 		$("#phone3").val(phone[2]);
-		
-		var orderDate = new Date();
-		$(".goods_input").html(orderDate);
 
 		$("#copy_order_info").on("change", function() {
 			if ($(this).prop("checked")) {

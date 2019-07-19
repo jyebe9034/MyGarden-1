@@ -65,8 +65,21 @@ public class ShoppingDAO {
 	public int updateCart(CartDTO dto) throws Exception{
 		return sst.update("ShoppingDAO.updateCart", dto);
 	}
+		
+	public List<Long> searchOrderNo(String id, String orderStatus) throws Exception{
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("orderStatus", orderStatus);
+		return sst.selectList("ShoppingDAO.searchOrderNo", map);
+	}
 	
+	public List<Long> searchOrderNoAll(ShopListDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.searchOrderNoAll", dto);
+	}
 	
+	public List<Long> searchOrderNoDuration(ShopListDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.searchOrderNoDuration", dto);
+	}
 	
 	
 }

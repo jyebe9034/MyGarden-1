@@ -18,7 +18,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Autowired
 	ShoppingDAO dao;
-	
+
 	@Autowired
 	ShopListDTO dto;
 
@@ -60,7 +60,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		}		
 		return listWrapper;
 	}
-	
+
 	public int insertIntoCart(CartDTO dto) throws Exception{
 		if(dao.isCartExist(dto.getC_p_no())>0) {
 			return dao.updateCart(dto);			
@@ -68,6 +68,48 @@ public class ShoppingServiceImpl implements ShoppingService{
 			return dao.insertIntoCart(dto);
 		}
 	}
-	
-	
+
+	public List<List<ShopListDTO>> getOrderSearch(String id, String orderDuration, String orderStatus) throws Exception{	
+		dto.setS_email(id);
+		int duration = 0;
+		if(orderDuration.equals("1주일")) {
+			duration = 7;
+		}else if(orderDuration.equals("1개월")) {
+			duration = 30;
+		}else if(orderDuration.equals("3개월")) {
+			duration = 90;
+		}else if(orderDuration.equals("6개월")) {
+			duration = 180;
+		}else if(orderDuration.equals("전체")) {
+			duration = 1000;
+		}
+
+		List<Long> orderNoList = null;
+		
+		if(duration==1000) {
+			if(orderStatus.equals("전체")) {
+				orderNoList = dao.selectOrderNo(id);
+			}else {
+				orderNoList = dao.searchOrderNo(id, orderStatus);
+			}
+		}else {
+			if(orderStatus.equals("전체")) {
+				dto.setS_orderno_seq(duration);
+				orderNoList = dao.searchOrderNoAll(dto);
+			}else {
+				dto.setS_orderno_seq(duration);
+				dto.setS_statement(orderStatus);
+				orderNoList = dao.searchOrderNoDuration(dto);
+			}
+		}
+		
+		List<List<ShopListDTO>> listWrapper = new ArrayList<>();
+		for(Long no : orderNoList) {
+			dto.setS_orderno(no);
+			listWrapper.add(dao.selectOrderList(dto));
+		}		
+		return listWrapper;
+	}
+
+
 }

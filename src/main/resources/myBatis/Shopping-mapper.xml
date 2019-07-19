@@ -45,4 +45,16 @@
 		update cart set c_count = #{c_count} where c_p_no = #{c_p_no}
 </update>
 
+<select id="searchOrderNo" resultType="java.lang.Long" parameterType="map">
+		select distinct s_orderno from shoplist where s_email = #{id} and s_statement = #{orderStatus}
+</select>
+
+<select id="searchOrderNoAll" resultType="java.lang.Long">
+		select distinct s_orderno from shoplist where s_orderdate between sysdate-#{s_orderno_seq} and sysdate and s_email = #{s_email}
+</select>
+
+<select id="searchOrderNoDuration" resultType="java.lang.Long">
+		select distinct s_orderno from shoplist where s_orderdate between sysdate-#{s_orderno_seq} and sysdate and s_email = #{s_email} and s_statement = #{s_statement}
+</select>
+
 </mapper>

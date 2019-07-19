@@ -80,12 +80,46 @@ table.list_table_style td.cell {
 .productsImg {
 	border-radius: 10px;
 }
+
+#listSearchBox {
+	padding: 40px;
+	font-size: 13px;
+}
+
+.durBtns {
+	font-size: 13px;
+	margin-right: 3px;
+	padding: 3px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.showShipping {
+	background-color: dimgray;
+	border: dimgray;
+	font-size: 13px;
+	margin-right: 3px;
+	padding: 3px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+#empty{
+	font-size: 13px;
+}
 </style>
 
 
 <script>
 	$(function() {
-		$(".hide").hide();
+		$(".durBtns").on("click", function() {
+			$("#btnValue").val($(this).val());
+			$("#orderSearch").submit();
+		})
+
+		$(".showShipping").on("click", function(){
+			window.open("shipping", "",
+			"width=900px, height=700px");
+		})
 	});
 </script>
 
@@ -140,7 +174,7 @@ table.list_table_style td.cell {
 			</div>
 
 
-			<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pt-5 my">
+			<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pt-5 pb-5 my">
 				<div class="row my">
 					<div class="common-container-right-section col-12">
 
@@ -149,12 +183,39 @@ table.list_table_style td.cell {
 									내역</a></li>
 						</ul>
 						<div class="orderWrapper">
+							<div id="listSearchBox">
+								<form action="orderSearch" id="orderSearch" method="post">
+									<span id="orderStatus" class="mr-3">주문상태 </span> <select
+										name="orderStatus" class="p-1">
+										<option>전체</option>
+										<option>입금 대기</option>
+										<option>결제 완료</option>
+										<option>배송중</option>
+										<option>배송 완료</option>
+										<option>구매 완료</option>
+										<option>구매 취소</option>
+									</select> <span id="orderDuration" class="ml-5 mr-3">조회기간 </span> <span>
+										<input type="button" value="1주일" id="week"
+										class="btn btn-outline-secondary durBtns"> <input
+										type="button" value="1개월" id="month"
+										class="btn btn-outline-secondary durBtns"> <input
+										type="button" value="3개월" id="months"
+										class="btn btn-outline-secondary durBtns"> <input
+										type="button" value="6개월" id="halfyear"
+										class="btn btn-outline-secondary durBtns"> <input
+										type="button" value="전체" id="all"
+										class="btn btn-outline-secondary durBtns"> <input
+										type="hidden" id="btnValue" name="orderDuration">
+									</span>
+								</form>
+							</div>
+
 							<table width="100%" border="0" cellpadding="0" cellspacing="0"
 								class="list_table_style">
 								<thead class="bottom_line">
 									<tr>
 										<th width="60">주문번호</th>
-										<th width="130">상품명</th>
+										<th width="110">상품명</th>
 										<th width="90">주문일</th>
 
 										<th width="70">주문금액</th>
@@ -162,76 +223,70 @@ table.list_table_style td.cell {
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="list" items="${listWrapper}">
-										<c:set var="count" value="0" />
-										<c:forEach var="dto" items="${list}" varStatus="status">
-											<c:set var="total"
-												value="${total + dto.s_p_price*dto.s_p_count}" />
-											<c:set var="count" value="${count+1}" />
-											<c:choose>
-												<c:when test="${status.last}">
-													<tr class="pt-3 pb-3 orderLists bottom_line">
-														<td class="cell right">${dto.s_orderno }</td>
-														<td class="cell left rline">
-															<table width="100%" border="0" cellpadding="0"
-																cellspacing="0">
-																<tr>
-																	<td class="center" width="60" height="60"
-																		valign="middle"><img src="${dto.s_p_imagepath }"
-																		class="productsImg" width="70px" height="70px">
-																	</td>
-																	<td class="left" valign="middle">
-																		<div class="goods_name" style="margin-left: 10px;">
-																			<c:choose>
-																				<c:when test="${count-1==0 }">
-																					<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																					</a>
-																				</c:when>
-																				<c:otherwise>
-																					<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																						외 <fmt:formatNumber value="${count-1 }"
-																							type="number" /> 건 </a>
-																				</c:otherwise>
-																			</c:choose>
-																		</div>
-																	</td>
-																</tr>
-															</table>
-														</td>
-														<td class="cell rline">${dto.s_orderdate }</td>
-														<td class="cell right"><fmt:formatNumber
-																value="${total }" type="number" />원</td>
-														<td class="cell right">${dto.s_statement }</td>
-													</tr>
-												</c:when>
-												<c:otherwise>
-													<tr class="pt-3 pb-3 orderLists bottom_line hide">
-														<td class="cell right">${dto.s_orderno }</td>
-														<td class="cell left rline">
-															<table width="100%" border="0" cellpadding="0"
-																cellspacing="0">
-																<tr>
-																	<td class="center" width="60" height="60"
-																		valign="middle"><img src="${dto.s_p_imagepath }"
-																		class="productsImg" width="70px" height="70px">
-																	</td>
-																	<td class="left" valign="middle">
-																		<div class="goods_name" style="margin-left: 10px;">
-																			<a href="#" title="${dto.s_p_title }">${dto.s_p_title }</a>
-																		</div>
-																	</td>
-																</tr>
-															</table>
-														</td>
-														<td class="cell rline">${dto.s_orderdate }</td>
-														<td class="cell right"><fmt:formatNumber
-																value="${total }" type="number" />원</td>
-														<td class="cell right">${dto.s_statement }</td>
-													</tr>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</c:forEach>
+									<c:choose>
+										<c:when test='${listWrapper=="[]"}'>
+											<tr>
+												<td class="td_bottom_line" align="center" colspan="9"
+													height="80" id="empty">구매 내역이 없습니다.</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="list" items="${listWrapper}">
+												<c:set var="count" value="0" />
+												<c:set var="total" value="0" />
+												<c:forEach var="dto" items="${list}" varStatus="status">
+													<c:set var="total"
+														value="${total + dto.s_p_price*dto.s_p_count}" />
+													<c:set var="count" value="${count+1}" />
+													<c:if test="${status.last}">
+														<tr class="pt-3 pb-3 orderLists bottom_line">
+															<td class="cell">${dto.s_orderno }</td>
+															<td class="cell">
+																<table width="100%" border="0" cellpadding="0"
+																	cellspacing="0">
+																	<tr>
+																		<td class="center" width="100" height="60"
+																			valign="middle"><img src="${dto.s_p_imagepath }"
+																			class="productsImg" width="70px" height="70px"></td>
+																		<td valign="middle">
+																			<div class="goods_name">
+																				<c:choose>
+																					<c:when test="${count-1==0 }">
+																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
+																						</a>
+																					</c:when>
+																					<c:otherwise>
+																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
+																							외 <fmt:formatNumber value="${count-1 }"
+																								type="number" /> 건
+																						</a>
+																					</c:otherwise>
+																				</c:choose>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+															<td class="cell">${dto.s_orderdate }</td>
+															<td class="cell"><fmt:formatNumber value="${total }"
+																	type="number" />원</td>
+															<c:choose>
+																<c:when test="${dto.s_statement =='배송중'}">
+																	<td class="cell"><span class="mr-1">${dto.s_statement }</span><input
+																		type="button" value="배송조회"
+																		class="showShipping btn btn-dark"></td>
+																</c:when>
+																<c:otherwise>
+																	<td class="cell">${dto.s_statement }</td>
+																</c:otherwise>
+															</c:choose>
+
+														</tr>
+													</c:if>
+												</c:forEach>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
 								</tbody>
 							</table>
 						</div>
