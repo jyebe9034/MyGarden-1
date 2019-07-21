@@ -85,7 +85,7 @@
 				<div id=content class=col-12></div>
 				<input type="hidden" id=sendContent name=bf_content>
 				<p id=contentExplain>
-					<img src="/resources/img/boardFreeWarning.png"> 게시글 작성 시 <span
+					<img src="/resources/free/boardFreeWarning.png"> 게시글 작성 시 <span
 						id=green>회원님의 소중한 개인정보를 포함하지 않도록</span> 주의 부탁드립니다.
 				</p>
 				<div class="col-12 footBtn">

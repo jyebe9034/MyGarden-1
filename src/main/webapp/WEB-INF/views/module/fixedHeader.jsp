@@ -117,6 +117,11 @@
       $("#cart").on("click", function() {
          $(location).attr("href", "cart")
       });
+      
+      $("#admin").on("click", function() {
+          $(location).attr("href", "adminView")
+       });
+      
       $("#myGardenTitle").on("click", function() {
          $(location).attr("href", "/")
       });
@@ -218,7 +223,7 @@
 									</div></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="productsList">공유정원</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="productsAdd">비밀정원</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="#">|&nbsp;&nbsp;About</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="adminIndex">|&nbsp;&nbsp;About</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>
 								<li class="nav-item"><a class="nav-link" href="#"> 

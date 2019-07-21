@@ -140,7 +140,7 @@ public class BoardFreeController {
 		MultipartFile image = request.getFile("image");
 		String resourcesPath = session.getServletContext().getRealPath("/resources/");
 		String loginId=(String)session.getAttribute("loginId");
-		File dir = new File("D:\\RealFinal\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\write\\"+loginId);
+		File dir = new File(resourcesPath+"write/"+loginId);
 		if(!dir.exists()) { // 폴더가 있는지 확인.
 			System.out.println("폴더생성");
 			dir.mkdirs(); // 없으면 생성
