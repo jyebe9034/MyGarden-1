@@ -15,18 +15,56 @@
 		margin: 300px auto;
 	}
 	
-	.secretBtnRow{
-		margin-left: 175px;
+	#writeQnAForm{
+		width: 90%;
+		margin: 0 auto;
+/* 		background-color: #e8ede1; */
+/* 		border: 1px solid #e8ede1; */
+	    border-radius: 30px;
+	    
+	}	
+	.inputTitleRow{		
+	   width: 98%;
+	   height: 85px;
+	   margin: auto;
+	   padding-top : 25px;
+	}
+	#inputTitle{
+		background-color: #e8ede190;
+		border-radius: 20px;
+		height: 50px;
 	}
 	
+	.secretBtnRow{
+		 width: 95%;
+ 		 position: relative; 
+ 		 left: 15px; 
+	}
+	#secretBtn{
+ 		position: relative; 
+	 	left: 25px; 
+	}
+	
+	.inputContentRow{
+		 width:98%;
+		 margin: auto;
+	}
 	#inputContent{
 		height: 500px;
 		border: 1px solid lightgrey;
-		border-radius: 5px;
+		border-radius: 15px;
+		background-color: #e8ede190;
+		padding: 20px;
+	}
+	
+	.inputImagesRow{
+		width:98%;
+		margin: 20px auto;
 	}
 	
 	.btns button{
 		margin: 0 10px;
+		margin-bottom: 30px;
 	}
 	.writeBtn{
 		background-color: #44b27d;
@@ -75,6 +113,31 @@
 			$("#writeQnAForm").submit();
 		})
 		
+
+				
+				
+// 				  var count = 1;
+// 				  $(".addImgBtn").click(function(){
+// 				   if(count >= 3){
+// 				    alert("최대 업로드수는 " + count + "개입니다.");
+// 				   } else {
+// 				    count++;
+// 				    $(".imagesBox").append("<p><input type='file' name='images' id='image" + count + "' />"
+// 				     	+ "<input type='button' class='btn delImgBtn' value='ㅡ'></p>");
+// 				   }
+// 				   $(".cntImages").val(count);
+// 				   alert(count);
+// 				  });
+				  
+// 				  $(document).on("click",".delImgBtn",function(){
+// 					  $(this).prev().remove();
+// 					  $(this).prev("input[name=images]").remove();
+// 					  $(this).remove();
+// 					  count--;
+// 					  $(".cntImages").val(count);
+// 					  alert(count);
+// 				  })
+		
 		
 	})
 	
@@ -99,38 +162,53 @@
 
 	<!-- 리뷰 작성 폼 -->
 	<div id="wrapper">
-		<span>문의하기</span>
-		<hr>
+<!-- 		<span>문의하기</span> -->
+<!-- 		<hr> -->
 		<form action="writeQnA" id="writeQnAForm" method="post" enctype="multipart/form-data">
-		  <div class="form-group row">
-		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputTitle" name="bq_title" placeholder="제목을 입력해주세요">
+		  <div class="form-group row inputTitleRow">
+<!-- 		    <label for="inputTitle" class="col-12 col-form-label">제목</label> -->
+		    <div class="col-12">
+		      <input type="text" class="form-control" id="inputTitle" name="bq_title" placeholder="제목을 입력해주세요.">
 		    </div>
 		  </div>
 		  <div class="form-group form-check row secretBtnRow">
-			    <input type="checkbox" class="form-check-input" id="secretBtn" name="checkedSecret">
-			    <label class="form-check-label" for="secretBtn">비밀글</label>
+		  	<div class="col-12">
+		  		<span>비밀글</span>
+<!-- 		  	</div> -->
+<!-- 		  	<div class="col-2"> -->
+			    
+			     <input type="checkbox" class="form-check-input" id="secretBtn" name="checkedSecret">
+			</div>
 		 </div>
-		 <div class="form-group row">
-		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
-		    <div class="col-sm-10">
-               <div contenteditable="true" id="inputContent" placeholder="문의하실 내용을 입력해주세요"></div>
+		 <div class="form-group row inputContentRow">
+<!-- 		    <label for="inputContent" class="col-sm-12 col-form-label">내용</label> -->
+		    <div class="col-12">
+               <div contenteditable="true" id="inputContent" placeholder="문의하실 내용을 입력해주세요">문의하실 내용을 입력해주세요.</div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>
 			
-		  <div class="form-group row">
-		  	 <label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
-			    <div class="col-sm-10">
-			      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
+		  <div class="form-group row inputImagesRow">
+		 	 <div class="col-lg-2 col-sm-12">
+		  		 <label for="inputImage" class="col-form-label">사진 등록</label>
+		  	  </div>
+			    <div class="col-lg-10 col-sm-12">
+			    	<div class="imagesBox">
+			    	<input type="hidden" name="cntImages" class="cntImages">
+			      <p><input type="file" name=images accept="image/jpg, image/jpeg, image/gif, image/png" id="image1"></p>
+<!-- 			      <input type=button class="btn addImgBtn" value="╉"></p> -->
+ 				  <p><input type="file" name=images accept="image/jpg, image/jpeg, image/gif, image/png" id="image2"></p>
+ 				  <p><input type="file" name=images accept="image/jpg, image/jpeg, image/gif, image/png" id="image3"></p>
+				</div>
 			      <p><small>※ 사진은 최대 3개까지 업로드가 지원됩니다.</small></p>
 			    </div>
 		  </div>	
 			
-		  <div class="form-group row">
-		    <div class="col-sm-10 d-flex justify-content-center btns">
+		  <div class="form-group row btnsRow">
+		    <div class="col-lg-6 col-sm-12 d-flex justify-content-end btns">
 		      <button type="button" class="btn goMainBtn" >메인으로</button>
+		    </div>
+		     <div class="col-lg-6 col-sm-12 btns">
 		      <button type="submit" class="btn writeBtn" >등록</button>
 		    </div>
 		  </div>		  

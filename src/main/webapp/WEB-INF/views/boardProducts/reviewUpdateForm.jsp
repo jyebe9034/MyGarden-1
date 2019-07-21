@@ -13,8 +13,8 @@
 		width: 700px;
 	}
 	
-	.writableReviewImage{
-		width:100px;
+	.productImage{
+		max-width:150px;
 		height:100px;
 	}
 	
@@ -73,9 +73,9 @@
 	<div id="wrapper">
 		<span>후기수정</span>
 		<hr>
-		<div id="writableReviewInfo">
-			<img src="/resources/img/boardFreeWriter.png" class="writableReviewImage">
-			<span>친환경 시금치(br_p_no=1이라 가정)</span>
+		<div id="productInfo" >
+			<img src="${productInfo.p_imagepath}" class="productImage">
+			<span>${productInfo.p_title}</span>
 		</div>
 		<hr>
 		

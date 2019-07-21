@@ -15,18 +15,66 @@
 		margin: 300px auto;
 	}
 	
+	#writeQnAForm{
+		width: 90%;
+		margin: 0 auto;
+	    border-radius: 30px;
+	    
+	}	
+	.inputTitleRow{		
+	   width: 98%;
+	   height: 85px;
+	   margin: auto;
+	   padding-top : 25px;
+	}
+	#inputTitle{
+		background-color: #e8ede190;
+		border-radius: 20px;
+		height: 50px;
+	}
+	
 	.secretBtnRow{
-		margin-left: 175px;
+		 width: 90%;
+ 		 position: relative; 
+ 		 left: 15px; 
+	}
+	
+	#secretBtn{
+ 		position: relative; 
+	 	left: 25px; 
+	}
+	
+	.inputContentRow{
+		 width:98%;
+		 margin: auto;
 	}
 	
 	#inputContent{
 		height: 500px;
 		border: 1px solid lightgrey;
-		border-radius: 5px;
+		border-radius: 15px;
+		background-color: #e8ede190;
+		padding: 20px;
 	}
 	
+	.inputImagesRow{
+		width:98%;
+		margin: 20px auto;
+	}
+	
+	.imagesBox img{
+		height:100px;
+		max-width: 30%;
+	}
+	
+	.btnsRow{
+		width: 98%;
+    	margin: auto;
+    	text-align: right;
+	}
 	.btns button{
-		margin: 0 10px;
+		margin-left: 5px;
+		margin-bottom: 30px;
 	}
 	.writeBtn{
 		background-color: #44b27d;
@@ -34,7 +82,7 @@
 		font-weight: bold;
 		border: 0px;
 	}
-	.goMainBtn{
+	.goBackBtn{
 		border: 1px solid #44b27d;
 		color: #44b27d;
 		font-weight: border;
@@ -46,7 +94,7 @@
 		border: 0px;
 		cursor: pointer;
 	}
-	.goMainBtn:hover {
+	.goBackBtn:hover {
 		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
@@ -71,6 +119,36 @@
 			$("#writeQnAForm").submit();
 		})
 		
+		$("input[name=images]").each(function(){
+			$(this).on("change",function(){
+		    	  var formData = new FormData();
+		    	  formData.append("formData",$(this)[0].files[0]);
+		    	  alert("id : " +  $(this).attr("id"));
+		    	  
+		    	  $.ajax({
+		    		  url:"updateImgs",
+		    		  type:"post",
+		    		  processData:false,
+		    		  contentType:false,
+		    		  data: {formData : formData,
+		    			 "id" : $(this).attr("id")   			  
+		    		  }
+		    	  }).done(function(resp){
+		    		  console.log(resp);
+		    		  //console.log(image);
+		    		  var time = new Date().getTime();
+		              console.log("time : " + time);
+		    		  $(this).html("<img src='/temp/"+resp+"?time="+time+"'>");
+//		               $("#profile").html("<img src='/image/"+resp + "'>");
+		    	  })
+		      })
+		      
+		})
+		
+		
+	
+      
+      
 		
 	})
 	
@@ -98,35 +176,55 @@
 		<span>문의 수정하기</span>
 		<hr>
 		<form action="updateQnA" id="writeQnAForm" method="post" enctype="multipart/form-data">
-		  <div class="form-group row">
-		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
-		    <div class="col-sm-10">
+		  <div class="form-group row inputTitleRow">
+<!-- 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label> -->
+		    <div class="col-12">
 		      <input type=hidden name="bq_no" value="${readQnA.bq_no }">
 		      <input type="text" class="form-control" id="inputTitle" name="bq_title" value="${readQnA.bq_title }">
 		    </div>
 		  </div>
 		  <div class="form-group form-check row secretBtnRow">
+		  	<div class="col-12">
+		  		 <label class="form-check-label" for="secretBtn">비밀글</label>
 			    <input type="checkbox" class="form-check-input" id="secretBtn" name="checkedSecret">
-			    <label class="form-check-label" for="secretBtn">비밀글</label>
+		  	</div>
 		 </div>
-		 <div class="form-group row">
-		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
-		    <div class="col-sm-10">
+		 <div class="form-group row inputContentRow">
+<!-- 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label> -->
+		    <div class="col-12">
                <div contenteditable="true" id="inputContent">${readQnA.bq_content }</div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>
 			
-		  <div class="form-group row">
-		  	 <label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
-			    <div class="col-sm-10">
-			      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
+		  <div class="form-group row inputImagesRow">
+<!-- 		 	 <div class="col-lg-2 col-sm-12"> -->
+<!-- 		  		 <label for="inputImage" class="col-form-label">사진 등록</label> -->
+<!-- 		  	  </div> -->
+			    <div class="col-lg-12 col-sm-12">
+			    	<div class="imagesBox">
+					      <p>
+						      <img src="${readQnA.bq_imagepath1}" onerror="this.style.display='none'">
+						      <input type="button" class="btn imgEditBtns" value="사진 수정">
+						      <input type="file" name=images accept="image/jpg, image/jpeg, image/gif, image/png" id="bq_imagepath1" value="${readQnA.bq_imagepath1}">
+					      </p>
+		 				  <p>
+			 				  <img src="${readQnA.bq_imagepath2}" onerror="this.style.display='none'">
+			 				  <input type="button" class="btn imgEditBtns" value="사진 수정">
+			 				  <input type="file" name=images accept="image/jpg, image/jpeg, image/gif, image/png" id="bq_imagepath2" value="${readQnA.bq_imagepath2}">
+			 			  </p>
+		 				  <p>
+			 				  <img src="${readQnA.bq_imagepath3}" onerror="this.style.display='none'">
+			 				  <input type="button" class="btn imgEditBtns" value="사진 수정">
+			 				  <input type="file" name=images accept="image/jpg, image/jpeg, image/gif, image/png" id="bq_imagepath3" value="${readQnA.bq_imagepath3}">
+		 				  </p>
+					</div>
 			      <p><small>※ 사진은 최대 3개까지 업로드가 지원됩니다.</small></p>
 			    </div>
 		  </div>	
 			
-		  <div class="form-group row">
-		    <div class="col-sm-10 d-flex justify-content-center btns">
+		  <div class="form-group row btnsRow">
+		    <div class="col-12 btns">
 		      <button type="button" class="btn goBackBtn" >돌아가기</button>
 		      <button type="submit" class="btn writeBtn" >수정</button>
 		    </div>

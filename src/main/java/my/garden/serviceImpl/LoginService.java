@@ -155,7 +155,7 @@ public class LoginService {
         String profile = null;
         String socialEmail = null;
 
-        // À¯ÀúÁ¤º¸ Ä«Ä«¿À¿¡¼­ °¡Á®¿À±â Get properties
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Get properties
         JsonNode properties = userInfo.path("properties");
         JsonNode kakao_account = userInfo.path("kakao_account");
  

@@ -26,12 +26,11 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	public int writeQnA(BoardQnADTO dto) {	//글작성	
+	public int writeQnA(BoardQnADTO dto) {	//글작성			
 		return sst.insert("boardQnAMB.writeQnA",dto);
 	}
 	
 	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum2, int endNum2){ //상세페이지에서 Q&A 목록
-		System.out.println("dao왔음");
 		Map<String,Integer> map = new HashMap<>();
 		map.put("bq_p_no", bq_p_no);
 		map.put("startNum2",startNum2);
@@ -147,4 +146,5 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 	public int setAnsN(int cq_no) { //답변 삭제
 		return sst.update("boardQnAMB.setAnsN",cq_no);	
 	}
+
 }

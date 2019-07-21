@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,59 +17,110 @@
 		margin: 300px auto;
 	}
 	
-	.secretBtnRow{
-/* 		margin-left: 175px; */
+	#updateQnAForm{
+		width: 90%;
+		margin: 0 auto;
+/* 		background-color: #e8ede1; */
+ 		border: 1px solid lightgrey;  
+	    border-radius: 5px;
+	}
+
+	.inputTitleRow{
+		margin-bottom:3px;
+	}
+	#inputTitle{
+		padding: 0 40px;
+ 		margin-top: 25px;
+		border: none;
+		font-size: 30px;
+		font-weight: 500;
+		color: #709468;
+		background-color: white;
 	}
 	
+		
+	.writerInfoRow{
+		color: #949993;
+		width:95%;
+		margin: auto;
+		margin-top: -10px;
+		font-size: 15px;
+		font-size: 13px;
+    	font-weight: 500;
+	}
+	
+	.profileImg{
+		width: 30px;
+		height: 30px;
+		border-radius: 50px;
+	}
+	
+
 	#inputContent{
 		height: 300px;
-		border: 1px solid lightgrey;
+		width: 100%;
+		margin: 0 auto;
+		border: none;
 		border-radius: 5px;
+		padding: 10px 35px;
+		 color: #515c4e;
+		font-size: 20px;
+    	font-weight: 300;
+    	font-family: sans-serif;
+	}
+	.imagesRow{
+		width: 100%;
+		margin: 0 auto;
+	}
+	.imagesRow img{
+		height: 150px;
+		max-width: 30%;
+	}
+	
+	.btnsRow{
+		width: 100%;
+	}
+	
+	.btnsRow div{
+		text-align: right;
+		width:80%;
 	}
 	
 	.btns button{
-		margin: 0 10px;
+		margin: 0 5px;
 	}
-	.writeBtn{
+	#commentBtn{
 		background-color: #44b27d;
 		color: white;
 		font-weight: bold;
 		border: 0px;
 	}
-	.goMainBtn{
+	.goBackBtn{
 		border: 1px solid #44b27d;
 		color: #44b27d;
 		font-weight: border;
 	}
-	.writeBtn:hover{
+	#commentBtn:hover{
 		background-color: #b4d9b5;
 		color: #44b27d;
 		font-weight: bold;
 		border: 0px;
 		cursor: pointer;
 	}
-	.goMainBtn:hover {
+	.goBackBtn:hover {
 		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
 		border: 0px;
 		cursor: pointer;
 	}
-	
-	#inputComment{
-		border: 1px solid lightgrey;
-		border-radius: 5px;
-		height: 300px;
-	}
-	
-	.commentBtn{
+	.updateBtn{
 		background-color: #44b27d;
 		color: white;
 		font-weight: bold;
 		border: 0px;
-		margin-right: 20px;
 	}
-	.commentBtn:hover{
+	.updateBtn:hover{
 		background-color: #b4d9b5;
 		color: #44b27d;
 		font-weight: bold;
@@ -76,6 +128,76 @@
 		cursor: pointer;
 	}
 	
+	#answerWrapper{
+		width: 90%;
+		height: 330px;
+		margin: 0 auto;
+/* 		background-color: #e8ede1; */
+ 		border: 1px solid lightgrey;  
+	    border-radius: 5px;
+	    margin-top: 50px;
+	}
+	
+	.commentRow{
+		width:98%;
+		margin: auto;
+		border-radius: 5px;
+	}
+	
+	.commentLabelBox{
+		height: 20%;
+	}
+	
+	#answerWrapper label{
+		padding: 15px 5px;
+		border: none;
+		font-size: 30px;
+		font-weight: 500;
+		color: #709468;
+		background-color: white;
+	}
+	
+	
+	#inputComment{
+		width: 100%;
+		height: 200px;
+		border-radius: 5px;
+		padding: 0 10px;
+			 color: #515c4e;
+		font-size: 20px;
+    	font-weight: 300;
+    	font-family: sans-serif;
+		
+	}
+	
+ 	.commentBtnBox div{ 
+		position: relative;
+    	left: 25px;
+	} 
+	
+	#editBtn{
+		background-color: #44b27d;
+		color: white;
+		font-weight: bold;
+		margin-right: 20px;
+	}
+	
+	#editBtn:hover{
+		background-color: #b4d9b5;
+		color: #44b27d;
+		font-weight: bold;
+		border: 0px;
+		cursor: pointer;
+	}
+	
+	#delCommentBtn{
+		background-color: #b4d9b5;
+		color: #44b27d;
+	}
+	#delCommentBtn:hover{
+		background-color: #44b27d;
+		color: white;
+	}
 </style>
 
 <!-- script -->
@@ -93,6 +215,15 @@
 			
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
+		
+		$(".imagesRow img").each(function(){
+			$(this).on("click",function(){
+				
+			})	
+		})
+		
+		
+		
 		
 		$(document).on("click","#commentBtn",function(){  //답변 등록
 			var inputComment = $("#inputComment").text();
@@ -215,58 +346,68 @@
 
 	<!-- 리뷰 작성 폼 -->
 	<div id="wrapper">
-		<span>문의하기</span>
-		<hr>
+<!-- 		<span>문의하기</span> -->
+<!-- 		<hr> -->
 		<form action="updateQnA" id="updateQnAForm" method="post" enctype="multipart/form-data">
-		  <div class="form-group row">
-		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
-		    <div class="col-sm-10">
+		
+		  <div class="form-group row inputTitleRow">
+<!-- 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label> -->
+		    <div class="col-sm-12">
 		      <input type="text" class="form-control" id="inputTitle" name="bq_title" value="${readQnA.bq_title }" readOnly>
 		    </div>
 		  </div>
-<!-- 		  <div class="form-group form-check row secretBtnRow"> -->
-<!-- 			    <input type="checkbox" class="form-check-input" id="secretBtn" name="checkedSecret"> -->
-<!-- 			    <label class="form-check-label" for="secretBtn">비밀글</label> -->
-<!-- 		 </div> -->
-		 <div class="form-group row">
-		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
-		    <div class="col-sm-10">
+		  
+		  <div class="row writerInfoRow">
+			<div class="col-12">
+				<img src="${writerInfo.m_profile}" class="profileImg" border="1px solid black">
+				<span class="writerInfo">
+					${readQnA.bq_name }/작성자/
+					<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${readQnA.bq_writedate }"/>
+				</span>
+			</div>
+		  </div>
+		
+
+		 <div class="form-group row inputContentRow">
+		    <div class="col-sm-12">
                <div contenteditable="false" id="inputContent">${readQnA.bq_content }</div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>
-			
-<!-- 		  <div class="form-group row"> -->
-<!-- 		  	 <label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label> -->
-<!-- 			    <div class="col-sm-10"> -->
-<!-- 			      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image> -->
-<!-- 			      <p><small>※ 사진은 최대 3개까지 업로드가 지원됩니다.</small></p> -->
-<!-- 			    </div> -->
-<!-- 		  </div>	 -->
-			
-		  <div class="form-group row">
-		    <div class="col-sm-12 d-flex justify-content-end btns">
+		  <div class="form-group row imagesRow"> 
+		  		<div class="col-sm-12">
+		  			<img src="${readQnA.bq_imagepath1 }" onerror="this.style.display='none'">
+		  			<img src="${readQnA.bq_imagepath2 }" onerror="this.style.display='none'">
+		  			<img src="${readQnA.bq_imagepath3 }" onerror="this.style.display='none'">
+		  		</div>
+		  </div>
+
+		  <div class="form-group row btnsRow">
+		    <div class="col-12 btns">
 		      <button type="button" class="btn goBackBtn" >돌아가기</button>
-		      <c:choose>
-				<c:when test="${mine eq 'y'}">
-					<button type="button" class="btn updateBtn" >수정</button>	
+<!-- 		  	</div> -->
+		    <c:choose>
+		      	<c:when test="${mine eq 'y'}">
+<!-- 					<div class="col-6 btns"> -->
+						<button type="button" class="btn updateBtn" >수정하기</button>
+					</div>	
 				</c:when>
 			 </c:choose>
-		      
-		    </div>
 		  </div>		  
 		</form>
 		
-		<div id="AnswerWrapper">
+		<div id="answerWrapper">
 		
 		<c:choose>
 			<c:when test="${checkAns eq 'n' and grade eq 'admin'}">
 			<!-- ========================답변(관리자만 가능)============================= -->
 
-					<div class="form-group row">
-						<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
-						<div class="col-sm-10">
-							<div contenteditable="true" id="inputComment"></div>
+					<div class="form-group row commentRow">
+						<div class="col-12 commentLabelBox">
+							<label for="cq_comment" class="col-12 col-form-label">관리자 답변</label>
+						</div>
+						<div class="col-12 inputCommentBox">
+							<div contenteditable="true" id="inputComment">답변을 작성해주세요.</div>
 						</div>
 					</div>
 					<div class="row d-flex justify-content-end commentBtnBox">
@@ -274,17 +415,36 @@
 					</div>
 
 			</c:when>
-			<c:otherwise>
-				<div class="form-group row">
-							<label for="cq_comment" class="col-sm-2 col-form-label">답변</label>
-							<div class="col-sm-10">
-								<div contenteditable="false" id="inputComment">${commentList.cq_comment }</div>
-							</div>
-						</div>	
-						<div class="row d-flex justify-content-end commentBtnBox">
-							<button class="btn" id="delCommentBtn">삭제하기</button>
-							<button class="btn" id="editBtn">수정하기</button>
+			<c:when test="${checkAns eq 'n' and grade ne 'admin'}">
+				<div class="form-group row commentRow">
+						<div class="col-sm-12 commentLabelBox">
+							<label for="cq_comment" class="col-12 col-form-label">관리자 답변</label>
 						</div>
+						<div class="col-sm-12 inputCommentBox">
+							<div contenteditable="false" id="inputComment">등록된 답변이 없습니다.</div>
+						</div>
+				</div>	
+			
+			</c:when>
+			<c:otherwise>
+				<div class="form-group row commentRow">
+						<div class="col-sm-12 commentLabelBox">
+							<label for="cq_comment" class="col-12 col-form-label">관리자 답변</label>
+						</div>
+						<div class="col-sm-12 inputCommentBox">
+							<div contenteditable="false" id="inputComment">${commentList.cq_comment }</div>
+						</div>
+				</div>	
+						<c:if test="${checkAns eq 'y' and grade eq 'admin'}">
+							<div class="row commentBtnBox">
+								<div class="col-12">
+									<button class="btn" id="delCommentBtn">삭제하기</button>
+	<!-- 							</div> -->
+	<!-- 							<div class="col-6"> -->
+									<button class="btn" id="editBtn">수정하기</button>
+								</div>
+							</div>
+						</c:if>
 			</c:otherwise>
 		</c:choose>
 

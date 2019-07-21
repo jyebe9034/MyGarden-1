@@ -360,7 +360,7 @@
 // 				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
 				var writer = $(this).prev().prev().val();
-// 				alert("writer : " + writer);
+ 				alert("writer : " + writer);
 // 				alert("admin : " + "${grade}");
 				var bq_checkedAns = $(this).next().next().val();
 				alert("bq_checkedAns : "+bq_checkedAns);
@@ -496,7 +496,7 @@
 			<div class="tab-pane show fade active" id="pills-qna" role="tabpanel"
 				aria-labelledby="pills-qna-tab">
 				<p>
-					<b>Q & A</b><br> <small class="test">문의하는곳임당ㅋ</small>
+					<b>Product Q&A</b><br> <small class="test">상품에 대한 문의를 남기는 공간입니다.</small>
 				</p>
 				<hr class="lines">
 				<div class="container qnaContainer">
