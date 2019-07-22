@@ -121,14 +121,19 @@ s_statement varchar(20) not null,
 s_orderdate timestamp not null,
 s_reviewok char(1) check(s_reviewok in('y','n'))
 );
-insert into shoplist values(10, 22, 'emial', 'phone', 33, 'imagepath', 'title', 2, 3000, 
-'recipient', 'memo', 'paymethod', 'zipcode', 'address1', 'address2', 'statement', '19/8/4', 'y');
-select s_orderdate, 1 as cnt from shoplist;
-
+insert into shoplist values(23, 22, 'espanoir0419@naver.com', 'phone', 33, 'resources/img/profile.png', 'title', 2, 3000, 
+'recipient', 'memo', 'paymethod', 'zipcode', 'address1', 'address2', 'statement', '18/7/4', 'y');
+select * from shoplist;
+select * from members;
 --중복값
 select s_orderdate, COUNT(s_orderdate) from shoplist group by(s_orderdate) order by COUNT(s_orderdate);
+--중복값
+select to_char(s_orderdate, 'yy/mm/dd') as orderdate, COUNT(s_orderdate) as count from shoplist where s_email='espanoir0419@naver.com' group by(s_orderdate);
+select s_orderdate as orderdate, COUNT(s_orderdate) as count from shoplist where s_email='espanoir0419@naver.com' group by(s_orderdate);
+select to_char(s_orderdate, 'yy/mm/dd') as orderdate, COUNT(s_orderdate) as count from shoplist where s_email=#{value} group by(s_orderdate);
 
-
+select count(*) from shoplist where s_email='espanoir0419@naver.com';
+commit;
 create sequence cf_seq
 start with 1
 increment by 1

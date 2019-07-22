@@ -49,4 +49,17 @@
 		update members set ${col} = #{colVal} where ${whereCol} = #{value}
 	</insert>
 	
+<!-- 	<resultMap type="my.garden.dto.CalendarDTO" id="CalendarDTO"> -->
+<!--       <result property="orderdate" column="orderdate"/> -->
+<!--       <result property="count" column="count"/> -->
+<!--    </resultMap> -->
+   
+   <select id="selectCalendar" resultType="my.garden.dto.CalendarDTO">
+      select s_orderdate as orderdate, COUNT(s_orderdate) as count from shoplist where s_email=#{value} group by(s_orderdate)
+   </select>
+   
+   <select id="selectOrderList" parameterType="map" resultType="my.garden.dto.ShopListDTO">
+   		select * from shoplist where s_email=#{email} and s_orderdate=#{date}
+   </select>
+	
 </mapper>

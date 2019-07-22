@@ -14,6 +14,7 @@
 .calMonth{width:20px; height:20px; float:left;}
 .calDay{width:20px; height:20px; text-indent:-9999px; float:left; cursor:pointer;}
 .calDay:hover{background:#eee;}
+.orderList{display:none;}
 </style>
 </head>
 <body>
@@ -31,9 +32,50 @@
 			 + '<button type="button" class="btn btn-outline-secondary">'+(yyyy-1)+'</button>'
 			 + '<button type="button" class="btn btn-outline-secondary">'+(yyyy)+'</button>'
 		);
+	//date format		
+// 		function formatDate(date) { 
+// 			var d = new Date(date), 
+// 			month = '' + (d.getMonth() + 1), 
+// 			day = '' + d.getDate(), year = d.getFullYear(); 
+// 			if (month.length < 2) month = '0' + month; 
+// 			if (day.length < 2) day = '0' + day; 
+// 			return [year, month, day].join('-'); 
+// 		}
+
+	//json
+// for(var i=0; i<${lists}.length; i++){
+// 	console.log(${lists}[i].date);
+// }
+		
+for(var i=0; i<$('.calDay').length+13; i++){
+	for(var j=0; j<${lists}.length; j++){
+		if($('.calDay:nth-child('+i+')').attr('data-original-title')==${lists}[j].date){
+			$('.calDay:nth-child('+i+')').css({'background': ${lists}[j].color, 'border':'none'});
+		}
+	}
+}
+
+// for(var i=0; i<$('.calDay').length+13; i++){
+// if($('.calDay:nth-child('+i+')').attr('data-original-title')=='2019-01-05'){
+// 	$('.calDay:nth-child('+i+')').css('background', 'red');
+// }else if($('.calDay:nth-child('+i+')').attr('data-original-title')=='2019-12-31'){
+// 	$('.calDay:nth-child('+i+')').css('background', 'red');
+// }
+// }
+
 		$('.btn-group button').on('click', function(){
 			$('input[name=key]').val($(this).text());
 			$('#mypageGardenChange').submit();
+		});
+		
+		$('.calDay').on('click', function(){
+// 			$.ajax({
+// 				url:"",
+// 				type:"post",
+// 				data:{key:$(this).attr('data-original-title')}
+// 			}).done(function(resp){
+				$('.orderList').slideDown();
+// 			});
 		});
 	});
 </script>
@@ -93,13 +135,42 @@
 						<div class="garden text-left">
 							<c:forEach begin="0" end="11" step="1" var="i">
 								<h6 class="m-1 calMonth text-center">${mm[i] }</h6>
-								<c:forEach begin="1" end="${cal[i]}" step="1" var="x">
-								  <div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="${year}-${i+1}-${x}">${ x }</div>
-								</c:forEach>
+									<c:forEach begin="1" end="${cal[i]}" step="1" var="x">
+										<c:choose>
+											<c:when test="${i<9 && x<10}">  
+									  			<div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="${year}-0${i+1}-0${x}">${ x }</div>
+									  		</c:when>
+											<c:when test="${i>8 && x<10}">  
+									  			<div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="${year}-${i+1}-0${x}">${ x }</div>
+									  		</c:when>
+											<c:when test="${i<9 && x>9}">  
+									  			<div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="${year}-0${i+1}-${x}">${ x }</div>
+									  		</c:when>
+									  		<c:otherwise>
+									  			<div class="border m-1 calDay" data-toggle="tooltip" data-placement="top" title="${year}-${i+1}-${x}">${ x }</div>
+											</c:otherwise>
+									  	</c:choose>	
+									</c:forEach>
 							</c:forEach>
 						</div>	
 					</div>
 				</div>	
+				<div class="row my">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 bg-primary orderList my">
+						<button type="button" class="close" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+						dddddd<br>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>	

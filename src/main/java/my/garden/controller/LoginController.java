@@ -1,9 +1,8 @@
 package my.garden.controller;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+
+import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.serviceImpl.LoginService;
 
@@ -106,23 +109,28 @@ public class LoginController {
 			return "login/login";
 		}else {
 			String id = (String)session.getAttribute("loginId");
+			List<CalendarDTO> lists = loginserv.calendarList(id);
 			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
 			session.setAttribute("cal", loginserv.getCalender(year));
 			session.setAttribute("year", year);
 			session.setAttribute("mm", mname);
-			return "login/mypageFirst";
+			session.setAttribute("lists", new Gson().toJson(lists));
+			return "login/mypageFirst"; 
 		}
 	}
 	
 	@RequestMapping("/mypageGardenChange")
-	public String MypageGardenChange(int key) {
+	public String MypageGardenChange(MembersDTO dto, int key) {
+		String id = (String)session.getAttribute("loginId");
+		List<CalendarDTO> lists = loginserv.calendarList(id);
+		session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
 		session.removeAttribute("cal");
 		session.removeAttribute("year");
 		session.setAttribute("cal", loginserv.getCalender(key));
 		session.setAttribute("year", key);
+		session.setAttribute("lists", new Gson().toJson(lists));
 		return "login/mypageFirst";
 	}
-	
 
 	@RequestMapping("/mypageInfo")
 	public String MypageInfo(MembersDTO dto) {
@@ -235,6 +243,8 @@ public class LoginController {
 			return "login/socialLoginThrough";
 		}
 	}
+	
+	
 	
 	
 	

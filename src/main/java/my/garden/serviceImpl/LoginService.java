@@ -1,6 +1,8 @@
 package my.garden.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dao.LoginDAO;
+import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 
 @Service
@@ -172,6 +175,28 @@ public class LoginService {
 	
 	public Integer[] getCalender(int year) {
 		return logDao.gardenCalendar(year);
+	}
+	
+	public List<CalendarDTO> calendarList(String loginId){
+		List<CalendarDTO> lists = logDao.getCalendarList(loginId);
+		List<CalendarDTO> li = new ArrayList();
+		for(CalendarDTO list : lists) {
+			String date = list.getOrderdate().toString().substring(0, 10);
+			int cnt = list.getCount();
+			String color = "";
+			if(cnt == 1) {
+				color = "#a7cdc3";
+			}else if(cnt == 2) {
+				color = "#4f9c87";
+			}else if(cnt == 3) {
+				color = "#3e7a6a";
+			}else{
+				color = "#35695b";
+			}
+			CalendarDTO rst = new CalendarDTO(date, color);
+			li.add(rst);
+		}
+		return li;
 	}
 	
 }
