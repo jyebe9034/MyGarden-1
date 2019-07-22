@@ -122,8 +122,11 @@
 		color:#6c736f;
 		float: left;
 	}
-	.recommendBtn{
-		cursor: #44b27d;
+/* 	.recommendBtn{ */
+/* 		color: #44b27d; */
+/* 	} */
+	.recommendBtn:hover{
+		cursor: pointer;
 	}
 	
 	.pageNaviBox{
@@ -244,7 +247,7 @@
 // 						$(this).css("font-size","17px");
 						$(item).show();
 						$(item).attr("display", "block");
-						$(item).css("background-color","#f3fff0");  ///
+						$(item).css("background-color","#f3fff0");  
 					}else{
 						$(this).css("font-weight","400");
 // 						$(this).css("font-size","16px");
@@ -285,11 +288,10 @@
  					var recommendCount = result.recommendCount;
 					console.log("도움돼요 수 : " + result.recommendCount);
 				
-					if(recommend=1){ //추천
-						$("."+br_no+"").prev().html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
-					}else if(cancelRecommend=0){ //추천 취소(사진왜 안바뀌냐고ㅡㅡ)
-						alert("일로오냐고ㅡㅡ"); //못옴 ㅠ
-						$("."+br_no+"").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
+					if(recommend==1){ //추천
+						$("input[class="+br_no+"]").prev().html("<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'>");
+					}else if(cancelRecommend==0){ //취소
+						$("input[class="+br_no+"]").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
 					}
 					//location.reload(true); //자동새로고침
 				
@@ -438,9 +440,9 @@
 									<div class="reviewRecommend" value="${reviewList.br_recommend}">
 										<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>
 										<span class="mb-1 recommendBtn"> 
-										<img src="/resources/img/reviewHate.png" width="25px"
-											class="recommendImage">
-										</span> <input type="hidden" class="${reviewList.br_no}"
+											<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">
+										</span> 
+										<input type="hidden" class="${reviewList.br_no}"
 											value="${reviewList.br_no}"> 도움돼요 <span
 											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
 									</div>

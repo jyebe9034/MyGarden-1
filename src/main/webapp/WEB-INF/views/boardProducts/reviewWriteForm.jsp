@@ -19,8 +19,18 @@
 	
 	#inputContent{
 		height: 300px;
+		border: 1px solid lightgrey;
+		border-radius: 5px;
+		padding: 10px;
+		margin-bottom: 15px;
 	}
-	
+		
+	.btnsRow{
+		width: 100%;
+	}
+	.btnsBox{
+		text-align: center;
+	}
 	
 	.goMainBtn{
 		background-color: #b4d9b5;
@@ -53,6 +63,24 @@
 
 	
 </style>
+
+<!-- script -->
+	<script>
+		$(function(){
+			$(".goMainBtn").on("click",function(){
+				$(location).attr("href","/");
+			})
+			$(".writeBtn").on("click",function(){
+				var inputContent = $("#inputContent").text();
+				var inputTitle = $("#inputTitle").val();
+				alert(inputTitle);
+				$("#content").val(inputContent);
+				$("#writeReviewForm").submit();
+			})
+			
+		})
+	</script>
+	
 </head>
 <body>
 
@@ -77,7 +105,7 @@
 			<span>${productInfo.p_title}</span>
 		</div>
 		<hr>
-		<form action="writeReview" method="post" enctype="multipart/form-data">
+		<form action="writeReview" id="writeReviewForm" method="post" enctype="multipart/form-data">
 		  <div class="form-group row">
 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
 		    <div class="col-sm-10">
@@ -86,21 +114,22 @@
 		  </div>
 		 <div class="form-group row">
 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputContent" name="br_content" placeholder="내용을 입력해주세요">
-		    </div>
+		   	  <div class="col-sm-10">
+		      <div contenteditable="true" id="inputContent"></div>
+		      <input type="hidden" class="form-control" id="content" name="br_content">
+             </div>
 		  </div>
 			
 		  <div class="form-group row">
-		  	 <label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
-			    <div class="col-sm-10">
+		  		<label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
+		  		<div class="col-lg-10">
 			      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
 			      <p><small>※ 사진은 대표 사진 1장만 선택해 주세요.</small></p>
 			    </div>
 		  </div>	
 			
-		  <div class="form-group row">
-		    <div class="col-sm-10 d-flex justify-content-center">
+		  <div class="form-group row btnsRow">
+		    <div class="col-sm-12 btnsBox">
 		      <button type="button" class="btn goMainBtn" >메인으로</button>
 		      <button type="submit" class="btn writeBtn" >등록</button>
 		    </div>
@@ -109,13 +138,7 @@
 		
 	</div>
 
-<!-- script -->
-	<script>
-		$(".goMainBtn").on("click",function(){
-			$(location).attr("href","/");
-		})
-	</script>
-	
+
 <!-- 	footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 </body>

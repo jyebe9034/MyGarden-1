@@ -19,7 +19,12 @@ public interface BoardQnAService {
 	public BoardQnADTO readQnA(int bq_no, String mine) throws Exception;
 	public int updateQnA(BoardQnADTO dto, int bq_no) throws Exception;
 	
-//	public String checkAdmin(String m_email) throws Exception;
+	public int updateImg1(int bq_no, String bq_imagepath) throws Exception;
+	public int updateImg2(int bq_no, String bq_imagepath) throws Exception;
+	public int updateImg3(int bq_no, String bq_imagepath) throws Exception;
+	
+	
+//-----------------------------------관리자----------------------------------------------
 	public int writeComment(int cq_n, CommentQnADTO dto) throws Exception;
 	
 	public CommentQnADTO commentList(int cq_no) throws Exception;

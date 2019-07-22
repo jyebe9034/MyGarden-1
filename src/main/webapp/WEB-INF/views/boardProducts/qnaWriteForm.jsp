@@ -183,7 +183,7 @@
 		 <div class="form-group row inputContentRow">
 <!-- 		    <label for="inputContent" class="col-sm-12 col-form-label">내용</label> -->
 		    <div class="col-12">
-               <div contenteditable="true" id="inputContent" placeholder="문의하실 내용을 입력해주세요">문의하실 내용을 입력해주세요.</div>
+               <div contenteditable="true" id="inputContent">문의하실 내용을 입력해주세요.</div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>

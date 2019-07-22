@@ -29,4 +29,8 @@ public interface BoardQnADAO {
 	public int deleteComment(int cq_no) throws Exception;	
 	public int setAnsN(int cq_no) throws Exception;
 	
+	public int updateQnAImg1(int bq_no, String bq_imagepath) throws Exception;
+	public int updateQnAImg2(int bq_no, String bq_imagepath) throws Exception;
+	public int updateQnAImg3(int bq_no, String bq_imagepath) throws Exception;
+	
 }

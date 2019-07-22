@@ -42,10 +42,19 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 		return qnaDao.updateQnA(dto, bq_no);
 	}
 	
-//	public String checkAdmin(String m_email) throws Exception{
-//		return qnaDao.checkAdmin(m_email);
-//	}
+	public int updateImg1(int bq_no, String bq_imagepath) throws Exception{
+		return qnaDao.updateQnAImg1(bq_no, bq_imagepath);
+	}
+	public int updateImg2(int bq_no, String bq_imagepath) throws Exception{
+		return qnaDao.updateQnAImg2(bq_no, bq_imagepath);
+	}
+	public int updateImg3(int bq_no, String bq_imagepath) throws Exception{
+		return qnaDao.updateQnAImg3(bq_no, bq_imagepath);
+	}
 	
+	
+	
+//------------------------------------관리자----------------------------------------
 	@Transactional("txManager")
 	public int writeComment(int cq_no, CommentQnADTO dto) throws Exception {
 		int result1 = qnaDao.writeComment(dto);

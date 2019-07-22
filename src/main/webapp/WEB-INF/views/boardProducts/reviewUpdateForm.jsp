@@ -20,9 +20,18 @@
 	
 	#inputContent{
 		height: 300px;
+		border: 1px solid lightgrey;
+		border-radius: 5px;
+		padding: 10px;
 	}
 	
-	
+	.btnsRow{
+		width: 100%;
+		
+	}
+	.btnsBox{
+		text-align: center;
+	}
 	.goMainBtn{
 		background-color: #b4d9b5;
 /* 		color: #44b27d; */
@@ -54,6 +63,24 @@
 
 	
 </style>
+
+<!-- script -->
+	<script>
+		$(function(){
+			$(".goMainBtn").on("click",function(){
+				$(location).attr("href","/");
+			})
+			
+			$(".updateBtn").on("click",function(){
+				var inputContent = $("#inputContent").text();
+				var inputTitle = $("#inputTitle").val();
+				alert(inputTitle);
+				$("#content").val(inputContent);
+				$("#updateReviewForm").submit();
+			})
+		})
+	</script>
+	
 </head>
 <body>
 
@@ -71,15 +98,13 @@
 
 	<!-- 리뷰 수정 폼 -->
 	<div id="wrapper">
-		<span>후기수정</span>
-		<hr>
 		<div id="productInfo" >
 			<img src="${productInfo.p_imagepath}" class="productImage">
 			<span>${productInfo.p_title}</span>
 		</div>
 		<hr>
 		
-			<form action="reviewUpdate" method="post" enctype="multipart/form-data">
+			<form action="reviewUpdate" method="post" enctype="multipart/form-data" id="updateReviewForm">
 			<input type=hidden name="br_no" value="${oneReview.br_no }">
 			  <div class="form-group row">
 			       <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
@@ -91,21 +116,22 @@
 			 <div class="form-group row">
 			    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control" id="inputContent" name="br_content" value="${oneReview.br_content }">
+			      <div contenteditable="true" id="inputContent">${oneReview.br_content }</div>
+			      <input type="hidden" class="form-control" id="content" name="br_content" value="${oneReview.br_content }">
 			    </div>
 			  </div>
 				
 			  <div class="form-group row">
-			  	 <label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
+			  	 <label for="inputImage" class="col-sm-2 col-form-label"></label>
 				    <div class="col-sm-10">
 				      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
 				      <input type="hidden" name="imagePath" value="${oneReview.br_imagepath }">
-				      <p><small>※ 사진은 대표 사진 1장만 선택해 주세요.</small></p>
+				      <p><small>※ 수정할 사진을 선택해 주세요.</small></p>
 				    </div>
 			  </div>	
 				
-			  <div class="form-group row">
-			    <div class="col-sm-10 d-flex justify-content-center">
+			  <div class="form-group row btnsRow">
+			    <div class="col-12 btnsBox">
 			      <button type="button" class="btn goMainBtn" >메인으로</button>
 			      <button type="submit" class="btn updateBtn" >수정하기</button>
 			    </div>
@@ -117,12 +143,6 @@
 		
 	</div>
 
-<!-- script -->
-	<script>
-		$(".goMainBtn").on("click",function(){
-			$(location).attr("href","/");
-		})
-	</script>
 	
 <!-- 	footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>

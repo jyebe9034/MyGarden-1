@@ -119,6 +119,26 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sst.update("boardQnAMB.updateQnA", dto);
 	}
 	
+	public int updateQnAImg1(int bq_no, String bq_imagepath) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("bq_no", bq_no);
+		map.put("bq_imagepath", bq_imagepath);
+		return sst.update("boardQnAMB.updateQnAImg1", map);
+	}
+	public int updateQnAImg2(int bq_no, String bq_imagepath) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("bq_no", bq_no);
+		map.put("bq_imagepath", bq_imagepath);
+		return sst.update("boardQnAMB.changeImg2", map);
+	}
+	public int updateQnAImg3(int bq_no, String bq_imagepath) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("bq_no", bq_no);
+		map.put("bq_imagepath", bq_imagepath);
+		
+		return sst.update("boardQnAMB.changeImg3", bq_no);
+	}
+	
 	
 	/*관리자 답변 기능*/
 
