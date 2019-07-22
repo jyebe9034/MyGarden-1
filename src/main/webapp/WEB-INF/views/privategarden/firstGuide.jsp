@@ -4,14 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
-<title>HOME</title>
+<jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
+<title>First Private Garden</title>
 <style>
+	#bcolor{
+      width : 100%;
+      height : 175px;
+      background-color : #deca92;      
+    }
 .hero-octonaut {
    position: absolute;
-   top: 120px;
-   left: calc(50% - 300px);
+   top: 140px;
+   left: calc(50% - 450px);
    animation: lands 2s alternate ease-in-out infinite;
    will-change: transform;
    user-select: none;
@@ -20,8 +24,8 @@
 }
 
 .r1{
-   top: 310px;
-   left: calc(50% - 270px);
+   top: 480px;
+   left: calc(50% - 330px);
    position: absolute;
    animation: r1 1.5s alternate ease-in-out infinite;
    will-change: transform;
@@ -30,8 +34,8 @@
 }
 
 .r2{
-   top: 350px;
-   left: calc(50% - 220px);
+   top: 510px;
+   left: calc(50% - 240px);
    position: absolute;
    animation: r2 3s alternate ease-in-out infinite;
    will-change: transform;
@@ -40,7 +44,7 @@
 }
 
 .r3{
-   top: 390px;
+   top: 570px;
    left: calc(50% - 130px);
    position: absolute;
    animation: r3 3s alternate ease-in-out infinite;
@@ -50,7 +54,7 @@
 }
 
 .r4{
-   top: 420px;
+   top: 580px;
    left: calc(50% - 0px);
    position: absolute;
    animation: r4 5s alternate ease-in-out infinite;
@@ -60,7 +64,7 @@
 }
 
 .r5{
-   top: 370px;
+   top: 500px;
    left: calc(50% + 85px);
    position: absolute;
    animation: r5 3s alternate ease-in-out infinite;
@@ -70,8 +74,8 @@
 }
 
 .r6{
-   top: 330px;
-   left: calc(50% + 130px);
+   top: 480px;
+   left: calc(50% + 170px);
    position: absolute;
    animation: r6 1.5s alternate ease-in-out infinite;
    will-change: transform;
@@ -80,8 +84,8 @@
 }
 
 .flare{
-   top: -60px;
-   left: calc(50% + 60px);
+	top : -130px;
+   left: calc(50% + 150px);
    position: absolute;
    animation: lands 2s alternate ease-in-out infinite;
    will-change: transform;
@@ -125,23 +129,7 @@
 100%{transform:translateY(5px);}
   0%{transform:translateY(-5px);} 
 }
-
-.penguin {
-    
-    /* change code below */
-    --penguin-skin: black;
-    --penguin-belly: white;
-    --penguin-beak: #f5b81f;
-    /* change code above */
-    
-    position: fixed;
-    top : 96px;
-    left : 45px;
-    display: block;
-    width: 120px;
-    height: 120px;
-  }
-  
+ 
   .penguin-top {
     top: 10%;
     left: 25%;
@@ -356,84 +344,124 @@
 	    transform: rotateY(0deg);
 	  }
 }
-	#wrapper{
-	   position:relative;
-	   top: 110px;
-	}
+
+	.penguin {
+	    /* change code below */
+	    --penguin-skin: black;
+	    --penguin-belly: white;
+	    --penguin-beak: #f5b81f;
+	    /* change code above */
+	    
+	    position: fixed;
+	    top : 280px;
+	    left : 390px;
+	    display: block;
+	    width: 150px;
+	    height: 170px;
+  	}
 
 	#speechBubble{
 	  	border : 2px solid #6549b3;
 	  	width : 350px;
 	  	height : 150px;
 	  	position : fixed;
-	  	left : 160px;
+	  	top : 210px;
+	  	left : 550px;
 	  	border-top-left-radius : 20px;
 	  	border-top-right-radius : 20px;
 	  	border-bottom-left-radius: 20px;
 	  	border-bottom-right-radius: 20px;
 	  	font-size : 14px;
+	  	margin-top : 30px;
 	}
 	  
 	#bubble{
-	 	margin : 15px 10px 8px 10px;
+	 	margin : 15px 10px 8px 15px;
 	}
-	  
+	
 	#hurbBtn{
 	  	background-color: #7355c9;
-	  	float : right;
 	  	margin-right : 20px;
 	  	font-size : 13px;
 	  	padding : 3px;
 	  	color : white;
+	  	float : right;
+	}
+	
+	#wrapper{
+		position : relative;
+	}
+	
+	#island{
+		position : relative;
+	    top : 150px;
 	}
 </style>
 </head>
 <body>
-   <div id="wrapper">
-      <img class="flare" src="/resources/imgPrivategarden/flare.png" width="300px">
-      <img class="hero-octonaut" src="/resources/imgPrivategarden/base.png" width="550px">
-      <img class="r1" src="/resources/imgPrivategarden/00.png" width="30px">
-      <img class="r2" src="/resources/imgPrivategarden/01.png" width="50px">
-      <img class="r3" src="/resources/imgPrivategarden/02.png" width="30px">
-      <img class="r4" src="/resources/imgPrivategarden/03.png" width="35px">
-      <img class="r5" src="/resources/imgPrivategarden/04.png" width="55px">
-      <img class="r6" src="/resources/imgPrivategarden/05.png" width="25px">
-   </div>
-   
-   <div class="penguin">
-	  <div class="penguin-bottom">
-	    <div class="right-hand"></div>
-	    <div class="left-hand"></div>
-	    <div class="right-feet"></div>
-	    <div class="left-feet"></div>
-	  </div>
-	  <div class="penguin-top">
-	    <div class="right-cheek"></div>
-	    <div class="left-cheek"></div>
-	    <div class="belly"></div>
-	    <div class="right-eye">
-	      <div class="sparkle"></div>
-	    </div>
-	    <div class="left-eye">
-	      <div class="sparkle"></div>
-	    </div>
-	    <div class="blush-right"></div>
-	    <div class="blush-left"></div>
-	    <div class="beak-top"></div>
-	    <div class="beak-bottom"></div>
-	  </div>
-	  <div class="shadow"></div>
-	</div>
-   
-	<div id="speechBubble">
-		<div id="bubble">
-			  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
-			  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!
+	<jsp:include page="../module/fixedHeader.jsp"></jsp:include>
+	<div id="bcolor"></div>
+	
+	<div id="wrapper" class="container">
+		<div class="row">
+			<div class="penguin col-12">
+			  <div class="penguin-bottom">
+			    <div class="right-hand"></div>
+			    <div class="left-hand"></div>
+			    <div class="right-feet"></div>
+			    <div class="left-feet"></div>
+			  </div>
+			  <div class="penguin-top">
+			    <div class="right-cheek"></div>
+			    <div class="left-cheek"></div>
+			    <div class="belly"></div>
+			    <div class="right-eye">
+			      <div class="sparkle"></div>
+			    </div>
+			    <div class="left-eye">
+			      <div class="sparkle"></div>
+			    </div>
+			    <div class="blush-right"></div>
+			    <div class="blush-left"></div>
+			    <div class="beak-top"></div>
+			    <div class="beak-bottom"></div>
+			  </div>
+			  <div class="shadow"></div>
+			</div>
+		   
+			<div id="speechBubble">
+				<div id="bubble">
+					  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
+					  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!
+				</div>
+				<div id="toHurb">
+					<!-- Button trigger modal -->
+					<button id="hurbBtn" type="button" class="btn btn-sm">
+					  허브 선택 하기
+					</button>
+				</div>
+			</div>
 		</div>
-		<div id="toHurb">
-			<button id="hurbBtn" class="btn btn-sm">허브 선택 하기</button>
-		</div>
+		
+		<div id="island" class="col-12 mb-5">
+		  <img class="flare" src="/resources/imgPrivategarden/flare4.PNG" width="250px">
+		  <img class="hero-octonaut" src="/resources/imgPrivategarden/base.png" width="800px">
+		  <img class="r1" src="/resources/imgPrivategarden/00.png" width="40px">
+		  <img class="r2" src="/resources/imgPrivategarden/01.png" width="60px">
+		  <img class="r3" src="/resources/imgPrivategarden/02.png" width="45px">
+		  <img class="r4" src="/resources/imgPrivategarden/03.png" width="50px">
+		  <img class="r5" src="/resources/imgPrivategarden/04.png" width="65px">
+		  <img class="r6" src="/resources/imgPrivategarden/05.png" width="45px">	   
+	    </div>
 	</div>
 	
+	
+	
+	<script>
+		$("#hurbBtn").on("click", function(){
+			$(location).attr("href", "toSelectHurb");
+			/* $("#privategarden", parent.document).attr("src", "testModal"); */
+		})
+	</script>
 </body>
 </html>

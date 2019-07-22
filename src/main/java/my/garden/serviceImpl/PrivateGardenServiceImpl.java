@@ -16,4 +16,8 @@ public class PrivateGardenServiceImpl implements PrivateGardenService {
 	public PrivateGardenDTO selectPrivateGardenInfoService(String id) throws Exception {
 		return pdao.selectPrivateGardenInfo(id);
 	}
+	
+	public int insertHurbInfo(String id, String hurb) throws Exception {
+		return pdao.insertHurbInfo(id, hurb);
+	}
 }

@@ -16,23 +16,26 @@
 			border-radius : 5px;
 			width : 350px;
 			height : 500px;
+			display : none;
 		}
 		#chatBox{
 			position : fixed;
 			left : 20px;
 			bottom : 100px;
-			display : none;
 		}
 		#chatWrap{
-			width : 80px;
-			height : 80px;
+			width : 70px;
+			height : 70px;
 			position : fixed;
 			left : 30px;
 			bottom : 25px;
 		}
 		#chatBtn{
-			width : 80px;
-			height : 80px;
+			width : 70px;
+			height : 70px;
+		}
+		#chatBtn:hover{
+			cursor : pointer;
 		}
 	</style>
 </head>
@@ -43,12 +46,22 @@
 		 $('.clickToCloseBtn').on('click', function(){
 			 $('.clickToClose').addClass('d-none');
 		 });
+		 
+		 $("#chatWrap").on("click", function(){
+				console.log("클릭함");
+				if($("#chatboxWrap").css("display") == "none"){
+					console.log("보여줘");
+					$("#chatboxWrap").show();
+				}else{
+					console.log("사라져");
+					$("#chatboxWrap").hide();
+				}
+			})
 	});
 	</script>
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
 	
 <!-- 			carousel -->
 	<div class="container-fluid my">
@@ -152,24 +165,15 @@
 		</div>
 	</div>
 	
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
+	
+	<div id="chatWrap">
+		<img id="chatBtn" src="/resources/img/chat.png">
+	</div> 
 	<div id="chatboxWrap">
 		<iframe id="chatBox" src="chat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 	</div>
-	<div id="chatWrap">
-		<img id="chatBtn" src="/resources/img/chat.png">
-	</div>
-	
-	<script>
-		$("#chatBtn").on("click",function(){
-			if($("#chatBox").css("display") == "none"){
-				$("#chatBox").show();
-			}else{
-				$("#chatBox").hide();
-			}
-		})
-	</script>
 
-<!-- 	footer -->
-	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 </body>
 </html>
