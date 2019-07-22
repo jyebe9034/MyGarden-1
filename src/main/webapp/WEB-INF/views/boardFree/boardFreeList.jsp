@@ -1,4 +1,5 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -50,7 +51,6 @@
 .title:hover {
 	text-decoration: underline;
 }
-
 
 hr {
 	margin: 0px;
@@ -114,34 +114,34 @@ hr {
 
 	<div class=container>
 		<div class=listOne>
-		<c:forEach var="tmp" items="${list}">
-			<div class="row content">
-				<div class="col-2 realImg">
-					<div class=tmpImg>${tmp.bf_content }</div>
-					<div class=img></div>
-				</div>
+			<c:forEach var="tmp" items="${list}">
+				<div class="row content">
+					<div class="col-2 realImg">
+						<div class=tmpImg>${tmp.bf_content }</div>
+						<div class=img></div>
+					</div>
 
-				<div class="col-10">
-					<div class=title>
-						${tmp.bf_title }
-						<hr size="3">
+					<div class="col-10">
+						<div class=title>
+							${tmp.bf_title }
+							<hr size="3">
+						</div>
+						<input type=hidden value=${tmp.bf_no }>
+						<div class=otherContents>
+							<span class=writer><img
+								src="resources/free/boardFreeWriter.png">${tmp.bf_writer }</span>
+							<span class=writeDate><img
+								src="resources/free/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
+							<span class=viewCount><img
+								src="resources/free/boardFreeView.png">${tmp.bf_viewcount }</span>
+							<span class=comment><img
+								src="resources/free/boardFreeReply.png">${tmp.bf_cmtcount}</span>
+						</div>
 					</div>
-					<input type=hidden value=${tmp.bf_no }>
-					<div class=otherContents>
-						<span class=writer><img
-							src="resources/free/boardFreeWriter.png">${tmp.bf_writer }</span> <span
-							class=writeDate><img
-							src="resources/free/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
-						<span class=viewCount><img
-							src="resources/free/boardFreeView.png">${tmp.bf_viewcount }</span>
-						<span class=comment><img
-							src="resources/free/boardFreeReply.png">${tmp.bf_cmtcount}</span>
-					</div>
+					<hr size="3">
 				</div>
-				<hr size="3">
-			</div>
-		</c:forEach>
-	</div>
+			</c:forEach>
+		</div>
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
@@ -169,7 +169,7 @@ hr {
 		</c:if>
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
-	<script>
+<script>
 
 	$(".tmpImg").each(function (i, item) {
 		var tmp = $(this).html();
@@ -183,7 +183,7 @@ hr {
 			}
 	})
 
-		$(".title").on("click",function(){
+		$(document).on("click",".title",function(){
 			var seq = $(this).next().val();
 			$(location).attr("href","boardFreeRead?no="+seq);
 		})
@@ -222,21 +222,19 @@ hr {
 				console.log(resp.searchPage);
 				$(".listOne").html("");
 				var tmp = "";
-				if(resp.searchList.length>0){
+				
 				for(var i=0 ; i<resp.searchList.length ; i ++){
-				var tmp = tmp + '<div class="col-2 realImg"><div class=tmpImg>'+${resp.searchList[i].bf_content }+'</div><div class=img></div></div>'
-					+'<div class="col-10"><div class=title>${resp.searchList[i].bf_title }<hr size="3"></div>'
-				+'<input type=hidden value=${resp.searchList[i].bf_no }><div class=otherContents><span class=writer>'
-				+'<img src="resources/free/boardFreeWriter.png">${resp.searchList[i].bf_writer }</span><span class=writeDate>'
-				+'<img src="resources/free/boardFreeWriteDate.png">${resp.searchList[i].bf_stringdate }</span><span class=viewCount>'
-				+'<img src="resources/free/boardFreeView.png">${resp.searchList[i].bf_viewcount }</span><span class=comment>'
-				+'<img src="resources/free/boardFreeReply.png">${resp.searchList[i].bf_cmtcount}</span></div></div><hr size="3">'
-				}
-				$(".listOne").html(tmp);
-				}else{
-					$(".listOne").html("일치하는 내용이 없습니다.");	
-				}
+				var tmp = tmp + '<div class="col-2 realImg"><div class=tmpImg>'+resp.searchList[i].bf_content+'</div><div class=img></div></div>'
+					+'<div class="col-10"><div class=title>'+resp.searchList[i].bf_title+'<hr size="3"></div>'
+				+'<input type=hidden value=><div class=otherContents><span class=writer>'
+				+'<img src="resources/free/boardFreeWriter.png">'+resp.searchList[i].bf_writer+'</span><span class=writeDate>'
+				+'<img src="resources/free/boardFreeWriteDate.png">'+resp.searchList[i].bf_stringdate+'</span><span class=viewCount>'
+				+'<img src="resources/free/boardFreeView.png">'+resp.searchList[i].bf_viewcount+'</span><span class=comment>'
+				+'<img src="resources/free/boardFreeReply.png">'+resp.searchList[i].bf_cmtcount+'</span></div></div><hr size="3">';
+				}		
 				console.log(tmp);
+				$(".listOne").html(tmp);
+				
 				
 			})
 		})
