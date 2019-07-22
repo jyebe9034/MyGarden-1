@@ -24,6 +24,18 @@
 		border-radius: 5px;
 		padding: 10px;
 	}
+	.updateImgBtn{
+		background-color: #b4d9b5;
+		color: white;
+		font-size: 13px;
+		line-height: 50%;
+		height: 30px;
+		width: 80px;
+	}
+	.updateImgBtn:hover{
+		color: #44b27d;
+		cursor: pointer;
+	}
 	
 	.btnsRow{
 		width: 100%;
@@ -38,13 +50,13 @@
 		color: white;
 		font-weight: bold;
 		border: 0px;
-		cursor: pointer;
 	}
 	.goMainBtn:hover{
 		background-color: #44b27d;
 		color: white;
 		font-weight: bold;
 		border: 0px;
+		cursor: pointer;
 	}
 	.updateBtn {
 		background-color: #44b27d;
@@ -77,6 +89,28 @@
 				alert(inputTitle);
 				$("#content").val(inputContent);
 				$("#updateReviewForm").submit();
+			})
+		
+			$(".updateImgBtn").on("click",function(){
+				var imageFile = $(this).prev();
+				var imageOriPath = $(this).next().val();
+		    	  var formData = new FormData();
+		    	 formData.append("formData",$(imageFile)[0].files[0]);
+		    	 formData.append("oriFilePath",imageOriPath);
+		    	 alert("oriFilePath : " + imageOriPath);
+		    	 
+				$.ajax({
+		    		  url:"updateImgs",
+		    		  type:"post",
+		    		  processData:false,
+		    		  contentType:false,
+		    		  data: formData
+		    	  }).done(function(resp){
+		    		  console.log(resp);	
+		    		  if(resp==1){
+							alert("사진이 수정되었습니다.");    			  
+		    		  }
+		    	  })
 			})
 		})
 	</script>
@@ -125,8 +159,9 @@
 			  	 <label for="inputImage" class="col-sm-2 col-form-label"></label>
 				    <div class="col-sm-10">
 				      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
+				      <input type="button" class="btn updateImgBtn" value="사진 수정">
 				      <input type="hidden" name="imagePath" value="${oneReview.br_imagepath }">
-				      <p><small>※ 수정할 사진을 선택해 주세요.</small></p>
+				      <p><small>※ 수정할 사진을 선택한 후 '사진 수정'버튼을 누르면 사진 수정이 가능합니다.</small></p>
 				    </div>
 			  </div>	
 				
