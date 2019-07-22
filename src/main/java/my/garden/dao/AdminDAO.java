@@ -12,4 +12,6 @@ public interface AdminDAO {
 	public List<ShopListDTO> popularProduct();
 	public int totalSaleCount();
 	public int statCheck(String stat);
+	public List<ShopListDTO> orderCheckList(String stat);
+	public int updateOrder(String orderNo, String stat);
 }

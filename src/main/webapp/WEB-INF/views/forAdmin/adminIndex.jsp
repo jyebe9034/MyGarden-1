@@ -74,25 +74,48 @@
 }
 
 th {
-	background-color: #9073c9;
+	background-color: #8e74a8;
 	color: white;
 }
 
+td{
+	text-align: center;
+}
 .table {
 	margin: 0 auto;
 	padding: 15px;
 }
 
-.pagination .active .page-link {
+.pagination .active .page-link, .back {
 	background-color: #bcdeb4;
+	border: 1px solid #bcdeb4;
+	font-weight: bold;
+	color: white;
+}
+
+.pagination .active .page-link:hover, .back:hover {
+	background-color: #66b075;
 	border: 1px solid #bcdeb4;
 	font-weight: bold;
 }
 
-.pagination .active .page-link:hover {
-	background-color: #66b075;
-	border: 1px solid #bcdeb4;
-	font-weight: bold;
+.back {
+	margin-left: 20px;
+	font-size: 15px;
+	height: 30px;
+	border-radius: 5px;
+}
+
+h4 {
+	color: #28a745;
+	font-weight: bold !important;
+}
+
+.moneyCheck, .shippingCheck {
+	color: #d6d6d6;
+	background-color: white;
+	border: 0px;
+	font-size: 25px;
 }
 
 .headerFluid {
@@ -122,18 +145,16 @@ th {
 	margin: 40px 0 0 0 !important;
 }
 
-.cmt{
-	font-size:16px !important;
+.cmt {
+	font-size: 16px !important;
 	color: #9073c9;
-	
 }
 
-.metric-inline:hover{
+.metric-inline:hover {
 	cursor: pointer;
-	background-color:lightgrey;
-	transition-duration:0.5	s;
+	background-color: lightgrey;
+	transition-duration: 0.5 s;
 }
-
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
@@ -322,149 +343,149 @@ th {
 					</div>
 				</div>
 			</div>
-			<!-- END WEBSITE ANALYTICS -->
-			<!-- 수익 통계 -->
-			<div class="dashboard-section">
-				<div class="section-heading clearfix">
-					<h2 class="section-title">
-						<i class="fa fa-shopping-basket"></i> 수익 통계
-					</h2>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="panel-content">
-							<h3 class="heading">
-								<i class="fa fa-square"></i> 오늘
-							</h3>
-							<ul class="list-unstyled list-justify large-number">
-								<li class="clearfix">Earnings <span>$215</span></li>
-								<li class="clearfix">Sales <span>47</span></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-9">
-						<div class="panel-content">
-							<h3 class="heading">
-								<i class="fa fa-square"></i> Sales Performance
-							</h3>
-							<div class="row">
-								<div class="col-md-6">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>&nbsp;</th>
-												<th>Last Week</th>
-												<th>This Week</th>
-												<th>Change</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th>Earnings</th>
-												<td>$2752</td>
-												<td><span class="text-info">$3854</span></td>
-												<td><span class="text-success">40.04%</span></td>
-											</tr>
-											<tr>
-												<th>Sales</th>
-												<td>243</td>
-												<td>
-													<div class="text-info">322</div>
-												</td>
-												<td><span class="text-success">32.51%</span></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="col-md-6">
-									<div id="chart-sales-performance">Loading ...</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-8">
-						<div class="panel-content">
-							<h3 class="heading">
-								<i class="fa fa-square"></i> Recent Purchases
-							</h3>
-							<div class="table-responsive">
-								<table class="table table-striped no-margin">
-									<thead>
-										<tr>
-											<th>Order No.</th>
-											<th>Name</th>
-											<th>Amount</th>
-											<th>Date &amp; Time</th>
-											<th>Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><a href="#">763648</a></td>
-											<td>Steve</td>
-											<td>$122</td>
-											<td>Oct 21, 2016</td>
-											<td><span class="label label-success">COMPLETED</span></td>
-										</tr>
-										<tr>
-											<td><a href="#">763649</a></td>
-											<td>Amber</td>
-											<td>$62</td>
-											<td>Oct 21, 2016</td>
-											<td><span class="label label-warning">PENDING</span></td>
-										</tr>
-										<tr>
-											<td><a href="#">763650</a></td>
-											<td>Michael</td>
-											<td>$34</td>
-											<td>Oct 18, 2016</td>
-											<td><span class="label label-danger">FAILED</span></td>
-										</tr>
-										<tr>
-											<td><a href="#">763651</a></td>
-											<td>Roger</td>
-											<td>$186</td>
-											<td>Oct 17, 2016</td>
-											<td><span class="label label-success">SUCCESS</span></td>
-										</tr>
-										<tr>
-											<td><a href="#">763652</a></td>
-											<td>Smith</td>
-											<td>$362</td>
-											<td>Oct 16, 2016</td>
-											<td><span class="label label-success">SUCCESS</span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="panel-content">
-							<h3 class="heading">
-								<i class="fa fa-square"></i> Top Products
-							</h3>
-							<div id="chart-top-products" class="chartist"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- END SALES SUMMARY -->
+<!-- 			 END WEBSITE ANALYTICS --> 
+<!-- 			 수익 통계 -->
+<!-- 			<div class="dashboard-section"> -->
+<!-- 				<div class="section-heading clearfix"> -->
+<!-- 					<h2 class="section-title"> -->
+<!-- 						<i class="fa fa-shopping-basket"></i> 수익 통계 -->
+<!-- 					</h2> -->
+<!-- 				</div> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-3"> -->
+<!-- 						<div class="panel-content"> -->
+<!-- 							<h3 class="heading"> -->
+<!-- 								<i class="fa fa-square"></i> 오늘 -->
+<!-- 							</h3> -->
+<!-- 							<ul class="list-unstyled list-justify large-number"> -->
+<!-- 								<li class="clearfix">Earnings <span>$215</span></li> -->
+<!-- 								<li class="clearfix">Sales <span>47</span></li> -->
+<!-- 							</ul> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-9"> -->
+<!-- 						<div class="panel-content"> -->
+<!-- 							<h3 class="heading"> -->
+<!-- 								<i class="fa fa-square"></i> Sales Performance -->
+<!-- 							</h3> -->
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-md-6"> -->
+<!-- 									<table class="table"> -->
+<!-- 										<thead> -->
+<!-- 											<tr> -->
+<!-- 												<th>&nbsp;</th> -->
+<!-- 												<th>Last Week</th> -->
+<!-- 												<th>This Week</th> -->
+<!-- 												<th>Change</th> -->
+<!-- 											</tr> -->
+<!-- 										</thead> -->
+<!-- 										<tbody> -->
+<!-- 											<tr> -->
+<!-- 												<th>Earnings</th> -->
+<!-- 												<td>$2752</td> -->
+<!-- 												<td><span class="text-info">$3854</span></td> -->
+<!-- 												<td><span class="text-success">40.04%</span></td> -->
+<!-- 											</tr> -->
+<!-- 											<tr> -->
+<!-- 												<th>Sales</th> -->
+<!-- 												<td>243</td> -->
+<!-- 												<td> -->
+<!-- 													<div class="text-info">322</div> -->
+<!-- 												</td> -->
+<!-- 												<td><span class="text-success">32.51%</span></td> -->
+<!-- 											</tr> -->
+<!-- 										</tbody> -->
+<!-- 									</table> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-md-6"> -->
+<!-- 									<div id="chart-sales-performance">Loading ...</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-8"> -->
+<!-- 						<div class="panel-content"> -->
+<!-- 							<h3 class="heading"> -->
+<!-- 								<i class="fa fa-square"></i> Recent Purchases -->
+<!-- 							</h3> -->
+<!-- 							<div class="table-responsive"> -->
+<!-- 								<table class="table table-striped no-margin"> -->
+<!-- 									<thead> -->
+<!-- 										<tr> -->
+<!-- 											<th>Order No.</th> -->
+<!-- 											<th>Name</th> -->
+<!-- 											<th>Amount</th> -->
+<!-- 											<th>Date &amp; Time</th> -->
+<!-- 											<th>Status</th> -->
+<!-- 										</tr> -->
+<!-- 									</thead> -->
+<!-- 									<tbody> -->
+<!-- 										<tr> -->
+<!-- 											<td><a href="#">763648</a></td> -->
+<!-- 											<td>Steve</td> -->
+<!-- 											<td>$122</td> -->
+<!-- 											<td>Oct 21, 2016</td> -->
+<!-- 											<td><span class="label label-success">COMPLETED</span></td> -->
+<!-- 										</tr> -->
+<!-- 										<tr> -->
+<!-- 											<td><a href="#">763649</a></td> -->
+<!-- 											<td>Amber</td> -->
+<!-- 											<td>$62</td> -->
+<!-- 											<td>Oct 21, 2016</td> -->
+<!-- 											<td><span class="label label-warning">PENDING</span></td> -->
+<!-- 										</tr> -->
+<!-- 										<tr> -->
+<!-- 											<td><a href="#">763650</a></td> -->
+<!-- 											<td>Michael</td> -->
+<!-- 											<td>$34</td> -->
+<!-- 											<td>Oct 18, 2016</td> -->
+<!-- 											<td><span class="label label-danger">FAILED</span></td> -->
+<!-- 										</tr> -->
+<!-- 										<tr> -->
+<!-- 											<td><a href="#">763651</a></td> -->
+<!-- 											<td>Roger</td> -->
+<!-- 											<td>$186</td> -->
+<!-- 											<td>Oct 17, 2016</td> -->
+<!-- 											<td><span class="label label-success">SUCCESS</span></td> -->
+<!-- 										</tr> -->
+<!-- 										<tr> -->
+<!-- 											<td><a href="#">763652</a></td> -->
+<!-- 											<td>Smith</td> -->
+<!-- 											<td>$362</td> -->
+<!-- 											<td>Oct 16, 2016</td> -->
+<!-- 											<td><span class="label label-success">SUCCESS</span></td> -->
+<!-- 										</tr> -->
+<!-- 									</tbody> -->
+<!-- 								</table> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="col-md-4"> -->
+<!-- 						<div class="panel-content"> -->
+<!-- 							<h3 class="heading"> -->
+<!-- 								<i class="fa fa-square"></i> Top Products -->
+<!-- 							</h3> -->
+<!-- 							<div id="chart-top-products" class="chartist"></div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<!-- END SALES SUMMARY -->
 			<!-- SOCIAL -->
 			<div class="dashboard-section no-margin">
 				<div class="section-heading clearfix">
 					<h2 class="section-title">
-						<i class="fa fa-user-circle"></i>주문 관리
+						<i class="fa fa-shopping-basket"></i>주문 관리
 					</h2>
 				</div>
 				<div class="panel-content" id=orderContents>
-					<div class="row">
+					<div class="row" id=originHide>
 						<div class="col-md-6 col-sm-6" id=deposit>
 							<p class="metric-inline">
-								<i class="fa fa-bell"></i>+${depositWait }<span>입금 대기</span>
-								<i class="fa fa-check-circle cmt"> 입금을 확인해주세요.</i>
+								<i class="fa fa-bell"></i>+${depositWait }<span>입금 대기</span> <i
+									class="fa fa-check-circle cmt"> 입금을 확인해주세요.</i>
 							</p>
 						</div>
 						<div class="col-md-6 col-sm-6" id=shipping>
@@ -474,6 +495,76 @@ th {
 							</p>
 						</div>
 					</div>
+				</div>
+			</div>
+			<!-- 	orderContents 숨김용 		-->
+			<div id=orderCheck class="col-12">
+				<h4>
+					<i class="fa fa-shopping-basket"> 입금 대기 목록</i>
+					<button class=back>뒤로 가기</button>
+				</h4>
+				<div class="table">
+					<table class="table table-bordered" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>주문번호</th>
+								<th>주문자</th>
+								<th>연락처</th>
+								<th>주문 금액</th>
+								<th>입금 확인</th>
+							</tr>
+						</thead>
+						<tbody>
+								<c:forEach var="tmp" items="${depositCheckList}">
+									<tr>
+										<td class=orNo>${tmp.s_orderno }</td>
+										<td>${tmp.s_email }</td>
+										<td>${tmp.s_phone }</td>
+										<td><fmt:formatNumber value="${tmp.s_p_count}"
+												pattern="#,###원" /></td>
+										<td><button class=moneyCheck>
+												<i class="fa fa-check-circle"></i>
+											</button></td>
+									</tr>
+								</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div id=shippingCheck class="col-12">
+				<h4>
+					<i class="fa fa-shopping-basket"> 배송 대기 목록</i>
+					<button class=back>뒤로 가기</button>
+				</h4>
+				<div class="table">
+					<table class="table table-bordered" width="100%"
+						cellspacing="0">
+						<thead>
+							<tr>
+								<th>주문번호</th>
+								<th>주문자</th>
+								<th>연락처</th>
+								<th>주문 금액</th>
+								<th>배송 확인</th>
+							</tr>
+						</thead>
+						<tbody>
+								<c:forEach var="tmp" items="${shippingCheckList}">
+									<tr>
+										<td class=orNo>${tmp.s_orderno }</td>
+										<td>${tmp.s_email }</td>
+										<td>${tmp.s_phone }</td>
+										<td><fmt:formatNumber value="${tmp.s_p_count}"
+												pattern="#,###원" /></td>
+										<td><button class=shippingCheck>
+												<i class="fa fa-check-circle"></i>
+											</button></td>
+									</tr>
+								</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<!-- END SOCIAL -->
@@ -569,14 +660,69 @@ th {
 	<script
 		src="../../resources/admin/theme/assets/vendor/dataTable/datatables-demo.js"></script>
 	<script>
+	
+		$("#orderCheck").hide();
 		$("#deposit").on("click",function(){
-			$("#orderContents").html("");
-			//ajax 로 입금확인인 리스트 가져오고 테이블 넣기
+			console.log($(this).text());
+			$("#orginHide").hide();
+			$("#orderContents").html($("#orderCheck").html());
 		})
-	
-	
+		$(document).on("click",".moneyCheck",function(){
+			var no = $(this).parent().parent().children('.orNo').text();
+			confirm('주문번호 '+no+'의 입금을 확인 하시겠습니까?');
+			$.ajax({
+				url:"moneyStatChange",
+				data: {
+					"no":no
+						},
+				type:"post"
+			}).done(function (resp) {
+				console.log("resp:"+resp.orderNo);
+				$(".moneyCheck").each(function (i,item) {
+					var order = $(this).parent().parent().children('.orNo').text();
+					var no = resp.orderNo;
+					if(order==no && resp.result>0){
+						$(this).css("color","#66b075");
+					}
+				})
+				})		
+			})
+		
+		
+		
+		$("#shippingCheck").hide();
+		$("#shipping").on("click",function(){
+			$("#orginHide").hide();
+			$("#orderContents").html($("#shippingCheck").html());
+		})
+		$(document).on("click",".shippingCheck",function(){
+			var no = $(this).parent().parent().children('.orNo').text();
+			confirm('주문번호 '+no+'의 배송을 시작하시겠습니까?');
+			$.ajax({
+				url:"shippingStatChange",
+				data: {
+					"no":no
+						},
+				type:"post"
+			}).done(function (resp) {
+				console.log("resp:"+resp.orderNo);
+				$(".shippingCheck").each(function (i,item) {
+					var order = $(this).parent().parent().children('.orNo').text();
+					console.log("order:"+order)
+					var no = resp.orderNo;
+					if(order==no && resp.result>0){	
+						$(this).css("color","#66b075");
+					}
+				})
+				})		
+			})
+		
+		
+		$(document).on("click",".back",function(){
+			 location.reload(true);
+		})
+		
 		$(function() {
-
 			// sparkline charts
 			var sparklineNumberChart = function() {
 
@@ -624,33 +770,6 @@ th {
 			var labels = [ '${popular[0].s_p_title}',
 					'${popular[1].s_p_title}', '${popular[2].s_p_title}',
 					'${popular[3].s_p_title}', '${popular[4].s_p_title}' ];
-
-// 			var sum = function(a, b) {
-// 				return a + b;
-// 			};
-
-// 			new Chartist.Pie('#demo-pie-chart', dataPie, {
-// 				height : "270px",
-// 				labelInterpolationFnc : function(value, idx) {
-// 					var percentage = Math.round(value
-// 							/ dataPie.series.reduce(sum) * 100)
-// 							+ '%';
-// 					return labels[idx] + ' (' + percentage + ')';
-// 				}
-// 			});
-
-// 			var dataDonut = {
-// 				series : [ 20, 10, 30, 40 ]
-// 			};
-
-// 			new Chartist.Pie('#demo-donut-chart', dataDonut, {
-// 				height : "270px",
-// 				donut : true,
-// 				donutWidth : 60,
-// 				donutSolid : true,
-// 				startAngle : 270,
-// 				showLabel : true
-// 			});
 
 			// stacked bar chart
 			var dataStackedBar = {

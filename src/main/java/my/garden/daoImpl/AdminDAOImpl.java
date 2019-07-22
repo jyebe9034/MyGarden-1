@@ -50,4 +50,16 @@ public class AdminDAOImpl implements AdminDAO {
 	public int statCheck(String stat) {
 		return sst.selectOne("AdminDAO.statCheck", stat);
 	}
+	
+	public List<ShopListDTO> orderCheckList(String stat){
+		return sst.selectList("AdminDAO.orderCheckList", stat);
+	}
+	
+	public int updateOrder(String orderNo, String stat) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("no", orderNo);
+		map.put("stat", stat);
+		return sst.update("AdminDAO.updateOrder", map);
+	}
+	
 }

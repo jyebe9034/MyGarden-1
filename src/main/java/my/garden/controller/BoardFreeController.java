@@ -75,6 +75,54 @@ public class BoardFreeController {
 		}
 		return "boardFree/boardFreeList";
 	}
+	
+	@ResponseBody
+	@RequestMapping("searchForFree")
+	public Map<String, Object> searchForFree(String value, String page){
+		System.out.println(value);
+		int nowPage=0;
+		if(page==null) {
+			nowPage=1;
+		}else {
+			nowPage = Integer.parseInt(page);
+		}
+		Map<String, Object> map = new HashMap<>();	
+		map.put("searchPage", nowPage);
+		
+		int start = (nowPage*4)-3;
+		int end = nowPage*4;
+		List<BoardFreeDTO> list;
+		try {
+			String searchVal = "%"+value+"%";
+			list = dao.serviceSearchList(start, end, searchVal);
+			System.out.println("검색결과수:"+list.size());
+			List<String> navi = dao.serviceGetBoardNavi(nowPage);
+			map.put("searchNavi", navi);
+			//댓글 갯수 관련
+			int count = dao.serviceSearchCountAll(searchVal);
+			if(count==0 || count<4) {
+				for(int i = start; i <= end; i++) {	
+					for(int j=0; j<count; j++) {
+						int bf_no=list.get(j).getBf_no();
+						int tmp = dao.serviceCmtCountAll(bf_no);
+						list.get(j).setBf_cmtcount(tmp);
+					}
+				}		
+			}else {
+				for(int i = start; i <= end; i++) {	
+					for(int j=0; j<4; j++) {
+						int bf_no=list.get(j).getBf_no();
+						int tmp = dao.serviceCmtCountAll(bf_no);
+						list.get(j).setBf_cmtcount(tmp);
+					}
+				}		
+			}
+			map.put("searchList", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 
 	@RequestMapping("boardFreeWrite")
 	public String boardFreeWrite() {
@@ -343,4 +391,6 @@ public class BoardFreeController {
 		} 
 		return map;
 	}
+	
+	
 }

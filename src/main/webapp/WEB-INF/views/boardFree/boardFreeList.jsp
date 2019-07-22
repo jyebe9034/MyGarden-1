@@ -113,7 +113,7 @@ hr {
 	</div>
 
 	<div class=container>
-
+		<div class=listOne>
 		<c:forEach var="tmp" items="${list}">
 			<div class="row content">
 				<div class="col-2 realImg">
@@ -141,13 +141,13 @@ hr {
 				<hr size="3">
 			</div>
 		</c:forEach>
-
+	</div>
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
 					<input class="form-control freeSearch" type="search"
 						placeholder="필요한 레시피 검색" aria-label="Search"
-						aria-describedby="basic-addon2">
+						aria-describedby="basic-addon2" id=searchVal>
 					<div class="input-group-append">
 						<button class="btn btn-outline-secondary mr-4" type="button"
 							id="freeSearchBtn">&telrec;</button>
@@ -170,13 +170,11 @@ hr {
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
-	console.log($(".tmpImg"));
+
 	$(".tmpImg").each(function (i, item) {
 		var tmp = $(this).html();
-		console.log(tmp);
 		var regex = /(\/re.+?png)/;
 		var result = regex.exec(tmp);
-		console.log(result);
 			$(".tmpImg").hide(); //자꾸 튀어나와서 숨겼음ㅡㅡ
 			if(result!=null){
 			$(this).next().html("<img src='"+result[1]+"'>");
@@ -211,6 +209,36 @@ hr {
 			if($(this).text() == ${page}){
 				$(this).css("color","#c1b1fc");
 		}
+		})
+		
+		$("#freeSearchBtn").on("click",function(){
+			$.ajax({
+				url:'searchForFree',
+				data:{
+					'value':$("#searchVal").val()
+				},
+				type:"post"
+			}).done(function (resp) {
+				console.log(resp.searchPage);
+				$(".listOne").html("");
+				var tmp = "";
+				if(resp.searchList.length>0){
+				for(var i=0 ; i<resp.searchList.length ; i ++){
+				var tmp = tmp + '<div class="col-2 realImg"><div class=tmpImg>'+${resp.searchList[i].bf_content }+'</div><div class=img></div></div>'
+					+'<div class="col-10"><div class=title>${resp.searchList[i].bf_title }<hr size="3"></div>'
+				+'<input type=hidden value=${resp.searchList[i].bf_no }><div class=otherContents><span class=writer>'
+				+'<img src="resources/free/boardFreeWriter.png">${resp.searchList[i].bf_writer }</span><span class=writeDate>'
+				+'<img src="resources/free/boardFreeWriteDate.png">${resp.searchList[i].bf_stringdate }</span><span class=viewCount>'
+				+'<img src="resources/free/boardFreeView.png">${resp.searchList[i].bf_viewcount }</span><span class=comment>'
+				+'<img src="resources/free/boardFreeReply.png">${resp.searchList[i].bf_cmtcount}</span></div></div><hr size="3">'
+				}
+				$(".listOne").html(tmp);
+				}else{
+					$(".listOne").html("일치하는 내용이 없습니다.");	
+				}
+				console.log(tmp);
+				
+			})
 		})
 		
 		

@@ -32,6 +32,18 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		return sst.selectList("BoardFreeDAO.list", map);
 	}
 	
+	public List<BoardFreeDTO> searchList(int start, int end, String searchVal) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("searchVal", searchVal);
+		return sst.selectList("BoardFreeDAO.searchList", map);
+	}
+	
+	public int searchCountAll(String searchVal) {
+		return sst.selectOne("BoardFreeDAO.searchCountAll", searchVal);
+	}
+	
 	public BoardFreeDTO read(int bf_no) {
 		sst.selectOne("BoardFreeDAO.viewCount", bf_no);
 		return sst.selectOne("BoardFreeDAO.read", bf_no);
