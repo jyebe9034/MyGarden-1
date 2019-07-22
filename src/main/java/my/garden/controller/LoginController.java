@@ -1,6 +1,7 @@
 package my.garden.controller;
 
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 import my.garden.serviceImpl.LoginService;
 
 @Controller
@@ -243,8 +244,17 @@ public class LoginController {
 			return "login/socialLoginThrough";
 		}
 	}
-	
-	
+
+	@ResponseBody
+	@RequestMapping("/getOrderList")
+	public String orderList(ShopListDTO dto, Timestamp date){
+		System.out.println(date);
+		dto.setS_email((String)session.getAttribute("loginId"));
+		dto.setS_orderdate(date);
+		session.setAttribute("orderList", loginserv.getOrderList(dto));
+		List<ShopListDTO> lists = loginserv.getOrderList(dto);
+		return new Gson().toJson(loginserv.getOrderList(dto));
+	}
 	
 	
 	

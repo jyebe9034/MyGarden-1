@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import my.garden.dao.LoginDAO;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 
 @Service
 public class LoginService {
@@ -197,6 +198,10 @@ public class LoginService {
 			li.add(rst);
 		}
 		return li;
+	}
+	
+	public List<ShopListDTO> getOrderList(ShopListDTO dto){
+		return logDao.getOrderlist(dto);
 	}
 	
 }

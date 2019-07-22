@@ -58,8 +58,8 @@
       select s_orderdate as orderdate, COUNT(s_orderdate) as count from shoplist where s_email=#{value} group by(s_orderdate)
    </select>
    
-   <select id="selectOrderList" parameterType="map" resultType="my.garden.dto.ShopListDTO">
-   		select * from shoplist where s_email=#{email} and s_orderdate=#{date}
+   <select id="selectOrderList" resultType="my.garden.dto.ShopListDTO">
+   		select * from shoplist where s_email=#{s_email} and s_orderdate=#{s_orderdate}
    </select>
 	
 </mapper>

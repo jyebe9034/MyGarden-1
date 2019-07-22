@@ -67,15 +67,34 @@ for(var i=0; i<$('.calDay').length+13; i++){
 			$('input[name=key]').val($(this).text());
 			$('#mypageGardenChange').submit();
 		});
-		
+		$('.close').on('click', function(){
+			$('.orderList').slideUp();
+		});
 		$('.calDay').on('click', function(){
-// 			$.ajax({
-// 				url:"",
-// 				type:"post",
-// 				data:{key:$(this).attr('data-original-title')}
-// 			}).done(function(resp){
-				$('.orderList').slideDown();
-// 			});
+			$.ajax({
+				url:"/getOrderList",
+				type:"post",
+				data:{date:$(this).attr('data-original-title')+" 00:00:00.000000000"}
+			}).done(function(resp){
+				console.log(resp);
+// 				if(resp==1){
+// 					$('.orderList').slideDown();
+// 					$('#orderList').html(
+// 						'<c:forEach var="order" items="${orderList}">'
+// 					    + '<tr>'
+// 					    + '<th scope="row">1</th>'
+// 					    + '<td rowspan="2"><img src="${order.s_p_imagepath}" width="200" height="150"></td>'
+// 					    + '<td colspan="2" class="pt-4 text-left">dsffsdfs</td>'
+// 					    + '</tr>'
+// 					    + '<tr>'
+// 					    + '<th scope="row" style="border:none;"></th>'
+// 					    + '<td style="border:none;" class="text-left">Thornton</td>'
+// 					    + '<td style="border:none;">@fat</td>'
+// 					    + '</tr>'
+// 					    + '</c:forEach>'		
+// 					);
+// 				}
+			});
 		});
 	});
 </script>
@@ -155,25 +174,30 @@ for(var i=0; i<$('.calDay').length+13; i++){
 						</div>	
 					</div>
 				</div>	
-				<div class="row my">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 bg-primary orderList my">
-						<button type="button" class="close" aria-label="Close">
-						  <span aria-hidden="true">&times;</span>
-						</button>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
-						dddddd<br>
+				<div class="row pt-2 pr-5 pl-5 orderList my">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pr-5 pl-5 my">
+					<button type="button" class="close m-4" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
 					</div>
+					<table class="table" style="border-bottom:1px solid #dee2e6;">
+					  <thead>
+					    <tr>
+					      <th scope="col"></th>
+					      <th scope="col">상품명</th>
+					      <th scope="col">주문금액</th>
+					      <th scope="col">주문일</th>
+					    </tr>
+					  </thead>
+					  <tbody id="orderList">
+					  	
+					  </tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
+</div>	
 	
 <!-- 	footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
