@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 @Component
 public class ShoppingDAO {
@@ -65,8 +66,33 @@ public class ShoppingDAO {
 	public int updateCart(CartDTO dto) throws Exception{
 		return sst.update("ShoppingDAO.updateCart", dto);
 	}
+		
+	public List<Long> searchOrderNo(String id, String orderStatus) throws Exception{
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("orderStatus", orderStatus);
+		return sst.selectList("ShoppingDAO.searchOrderNo", map);
+	}
+	
+	public List<Long> searchOrderNoAll(ShopListDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.searchOrderNoAll", dto);
+	}
+	
+	public List<Long> searchOrderNoDuration(ShopListDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.searchOrderNoDuration", dto);
+	}
+	
+	public int insertSubscribe(SubscribeDTO dto) throws Exception{
+		return sst.insert("ShoppingDAO.insertSubscribe", dto);
+	}
+	
+	public int updateShoplist() throws Exception{
+		return sst.update("ShoppingDAO.updateShoplist");
+	}
 	
 	
-	
+	public List<SubscribeDTO> selectSubsList(String id) throws Exception{
+		return sst.selectList("ShoppingDAO.selectSubsList", id);
+	}
 	
 }

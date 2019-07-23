@@ -29,7 +29,7 @@
 </select>
 
 <select id="selectOrderNo" resultType="java.lang.Long">
-		select distinct s_orderno from shoplist where s_email = #{id}
+		select distinct s_orderno from shoplist where s_email = #{id} order by s_orderno desc
 </select>
 
 <insert id="insertIntoCart">
@@ -44,5 +44,34 @@
 <update id="updateCart">
 		update cart set c_count = #{c_count} where c_p_no = #{c_p_no}
 </update>
+
+<select id="searchOrderNo" resultType="java.lang.Long" parameterType="map">
+		select distinct s_orderno from shoplist where s_email = #{id} and s_statement = #{orderStatus} order by s_orderno desc
+</select>
+
+<select id="searchOrderNoAll" resultType="java.lang.Long">
+		select distinct s_orderno from shoplist where s_orderdate between sysdate-#{s_orderno_seq} and sysdate and s_email = #{s_email} order by s_orderno desc
+</select>
+
+<select id="searchOrderNoDuration" resultType="java.lang.Long">
+		select distinct s_orderno from shoplist 
+		where s_orderdate between sysdate-#{s_orderno_seq} and sysdate 
+		and s_email = #{s_email} and s_statement = #{s_statement}
+</select>
+
+<insert id="insertSubscribe">
+		insert into subscribe values(sb_orderno_seq.nextval, #{sb_email},#{sb_period},
+#{sb_category}, #{sb_component1}, #{sb_component2}, #{sb_component3}, #{sb_paymethod}, 
+#{sb_startday}, sysdate, #{sb_statement}, #{sb_price})
+</insert>
+
+<update id="updateShoplist">
+	update shoplist set s_statement = '주문 만료' where (extract(day from sysdate-s_orderdate)*24
+     + EXTRACT(HOUR FROM sysdate-s_orderdate))>20 and s_statement = '입금 대기'
+</update>
+
+<select id="selectSubsList" resultType="my.garden.dto.SubscribeDTO">
+		select * from subscribe where sb_email = #{id}
+</select>
 
 </mapper>

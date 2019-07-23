@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -375,7 +376,7 @@ input[type=email]{
            		}
            	});
        		$('#joinSubmit').on('click', function(){
-       			if($('.inputStuff').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
+       			if($('.inputStuff').val()!="" && $('input[name=m_email]').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
            			var con = confirm('이대로 제출하시겠습니까?');
     				if(con){
                 		$('.formSubmit').submit();	
@@ -424,8 +425,18 @@ input[type=email]{
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        	<span class="onblur" id="userName"></span>
+					<!-------------	 JSTL -->
+					         <c:choose>
+					             <c:when test="${loginId!=null}"> 	
 			                        <input type="email" value="${loginId }" class="fadeIn inputStuff" name="m_email" readonly>
 			                        	<div class="onblur" id="eamilName"></div>
+					          </c:when>
+					          <c:otherwise>
+			                        <input type="email" placeholder="사용할 메일주소를 입력하세요" class="fadeIn inputStuff" name="m_email">
+			                        	<div class="onblur" id="eamilName"></div>
+					          </c:otherwise>
+					       </c:choose>
+					<!-------------	 JSTL -->
 			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
 			                      <div id="verifingCode">  	
 			                        <input type="password" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	

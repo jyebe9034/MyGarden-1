@@ -44,6 +44,9 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 		
 	}
 	
+	public List<BoardFreeDTO> serviceSearchList(int start, int end, String searchVal) throws Exception{
+		return dao.searchList(start, end, searchVal);
+	}
 
 	public BoardFreeDTO serviceRead(int bf_no) throws Exception{
 		return dao.read(bf_no);
@@ -54,9 +57,12 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 		return dao.boardCountAll();
 	}
 	
+	public int serviceSearchCountAll(String searchVal) throws Exception{
+		return dao.searchCountAll(searchVal);
+	}
 	
-	public List<String> serviceGetBoardNavi(int currentPage) throws Exception{
-		return dao.getBoardNavi(currentPage);
+	public List<String> serviceGetBoardNavi(int currentPage, int recordTotalCount) throws Exception{
+		return dao.getBoardNavi(currentPage, recordTotalCount);
 	}
 	
 	//댓글

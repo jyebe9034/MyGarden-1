@@ -25,11 +25,6 @@ public class HomeController {
 		return "products/productsAdd";
 	}
 
-	@RequestMapping("subscription")
-	public String toSubscribe() {
-		return "subscription/subscription";
-	}
-
 	@RequestMapping("chat")
 	public String toChat() {
 		return "chat/chat";

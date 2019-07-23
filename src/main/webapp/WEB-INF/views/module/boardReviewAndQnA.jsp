@@ -10,9 +10,16 @@
 		
 	}
 	
+	.lines{
+		width : 100%;
+	}
+	.innerLines{
+		width: 102%;
+	}
+	
 	#revAndQnAWrapper {
-	margin: 50px auto;
-      width: 100%;
+		margin: 50px auto;
+        width: 100%;
 /* 		margin: 500px auto; */
 /* 		width: 800px; */
 		height: 2000px;
@@ -27,7 +34,7 @@
 		text-align: center;
 	}
 	
-	#revAndQnAWrapper .aa {
+	#revAndQnAWrapper .tabsUnderlines {
 		margin-top: -17px;
 	}
 	
@@ -57,14 +64,24 @@
 		margin-left: -27px;
 	}
 	
+	p{
+		color: #456152;
+		margin-left : 20px;
+	}
 	
 	.aListBox{
 		border-bottom: 1px solid lightgrey;
 	}
 	
+	.reviewImage{
+		width:100%;
+		height:150px;
+		text-align:center; 
+	}
 	.reviewImage img{
-		height:200px;
-		width:180px;
+ 		max-width:100%; 
+		height:150px;
+		border-radius: 5px;
 	}
 	.reviewRightTop{
 		height:60%;
@@ -74,25 +91,41 @@
 	}
 	
 	.reviewTitle{
+		margin-left: 10px;
+		color: #5b6660;
 		cursor: pointer;
 	}
 	.reviewTitle:hover{
 		font-weight: bold;
 	}
 	
+	.reviewContent{
+		color: #5b6660;
+		height: 80%;
+		width: 100%;
+		border-radius: 10px;
+		padding: 10px;
+	}
+	
 	.reviewWriter {
+		color:#6c736f;
 		float: left;
 	}
 	
 	.reviewWriteDate {
+		color:#6c736f;
 		float: left;
 		margin: 0px 20px;
 	}
 	
 	.reviewRecommend {
+		color:#6c736f;
 		float: left;
 	}
-	.recommendBtn{
+/* 	.recommendBtn{ */
+/* 		color: #44b27d; */
+/* 	} */
+	.recommendBtn:hover{
 		cursor: pointer;
 	}
 	
@@ -121,8 +154,18 @@
 		margin : 0 2px;
 	}
 	
-	#writeReviewBtn, .reviewUpdateBtn button {
+	.writeReviewBtnWrapper{
+		width: 99%;
+	}
+	#writeReviewBtn{
 		background-color: #44b27d;
+		color: white;
+		font-weight: bold;
+		border: 0px;
+	} 
+	
+	.reviewUpdateBtn button {
+		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
 		border: 0px;
@@ -142,17 +185,62 @@
 	
 	/*Q & A*/
 	.qnaTitleRow{
-	 text-align : center;
+/*  	 text-align : center;  */
+	color:#6c736f;
 	}
+	
 	.qnaTitle:hover{
 		cursor: pointer;
 		font-weight: bolder;
 	}
+	.qnaBtnBox{
+		width:95%;
+	}
+	
+	#qBtn{
+		background-color: #44b27d;
+		color: white;
+		font-weight: bold;
+		border: 0px;
+		border-radius: 5px;
+	} 
+	
+	#qBtn:hover{
+		background-color: #b4d9b5;
+		color: #44b27d;
+		font-weight: bold;
+		border: 0px;
+		cursor: pointer;
+	}
+	
+	.completedBtnBox{
+		height: 100%;
+	}
+	.completedBtn{
+/* 		border-radius: 5px; */
+		height: 90% !important;
+		width: 60px !important;
+		border: none;
+		border-radius: 2px;
+		background-color : #bf9fd6;
+		color: white;
+	}
+	
+/* 		color: #456152; */
 </style>
 
 <script>
-<!--임시 버튼 나중에 마이페이지로 옮기기-->
+
 	$(function(){
+		
+		$("span[class='checkRecmd']").each(function(i,item){
+			console.log("bb");
+			if($(this).attr("flag")=='t'){
+				console.log("cc");
+				$(this).parent(".recommendBtn").html("<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'>");
+			}	
+		})
+			
 		
 			$("#writeReviewBtn").on("click",function(){
 				$(location).attr("href","reviewWriteForm");
@@ -164,14 +252,24 @@
 				var reviewTitle = $(item).prev();
 				$(reviewTitle).on("click",function(){
 					if($(item).attr("display")=="none"){
+						$(this).css("font-weight","bold");
+// 						$(this).css("font-size","17px");
 						$(item).show();
 						$(item).attr("display", "block");
+						$(item).css("background-color","#f3fff0");  
 					}else{
+						$(this).css("font-weight","400");
+// 						$(this).css("font-size","16px");
 						$(item).hide();
 						$(item).attr("display", "none");   
 					}
 				})
 			})
+			
+// 			$(".reviewImage").on("click",function(){
+// 			  var reviewImgSrc = $(this).next().val();
+// 			      $(this).html("<img src='"+reviewImgSrc+"'>");
+// 			})
 			
 			/*추천 수(도움돼요)증가*/
 			$(document).on("click",".recommendBtn",function(){
@@ -199,11 +297,10 @@
  					var recommendCount = result.recommendCount;
 					console.log("도움돼요 수 : " + result.recommendCount);
 				
-					if(recommend=1){ //추천
-						$("."+br_no+"").prev().html("<img src='/resources/img/reviewLike.png' width='25px' class='recommendImage'>");
-					}else if(cancelRecommend=0){ //추천 취소(사진왜 안바뀌냐고ㅡㅡ)
-						alert("일로오냐고ㅡㅡ"); //못옴 ㅠ
-						$("."+br_no+"").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
+					if(recommend==1){ //추천
+						$("input[class="+br_no+"]").prev().html("<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'>");
+					}else if(cancelRecommend==0){ //취소
+						$("input[class="+br_no+"]").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
 					}
 					//location.reload(true); //자동새로고침
 				
@@ -271,22 +368,23 @@
 			
 			$(".qnaTitle").on("click",function(){
 				var checkedSecret = $(this).prev().val();
-				alert("check: " + checkedSecret);
+// 				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
 				var writer = $(this).prev().prev().val();
-				alert("writer : " + writer);
-				alert("admin : " + "${checkAdmin}");
-				
-				if("${checkAdmin}"=="admin"){
-					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no);	
+ 				alert("writer : " + writer);
+// 				alert("admin : " + "${grade}");
+				var bq_checkedAns = $(this).next().next().val();
+				alert("bq_checkedAns : "+bq_checkedAns);
+				if("${grade}"=="admin"){
+					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
 					alert("비밀글은 작성자만 볼 수 있습니다.");
 				}else{
 // 					alert("bq_no : " + bq_no);
 					if(writer=="${loginId}"){ //내 글을 클릭했을 때
-						$(location).attr("href","readQnA?mine=y&bq_no="+bq_no);		
+						$(location).attr("href","readQnA?mine=y&bq_no="+bq_no+"&checkA="+bq_checkedAns);		
 					}else{
-						$(location).attr("href","readQnA?mine=n&bq_no="+bq_no);	
+						$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 					}
 					
 				}
@@ -310,26 +408,27 @@
 				<a class="nav-link revAndQnATabs" id="goQnaTab"
 				href="#pills-qna">상품문의</a></li>
 		</ul>
-		<hr class="aa">
+		<hr class="tabsUnderlines">
 <!--================================================================-->
 		<div class="tab-content" id="pills-tabContent">
 
 			<div class="tab-pane fade show active" id="pills-home"
 				role="tabpanel" aria-labelledby="pills-home-tab">
 				<p>
-					Product Review<br> <small class="test">상품의 후기를 올리는
+					<b>Product Review</b><br> <small class="test">상품의 후기를 올리는
 						곳입니다.</small>
 				</p>
-				<hr>
+				<hr class="lines">
 				
 				<div class="container reviewBox">
 					<div class="row">
 
 						<c:forEach var="reviewList" items="${reviewList }">
-							<div class="col-4 reviewImage">
+							<div class="col-3 reviewImage">
 								<img src="${reviewList.br_imagepath }">
 							</div>
-							<div class="col-8">
+							<input type="hidden" value="${reviewList.br_imagepath }">
+							<div class="col-9">
 								<div class="reviewRightTop">
 									<div class="reviewTitle">${reviewList.br_title }</div>
 									<div class="reviewContent" display="none">
@@ -337,7 +436,7 @@
 								</div>
 
 								<div class="reviewRightBottom">
-									<hr>
+									<hr class="innerLines">
 									<div class="reviewWriter">
 										<img src="/resources/img/boardFreeWriter.png" width="20px">
 										${reviewList.br_name }
@@ -347,15 +446,36 @@
 										<fmt:formatDate pattern="yyyy-MM-dd"
 											value="${reviewList.br_writedate }" />
 									</div>
+									
+									
+									
+									
 									<div class="reviewRecommend" value="${reviewList.br_recommend}">
 										<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>
 										<span class="mb-1 recommendBtn"> 
-										<img src="/resources/img/reviewHate.png" width="25px"
-											class="recommendImage">
-										</span> <input type="hidden" class="${reviewList.br_no}"
+				
+											<c:forEach var="myRecommendNo" items="${myRecommendNo }">
+												<c:choose>
+													<c:when test="${myRecommendNo eq reviewList.br_no }">
+														<span class="checkRecmd" flag="t"></span>
+<!-- 														<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'> -->
+													</c:when>
+													<c:otherwise>
+														<span class="checkRecmd" flag="f"></span>
+<!-- 														<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage"> -->
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+													<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">											
+										</span> 
+										<input type="hidden" class="${reviewList.br_no}"
 											value="${reviewList.br_no}"> 도움돼요 <span
 											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
 									</div>
+									
+									
+									
+									
 									<c:choose>
 										<c:when test="${loginId eq reviewList.br_email}">
 											<div class="reviewUpdateBtn d-flex justify-content-end">
@@ -368,7 +488,7 @@
 								</div>
 
 							</div>
-							<hr width="770px">
+							<hr class="lines">
 						</c:forEach>
 					</div>
 				</div>
@@ -401,16 +521,16 @@
 				data-toggle="pill" href="#pills-qna" role="tab"
 				aria-controls="pills-profile" aria-selected="false">상품문의</a></li>
 		</ul>
-		<hr class="aa">
+		<hr class="tabsUnderlines">
 	<!--==========================================================-->
 		<div class="tab-content" id="pills-tabContent">
 
 			<div class="tab-pane show fade active" id="pills-qna" role="tabpanel"
 				aria-labelledby="pills-qna-tab">
 				<p>
-					Q & A<br> <small class="test">문의하는곳임당ㅋ</small>
+					<b>Product Q&A</b><br> <small class="test">상품에 대한 문의를 남기는 공간입니다.</small>
 				</p>
-				<hr>
+				<hr class="lines">
 				<div class="container qnaContainer">
 					<div class="row qnaTitleRow">
 						<div class="col-2">글번호</div>
@@ -418,22 +538,26 @@
 						<div class="col-2">작성자</div>
 						<div class="col-2">작성일</div>
 					</div>
+				<hr width=100% class="mr-0 ml-0">
 					<div class="row qnaRow">
 						<c:forEach var="qnaList" items="${qnaList }">
 							<div class="col-1">${qnaList.bq_no }</div>
-							<div class="col-2 checkedAnsBtn">
+							<div class="col-1 checkedAnsBtn">
 								<c:choose>
 									<c:when test="${qnaList.bq_checkedAns eq 'y'}">
-										<button class="btns" disabled="disabled">답변완료</button>
+										<div class="completedBtnBox">
+											<button class="btns completedBtn" disabled="disabled">답변완료</button>
+										</div>
 									</c:when>
 								</c:choose>
 									<input type="hidden" class="checkedAns" value="${qnaList.bq_checkedAns }">
 							</div>
-							<div class="col-5">
+							<div class="col-6">
 								<input type="hidden" class="hidQnAWriter" value="${qnaList.bq_email}">
 								<input type="hidden" class="hidCheckedSecret" value="${qnaList.bq_checkedSecret }">
 								<span class="qnaTitle">${qnaList.bq_title }</span>
 								<input type="hidden" value="${qnaList.bq_no }">
+								<input type="hidden" value="${qnaList.bq_checkedAns }">
 								<c:choose>
 									<c:when test="${qnaList.bq_checkedSecret eq 'y'}">
 										<img src="/resources/img/boardQnALock.JPG" width="15px">
@@ -447,7 +571,12 @@
 
 						</c:forEach>
 					</div>
-					<!--pagination/  -->
+					
+					
+
+				</div>
+				<hr class="lines">
+				<!--pagination/  -->
 					<div class="pageNaviBox">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination qnaPagenation">${getNaviForQnA }
@@ -455,8 +584,8 @@
 						</nav>
 					</div>
 					<!--/pagination  -->
+				<div class="row qnaBtnBox d-flex justify-content-end">
 					<button id="qBtn">문의하기</button>
-
 				</div>
 			</div>
 		</div>

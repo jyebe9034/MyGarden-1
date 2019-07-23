@@ -9,6 +9,10 @@
 		select * from (select row_number() over(order by bf_no desc) as rown, BOARD_FREE.* from BOARD_FREE) where rown between #{start} and #{end}
 	</select>
 	
+	<select id="searchList" resultType="my.garden.dto.BoardFreeDTO" parameterType="hashmap">
+	select * from (select row_number() over(order by bf_no desc) as rown, BOARD_FREE.* from BOARD_FREE where bf_title like #{searchVal} or bf_content like #{searchVal}) where rown between #{start} and #{end}
+	</select>
+	
 	<select id="read" resultType="my.garden.dto.BoardFreeDTO">
 		select * from board_free where bf_no = #{bf_no}
 	</select>
@@ -37,6 +41,10 @@
 		select count(*) from board_free
 	</select>
 	
+	<select id="searchCountAll" resultType="Integer">
+		select count(*) from board_free where bf_title like #{searchVal} or bf_content like #{searchVal}
+	</select>
+	
 	<select id="cmtCountAll" resultType="Integer">
 		select count(*) from comment_free where cf_bf_no = #{cf_bf_no}
 	</select>
@@ -48,4 +56,6 @@
 	<delete id="cmtDelete">
 		delete from comment_free where ${column}=${value}
 	</delete>
+	
+	
 </mapper>

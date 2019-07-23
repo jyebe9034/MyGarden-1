@@ -155,7 +155,10 @@ public class LoginService {
         String profile = null;
         String socialEmail = null;
 
-        // �������� īī������ �������� Get properties
+
+
+        // 유저정보 카카오에서 가져오기 Get properties
+
         JsonNode properties = userInfo.path("properties");
         JsonNode kakao_account = userInfo.path("kakao_account");
  
@@ -171,6 +174,10 @@ public class LoginService {
         map.put("socialEmail", socialEmail);
         map.put("profile", profile);
         return map;
+	}
+	
+	public String getGrade(String id){
+		return logDao.getGrade(id);
 	}
 	
 }

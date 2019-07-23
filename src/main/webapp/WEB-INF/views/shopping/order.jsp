@@ -97,42 +97,43 @@ table.list_table_style td.cell {
 </style>
 
 <script>
-   $(function() {
-      var orderer = $("#order_user_name").val();
-      var phone = "${loginDTO.m_phone}".split("-");
-      $("#phone1").val(phone[0]);
-      $("#phone2").val(phone[1]);
-      $("#phone3").val(phone[2]);
 
-      $("#copy_order_info").on("change", function() {
-         if ($(this).prop("checked")) {
-            $("#recipient_user_name").val(orderer);
-            $("#recvPhone1").val(phone[0]);
-            $("#recvPhone2").val(phone[1]);
-            $("#recvPhone3").val(phone[2]);
-         } else {
-            $("#recipient_user_name").val("");
-            $("#recvPhone1").val("");
-            $("#recvPhone2").val("");
-            $("#recvPhone3").val("");
-         }
+	$(function() {
+		var orderer = $("#order_user_name").val();
+		var phone = "${loginDTO.m_phone}".split("-");
+		$("#phone1").val(phone[0]);
+		$("#phone2").val(phone[1]);
+		$("#phone3").val(phone[2]);
 
-      })
-      
-      $("#newAddr").on("click",function(){
-         $("#zipcode").val("");
-         $("#address1").val("");
-         $("#address2").val("");
-      })
-      
-      $("#memAddr").on("click",function(){
-         $("#zipcode").val("${loginDTO.m_zipcode}");
-         $("#address1").val("${loginDTO.m_address1}");
-         $("#address2").val("${loginDTO.m_address2}");
-         console.log("${loginDTO.m_address2}");
-      })
+		$("#copy_order_info").on("change", function() {
+			if ($(this).prop("checked")) {
+				$("#recipient_user_name").val(orderer);
+				$("#recvPhone1").val(phone[0]);
+				$("#recvPhone2").val(phone[1]);
+				$("#recvPhone3").val(phone[2]);
+			} else {
+				$("#recipient_user_name").val("");
+				$("#recvPhone1").val("");
+				$("#recvPhone2").val("");
+				$("#recvPhone3").val("");
+			}
 
-   });
+		})
+		
+		$("#newAddr").on("click",function(){
+			$("#zipcode").val("");
+			$("#address1").val("");
+			$("#address2").val("");
+		})
+		
+		$("#memAddr").on("click",function(){
+			$("#zipcode").val("${loginDTO.m_zipcode}");
+			$("#address1").val("${loginDTO.m_address1}");
+			$("#address2").val("${loginDTO.m_address2}");
+			console.log("${loginDTO.m_address2}");
+		})
+
+	});
 </script>
 
 </head>
@@ -250,7 +251,8 @@ table.list_table_style td.cell {
 											<tr>
 												<td>총 상품금액</td>
 												<td align="right" class="fx12"><span id="total_price">
-												<fmt:formatNumber value="${count }" type="number" /></span> 원</td>
+														<fmt:formatNumber value="${count }" type="number" />
+												</span> 원</td>
 											</tr>
 											<tr>
 												<td height="8"></td>
@@ -590,6 +592,10 @@ table.list_table_style td.cell {
 
 				<script>
 		$("#pay").on("click", function(){
+		if(${loginId==null}){
+			alert("로그인이 필요한 메뉴입니다.")
+			$(location).attr("href","/login");
+		}else{
 		if($("#order_user_name").val()!="" && $("#order_email").val()!="" && $("#phone1").val()!="" && $("#phone2").val()!="" && $("#phone3").val()!="" && $("#zipcode").val()!="" && $("#address1").val()!="" && $("#address2").val()!="" && $("#recipient_user_name").val()!="" && $("#recvPhone1").val()!="" && $("#recvPhone2").val()!="" && $("#recvPhone3").val()!=""){
     	  if($("#cardPay").prop("checked")){
     	  
@@ -599,7 +605,7 @@ table.list_table_style td.cell {
             pg : 'inicis', // version 1.1.0부터 지원.
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : "${loginDTO.m_name}", //결제창에서 보여질 이름 //// 후원명 불러오기
+            name : "상품 결제", //결제창에서 보여질 이름 //// 후원명 불러오기
             amount : ${count}, // 입력받은 금액
             buyer_email : "${loginDTO.m_email}",
             buyer_name : "${loginDTO.m_name}",
@@ -656,41 +662,41 @@ table.list_table_style td.cell {
                alert('결제에 실패하였습니다.');
             }
          });
-         
-         }else{
-            alert("무통장 입금으로 결제를 진행합니다.");
-            var jArray = new Array();
-               //JsonArray를 위한 배열생성
 
-               $('.eachOrder').each(
-                     function() {
-                        var jobj = new Object();
-                        //JsonObject를 위한 객체생성
-                        jobj.s_email = "${loginId}";
-                        jobj.s_phone = $("#recvPhone1").val()+"-"+$("#recvPhone2").val()+"-"+$("#recvPhone3").val();
-                        jobj.s_p_no = $(this).find("input:nth-child(1)").val();
-                        jobj.s_p_imagepath = $(this).find("input:nth-child(2)").val();
-                        jobj.s_p_title = $(this).find("input:nth-child(3)").val();
-                        jobj.s_p_count = $(this).find("input:nth-child(4)").val();
-                        jobj.s_p_price = $(this).find("input:nth-child(5)").val();
-                        jobj.s_m_recipient = $("#recipient_user_name").val();
-                        jobj.s_m_memo = $("#shipMemo").html();
-                        jobj.s_m_paymethod = "무통장 입금";
-                        jobj.s_m_zipcode = $("#zipcode").val();
-                        jobj.s_m_address1 = $("#address1").val();
-                        jobj.s_m_address2 = $("#address2").val();
-                        jobj.s_statement = "입금 대기";                  
-                        jArray.push(jobj);
-                     });
-               var stringJson = JSON.stringify(jArray);
-               $("#orderList").val(stringJson);            
-               $("#payForm").submit();
+    	  }else{
+    		  alert("무통장 입금으로 결제를 진행합니다.");
+    		  var jArray = new Array();
+					//JsonArray를 위한 배열생성
 
-         } 
-      }else{
-         alert("필수 항목을 모두 입력해주세요.");
-      }
-         
+					$('.eachOrder').each(
+							function() {
+								var jobj = new Object();
+								//JsonObject를 위한 객체생성
+								jobj.s_email = "${loginId}";
+								jobj.s_phone = $("#recvPhone1").val()+"-"+$("#recvPhone2").val()+"-"+$("#recvPhone3").val();
+								jobj.s_p_no = $(this).find("input:nth-child(1)").val();
+								jobj.s_p_imagepath = $(this).find("input:nth-child(2)").val();
+								jobj.s_p_title = $(this).find("input:nth-child(3)").val();
+								jobj.s_p_count = $(this).find("input:nth-child(4)").val();
+								jobj.s_p_price = $(this).find("input:nth-child(5)").val();
+								jobj.s_m_recipient = $("#recipient_user_name").val();
+								jobj.s_m_memo = $("#shipMemo").html();
+								jobj.s_m_paymethod = "무통장 입금";
+								jobj.s_m_zipcode = $("#zipcode").val();
+								jobj.s_m_address1 = $("#address1").val();
+								jobj.s_m_address2 = $("#address2").val();
+								jobj.s_statement = "입금 대기";						
+								jArray.push(jobj);
+							});
+					var stringJson = JSON.stringify(jArray);
+					$("#orderList").val(stringJson);            
+					$("#payForm").submit();
+
+    	  } 
+		}else{
+			alert("필수 항목을 모두 입력해주세요.");
+		}
+		}
       })
       
       

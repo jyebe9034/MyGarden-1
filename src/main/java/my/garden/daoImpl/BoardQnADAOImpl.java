@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import my.garden.dao.BoardQnADAO;
 import my.garden.dto.BoardQnADTO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.CommentFreeDTO;
+import my.garden.dto.CommentQnADTO;
 
 
 @Repository
@@ -24,12 +26,11 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	public int writeQnA(BoardQnADTO dto) {	//글작성	
+	public int writeQnA(BoardQnADTO dto) {	//글작성			
 		return sst.insert("boardQnAMB.writeQnA",dto);
 	}
 	
 	public List<BoardQnADTO> qnaList(int bq_p_no, int startNum2, int endNum2){ //상세페이지에서 Q&A 목록
-		System.out.println("dao왔음");
 		Map<String,Integer> map = new HashMap<>();
 		map.put("bq_p_no", bq_p_no);
 		map.put("startNum2",startNum2);
@@ -68,9 +69,9 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 			endNavi2 = pageTotalCount;
 		}
 
-		System.out.println("현재 위치 : " + qnaPage);
-		System.out.println("네비 시작 : " + startNavi2);
-		System.out.println("네비 끝 : " + endNavi2);
+//		System.out.println("현재 위치 : " + qnaPage);
+//		System.out.println("네비 시작 : " + startNavi2);
+//		System.out.println("네비 끝 : " + endNavi2);
 
 		boolean needPrev = true;
 		boolean needNext = true;
@@ -118,15 +119,52 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sst.update("boardQnAMB.updateQnA", dto);
 	}
 	
-	/*관리자확인*/
-	public String checkAdmin(String m_email) {
-		return sst.selectOne("boardQnAMB.checkAdmin", m_email);
+	public int updateQnAImg1(int bq_no, String bq_imagepath) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("bq_no", bq_no);
+		map.put("bq_imagepath", bq_imagepath);
+		return sst.update("boardQnAMB.updateQnAImg1", map);
+	}
+	public int updateQnAImg2(int bq_no, String bq_imagepath) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("bq_no", bq_no);
+		map.put("bq_imagepath", bq_imagepath);
+		return sst.update("boardQnAMB.changeImg2", map);
+	}
+	public int updateQnAImg3(int bq_no, String bq_imagepath) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("bq_no", bq_no);
+		map.put("bq_imagepath", bq_imagepath);
+		
+		return sst.update("boardQnAMB.changeImg3", bq_no);
 	}
 	
-	public int writeComment() {
-		return sst.insert("boardQnAMB.writeComment");
-	}
-	public int setAnsY(int cq_no) {
-		return sst.update("boardQnAMB.setAnsY");	}
 	
+	/*관리자 답변 기능*/
+
+	public int writeComment(CommentQnADTO dto) { //답변작성
+		return sst.insert("boardQnAMB.writeComment",dto);
+	}
+	public int setAnsY(int cq_no) { //답변작성
+		return sst.update("boardQnAMB.setAnsY",cq_no);	
+	}
+	
+	public CommentQnADTO commentList(int cq_no) { //답변 목록
+		return sst.selectOne("boardQnAMB.commentList", cq_no);
+	}
+	
+	public int updateComment(int cq_no, String cq_comment) { //답변 수정
+		Map<String,Object> map = new HashMap<>();
+		map.put("cq_no", cq_no);
+		map.put("cq_comment", cq_comment);
+		return sst.update("boardQnAMB.updateComment", map);
+	}
+	
+	public int deleteComment(int cq_no) { //답변 삭제
+		return sst.delete("boardQnAMB.deleteComment", cq_no);
+	}
+	public int setAnsN(int cq_no) { //답변 삭제
+		return sst.update("boardQnAMB.setAnsN",cq_no);	
+	}
+
 }
