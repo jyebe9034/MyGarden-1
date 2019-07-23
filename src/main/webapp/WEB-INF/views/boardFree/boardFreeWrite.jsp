@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css"
 	rel="stylesheet">
@@ -89,8 +90,8 @@
 						id=green>회원님의 소중한 개인정보를 포함하지 않도록</span> 주의 부탁드립니다.
 				</p>
 				<div class="col-12 footBtn">
-					<button type="button" class="btn" id="submitBtn">등록하기</button>
 					<button type="button" class="btn" id=back>뒤로가기</button>
+					<button type="button" class="btn" id="submitBtn">등록하기</button>
 				</div>
 			</div>
 		</form>
@@ -137,8 +138,9 @@
 			$("#sendContent").val($(".note-editable").html());
 			if ($("#sendTitle").val() == "" || $("#sendContent").val() == "") {
 				alert("제목 또는 내용을 입력해주세요.");
-			}
+			}else{
 			$("#freeForm").submit();
+			}
 		})
 	</script>
 </html>

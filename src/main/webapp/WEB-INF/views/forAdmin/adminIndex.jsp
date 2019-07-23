@@ -8,6 +8,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <title>관리자 페이지 - 메인</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
