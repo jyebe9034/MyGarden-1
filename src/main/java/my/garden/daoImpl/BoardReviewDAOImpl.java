@@ -137,7 +137,6 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 		return sst.selectOne("boardReviewMB.recommendCount", br_no);
 	}
 	
-	
 	/*후기 수정 전 정보*/
 	public BoardReviewDTO oneReview(int br_no) {
 		return sst.selectOne("boardReviewMB.oneReview", br_no);
