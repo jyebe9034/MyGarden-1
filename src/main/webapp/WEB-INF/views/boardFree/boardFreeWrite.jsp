@@ -74,7 +74,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/img/boardFree.png">
+		<img src="resources/free/boardFree.png">
 	</div>
 	<div class=container>
 		<form action="boardFreeWriteProc" method="post" id="freeForm">

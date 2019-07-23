@@ -103,9 +103,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 	}
 		
 	//게시판 네비
-	public List<String> getBoardNavi(int currentPage) throws Exception {
-		int recordTotalCount = this.boardCountAll();
-		//System.out.println("게시판 레코드토탈카운트:"+recordTotalCount);
+	public List<String> getBoardNavi(int currentPage, int recordTotalCount) throws Exception {
 		
 		int recordCountPerPage = 4; 
 		int naviCountPerPage = 3;	
@@ -162,7 +160,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		for(int i = startNavi ; i <= endNavi ; i++) {
 			//sb.append("<a href='list.board?currentPage="+i+"'>"+i + "</a>");
 			//sb.append(i+"");
-			list.add(i+" ");
+			list.add(i+"");
 		}
 		if(needNext) {
 			//sb.append("다음>");
@@ -231,7 +229,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		for(int i = startNavi ; i <= endNavi ; i++) {
 			//sb.append("<a href='list.board?currentPage="+i+"'>"+i + "</a>");
 			//sb.append(i+"");
-			list.add(i+" ");
+			list.add(i+"");
 		}
 		if(needNext) {
 			//sb.append("다음>");

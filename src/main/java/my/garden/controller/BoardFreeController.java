@@ -47,14 +47,15 @@ public class BoardFreeController {
 		List<BoardFreeDTO> list;
 		try {
 			list = dao.serviceList(start, end);
-
-			List<String> navi = dao.serviceGetBoardNavi(nowPage);
-			request.setAttribute("navi", navi);
-			//댓글 갯수 관련
 			int count = dao.serviceBoardCountAll();
-			if(count==0 || count<4) {
+			List<String> navi = dao.serviceGetBoardNavi(nowPage,count);
+			request.setAttribute("navi", navi);
+			
+			//댓글 갯수 관련
+			int size=list.size();
+			if(size==0 || size<4) {
 				for(int i = start; i <= end; i++) {	
-					for(int j=0; j<count; j++) {
+					for(int j=0; j<size; j++) {
 						int bf_no=list.get(j).getBf_no();
 						int tmp = dao.serviceCmtCountAll(bf_no);
 						list.get(j).setBf_cmtcount(tmp);
@@ -79,8 +80,12 @@ public class BoardFreeController {
 	@ResponseBody
 	@RequestMapping("searchForFree")
 	public Map<String, Object> searchForFree(String value, String page){
-		System.out.println(value);
 		int nowPage=0;
+		if(value!=null) {
+			session.setAttribute("searchVal", value);
+		}
+		System.out.println(session.getAttribute("searchVal")+"현재페이지"+page);
+		String ssVal = (String)session.getAttribute("searchVal");
 		if(page==null) {
 			nowPage=1;
 		}else {
@@ -88,18 +93,18 @@ public class BoardFreeController {
 		}
 		Map<String, Object> map = new HashMap<>();	
 		map.put("searchPage", nowPage);
-		
+		map.put("searchVal", ssVal);
 		int start = (nowPage*4)-3;
 		int end = nowPage*4;
 		List<BoardFreeDTO> list;
 		try {
-			String searchVal = "%"+value+"%";
+			String searchVal = "%"+ssVal+"%";
 			list = dao.serviceSearchList(start, end, searchVal);
-			System.out.println("검색결과수:"+list.size());
-			List<String> navi = dao.serviceGetBoardNavi(nowPage);
+			System.out.println("검색결과수:"+list.size()+":"+dao.serviceSearchCountAll(searchVal));
+			List<String> navi = dao.serviceGetBoardNavi(nowPage, dao.serviceSearchCountAll(searchVal));
 			map.put("searchNavi", navi);
 			//댓글 갯수 관련
-			int count = dao.serviceSearchCountAll(searchVal);
+			int count = list.size();
 			if(count==0 || count<4) {
 				for(int i = start; i <= end; i++) {	
 					for(int j=0; j<count; j++) {
@@ -261,7 +266,7 @@ public class BoardFreeController {
 			}else {
 				now = (Integer)session.getAttribute("now");
 			}
-			//System.out.println("현재 댓글페이지:"+now);
+			System.out.println("현재 댓글페이지:"+now);
 
 			//3. 댓글리스트
 			int start = (now*10)-9;
