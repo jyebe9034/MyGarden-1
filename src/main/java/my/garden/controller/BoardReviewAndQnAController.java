@@ -27,7 +27,7 @@ import my.garden.dto.ProductsDTO;
 import my.garden.service.BoardQnAService;
 import my.garden.service.BoardReviewService;
 import my.garden.service.ProductsService;
-import my.garden.serviceImpl.LoginService;
+import my.garden.serviceImpl.LoginServiceImpl;
 
 
 
@@ -41,7 +41,7 @@ public class BoardReviewAndQnAController {
 	@Autowired
 	private BoardQnAService qnaService;
 	@Autowired
-	LoginService loginservice;
+	LoginServiceImpl loginservice;
 
 	@Autowired
 	private ProductsService pservice;

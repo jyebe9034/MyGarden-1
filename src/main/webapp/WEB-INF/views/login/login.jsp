@@ -410,7 +410,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		        				type:"post",
 		        				data:{email:$("#findPwMail").val(), pw:$('#findPw').val()}
 		        			}).done(function(resp){
-		        				$(location).attr('href', '/reLogin');
+		        				$(location).attr('href', '/findAccountAfterLogin');
 		        			});
 		        		}else{
 		        			$('#result').text("임시 비밀번호가 맞지 않습니다");
@@ -419,30 +419,20 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		        });
 		        //social login
 		        $('.bg-success').on('click', function(){
-		        	if(!$('.socialCheck').is(":checked")){
-		        		alert('개인정보 제공에 동의하세요');
-		        		return false;
-		        	}else{
-			        	$.ajax({
-			        		url:"/naverLogin",
-			        		type:"post"
-			        	}).done(function(resp){
-			        		$(location).attr('href', resp);
-			        	});	
-		        	}
+		        	$.ajax({
+		        		url:"/naverLogin",
+		        		type:"post"
+		        	}).done(function(resp){
+		        		$(location).attr('href', resp);
+		        	});	
 		        });
 		        $('.bg-warning').on('click', function(){
-		        	if(!$('.socialCheck').is(":checked")){
-		        		alert('개인정보 제공에 동의하세요');
-		        		return false;
-		        	}else{
-			        	$.ajax({
-			        		url:"/kakaoLogin",
-			        		type:"post"
-			        	}).done(function(resp){
-			        		$(location).attr('href', resp);
-			        	});	
-		        	}
+		        	$.ajax({
+		        		url:"/kakaoLogin",
+		        		type:"post"
+		        	}).done(function(resp){
+		        		$(location).attr('href', resp);
+		        	});	
 		        });
 		});
 	</script>
@@ -531,6 +521,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 									      </div>
 									      <div class="modal-body">
 									          <div class="form-group">
+									          	<label for="findPwMail" class="col-form-label">*소셜로그인 사용자는 해당 서비스를 이용할 수 없습니다</label>
 									            <input type="email" class="form-control" placeholder="나의 정원에 가입한 메일주소를 입력하세요" id="findPwMail">
 									          </div>
 									          <div class="form-group">							            
@@ -554,7 +545,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        <input type="button" class="socialButton mb-3 bg-success" value="네이버">
 			                        <input type="button" class="socialButton mb-3 bg-warning" value="카카오">
 			                        <input type="button" class="socialButton mb-4 bg-primary" value="구글">
-								      <label><input type="checkbox" class="form-check-input text-muted socialCheck">개인정보 제공에 동의합니다</label>
 			                    </form>
 		                        <p id="formFooter">
 		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter3">소셜로그인 개인정보수집방침</a>

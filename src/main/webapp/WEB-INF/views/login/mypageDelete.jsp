@@ -286,15 +286,6 @@ input[type=email]{
 		      }
 		  });
 		//input form
-       	$("input[name=m_name]").on("blur", function(){
-       		var regexName=/^[가-힣A-z]{2,}$/;
-       		if(regexName.exec($("input[name=m_name]").val())){
-       			$("#userName").text("");
-       		}else{
-       			$("#userName").text("2단어 이상으로 이루어진 영어, 한글만 가능합니다");
-       			$("input[name=m_name]").val("${memDTO.m_name}");
-       		}
-       	});
        	$("#pastPw").on("blur", function(){
        		$.ajax({
        			url:"/pwCheck",
@@ -309,80 +300,12 @@ input[type=email]{
        			}
        		});
        	});
-       	$("input[name=m_pw]").on("blur", function(){
-       		var regexPw=/^(?=.*\d)(?=.*[a-z]).{8,15}$/;
-       		if($("#password").val()==""){
-           		if(regexPw.exec($("input[name=m_pw]").val())){
-           			$("#pwName").text("");
-           			$("#password").focus();
-           		}else{
-           			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
-           			$("input[name=m_pw]").val("");
-           		}
-       		}else{
-           		if(regexPw.exec($("input[name=m_pw]").val())){
-           			$("#pwName").text("");
-           			$("#password").focus();
-           			$("#password").blur();
-           		}else{
-           			$("#pwName").text("영문, 숫자  8자리 이상을 조합해 비밀번호를 입력하세요");
-           			$("input[name=m_pw]").val("");
-           		}
-       		}
-       	});
-       	$("#password").on("blur", function(){
-       		if($("input[name=m_pw]").val()==$("#password").val()){
-       			$("#pwCheck").text("");
-       		}else{
-       			$("#pwCheck").text("비밀번호 형식이 맞지 않거나 일치하지 않습니다");
-       			$("#password").val("");
-       		}
-       	});
-       	$("input[name=m_phone]").on("blur", function(){
-       		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
-       		if(regexPhone.exec($("input[name=m_phone]").val())){
-           		$.ajax({
-           			url:"/phoneCheck",
-           			type:"post",
-           			data : {key : $("input[name=m_phone]").val()}
-           		}).done(function(resp){
-           			if(resp==true){
-           				if($("input[name=m_phone]").val("${memDTO.m_phone}")){
-                   			$("#phoneName").text("");
-           				}else{
-                   			$("#phoneName").text("중복되는 번호입니다");
-                   			$("input[name=m_phone]").val("${memDTO.m_phone}");
-           				}
-           			}else{
-               			$("#phoneName").text("");
-           			}
-           		});
-       		}else{
-       			$("#phoneName").text("형식에 맞지 않는 번호입니다");
-       			$("input[name=m_phone]").val("${memDTO.m_phone}");
-       		}
-       	});
-       	$('#m_address1').on('focus', function(){
-       		$("#addrName").text("주소를 수정하려면 상단 버튼을 눌러 우편번호부터 찾으세요");
-       	});
-       	$('#m_address2').on('focus', function(){
-       		$("#addrName").text("주소를 수정하려면 상단 버튼을 눌러 우편번호부터 찾으세요");
-       	});
    		$('#reset').on('click', function(){
    			$(location).attr('href', '/mypageFirst');
    		});
-   		$('#updateInfo').on('click', function(){
-   			if($('input[name="m_name"]').val()!="" 
-   					&& $('input[name="m_email"]').val()!=""
-   					&& $('#pastPw').val()!=""
-   					&& $('input[name="m_pw"]').val()!=""
-   	   				&& $('#password').val()!=""
-   	    			&& $('input[name="m_phone"]').val()!=""
-   	    	   		&& $('input[name="m_zipcode"]').val()!=""
-   	    	    	&& $('input[name="m_address1"]').val()!=""
-   	    	   	    && $('input[name="m_address2"]').val()!=""
-   	    	    	&& $('#zonecode').val()!=""){
-       			var con = confirm('이대로 제출하시겠습니까?');
+   		$('#delete').on('click', function(){
+   			if($('#pastPw').val()!=""){
+       			var con = confirm('정말 탈퇴하시겠습니까?');
  				if(con){
                 		$('.formSubmit').submit();	
             		}
@@ -390,9 +313,6 @@ input[type=email]{
    				alert('다시 확인 후 제출하세요');
    			}
         });	
-   		$('#findPwBtn').on('click', function(){
-   			$(location).attr('href', '/mailSender');
-   		});
 	});
 </script>
 <!-- header -->
@@ -426,82 +346,68 @@ input[type=email]{
 			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
 				  <a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
-				  <a href="#" class="list-group-item list-group-item-action currentActive">내 정보 수정</a>
+				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
-				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
-				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
+				  <a href="#" class="list-group-item list-group-item-action currentActive">탈퇴하기</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 my">	
 				<div class="blockSign">
 			        <div id="formContent">
 			                <div id="signin">
-			                    <h3 class="font-weight-bold text-dark pt-5 pr-2">나의 정원 정보수정
+			                    <h3 class="font-weight-bold text-dark pt-5 pr-2">나의 정원 탈퇴하기
 			                    </h3>
-			                    <h6 class="pt-2 text-muted mr-2 ml-2">나의 정보를 확인 후 언제든 업데이트 하세요</h6>
-			                    <form class="pl-5 pr-5 formSubmit" action="updateInfo" method="post" enctype="multipart/form-data">	
-									<input type="text" value="${memDTO.m_social}" name="m_social" readonly>
-			                        <input type="text" value="${memDTO.m_name}" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
-			                        	<div class="onblur" id="userName"></div>
-			                        <input type="email" value="${memDTO.m_email}" name="m_email" class="fadeIn inputStuff" readonly>
-					<!-------------------- jstl ------------------------->
-			                        <c:if test="${memDTO.m_social=='MG'}">
-				                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
-				                        	<div class="onblur" id="pastPwName"></div>
-				                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
-				                        	<div class="onblur" id="pwName"></div>
-				                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요*" id="password" class="fadeIn inputStuff">
-				                        	<div class="onblur" id="pwCheck"></div>
-									</c:if>
-					<!-------------------- jstl ------------------------->
-			                        <input type="text" value="${memDTO.m_phone}" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
-			                        	<div class="onblur" id="phoneName"></div>
-			                        <div class="postCode" id="postCode">
-				                        <input type="text" value="${memDTO.m_zipcode}" placeholder="우편번호를 검색하세요" class="fadeIn inputStuff" id="zonecode" name="m_zipcode" readonly/>
-				                        	<button type="button" id="joinBtn" class="mb-3 btn" onclick="sample6_execDaumPostcode()"><img src="resources/img/post.png" width="38" height="36"></button>
-			                        </div>	
-			                        <div id="addressSet">
-				                        <input type="text" value="${memDTO.m_address1}" placeholder="주소" class="fadeIn inputStuff50" id="m_address1" name="m_address1" readonly>
-				                        <input type="text" value="${memDTO.m_address2}" placeholder="상세주소" class="fadeIn inputStuff50" id="m_address2" name="m_address2" readonly>
-				                    </div>
-				                    <div class="onblur" id="addrName"></div>
-                    <!-------------------- jstl ------------------------->
-		                        <c:if test="${memDTO.m_social=='MG'}">
-			                        <input type="text" value="${memDTO.m_birth}" placeholder="생년월일" class="fadeIn inputStuff50" name="m_birth" readonly>
-			                        <input type="text" value="${memDTO.m_gender}" placeholder="성별" class="fadeIn inputStuff50" name="m_gender" readonly>
-			                    </c:if>   
-                    <!-------------------- jstl ------------------------->
-			                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
-			                        <input type="button" value="수정하기" id="updateInfo">
-			                    </form>
-								<!-- 	address js start-->
-								<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-								<script src="resources/js/zipcode.js"></script>
-								<!-- 	address js end-->
+			                    <h6 class="pt-2 text-muted mr-2 ml-2">모든 정보는 영구삭제되며, 복구할 수 없습니다</h6>
+			                    <!-------------------- jstl ------------------------->
+			                        <c:choose>
+										<c:when test="${memDTO.m_social=='MG'}">  
+						                    <form class="pt-4 pl-5 pr-5 formSubmit" action="delete" method="post">	
+						                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
+						                        	<div class="onblur" id="pastPwName"></div>
+						                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
+						                        <input type="button" value="탈퇴하기" id="delete">
+						                    </form>
+				                    	</c:when>
+				                    	<c:otherwise>
+						                    <form class="pt-4 pl-5 pr-5 formSubmit" action="delete" method="post">
+						                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
+						                        <input type="button" value="탈퇴하기" id="delete">
+						                    </form>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                 <!-------------------- jstl ------------------------->   
 		                        <p id="formFooter">
-                    <!-------------------- jstl ------------------------->
-		                        <c:if test="${memDTO.m_social=='MG'}">
-		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#findPassword">비밀번호 찾기</a>
-		                        </c:if>	
-                    <!-------------------- jstl ------------------------->
+		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">서비스 이용약관 및 개인정보취급방침</a>
 		                       	</p>
 		                       	<!-- Modal -->
-									<div class="modal fade" id="findPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 									  <div class="modal-dialog modal-dialog-centered" role="document">
 									    <div class="modal-content">
 									      <div class="modal-header">
-									        <h5 class="modal-title" id="exampleModalCenterTitle">비밀번호 찾기</h5>
+								    	    <h5 class="modal-title" id="exampleModalCenterTitle">서비스 이용약관 및 개인정보취급방침</h5>
 									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									          <span aria-hidden="true">&times;</span>
 									        </button>
 									      </div>
 									      <div class="modal-body">
-									          <div>${memDTO.m_email}로 임시 비밀번호를 보내드립니다</div>
-									          <div>발급 버튼을 클릭 후 임시 비밀번호로 다시 로그인 하세요</div>
+									         개인정보 수집항목 및 수집방법	<br>
+										① 회사는 원활한 서비스 제공을 위해 최초 서비스 설치 후 서비스 이용에 대한 동의를 완료하는 시점에 아래와 같은 최소한의 개인정보를 수집하고 있습니다.	<br>
+										1. 회원의 서비스 이용정보	<br>
+										- 국가 코드, 폰 사용 언어, 앱 버전, 이메일·페이스북계정·구글플러스계정, 비밀번호	<br>
+										2. 회원이 사용하는 단말기의 정보	<br>
+										- 통신사, 모델명, OS버전 정보, UUID	<br>
+										② 회사는 필수항목 이외에 회원이 서비스 이용을 목적으로 직접 작성한 개인정보를 선택항목으로 수집하고 있습니다.	<br>
+										1. 서비스 이용문의 회신에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
 									      </div>
 									      <div class="modal-footer">
-									        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-									        <button type="button" class="btn btn-primary" id="findPwBtn">임시 비밀번호 발급받기</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
 									      </div>
 									    </div>
 									  </div>
