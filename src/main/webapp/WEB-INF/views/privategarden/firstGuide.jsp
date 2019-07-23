@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
+<link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
 <title>First Private Garden</title>
 <style>
 	#bcolor{
@@ -371,12 +373,14 @@
 	  	border-top-right-radius : 20px;
 	  	border-bottom-left-radius: 20px;
 	  	border-bottom-right-radius: 20px;
-	  	font-size : 14px;
+	  	font-size : 20px;
 	  	margin-top : 30px;
+	  	
 	}
 	  
 	#bubble{
 	 	margin : 15px 10px 8px 15px;
+	 	font-family: 'Hi Melody', cursive;
 	}
 	
 	#hurbBtn{
@@ -454,8 +458,6 @@
 		  <img class="r6" src="/resources/imgPrivategarden/05.png" width="45px">	   
 	    </div>
 	</div>
-	
-	
 	
 	<script>
 		$("#hurbBtn").on("click", function(){
