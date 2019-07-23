@@ -65,9 +65,13 @@
 #{sb_startday}, sysdate, #{sb_statement}, #{sb_price})
 </insert>
 
-<update id="updateShoplist">
+<update id="updateShopList">
 	update shoplist set s_statement = '주문 만료' where (extract(day from sysdate-s_orderdate)*24
-     - EXTRACT(HOUR FROM sysdate-s_orderdate))>20 and s_statement = '입금 대기'
+     + EXTRACT(HOUR FROM sysdate-s_orderdate))>24 and s_statement = '입금 대기'
+</update>
+
+<update id="updateSubsList">
+	update subscribe set sb_statement = '주문 만료' where sysdate-sb_orderday>1 and sb_statement = '입금 대기'
 </update>
 
 <select id="selectSubsList" resultType="my.garden.dto.SubscribeDTO">

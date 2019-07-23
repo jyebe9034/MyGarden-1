@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>나의 정원 - 구매 내역</title>
+<title>나의 정원 - 구독 내역</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp" />
 <style>
 .orderWrapper {
@@ -173,7 +173,7 @@ table.list_table_style td.cell {
 					<div class="common-container-right-section col-12">
 
 						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active" href="#">구매
+							<li class="nav-item"><a class="nav-link active" href="#">구독
 									내역</a></li>
 						</ul>
 						<div class="orderWrapper">
@@ -221,7 +221,7 @@ table.list_table_style td.cell {
 										<c:when test='${list=="[]"}'>
 											<tr>
 												<td class="td_bottom_line" align="center" colspan="9"
-													height="80" id="empty">구매 내역이 없습니다.</td>
+													height="80" id="empty">구독 내역이 없습니다.</td>
 											</tr>
 										</c:when>
 										<c:otherwise>
@@ -251,8 +251,7 @@ table.list_table_style td.cell {
 													<c:choose>
 														<c:when test="${dto.sb_statement =='구독중'}">
 															<td class="cell"><span class="mr-1">${dto.sb_statement }</span><input
-																type="button" value="구독취소
-																class="subsCancel btn btn-dark"></td>
+																type="button" value="구독취소" class="subsCancel btn btn-dark"></td>
 														</c:when>
 														<c:when test="${dto.sb_statement =='입금 대기'}">
 															<td class="cell"><span class="mr-1" style="color:dodgerblue;">${dto.sb_statement }</span></td>
