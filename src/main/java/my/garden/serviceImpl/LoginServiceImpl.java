@@ -1,6 +1,8 @@
 package my.garden.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dao.LoginDAO;
+import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 
 @Service
 public class LoginServiceImpl {
@@ -73,11 +77,15 @@ public class LoginServiceImpl {
 		}
 	}
 	
+	public int delete(String loginId) {
+		return logDao.delete(loginId);
+	}
+	
 	public int memUpdateAll(MembersDTO dto) {
 		if(dto.getM_social().equals("MG")) {
 			dto.setM_pw(logDao.SHA256(dto.getM_pw()));
 		}else {
-			dto.setM_pw("N");
+			dto.setM_pw(logDao.SHA256(logDao.randomCode()));
 		}
 		return logDao.memUpdateAll(dto);
 	}
@@ -113,6 +121,25 @@ public class LoginServiceImpl {
 		map.put("value", m_email);
 		return logDao.findAccountChange(map);
 	}
+
+	public int changeGardenProfile(MembersDTO dto, MultipartFile ex_file) {
+		logDao.profile(dto, ex_file);
+		Map<String, String> map = new HashMap();
+		map.put("col", "m_profile");
+		map.put("colVal", dto.getM_profile());
+		map.put("whereCol", "m_email");
+		map.put("value", dto.getM_email());
+		return logDao.changeGardenStuff(map);
+	}
+
+	public int changeGardenName(MembersDTO dto) {
+		Map<String, String> map = new HashMap();
+		map.put("col", "m_garden");
+		map.put("colVal", dto.getM_garden());
+		map.put("whereCol", "m_email");
+		map.put("value", dto.getM_email());
+		return logDao.changeGardenStuff(map);
+	}
 	
 	public String naverLogin() {
 		return logDao.NaverLoginMakeUrl();
@@ -123,8 +150,7 @@ public class LoginServiceImpl {
 	}
 	
 	public String NaverLoginGetInfo(String code) {
-		String socialEmail = logDao.NaverLoginGetInfo(code);
-		String check = logDao.emailDupCheck(socialEmail);
+		String socialEmail = logDao.NaverLoginGetInfo(code)+"_n";
         return socialEmail;
 	}
 	
@@ -168,16 +194,42 @@ public class LoginServiceImpl {
  
 //        System.out.println("id : " + id);
 //        System.out.println("name : " + name);
-//        System.out.println("email : " + email);
+//        System.out.println("email : " + socialEmail);
         
         Map<String, String> map = new HashMap();
-        map.put("socialEmail", socialEmail);
+        map.put("socialEmail", id+"_k");
         map.put("profile", profile);
         return map;
 	}
 	
-	public String getGrade(String id){
-		return logDao.getGrade(id);
+	public Integer[] getCalender(int year) {
+		return logDao.gardenCalendar(year);
+	}
+	
+	public List<CalendarDTO> calendarList(String loginId){
+		List<CalendarDTO> lists = logDao.getCalendarList(loginId);
+		List<CalendarDTO> li = new ArrayList();
+		for(CalendarDTO list : lists) {
+			String date = list.getOrderdate().toString().substring(0, 10);
+			int cnt = list.getCount();
+			String color = "";
+			if(cnt == 1) {
+				color = "#a7cdc3";
+			}else if(cnt == 2) {
+				color = "#4f9c87";
+			}else if(cnt == 3) {
+				color = "#3e7a6a";
+			}else{
+				color = "#35695b";
+			}
+			CalendarDTO rst = new CalendarDTO(date, color);
+			li.add(rst);
+		}
+		return li;
+	}
+	
+	public List<ShopListDTO> getOrderList(ShopListDTO dto){
+		return logDao.getOrderlist(dto);
 	}
 	
 }

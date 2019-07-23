@@ -25,13 +25,17 @@
 	</insert>
 	
 	<insert id="socialJoinSubmit">
-		insert into members(m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_gender, m_birth, m_garden, m_profile) 
-			values(#{m_email}, #{m_name}, #{m_phone}, default, default, default, #{m_social}, default, #{m_gender}, #{m_birth}, #{m_garden}, #{m_profile})
+		insert into members(m_email, m_name, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_garden, m_profile) 
+			values(#{m_email}, #{m_name}, default, #{m_ipaddress}, default, #{m_social}, default, #{m_garden}, #{m_profile})
 	</insert>
 	
 	<select id="dupCheck" parameterType="map" resultType="String">
 		select ${col} from members where ${whereCol} = #{value}
 	</select>
+	
+	<delete id="delete">
+		delete from members where m_email = #{value}
+	</delete>
 	
 	<select id="isLoginOk" parameterType="map" resultType="String">
 		select ${m_email}, ${m_pw} from members where ${m_email}=#{id} and ${m_pw}=#{pw}
@@ -52,5 +56,13 @@
 	<insert id="updateOne" parameterType="map">
 		update members set ${col} = #{colVal} where ${whereCol} = #{value}
 	</insert>
+   
+   <select id="selectCalendar" resultType="my.garden.dto.CalendarDTO">
+      select s_orderdate as orderdate, COUNT(s_orderdate) as count from shoplist where s_email=#{value} group by(s_orderdate)
+   </select>
+   
+   <select id="selectOrderList" resultType="my.garden.dto.ShopListDTO">
+   		select * from shoplist where s_email=#{s_email} and s_orderdate=#{s_orderdate}
+   </select>
 	
 </mapper>
