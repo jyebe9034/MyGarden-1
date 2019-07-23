@@ -2,6 +2,7 @@ package my.garden.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dto.BoardQnADTO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.BoardReviewRecommendDTO;
 import my.garden.dto.CommentFreeDTO;
 import my.garden.dto.CommentQnADTO;
 import my.garden.dto.MembersDTO;
@@ -47,7 +49,8 @@ public class BoardReviewAndQnAController {
 
 	@RequestMapping("productsRead")
 	public String toProductsRead(int pnumber, Model model, HttpServletRequest request, int revPage, int qnaPage) {
-
+		String id = (String) session.getAttribute("loginId");
+		
 		revPage = Integer.parseInt(request.getParameter("revPage"));
 		qnaPage = Integer.parseInt(request.getParameter("qnaPage"));
 
@@ -61,9 +64,28 @@ public class BoardReviewAndQnAController {
 
 		List<BoardReviewDTO> reviewList = null;
 		List<BoardQnADTO> qnaList = null;
+		Integer[] myRecommendNo  = null;
+	
+		try {
+			List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);
+			//System.out.println(list.size());
+			//System.out.println(list.get(0).getBr_no());
+			myRecommendNo = new Integer[list.size()];
+			
+			for(int i=0;i < list.size();i++) {
+				myRecommendNo[i] = list.get(i).getBr_no();
+				//System.out.println(myRecommendNo[i]);
+			}
+			
+			//System.out.println(myRecommendNo);
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 
 		try {
 			request.setAttribute("reviewList", brService.reviewList(br_p_no, startNum, endNum));
+			request.setAttribute("myRecommendNo", myRecommendNo); //
 			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum2, endNum2));
 			request.setAttribute("getNavi", brService.getNavi(revPage, br_p_no));
 			request.setAttribute("getNaviForQnA", qnaService.getNavi(qnaPage, br_p_no));
@@ -89,6 +111,7 @@ public class BoardReviewAndQnAController {
 		int pnumber = (int) session.getAttribute("pnumber");
 		ProductsDTO dto = pservice.selectOneProductService(pnumber);
 		model.addAttribute("productInfo", dto);
+		model.addAttribute("pnumber",pnumber);
 		return "/boardProducts/reviewWriteForm";
 	}
 
@@ -99,11 +122,11 @@ public class BoardReviewAndQnAController {
 		int br_p_no = (int) session.getAttribute("pnumber");
 		String name = (String) session.getAttribute("loginName");
 
-		System.out.println("name : " + name);
+		//System.out.println("리뷰작성자이름 : " + name);
 		dto.setBr_p_no(br_p_no);
 		dto.setBr_email(id);
 		dto.setBr_name(name);
-		System.out.println(dto.getBr_content());
+		//System.out.println("리뷰 내용 : " + dto.getBr_content());
 		//System.out.println("이미지" + image);
 		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
 		File dir = new File(path + id + "/"); //폴더경로
@@ -193,8 +216,8 @@ public class BoardReviewAndQnAController {
 		String id = (String) session.getAttribute("loginId"); 
 		Map<String, Object> map = new HashMap<>();
 		//		map.put("br_imagepath", dto.getBr_imagepath());
-		System.out.println("br_imagepath 처음 : "+dto.getBr_imagepath());
-		System.out.println("image" + image);
+		//System.out.println("br_imagepath 처음 : "+dto.getBr_imagepath());
+		//System.out.println("image" + image);
 		if(image!=null) {
 
 			String resourcePath = session.getServletContext().getRealPath("/resources/"+id);
@@ -209,7 +232,7 @@ public class BoardReviewAndQnAController {
 				e.printStackTrace();
 			}
 			String filePath = "/resources/"+ id +"/" + newFile.getName();
-			System.out.println("filePath : " + filePath);
+			//System.out.println("filePath : " + filePath);
 			map.put("br_imagepath", filePath);
 		}
 
@@ -260,13 +283,12 @@ public class BoardReviewAndQnAController {
 		}
 		String id = (String) session.getAttribute("loginId");
 		String name = (String) session.getAttribute("loginName");
-		//String writer = (String) session.getAttribute("loginName");
-		//System.out.println("loginId : " + id);
 		int bq_p_no = (int) session.getAttribute("pnumber");
 		dto.setBq_email(id);
 		dto.setBq_name(name);
 		dto.setBq_p_no(bq_p_no);
-		//System.out.println(dto.getBq_title());
+		System.out.println("문의 글 제목: " + dto.getBq_title());
+		System.out.println("문의 글 내용 : " + dto.getBq_content());
 
 		//	if(!images.isEmpty()) { //이미지 들어있으면 
 		if(images.length>0) {
@@ -393,7 +415,7 @@ public class BoardReviewAndQnAController {
 			String resourcePath = session.getServletContext().getRealPath("/");
 			System.out.println("resourcePath : " + resourcePath);
 
-			System.out.println("원래 이미지 패스 : " + oriFilePath);
+			//System.out.println("원래 이미지 패스 : " + oriFilePath);
 
 			File newFile = new File(resourcePath + oriFilePath);
 			formData.transferTo(newFile);
@@ -437,7 +459,7 @@ public class BoardReviewAndQnAController {
 	@RequestMapping("deleteComment")
 	public int deleteComment(HttpServletRequest request, int cq_no) throws Exception {
 		int result = qnaService.deleteComment(cq_no);	
-		System.out.println(cq_no);
+		//System.out.println(cq_no);
 		return result; //result=2라면, 성공
 	}
 

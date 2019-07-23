@@ -45,10 +45,11 @@
 		select count(*) from br_recommend where br_no=#{br_no}
 	</select>
 	
-	<!-- 내가 추천한 글번호(*) -->
-	<select id="myRecommendNo">
+	<!-- 내가 추천한 글번호 -->
+	<select id="myRecommendNo" resultType="my.garden.dto.BoardReviewRecommendDTO">
 		select br_no from br_recommend where BR_EMAIL=#{BR_EMAIL}
 	</select>
+	
 	
 	<!-- 후기 수정 전 정보 -->
 	<select id="oneReview" resultType="my.garden.dto.BoardReviewDTO">

@@ -32,16 +32,16 @@
 		text-align: center;
 	}
 	
-	.goMainBtn{
-		background-color: #b4d9b5;
+	.goBackBtn{
+		background-color: #44b27d;
 /* 		color: #44b27d; */
 		color: white;
 		font-weight: bold;
 		border: 0px;
 		cursor: pointer;
 	}
-	.goMainBtn:hover{
-		background-color: #44b27d;
+	.goBackBtn:hover{
+		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
 		border: 0px;
@@ -67,9 +67,13 @@
 <!-- script -->
 	<script>
 		$(function(){
-			$(".goMainBtn").on("click",function(){
-				$(location).attr("href","/");
-			})
+			var pnumber = "${productInfo.p_no}"; //돌아가기 버튼 고치기!!!!!!
+			console.log(pnumber);
+			$(".goBackBtn").on("click",function(){
+					var pnumber = ${pnumber};
+					location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
+				})
+			
 			$(".writeBtn").on("click",function(){
 				var inputContent = $("#inputContent").text();
 				var inputTitle = $("#inputTitle").val();
@@ -130,8 +134,8 @@
 			
 		  <div class="form-group row btnsRow">
 		    <div class="col-sm-12 btnsBox">
-		      <button type="button" class="btn goMainBtn" >메인으로</button>
-		      <button type="submit" class="btn writeBtn" >등록</button>
+		      <button type="button" class="btn goBackBtn">돌아가기</button>
+		      <button type="submit" class="btn writeBtn">등록</button>
 		    </div>
 		  </div>		  
 		</form>

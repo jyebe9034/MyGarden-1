@@ -72,10 +72,11 @@
 		font-weight: bold;
 		border: 0px;
 	}
-	.goMainBtn{
-		border: 1px solid #44b27d;
-		color: #44b27d;
-		font-weight: border;
+	.goBackBtn{
+		background-color: #44b27d;
+		color: white;
+		font-weight: bold;
+		border: 0px;
 	}
 	.writeBtn:hover{
 		background-color: #b4d9b5;
@@ -84,7 +85,7 @@
 		border: 0px;
 		cursor: pointer;
 	}
-	.goMainBtn:hover {
+	.goBackBtn:hover {
 		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
@@ -96,8 +97,10 @@
 <!-- script -->
 <script>
 	$(function(){
-		$(".goMainBtn").on("click",function(){
-			$(location).attr("href","/");
+		
+		$(".goBackBtn").on("click",function(){
+			var pnumber = ${pnumber};
+			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
 		})
 		
 		$(".writeBtn").on("click",function(){
@@ -206,7 +209,7 @@
 			
 		  <div class="form-group row btnsRow">
 		    <div class="col-lg-6 col-sm-12 d-flex justify-content-end btns">
-		      <button type="button" class="btn goMainBtn" >메인으로</button>
+		      <button type="button" class="btn goBackBtn" >돌아가기</button>
 		    </div>
 		     <div class="col-lg-6 col-sm-12 btns">
 		      <button type="submit" class="btn writeBtn" >등록</button>

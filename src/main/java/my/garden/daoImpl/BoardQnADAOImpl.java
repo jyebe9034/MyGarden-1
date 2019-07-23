@@ -69,9 +69,9 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 			endNavi2 = pageTotalCount;
 		}
 
-		System.out.println("현재 위치 : " + qnaPage);
-		System.out.println("네비 시작 : " + startNavi2);
-		System.out.println("네비 끝 : " + endNavi2);
+//		System.out.println("현재 위치 : " + qnaPage);
+//		System.out.println("네비 시작 : " + startNavi2);
+//		System.out.println("네비 끝 : " + endNavi2);
 
 		boolean needPrev = true;
 		boolean needNext = true;

@@ -24,16 +24,25 @@
 		border-radius: 5px;
 		padding: 10px;
 	}
+	
+	.updateImgBtnBox{
+		margin:7px auto;
+	}
+	
 	.updateImgBtn{
-		background-color: #b4d9b5;
+/* 		background-color: #b4d9b5; */
+		background-color : #8e74a8;
 		color: white;
 		font-size: 13px;
 		line-height: 50%;
 		height: 30px;
 		width: 80px;
+		border-radius:unset;
 	}
 	.updateImgBtn:hover{
-		color: #44b27d;
+		background-color: #8e74a890;
+		color: #7741a3;
+		font-weight: bold;
 		cursor: pointer;
 	}
 	
@@ -45,19 +54,20 @@
 		text-align: center;
 	}
 	.goMainBtn{
-		background-color: #b4d9b5;
+		background-color: #44b27d;
 /* 		color: #44b27d; */
 		color: white;
 		font-weight: bold;
 		border: 0px;
 	}
 	.goMainBtn:hover{
-		background-color: #44b27d;
+		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
 		border: 0px;
 		cursor: pointer;
 	}
+		
 	.updateBtn {
 		background-color: #44b27d;
 		color: white;
@@ -78,7 +88,9 @@
 
 <!-- script -->
 	<script>
-		$(function(){
+
+	$(function(){
+
 			$(".goMainBtn").on("click",function(){
 				$(location).attr("href","/");
 			})
@@ -157,12 +169,16 @@
 				
 			  <div class="form-group row">
 			  	 <label for="inputImage" class="col-sm-2 col-form-label"></label>
-				    <div class="col-sm-10">
+				    <div class="col-sm-10 selImgBtnBox">
 				      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
+				    </div>
+				  <label for="inputImage" class="col-sm-2 col-form-label"></label>
+					<div class="col-sm-10 updateImgBtnBox">
 				      <input type="button" class="btn updateImgBtn" value="사진 수정">
 				      <input type="hidden" name="imagePath" value="${oneReview.br_imagepath }">
-				      <p><small>※ 수정할 사진을 선택한 후 '사진 수정'버튼을 누르면 사진 수정이 가능합니다.</small></p>
 				    </div>
+				    <label for="inputImage" class="col-sm-2 col-form-label"></label>
+				  <p><small>※ 수정할 사진을 선택한 후 '사진 수정'버튼을 누르면 사진 수정이 가능합니다.</small></p>
 			  </div>	
 				
 			  <div class="form-group row btnsRow">

@@ -230,8 +230,17 @@
 </style>
 
 <script>
-<!--임시 버튼 나중에 마이페이지로 옮기기-->
+
 	$(function(){
+		
+		$("span[class='checkRecmd']").each(function(i,item){
+			console.log("bb");
+			if($(this).attr("flag")=='t'){
+				console.log("cc");
+				$(this).parent(".recommendBtn").html("<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'>");
+			}	
+		})
+			
 		
 			$("#writeReviewBtn").on("click",function(){
 				$(location).attr("href","reviewWriteForm");
@@ -437,15 +446,36 @@
 										<fmt:formatDate pattern="yyyy-MM-dd"
 											value="${reviewList.br_writedate }" />
 									</div>
+									
+									
+									
+									
 									<div class="reviewRecommend" value="${reviewList.br_recommend}">
 										<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>
 										<span class="mb-1 recommendBtn"> 
-											<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">
+				
+											<c:forEach var="myRecommendNo" items="${myRecommendNo }">
+												<c:choose>
+													<c:when test="${myRecommendNo eq reviewList.br_no }">
+														<span class="checkRecmd" flag="t"></span>
+<!-- 														<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'> -->
+													</c:when>
+													<c:otherwise>
+														<span class="checkRecmd" flag="f"></span>
+<!-- 														<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage"> -->
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+													<img src="/resources/img/reviewHate.png" width="25px" class="recommendImage">											
 										</span> 
 										<input type="hidden" class="${reviewList.br_no}"
 											value="${reviewList.br_no}"> 도움돼요 <span
 											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
 									</div>
+									
+									
+									
+									
 									<c:choose>
 										<c:when test="${loginId eq reviewList.br_email}">
 											<div class="reviewUpdateBtn d-flex justify-content-end">

@@ -204,12 +204,13 @@
 	}
 	
 	#delCommentBtn{
-		background-color: #b4d9b5;
-		color: #44b27d;
+		background-color: #44b27d;
+		color: white;
 		margin-right: 20px;
+		font-weight: bold;
 	}
 	#delCommentBtn:hover{
-		background-color: #44b27d;
+		background-color: #b4d9b5;
 		color: white;
 	}
 </style>
