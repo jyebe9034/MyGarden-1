@@ -136,27 +136,6 @@
       })
    });
 </script>
-
-<!-- advertise header -->
-         <c:choose>
-             <c:when test="${loginName!=null}">
-              
-<style>.clickToClose{display:none;}</style>
-     
-          </c:when>
-          <c:otherwise>
-              
-<div class="container-fluid my">
-   <div class="row my">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
-         <span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>
-         <span class="position-absolute clickToCloseBtnBorder"></span>
-         <span class="position-absolute clickToCloseBtn">&Cross;</span>
-      </div>
-   </div>
-</div>
-          </c:otherwise>
-       </c:choose>
        
 <!--    html -->
 <div id="goToTop" class="animated infinite bounce">
@@ -172,7 +151,7 @@
 				<div class="row">
 					<div
 						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-						<a href="/mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
+						<a href="mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
 							href="#">고객센터</a>
 					</div>
 				</div>
@@ -222,7 +201,7 @@
 			                              <a class="dropdown-item" href="source?category=source">소스/조미료</a>
 									</div></li>
 								<li class="nav-item"><a class="nav-link mt-2" href="productsList">공유정원</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="productsAdd">비밀정원</a></li>
+		                        <li class="nav-item"><a class="nav-link mt-2" href="privateGarden">비밀정원</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="adminIndex">|&nbsp;&nbsp;About</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
 		                        <li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>

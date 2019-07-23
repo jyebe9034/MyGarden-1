@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,95 +8,96 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
-	type="text/javascript"></script>
+   type="text/javascript"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
 <title>나의 정원 - 주문</title>
 <style>
 #header_v5_wrap_height {
-	height: 200px;
+   height: 200px;
 }
 
 .goods_name {
-	line-height: 15px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	-o-text-overflow: ellipsis
+   line-height: 15px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   -o-text-overflow: ellipsis
 }
 
 .cell {
-	border-left: 1px solid #ddd
+   border-left: 1px solid #ddd
 }
 
 input {
-	padding-left: 5px;
-	padding-top: 3px;
-	padding-bottom: 3px;
+   padding-left: 5px;
+   padding-top: 3px;
+   padding-bottom: 3px;
 }
 
 .body_sub_area {
-	width: 1160px;
-	margin: auto;
+   width: 1160px;
+   margin: auto;
 }
 
 .body_sub_area table {
-	font-size: 13px;
+   font-size: 13px;
 }
 
 .body_sub_area table th {
-	padding-top: 3px;
-	padding-bottom: 3px;
+   padding-top: 3px;
+   padding-bottom: 3px;
 }
 
 #pay {
-	width: 180px;
-	text-align: center;
-	font-family: 'Spoqa Han Sans', sans-serif;
-	display: inline-block;
-	padding: 15px 0px;
-	font-size: 16px;
-	background-color: #44b27d;
-	border: 1px solid #559c75;
-	color: #ffffff;
-	margin-left: 3px;
-	cursor: pointer;
+   width: 180px;
+   text-align: center;
+   font-family: 'Spoqa Han Sans', sans-serif;
+   display: inline-block;
+   padding: 15px 0px;
+   font-size: 16px;
+   background-color: #44b27d;
+   border: 1px solid #559c75;
+   color: #ffffff;
+   margin-left: 3px;
+   cursor: pointer;
 }
 
 table.list_table_style {
-	border: 0px;
-	border-top: 2px solid #559c75;
+   border: 0px;
+   border-top: 2px solid #559c75;
 }
 
 table.list_table_style thead th {
-	font-size: 15px;
-	height: 35px;
-	font-family: 'Spoqa Han Sans', sans-serif;
-	border-right: 0px;
-	border-left: 0px;
+   font-size: 15px;
+   height: 35px;
+   font-family: 'Spoqa Han Sans', sans-serif;
+   border-right: 0px;
+   border-left: 0px;
 }
 
 table.list_table_style td.cell {
-	font-family: 'Spoqa Han Sans', sans-serif;
-	border-right: 0px;
-	border-left: 0px;
+   font-family: 'Spoqa Han Sans', sans-serif;
+   border-right: 0px;
+   border-left: 0px;
 }
 
 .white {
-	color: white;
+   color: white;
 }
 
 .bottom_line {
-	border-bottom: 1px solid #dddddd;
+   border-bottom: 1px solid #dddddd;
 }
 
 .orderImg {
-	border-radius: 10px;
-	width: 100%;
+   border-radius: 10px;
+   width: 100%;
 }
 </style>
 
 <script>
+
 	$(function() {
 		var orderer = $("#order_user_name").val();
 		var phone = "${loginDTO.m_phone}".split("-");
@@ -631,37 +632,37 @@ table.list_table_style td.cell {
                }).done(function(data) {
 
                })
-     					var jArray = new Array();
-       					//JsonArray를 위한 배열생성
+                    var jArray = new Array();
+                      //JsonArray를 위한 배열생성
 
-       					$('.eachOrder').each(
-       							function() {
-       								var jobj = new Object();
-       								//JsonObject를 위한 객체생성
-									jobj.s_email = "${loginId}";
-									jobj.s_phone = $("#recvPhone1").val()+"-"+$("#recvPhone2").val()+"-"+$("#recvPhone3").val();
-       								jobj.s_p_no = $(this).find("input:nth-child(1)").val();
-       								jobj.s_p_imagepath = $(this).find("input:nth-child(2)").val();
-       								jobj.s_p_title = $(this).find("input:nth-child(3)").val();
-       								jobj.s_p_count = $(this).find("input:nth-child(4)").val();
-       								jobj.s_p_price = $(this).find("input:nth-child(5)").val();
-									jobj.s_m_recipient = $("#recipient_user_name").val();
-									jobj.s_m_memo = $("#shipMemo").html();
-									jobj.s_m_paymethod = "카드 결제";
-       								jobj.s_m_zipcode = $("#zipcode").val();
-       								jobj.s_m_address1 = $("#address1").val();
-       								jobj.s_m_address2 = $("#address2").val();
-       								jobj.s_statement = "결제 완료";     								
-       								jArray.push(jobj);
-       							});
-       					var stringJson = JSON.stringify(jArray);
-       					$("#orderList").val(stringJson);                          
-						$("#payForm").submit();
+                      $('.eachOrder').each(
+                            function() {
+                               var jobj = new Object();
+                               //JsonObject를 위한 객체생성
+                           jobj.s_email = "${loginId}";
+                           jobj.s_phone = $("#recvPhone1").val()+"-"+$("#recvPhone2").val()+"-"+$("#recvPhone3").val();
+                               jobj.s_p_no = $(this).find("input:nth-child(1)").val();
+                               jobj.s_p_imagepath = $(this).find("input:nth-child(2)").val();
+                               jobj.s_p_title = $(this).find("input:nth-child(3)").val();
+                               jobj.s_p_count = $(this).find("input:nth-child(4)").val();
+                               jobj.s_p_price = $(this).find("input:nth-child(5)").val();
+                           jobj.s_m_recipient = $("#recipient_user_name").val();
+                           jobj.s_m_memo = $("#shipMemo").html();
+                           jobj.s_m_paymethod = "카드 결제";
+                               jobj.s_m_zipcode = $("#zipcode").val();
+                               jobj.s_m_address1 = $("#address1").val();
+                               jobj.s_m_address2 = $("#address2").val();
+                               jobj.s_statement = "결제 완료";                             
+                               jArray.push(jobj);
+                            });
+                      var stringJson = JSON.stringify(jArray);
+                      $("#orderList").val(stringJson);                          
+                  $("#payForm").submit();
             } else {
                alert('결제에 실패하였습니다.');
             }
          });
-         
+
     	  }else{
     		  alert("무통장 입금으로 결제를 진행합니다.");
     		  var jArray = new Array();
@@ -735,58 +736,58 @@ table.list_table_style td.cell {
    </script>
 
 
-				<!-- 				
+            <!--             
 
 
-				<div id="bill_loading"
-					style="z-index: 100000; position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; display: none; background: rgba(82, 82, 82, .7);">
-					<table height="100%" width="350" margin="0" cellpadding="0"
-						cellspacing="0" style="margin: 0 auto;">
-						<tr>
-							<td align="center" valign="middle">
-								<div
-									style="background-color: #ffffff; padding-top: 50px; padding-bottom: 30px; margin-left: 20px; margin-right: 20px; font-size: 14px;">
-									<div style="font-weight: bold;">
-										결제를 처리하고 있습니다.<br>잠시만 기다려 주세요...
-									</div>
-									<div>
-										<button type="button" name="close_btn"
-											style="width: 250px; background-color: #044437; border: 0px; color: #ffffff; padding: 10px 0px 10px 0px; margin: 50px 10px 10px 10px;"
-											onclick="javascript:$('#bill_loading').hide();">창닫기</button>
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
+            <div id="bill_loading"
+               style="z-index: 100000; position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; display: none; background: rgba(82, 82, 82, .7);">
+               <table height="100%" width="350" margin="0" cellpadding="0"
+                  cellspacing="0" style="margin: 0 auto;">
+                  <tr>
+                     <td align="center" valign="middle">
+                        <div
+                           style="background-color: #ffffff; padding-top: 50px; padding-bottom: 30px; margin-left: 20px; margin-right: 20px; font-size: 14px;">
+                           <div style="font-weight: bold;">
+                              결제를 처리하고 있습니다.<br>잠시만 기다려 주세요...
+                           </div>
+                           <div>
+                              <button type="button" name="close_btn"
+                                 style="width: 250px; background-color: #044437; border: 0px; color: #ffffff; padding: 10px 0px 10px 0px; margin: 50px 10px 10px 10px;"
+                                 onclick="javascript:$('#bill_loading').hide();">창닫기</button>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </table>
+            </div>
 
 
 
 
-				<div id="formpay_layer"
-					style="z-index: 10000; position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; display: none; background: rgba(82, 82, 82, .7);">
-					<table height="100%" width="100%" margin="0" cellpadding="0"
-						cellspacing="0">
-						<tr>
-							<td align="center" valign="middle">
-								<table height="100%" width="100%" margin="0" cellpadding="0"
-									cellspacing="0">
-									<tr>
-										<td><iframe name="formpayFrame" id="formpayFrame"
-												src="/main/blank" frameborder="0" width="100%" height="100%"></iframe>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</div>
+            <div id="formpay_layer"
+               style="z-index: 10000; position: fixed; width: 100%; height: 100%; left: 0px; top: 0px; display: none; background: rgba(82, 82, 82, .7);">
+               <table height="100%" width="100%" margin="0" cellpadding="0"
+                  cellspacing="0">
+                  <tr>
+                     <td align="center" valign="middle">
+                        <table height="100%" width="100%" margin="0" cellpadding="0"
+                           cellspacing="0">
+                           <tr>
+                              <td><iframe name="formpayFrame" id="formpayFrame"
+                                    src="/main/blank" frameborder="0" width="100%" height="100%"></iframe>
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </div>
 
  -->
 
-			</div>
-		</div>
-	</div>
-	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
+         </div>
+      </div>
+   </div>
+   <jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 </body>
 </html>
