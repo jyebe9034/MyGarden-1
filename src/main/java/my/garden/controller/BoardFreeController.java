@@ -255,17 +255,13 @@ public class BoardFreeController {
 			int result = dao.serviceCmtWrite(dto); 	
 			map.put("result", result);	
 
-			//2.현재페이지구하기
+			//2. 댓글 페이지구하기 (now가 필요 없다! 무조건 마지막 페이지)
 			int now = 0;
-			if(session.getAttribute("now") == null) {
 				if(dao.serviceCmtCountAll(no)%10==0) {
 					now=(dao.serviceCmtCountAll(no)/10);
 				}else {
 					now=(dao.serviceCmtCountAll(no)/10)+1;
 				}		
-			}else {
-				now = (Integer)session.getAttribute("now");
-			}
 			System.out.println("현재 댓글페이지:"+now);
 
 			//3. 댓글리스트
@@ -278,6 +274,7 @@ public class BoardFreeController {
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
 				list.get(i).setCf_stringdate(stringdate);
 				map.put("list", list);
+				System.out.println("댓글 썼을때"+list.size());
 				List<String> navi = dao.serviceGetCmtNavi(now, no);
 				map.put("navi", navi);
 				map.put("page", now);	

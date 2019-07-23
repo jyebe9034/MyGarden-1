@@ -234,6 +234,9 @@ hr {
 		})
 
 		$("#freeSearchBtn").on("click",function(){
+			if($("#searchVal").val()==""){
+				alert("검색어를 입력해주세요.");
+			}else{
 			$.ajax({
 				url:'searchForFree',
 				data:{
@@ -267,13 +270,14 @@ hr {
 					+"<button id='back' class='btn'>뒤로 가기</button>");
 				}
 			})
+			}
 		})
 		
-		$("#searchVal").keypress(function(key) {		
-        if (key.keyCode == 13) {
-        	$("#freeSearchBtn").click();   	
-        }
-		})
+// 		$(document).on("keydown", "#searchVal", function(key) {		
+//         if (key.keyCode == 13) {
+//         	$("#freeSearchBtn").click();   	
+//         }
+// 		})
 		
 		$(document).on("click", ".searchNaviBtn", function(){
 			var page = $(this).text();

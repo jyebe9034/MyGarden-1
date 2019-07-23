@@ -93,7 +93,6 @@ hr {
 	border: 0px;
 	color: #44b27d;
 	height: 40px;
-	margin-right: 5px;
 }
 
 .mdBtn:hover {
@@ -134,6 +133,7 @@ hr {
 	padding: 15px;
 	text-align: left;
 	margin: 0px;
+	overflow: auto;
 }
 
 #navi {
@@ -222,6 +222,11 @@ hr {
 						</span> <span class=rWritedate>${tmp.cf_stringdate}</span>
 						<div class="rContents row">
 							<div class="rContent col-10">${tmp.cf_comment }</div>
+							<div class="editContent col-10">
+								<input type=text id=modifyBox>
+								<button type=button class='mdBtn modifyBtn'>수정</button>
+								<button type=button class=mdBtn id=cancelBtn>취소</button>
+							</div>
 							<c:if test="${loginName==tmp.cf_name }">
 								<div class="rIcons col-2">
 									<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
@@ -264,7 +269,7 @@ hr {
 		
 		
 		//글 수정, 삭제
-		$("#modify").on("click",function(){
+		$("#modify").on("click", function(){
 			location.href="boardFreeModify?no="+${page.bf_no};
 		})
 		
@@ -275,22 +280,25 @@ hr {
 		})
 
 		
+		$(".editContent").hide();
 		
-		$(document).on("click","#cancelBtn",function(){
-				$(this).parent().prev().html(origin);
-		})
+		
 		
 		//댓글 수정 1)수정 박스 만들기
 		$(document).on("click",".cmtChange",function(){
-			if($(this).attr("flag")=="true"){//여러번 클릭 막기
-			var origin=$(this).parent().prev().text();
-			var change="<input type=text id=modifyBox value="+origin+"><button type=button class='mdBtn modifyBtn'>수정</button>"
-			+"<button type=button class=mdBtn id=cancelBtn>취소</button>";		
-			$(this).attr("flag","false");
-			$(this).parent().prev().html(change);		
-			}
+			var origin=$(this).parent().prev().prev().text();	
+			$(this).parent().prev().children("#modifyBox").val(origin);
+			$(this).parent().prev().show();
+			$(this).parent().prev().prev().hide();
+			//$(this).parent().prev().html(change);		
+			
 		})
 		
+		$(document).on("click","#cancelBtn",function(){
+			var origin = $(this).parent().prev().text();
+			$(this).parent().prev().show();
+			$(this).parent().hide();
+		})
 		
 		//댓글 수정 2)수정한 값 처리
 			$(document).on("click",".modifyBtn",function(){
@@ -314,6 +322,10 @@ hr {
 						        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 						        var rContents = $("<div class='rContents row'></div>");
 						        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+						        var editContent = $("<div class='editContent col-10'></div>");					    
+						        editContent.append("<input type=text id=modifyBox><button type=button class='mdBtn modifyBtn'>수정</button>"
+								+"<button type=button class=mdBtn id=cancelBtn>취소</button>");	
+						        rContents.append(editContent);
 						        if('${loginId}' == resp.list[i].cf_email){
 						        var rIcons = $("<div class='rIcons col-2'></div>");  		    
 						        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
@@ -329,6 +341,7 @@ hr {
 						       	cmtList=cmtList+commentOne[0].innerHTML;
 						 }		 	 		
 						$(".commentList").html(cmtList);
+						$(".editContent").hide();
 						//네비 목록
 						 $("#navi").html("");
 						var naviList = "";			
@@ -370,6 +383,10 @@ hr {
 					        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 					        var rContents = $("<div class='rContents row'></div>");
 					        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+					        var editContent = $("<div class='editContent col-10'></div>");					    
+					        editContent.append("<input type=text id=modifyBox><button type=button class='mdBtn modifyBtn'>수정</button>"
+							+"<button type=button class=mdBtn id=cancelBtn>취소</button>");	
+					        rContents.append(editContent);
 					        if('${loginId}' == resp.list[i].cf_email){
 					        var rIcons = $("<div class='rIcons col-2'></div>");  		    
 					        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
@@ -383,8 +400,9 @@ hr {
 					        var root = $("<div></div>");
 					        root.append(commentOne);      
 					       	cmtList=cmtList+commentOne[0].innerHTML;
-					 }		 	 			 
+					 }		 	 		
 					$(".commentList").html(cmtList);
+					$(".editContent").hide();
 					
 					//네비 목록
 					 $("#navi").html("");
@@ -403,6 +421,11 @@ hr {
 			}
 		})
 		
+		$("#rContentWrite").keypress(function(key) {		
+        if (key.keyCode == 13) {
+        	$("#submitBtn").click();   	
+        }
+		})
 		
 		$("#submitBtn").on("click", function() {
 			if('${loginId}'==""){
@@ -428,6 +451,10 @@ hr {
 				        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 				        var rContents = $("<div class='rContents row'></div>");
 				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+				        var editContent = $("<div class='editContent col-10'></div>");					    
+				        editContent.append("<input type=text id=modifyBox><button type=button class='mdBtn modifyBtn'>수정</button>"
+						+"<button type=button class=mdBtn id=cancelBtn>취소</button>");	
+				        rContents.append(editContent);
 				        if('${loginId}' == resp.list[i].cf_email){
 				        var rIcons = $("<div class='rIcons col-2'></div>");  		    
 				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
@@ -441,8 +468,9 @@ hr {
 				        var root = $("<div></div>");
 				        root.append(commentOne);      
 				       	cmtList=cmtList+commentOne[0].innerHTML;
-				 }		 	 		 
-				 $(".commentList").html(cmtList);
+				 }		 	 		
+				$(".commentList").html(cmtList);
+				$(".editContent").hide();
 				
 				//네비 목록
 				 $("#navi").html("");
@@ -484,6 +512,10 @@ hr {
 				        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
 				        var rContents = $("<div class='rContents row'></div>");
 				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
+				        var editContent = $("<div class='editContent col-10'></div>");					    
+				        editContent.append("<input type=text id=modifyBox><button type=button class='mdBtn modifyBtn'>수정</button>"
+						+"<button type=button class=mdBtn id=cancelBtn>취소</button>");	
+				        rContents.append(editContent);
 				        if('${loginId}' == resp.list[i].cf_email){
 				        var rIcons = $("<div class='rIcons col-2'></div>");  		    
 				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
@@ -498,7 +530,8 @@ hr {
 				        root.append(commentOne);      
 				       	cmtList=cmtList+commentOne[0].innerHTML;
 				 }		 	 		
-				 $(".commentList").html(cmtList);
+				$(".commentList").html(cmtList);
+				$(".editContent").hide();
 				//네비 목록
 				 $("#navi").html("");
 				var naviList = "";
