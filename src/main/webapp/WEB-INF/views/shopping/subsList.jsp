@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>나의 정원 - 구매 내역</title>
+<title>나의 정원 - 구독 내역</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp" />
 <style>
 .orderWrapper {
@@ -94,7 +94,7 @@ table.list_table_style td.cell {
 	padding-right: 4px;
 }
 
-.showShipping {
+.subsCancel {
 	background-color: dimgray;
 	border: dimgray;
 	font-size: 13px;
@@ -103,7 +103,8 @@ table.list_table_style td.cell {
 	padding-left: 4px;
 	padding-right: 4px;
 }
-#empty{
+
+#empty {
 	font-size: 13px;
 }
 </style>
@@ -172,7 +173,7 @@ table.list_table_style td.cell {
 					<div class="common-container-right-section col-12">
 
 						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active" href="#">구매
+							<li class="nav-item"><a class="nav-link active" href="#">구독
 									내역</a></li>
 						</ul>
 						<div class="orderWrapper">
@@ -207,76 +208,62 @@ table.list_table_style td.cell {
 								class="list_table_style">
 								<thead class="bottom_line">
 									<tr>
-										<th width="60">주문번호</th>
-										<th width="110">상품명</th>
-										<th width="90">주문일</th>
-
-										<th width="70">주문금액</th>
-										<th width="70" class="goods_delivery_info">상태</th>
+										<th width="60">상품 번호</th>
+										<th width="70">구독 상품</th>
+										<th width="90">배송 시작일</th>
+										<th width="70">배송 주기</th>
+										<th width="70">주문 금액</th>
+										<th width="70" class="goods_delivery_info">구독 현황</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:choose>
-										<c:when test='${listWrapper=="[]"}'>
+										<c:when test='${list=="[]"}'>
 											<tr>
 												<td class="td_bottom_line" align="center" colspan="9"
-													height="80" id="empty">구매 내역이 없습니다.</td>
+													height="80" id="empty">구독 내역이 없습니다.</td>
 											</tr>
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="list" items="${listWrapper}">
-												<c:set var="count" value="0" />
-												<c:set var="total" value="0" />
-												<c:forEach var="dto" items="${list}" varStatus="status">
-													<c:set var="total"
-														value="${total + dto.s_p_price*dto.s_p_count}" />
-													<c:set var="count" value="${count+1}" />
-													<c:if test="${status.last}">
-														<tr class="pt-3 pb-3 orderLists bottom_line">
-															<td class="cell">${dto.s_orderno }</td>
-															<td class="cell">
-																<table width="100%" border="0" cellpadding="0"
-																	cellspacing="0">
-																	<tr>
-																		<td class="center" width="100" height="60"
-																			valign="middle"><img src="${dto.s_p_imagepath }"
-																			class="productsImg" width="70px" height="70px"></td>
-																		<td valign="middle">
-																			<div class="goods_name">
-																				<c:choose>
-																					<c:when test="${count-1==0 }">
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																						</a>
-																					</c:when>
-																					<c:otherwise>
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																							외 <fmt:formatNumber value="${count-1 }"
-																								type="number" /> 건
-																						</a>
-																					</c:otherwise>
-																				</c:choose>
-																			</div>
-																		</td>
-																	</tr>
-																</table>
-															</td>
-															<td class="cell">${dto.s_orderdate }</td>
-															<td class="cell"><fmt:formatNumber value="${total }"
-																	type="number" />원</td>
-															<c:choose>
-																<c:when test="${dto.s_statement =='배송중'}">
-																	<td class="cell"><span class="mr-1">${dto.s_statement }</span><input
-																		type="button" value="배송조회"
-																		class="showShipping btn btn-dark"></td>
-																</c:when>
-																<c:otherwise>
-																	<td class="cell">${dto.s_statement }</td>
-																</c:otherwise>
-															</c:choose>
-
-														</tr>
-													</c:if>
-												</c:forEach>
+											<c:forEach var="dto" items="${list}">
+												<tr class="pt-3 pb-3 orderLists bottom_line">
+													<td class="cell">${dto.sb_orderno_seq }</td>
+													<td class="cell">
+														<table width="100%" border="0" cellpadding="0"
+															cellspacing="0">
+															<tr>
+																<td valign="middle">
+																	<div class="goods_name">
+																		<a href="subscription" >${dto.sb_category }
+																		<c:if test="${dto.sb_category=='나만의 박스'}">
+																			(구성 : ${dto.sb_component1 }, ${dto.sb_component2 }, ${dto.sb_component3 })
+																		</c:if>
+																		</a>
+																	</div>
+																</td>
+															</tr>
+														</table>
+													</td>
+													<td class="cell">${dto.sb_startday }</td>
+													<td class="cell">${dto.sb_period }</td>
+													<td class="cell"><fmt:formatNumber value="${dto.sb_price }"
+															type="number" />원</td>
+													<c:choose>
+														<c:when test="${dto.sb_statement =='구독중'}">
+															<td class="cell"><span class="mr-1">${dto.sb_statement }</span><input
+																type="button" value="구독취소" class="subsCancel btn btn-dark"></td>
+														</c:when>
+														<c:when test="${dto.sb_statement =='입금 대기'}">
+															<td class="cell"><span class="mr-1" style="color:dodgerblue;">${dto.sb_statement }</span></td>
+														</c:when>
+														<c:when test="${dto.sb_statement =='구독 취소'||dto.sb_statement =='주문 만료'}">
+															<td class="cell"><span class="mr-1" style="color:red;">${dto.sb_statement }</span></td>
+														</c:when>
+														<c:otherwise>
+															<td class="cell">${dto.sb_statement }</td>
+														</c:otherwise>
+													</c:choose>
+												</tr>
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>

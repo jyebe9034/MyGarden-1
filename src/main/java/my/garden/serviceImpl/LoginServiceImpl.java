@@ -232,4 +232,8 @@ public class LoginServiceImpl {
 		return logDao.getOrderlist(dto);
 	}
 	
+	public String getGrade(String id) {
+		return logDao.getGrade(id);
+	}
+	
 }

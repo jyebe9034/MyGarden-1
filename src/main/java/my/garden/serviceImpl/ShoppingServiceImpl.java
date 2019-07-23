@@ -120,7 +120,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 	
 	@Transactional
 	public List<SubscribeDTO> getSubsList(String id) throws Exception{
-		//dao.updateSubslist();			
+		dao.updateSubslist();			
 		return dao.selectSubsList(id);
 	}
 
