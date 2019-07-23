@@ -386,4 +386,8 @@ public class LoginDAO {
         return returnNode;
 	}
 	
+	public String getGrade(String id){
+		return sst.selectOne("LoginDAO.getGrade", id);
+	}
+	
 }

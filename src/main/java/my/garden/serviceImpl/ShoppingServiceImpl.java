@@ -11,6 +11,7 @@ import my.garden.dao.ShoppingDAO;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 import my.garden.service.ShoppingService;
 
 @Component
@@ -50,7 +51,8 @@ public class ShoppingServiceImpl implements ShoppingService{
 	}
 
 	@Transactional
-	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{	
+	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{
+		dao.updateShoplist();
 		dto.setS_email(id);
 		List<Long> orderNoList = dao.selectOrderNo(id);
 		List<List<ShopListDTO>> listWrapper = new ArrayList<>();
@@ -109,6 +111,17 @@ public class ShoppingServiceImpl implements ShoppingService{
 			listWrapper.add(dao.selectOrderList(dto));
 		}		
 		return listWrapper;
+	}
+	
+	public int insertSubscribe(SubscribeDTO sbdto, String id) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.insertSubscribe(sbdto);
+	}
+	
+	@Transactional
+	public List<SubscribeDTO> getSubsList(String id) throws Exception{
+		//dao.updateSubslist();			
+		return dao.selectSubsList(id);
 	}
 
 

@@ -25,9 +25,6 @@ public class HomeController {
       return "products/productsAdd";
    }
    
-   @RequestMapping("subscription")
-   public String toSubscribe() {
-      return "subscription/subscription";
-   }
+ 
 
 }

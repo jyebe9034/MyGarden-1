@@ -1,141 +1,226 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
+	type="text/javascript"></script>
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>Á¤±â ±¸µ¶</title>
+<title>ì •ê¸° êµ¬ë…</title>
 <style>
-	#bcolor{
-		width : 100%;
-		height : 175px;
-		background-color : #deca92;		
-	}
-	#title{
-		text-align: center;
-		margin : 100px 0px 100px 0px;
-	}
-	#title div:first-child{
-		font-size : 27px;
-		font-weight : bold;
-		margin-bottom : 10px;
-	}
-	#title div:last-child{
-		font-size : 16px;
-	}
-	.item{
-		border : 1px solid #d1d1d1;
-		text-align: center;	
-	}
-	.item:hover{
-		cursor : pointer;
-	}
-	#item4 .img{
-		width : 120px;
-		height : 120px;
-		margin-top : 15px;
-	}
-	.imgs{
-		margin-top : 50px;
-		height : 150px;
-	}
-	.img{
-		width : 150px;
-		height : 150px;
-		border-radius: 100%;
-		margin : auto;
-	}
-	.name{
-		margin-top : 50px;
-		margin-bottom : 30px;
-		font-size : 18px;
-		font-weight : bold;
-	}
-	.content{
-		margin-bottom : 80px;
-		font-size : 15px;
-	}
-	#btnBorder{
-		margin-top : 100px;
-		margin-bottom : 100px;
-	}
-	#next{
-		width : 250px;
-		height : 60px;
-		background-color: #44b27d;
-		color : white;
-		border-top-left-radius : 20px;
-		border-top-right-radius : 20px;
-		border-bottom-left-radius : 20px;
-		border-bottom-right-radius : 20px;
-		font-weight: bold;
-		font-size : 20px;
-	}
-	#next:hover{
-		background-color: #b4d9b5;
-	}
-	#nextBtn{
-		text-align: center;
-		margin : auto;
-	}
-	#closeBtn{
-		padding-right : 10px;
-	}
-	#modalTitle{
-		text-align : center;
-		margin-top : 40px;
-		margin-bottom : 10px;
-	}
-	.mTitle{
-		font-weight : bold;
-		font-size : 24px;
-	}
-	.foryou{
-		font-size : 14px;
-	}
-	.subscribe{
-		height : 120px;
-	}
-	.periodSub{
-		padding-left : 90px;
-		margin-top : 10px;
-		margin-bottom : 5px;
-		font-size : 16px;
-		font-weight : bold;
-	}
-	.period{
-		border : 1px solid #d1d1d1;
-		width : 130px;
-		height : 70px;
-		float : left;
-		margin-left : 30px;
-		margin-right : 30px;
-		text-align : center;
-		line-height : 70px;
-		font-size : 18px;
-		cursor : pointer;
-	}
-	#period2{
-		margin-left : 90px;
-	}
-	#modalBtn{
-		height : 80px;
-		text-align : center;
-	}
-	#submitBtn{
-		background-color: #44b27d;
-		color : white;
-		font-size : 15px;
-		margin-top : 30px;
-	}
-	#selectDate{
-		
-	}
-	#chooseDate{
-		width : 300px;
-		margin : auto;
-	}
+#bcolor {
+	width: 100%;
+	height: 175px;
+	background-color: #deca92;
+}
+
+#title {
+	text-align: center;
+	margin: 100px 0px 100px 0px;
+}
+
+#title div:first-child {
+	font-size: 27px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#title div:last-child {
+	font-size: 16px;
+}
+
+.item {
+	border: 1px solid #d1d1d1;
+	text-align: center;
+}
+
+.item:hover {
+	cursor: pointer;
+}
+
+#item4 .img {
+	width: 120px;
+	height: 120px;
+	margin-top: 15px;
+}
+
+.imgs {
+	margin-top: 50px;
+	height: 150px;
+}
+
+.img {
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+	margin: auto;
+}
+
+.name {
+	margin-top: 50px;
+	margin-bottom: 30px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.content {
+	margin-bottom: 80px;
+	font-size: 15px;
+}
+
+#btnBorder {
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+#next {
+	width: 250px;
+	height: 60px;
+	background-color: #44b27d;
+	color: white;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#next:hover {
+	background-color: #b4d9b5;
+}
+
+#nextBtn {
+	text-align: center;
+	margin: auto;
+}
+
+#closeBtn {
+	padding-right: 10px;
+}
+
+#modalTitle {
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+
+.mTitle {
+	font-weight: bold;
+	font-size: 24px;
+}
+
+.foryou {
+	font-size: 14px;
+}
+
+.subscribe {
+	height: 120px;
+}
+
+.periodSub {
+	padding-left: 90px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.period {
+	border: 1px solid #d1d1d1;
+	width: 130px;
+	height: 70px;
+	float: left;
+	margin-left: 30px;
+	margin-right: 30px;
+	text-align: center;
+	line-height: 70px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.period2 {
+	margin-left: 90px;
+}
+
+.selects {
+	margin-left: 80px;
+}
+
+#modalBtn {
+	height: 80px;
+	text-align: center;
+}
+
+#submitBtn {
+	background-color: #44b27d;
+	color: white;
+	font-size: 15px;
+	margin-top: 30px;
+}
+
+#selectDate {
+	
+}
+
+#chooseDate {
+	width: 300px;
+	margin: auto;
+}
+
+#addrConfirm {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 9999999;
+}
+
+#confirm_cancel {
+	border-radius: 10px;
+	float: left;
+	width: 50%;
+	font-size: 14px;
+	color: #818181;
+	padding: 18px 0px;
+	cursor: pointer;
+}
+
+#confirm_yes {
+	border-radius: 10px;
+	float: left;
+	width: 50%;
+	font-size: 14px;
+	color: #818181;
+	padding: 18px 0px;
+	cursor: pointer;
+	border-left: 1px solid #eaeaea;
+}
+
+#confirm_cancel:hover {
+	background-color: lightgray;
+}
+
+#confirm_yes:hover {
+	background-color: lightgray;
+}
+
+#confirm_msg {
+	padding: 30px 0px;
+	border-bottom: 1px solid #eaeaea;
+	font-size: 14px;
+	font-weight: bold;
+	font-family: 'Spoqa Han Sans', sans-serif;
+}
+
+#ableDate {
+	font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -145,117 +230,338 @@
 		<div id="title" class="row">
 			<div class="col-12">Select Your Box</div>
 			<hr>
-			<div class="col-12">Á¤±â ±¸µ¶ÇÒ ¹Ú½º¸¦ ¼±ÅÃÇØ ÁÖ¼¼¿ä!</div>
+			<div class="col-12">ì •ê¸° êµ¬ë…í•  ë°•ìŠ¤ë¥¼ ì„ íƒí•´ ì£¼ì„¸ìš”!</div>
 		</div>
 		<div id="items" class="row">
-			<div class="col-3">
-				<div class="item">
-					<input id="vegetableBox" type="hidden" value="vegetable">
-					<div class="imgs"><img class="img" src="resources/img/vege.jpeg"></div>
-					<div class="name">Ã¤¼Ò ¹Ú½º</div>
-					<div class="content">°øÀ¯ Á¤¿ø¿¡¼­ Å°¿öÁø<br>
-					°Ç°­ÇÑ Ã¤¼ÒµéÀ»<br>
-					¸ÅÁÖ ´Ù¸£°Ô ±¸¼ºÇØµå·Á¿ä.</div>
+			<div class="col-12 col-md-6 col-lg-3 mb-3">
+				<div class="item" flag="false">
+					<input id="vegetableBox" type="hidden" value="ì±„ì†Œ ë°•ìŠ¤">
+					<input id="vegePrice" type="hidden" value="30000">
+					<div class="imgs">
+						<img class="img" src="resources/img/vege.jpeg">
+					</div>
+					<div class="name">ì±„ì†Œ ë°•ìŠ¤</div>
+					<div class="content">
+						ê³µìœ  ì •ì›ì—ì„œ í‚¤ì›Œì§„<br> ê±´ê°•í•œ ì±„ì†Œë“¤ì„<br> ë§¤ì£¼ ë‹¤ë¥´ê²Œ êµ¬ì„±í•´ë“œë ¤ìš”.
+					</div>
 				</div>
 			</div>
-			<div class="col-3">
-				<div class="item">
-					<input id="fruitBox" type="hidden" value="fruit">
-					<div class="imgs"><img class="img" src="resources/img/fruits.jpg"></div>
-					<div class="name">°úÀÏ ¹Ú½º</div>
-					<div class="content">°øÀ¯ Á¤¿øÀÇ ÀçÃ¶ °úÀÏÀ»<br>
-					´Ù¾çÇÏ°Ô ±¸¼ºÇØ¼­<br>
-					º¸³»µå·Á¿ä.</div>
+			<div class="col-12 col-md-6 col-lg-3 mb-3">
+				<div class="item" flag="false">
+					<input id="fruitBox" type="hidden" value="ê³¼ì¼ ë°•ìŠ¤">
+					<input id="fruitPrice" type="hidden" value="40000">
+					<div class="imgs">
+						<img class="img" src="resources/img/fruits.jpg">
+					</div>
+					<div class="name">ê³¼ì¼ ë°•ìŠ¤</div>
+					<div class="content">
+						ê³µìœ  ì •ì›ì˜ ì¬ì²  ê³¼ì¼ì„<br> ë‹¤ì–‘í•˜ê²Œ êµ¬ì„±í•´ì„œ<br> ë³´ë‚´ë“œë ¤ìš”.
+					</div>
 				</div>
 			</div>
-			<div class="col-3">
-				<div class="item">
-					<input id="mixedBox" type="hidden" value="mixed">
-					<div class="imgs"><img class="img" src="resources/img/salad.jpg"></div>
-					<div class="name">Ã¤¼Ò + °úÀÏ ¹Ú½º</div>
-					<div class="content">»ø·¯µå Ã¤¼Ò¿Í ÇÔ²² ±¸¼ºµÈ<br>
-					Ã¤¼Ò + °úÀÏ ¹Ú½º·Î<br>
-					°£ÆíÇÏ°Ô »ø·¯µå¸¦ Áñ°Üº¸¼¼¿ä.</div>
+			<div class="col-12 col-md-6 col-lg-3 mb-3">
+				<div class="item" flag="false">
+					<input id="mixedBox" type="hidden" value="ê³¼ì¼/ì±„ì†Œ ë°•ìŠ¤">
+					<input id="mixedPrice" type="hidden" value="35000">
+					<div class="imgs">
+						<img class="img" src="resources/img/salad.jpg">
+					</div>
+					<div class="name">ì±„ì†Œ + ê³¼ì¼ ë°•ìŠ¤</div>
+					<div class="content">
+						ìƒëŸ¬ë“œ ì±„ì†Œì™€ í•¨ê»˜ êµ¬ì„±ëœ<br> ì±„ì†Œ + ê³¼ì¼ ë°•ìŠ¤ë¡œ<br> ê°„í¸í•˜ê²Œ ìƒëŸ¬ë“œë¥¼ ì¦ê²¨ë³´ì„¸ìš”.
+					</div>
 				</div>
 			</div>
-			<div class="col-3">
-				<div class="item">
-					<input id="customBox" type="hidden" value="custom">
-					<div class="imgs"><img class="img" src="resources/img/question.png"></div>
-					<div class="name">³ª¸¸ÀÇ ¹Ú½º</div>
-					<div class="content">Á¤±â ±¸µ¶ ¹Ú½º¸¦ <br>
-					¿øÇÏ´Â Ç°¸ñÀ¸·Î ±¸¼ºÇÏ°í ½Í´Ù¸é<br>
-					³ª¸¸ÀÇ ¹Ú½º¸¦ ¸¸µé¾î º¸¼¼¿ä.</div>
+			<div class="col-12 col-md-6 col-lg-3 mb-3">
+				<div class="item" flag="false">
+					<input id="customBox" type="hidden" value="ë‚˜ë§Œì˜ ë°•ìŠ¤">
+					<input id="customPrice" type="hidden" value="45000">
+					<div class="imgs">
+						<img class="img" src="resources/img/question.png">
+					</div>
+					<div class="name">ë‚˜ë§Œì˜ ë°•ìŠ¤</div>
+					<div class="content">
+						ì •ê¸° êµ¬ë… ë°•ìŠ¤ë¥¼ <br> ì›í•˜ëŠ” í’ˆëª©ìœ¼ë¡œ êµ¬ì„±í•˜ê³  ì‹¶ë‹¤ë©´<br> ë‚˜ë§Œì˜ ë°•ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë³´ì„¸ìš”.
+					</div>
 				</div>
 			</div>
 		</div>
 		<div id="btnBorder" class="row">
 			<div id="nextBtn" class="col-12">
-				<input id="next" type="button" class="btn" value="´ÙÀ½ >" data-toggle="modal" data-target="#exampleModalCenter">
+				<input id="next" type="button" class="btn" value="ë‹¤ìŒ >">
 			</div>
 		</div>
 	</div>
 	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
-	
-		<!-- Modal -->
-		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
-		    <div class="modal-content">
-		      <div id="closeBtn">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div id="modalTitle">
-			      <div class="modal-title mTitle" id="exampleModalCenterTitle">±¸µ¶ ÁÖ±â ¼±ÅÃ</div>
-			      <div class="foryou">ÁÖ±â¿¡ µû¶ó ¾Ë¸ÂÀº ¾çÀ¸·Î ±¸¼ºÇØ µå·Á¿ä!</div>
-		      </div>
-		      <form action="">
-		      <div class="modal-body p-0">
-		        <div id="weekly" class="subscribe">
-		        	<div class="periodSub">ÁÖ°£±¸µ¶</div>
-		        	<div id="period2" class="period">
-		        		¸ÅÁÖ
-		        	</div>
-		        	<div class="period">
-		        		°İÁÖ
-		        	</div>
-		        </div>
-		        <div id="monthly" class="subscribe">
-		        	<div class="periodSub">¿ù°£±¸µ¶</div>
-		        	<div id="period2" class="period">ÇÑ ´Ş¿¡ ÇÑ¹ø</div>
-		        </div>
-		      	<div id="date">
-				  <div id="dateTitle" class="periodSub">Ã¹ ¹è¼ÛÀÏ ¼±ÅÃ</div>
-				  <div id="selectDate">
-				    <input id="chooseDate" class="form-control" type="date" value="2019-07-15">
-				  </div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div id="closeBtn">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-		      </div>
-		      <div id="modalBtn">
-		   		<button id="submitBtn" class="btn" type="button">Àå¹Ù±¸´Ï</button>
-		      </div>
-		      </form>
-		    </div>
-		  </div>
+				<div id="modalTitle">
+					<div class="modal-title mTitle" id="exampleModalCenterTitle">êµ¬ë…
+						ì£¼ê¸° ì„ íƒ</div>
+					<div class="foryou">ì£¼ê¸°ì— ë”°ë¼ ì•Œë§ì€ ì–‘ìœ¼ë¡œ êµ¬ì„±í•´ ë“œë ¤ìš”!</div>
+				</div>
+				<form action="subsComplete" method="post" id="sbForm">
+					<div class="modal-body p-0">
+						<div id="weekly" class="subscribe">
+							<div class="periodSub">ì£¼ê°„êµ¬ë…</div>
+							<div class="period2 period" flag="false">
+							<input type="hidden" value="ë§¤ì£¼ í•œ ë²ˆ">
+							ë§¤ì£¼</div>
+							<div class="period" flag="false">
+							<input type="hidden" value="ê²©ì£¼ì— í•œ ë²ˆ">
+							ê²©ì£¼</div>
+						</div>
+						<div id="monthly" class="subscribe">
+							<div class="periodSub">ì›”ê°„êµ¬ë…</div>
+							<div class="period2 period" flag="false">
+							<input type="hidden" value="í•œ ë‹¬ì— í•œ ë²ˆ">
+							í•œ ë‹¬ì— í•œë²ˆ</div>
+						</div>
+						<div id="hide" class="mb-5">
+							<div class="periodSub">ë‚˜ë§Œì˜ ë°•ìŠ¤ êµ¬ì„± ì„ íƒ</div>
+							<div class="selects mt-2">
+								<select flag="false" class="mr-2 p-1 options" name="sb_component1"
+									id="select1">
+									<option selected value="ë¯¸ì„ íƒ" hidden>ê³¼ì¼/ì±„ì†Œ</option>
+									<option value="ë¯¸ì„ íƒ">ì„ íƒì•ˆí•¨</option>
+									<option value="ì±„ì†Œ1">ì±„ì†Œ1</option>
+									<option>ì±„ì†Œ2</option>
+									<option>ì±„ì†Œ3</option>
+								</select><select flag="false" class="mr-2 p-1 options" name="sb_component2"
+									id="select2">
+									<option selected value="ë¯¸ì„ íƒ" hidden>ë‹¬ê±€/ìœ ì œí’ˆ</option>
+									<option value="ë¯¸ì„ íƒ">ì„ íƒì•ˆí•¨</option>
+									<option>ì±„ì†Œ1</option>
+									<option>ì±„ì†Œ2</option>
+									<option>ì±„ì†Œ3</option>
+								</select><select flag="false" class="mr-2 p-1 options" name="sb_component3"
+									id="select3">
+									<option selected value="ë¯¸ì„ íƒ" hidden>ê³¡ë¬¼/ê¸°íƒ€</option>
+									<option value="ë¯¸ì„ íƒ">ì„ íƒì•ˆí•¨</option>
+									<option>ì±„ì†Œ1</option>
+									<option>ì±„ì†Œ2</option>
+									<option>ì±„ì†Œ3</option>
+								</select>
+							</div>
+						</div>
+						<div id="date" class="mt-4 mb-2">
+							<div id="dateTitle" class="periodSub mb-3">
+								ì²« ë°°ì†¡ì¼ ì„ íƒ<span id="ableDate">(ë‚´ì¼ë¶€í„° ì„ íƒê°€ëŠ¥)</span>
+							</div>
+							<div id="selectDate">
+								 <input id="chooseDate" class="form-control" type="date" name="sb_startday">
+							</div>
+						</div>
+						<div class="mt-5 mb-4">
+							<div class="periodSub">ê²°ì œ ë°©ì‹ ì„ íƒ</div>
+							<div class="period2">
+								<label style="display: inline-block; padding-right: 10px;">
+									<input type="radio" name="payment" id="cardPay" checked />ì²´í¬/ì‹ ìš©ì¹´ë“œ,
+									ì¹´ì¹´ì˜¤í˜ì´
+								</label><label style="display: inline-block; padding-right: 10px;"><input
+									type="radio" name="payment" id="sendPay" />ë¬´í†µì¥ì…ê¸ˆ</label>
+									<input type="hidden" value="" name="sb_paymethod" id="sb_paymethod">
+							</div>
+						</div>
+					</div>
+					<div id="modalBtn" class="mb-5 mt-2">
+					<input type="hidden" name="sb_period" value="" id="sb_period">
+					<input type="hidden" name="sb_category" value="" id="sb_category">
+					<input type="hidden" name="sb_statement" value="" id="sb_statement">
+					<input type="hidden" name="sb_price" value="" id="sb_price">
+						<button id="submitBtn" class="btn" type="button">êµ¬ë…í•˜ê¸°</button>
+					</div>
+				</form>
+			</div>
 		</div>
-	
+	</div>
+
+	<div id="addrConfirm">
+		<table width="100%" height="100%" cellpadding="0" cellspacing="0"
+			border="0">
+			<tr>
+				<td align="center" valign="middle" style="padding: 0px 30px;">
+					<div
+						style="background-color: #ffffff; border-radius: 10px; width: 350px;">
+						<div id="confirm_msg" class="p-3">íšŒì›ì •ë³´ì˜ ì£¼ì†Œì§€ê°€ ìƒí’ˆì˜ ë°°ì†¡ì§€ë¡œ ì§€ì •ë©ë‹ˆë‹¤.
+							íšŒì›ì •ë³´ë¥¼ í™•ì¸í•˜ì‹œê² ìŠµë‹ˆê¹Œ?</div>
+						<div>
+							<div id="confirm_cancel" data-toggle="modal"
+								data-target="#exampleModalCenter">ê²°ì œ ì§„í–‰í•˜ê¸°</div>
+							<div id="confirm_yes">ì£¼ì†Œì§€ í™•ì¸í•˜ê¸°</div>
+							<div style="clear: both;"></div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
 	<script>
-		$(".item").on("click", function(){
+		var date = new Date();
+		date.setDate(date.getDate() + 1);
+		$("#chooseDate").val(date.toISOString().substring(0, 10));
+		$("#chooseDate").attr("min", date.toISOString().substring(0, 10));
+		date.setDate(date.getDate() + 15);
+		$("#chooseDate").attr("max", date.toISOString().substring(0, 10));
+
+		$("#hide").hide();
+		var category = "ë¯¸ì„ íƒ";
+		$(".item").on("click", function() {
 			var item = $(this);
 			$(".item").css("border", "1px solid #d1d1d1");
+			$(".item").attr("flag", "false");
 			item.css("border", "1px solid #44b27d");
-			
-			$("#next").on("click", function(){
-// 				location.href = "subscription2?select=" + item.children("input").val();
-			})
+			item.attr("flag", "true");
+			$("#sb_category").val($(this).find("input:nth-child(1)").val());
+			$("#sb_price").val($(this).find("input:nth-child(2)").val());
 		})
-		
-		$(".period").on("click", function(){
+
+		$("#next").on("click", function() {
+			if(${loginId==null}){
+				alert("ë¡œê·¸ì¸ì´ í•„ìš”í•œ ë©”ë‰´ì…ë‹ˆë‹¤.");
+				$(location).attr("href","/login");
+			}else{
+			var checked = 0;
+			$(".item").each(function() {
+				if ($(this).attr("flag") == "true") {
+					checked++;
+					if ($(this).find("div:nth-child(4)").html() == "ë‚˜ë§Œì˜ ë°•ìŠ¤") {
+						category = $(this).find("div:nth-child(4)").html();
+						$("#hide").show();
+					} else {
+						category = $(this).find("div:nth-child(4)").html();
+						$("#hide").hide();
+					}
+				}
+			});
+			if (checked == 0) {
+				alert("ì„ íƒëœ ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.");
+			} else {
+				$("#addrConfirm").fadeIn();
+			}
+		}
+		})
+
+		$("#confirm_yes").on("click", function() {
+			$(location).attr("href", "/mypageInfo");
+		})
+
+		$("#confirm_cancel").on("click", function() {
+			$("#addrConfirm").hide();
+		})
+
+		$(".period").on("click", function() {
 			var item = $(this);
 			$(".period").css("border", "1px solid #d1d1d1");
+			$(".period").attr("flag", "false");
 			item.css("border", "1px solid #44b27d");
+			item.attr("flag", "true");
+			$("#sb_period").val($(this).find("input:nth-child(1)").val());
 		})
+
+		$('.options').change(function() {
+			var select1 = $("#select1").val();
+			var select2 = $("#select2").val();
+			var select3 = $("#select3").val();
+			if (select1 != "ê³¼ì¼/ì±„ì†Œ" && select1 != "ì„ íƒì•ˆí•¨") {
+				$("#select1").attr("flag", "true");
+			} else {
+				$("#select1").attr("flag", "false");
+			}
+
+			if (select2 != "ë‹¬ê±€/ìœ ì œí’ˆ" && select2 != "ì„ íƒì•ˆí•¨") {
+				$("#select2").attr("flag", "true");
+			} else {
+				$("#select2").attr("flag", "false");
+			}
+
+			if (select3 != "ê³¡ë¬¼/ê¸°íƒ€" && select3 != "ì„ íƒì•ˆí•¨") {
+				$("#select3").attr("flag", "true");
+			} else {
+				$("#select3").attr("flag", "false");
+			}
+		});
+
+		$("#submitBtn").on("click",function() {
+							var checked = 0;
+							$(".period").each(function() {
+								if ($(this).attr("flag") == "true") {
+									checked++;
+								}
+							});
+							if (checked == 0) {
+								alert("ë°°ì†¡ ì£¼ê¸°ë¥¼ ì„ íƒí•´ì£¼ì„¸ìš”.");
+							} else {
+								if (category == "ë‚˜ë§Œì˜ ë°•ìŠ¤"
+										&& $("#select1").attr("flag") == "false"
+										&& $("#select2").attr("flag") == "false"
+										&& $("#select3").attr("flag") == "false") {
+									alert("ì„ íƒëœ ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.");
+								} else {
+									if ($("#cardPay").prop("checked")) {
+										var price = 3000;
+										var IMP = window.IMP; // ìƒëµê°€ëŠ¥
+										IMP.init('imp33112290'); // 'iamport' ëŒ€ì‹  ë¶€ì—¬ë°›ì€ "ê°€ë§¹ì  ì‹ë³„ì½”ë“œ"ë¥¼ ì‚¬ìš©
+										IMP.request_pay(
+														{
+															pg : 'inicis', // version 1.1.0ë¶€í„° ì§€ì›.
+															pay_method : 'card',
+															merchant_uid : 'merchant_'
+																	+ new Date()
+																			.getTime(),
+															name : "ìƒí’ˆ ê²°ì œ", //ê²°ì œì°½ì—ì„œ ë³´ì—¬ì§ˆ ì´ë¦„ //// í›„ì›ëª… ë¶ˆëŸ¬ì˜¤ê¸°
+															amount : price, // ì…ë ¥ë°›ì€ ê¸ˆì•¡
+															buyer_email : "${loginDTO.m_email}",
+															buyer_name : "${loginDTO.m_name}",
+															buyer_tel : "${loginDTO.m_phone}",
+															m_redirect_url : 'orderComplete'
+														},
+														function(rsp) {
+															if (rsp.success) {
+																alert("ê²°ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤");
+																$.ajax({
+																			url : "https://www.myservice.com/payments/complete", // ê°€ë§¹ì  ì„œë²„
+																			method : "POST",
+																			headers : {
+																					"Content-Type" : "application/json"
+																					},
+																			data : {
+																					imp_uid : rsp.imp_uid,
+																					merchant_uid : rsp.merchant_uid
+																					}
+																				})
+																		.done(function(data) {
+																			$("#sb_paymethod").val("ì¹´ë“œ ê²°ì œ");
+																			$("#sb_statement").val("ê²°ì œ ì™„ë£Œ");
+																			$("#sbForm").submit();
+																				})
+															} else {
+																alert('ê²°ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.');
+															}
+														});
+									} else {	
+										var payConfirm = confirm("ë¬´í†µì¥ ì…ê¸ˆìœ¼ë¡œ ê²°ì œë¥¼ ì§„í–‰í•©ë‹ˆë‹¤.");
+										if(payConfirm){
+											$("#sb_paymethod").val("ë¬´í†µì¥ ì…ê¸ˆ");
+											$("#sb_statement").val("ì…ê¸ˆ ëŒ€ê¸°");
+											$("#sbForm").submit();
+										}
+									}
+								}
+							}
+						})
 	</script>
 </body>
 </html>

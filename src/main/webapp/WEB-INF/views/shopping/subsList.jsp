@@ -111,15 +111,7 @@ table.list_table_style td.cell {
 
 <script>
 	$(function() {
-		$(".durBtns").on("click", function() {
-			$("#btnValue").val($(this).val());
-			$("#orderSearch").submit();
-		})
-
-		$(".showShipping").on("click", function(){
-			window.open("shipping", "",
-			"width=900px, height=700px");
-		})
+		
 	});
 </script>
 
@@ -163,13 +155,10 @@ table.list_table_style td.cell {
 
 			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
-					<a href="/mypageFirst"
-						class="list-group-item list-group-item-action ">Overview</a> <a
-						href="/mypageInfo" class="list-group-item list-group-item-action">내
-						정보 수정</a> <a href="#"
-						class="list-group-item list-group-item-action currentActive">구매
-						내역</a> 
-						<a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
+					<a href="/mypageFirst" class="list-group-item list-group-item-action ">Overview</a> 
+					<a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a> 
+					<a href="orderList" class="list-group-item list-group-item-action">구매 내역</a> 
+					<a href="#" class="list-group-item list-group-item-action currentActive">정기 구독</a>
 				</div>
 			</div>
 
@@ -275,12 +264,6 @@ table.list_table_style td.cell {
 																	<td class="cell"><span class="mr-1">${dto.s_statement }</span><input
 																		type="button" value="배송조회"
 																		class="showShipping btn btn-dark"></td>
-																</c:when>
-																<c:when test="${dto.s_statement =='입금 대기'}">
-																	<td class="cell" style="color:dodgerblue;">${dto.s_statement }</td>
-																</c:when>
-																<c:when test="${dto.s_statement =='주문 만료'}">
-																	<td class="cell" style="color:red;">${dto.s_statement }</td>
 																</c:when>
 																<c:otherwise>
 																	<td class="cell">${dto.s_statement }</td>
