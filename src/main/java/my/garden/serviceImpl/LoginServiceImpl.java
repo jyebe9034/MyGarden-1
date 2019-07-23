@@ -228,8 +228,8 @@ public class LoginServiceImpl {
 		return li;
 	}
 	
-	public List<ShopListDTO> getOrderList(ShopListDTO dto){
-		return logDao.getOrderlist(dto);
+	public List<ShopListDTO> getShoppedList(ShopListDTO dto){
+		return logDao.getShoppedList(dto);
 	}
 	
 }

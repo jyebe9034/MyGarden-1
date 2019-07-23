@@ -414,7 +414,7 @@ public class LoginDAO {
 	      return sst.selectList("LoginDAO.selectCalendar", loginId);
 	   }
 	
-	public List<ShopListDTO> getOrderlist(ShopListDTO dto){
+	public List<ShopListDTO> getShoppedList(ShopListDTO dto){
 		if(sst.selectList("LoginDAO.selectOrderList", dto)==null) {
 			return null;
 		}else {
