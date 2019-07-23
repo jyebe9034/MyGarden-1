@@ -78,6 +78,7 @@ public class LoginController {
 			session.setAttribute("loginId", loginId);
 			String loginName = loginserv.getName(loginId);
 			session.setAttribute("loginName", loginName);
+			session.setAttribute("grade", loginserv.getGrade(loginId));
 			return "home";
 		}
 	}

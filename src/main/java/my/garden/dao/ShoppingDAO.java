@@ -87,9 +87,12 @@ public class ShoppingDAO {
 	}
 	
 	public int updateShoplist() throws Exception{
-		return sst.update("ShoppingDAO.updateShoplist");
+		return sst.update("ShoppingDAO.updateShopList");
 	}
 	
+	public int updateSubslist() throws Exception{
+		return sst.update("ShoppingDAO.updateSubsList");
+	}
 	
 	public List<SubscribeDTO> selectSubsList(String id) throws Exception{
 		return sst.selectList("ShoppingDAO.selectSubsList", id);

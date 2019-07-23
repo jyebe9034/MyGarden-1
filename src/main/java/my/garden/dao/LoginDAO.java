@@ -422,4 +422,8 @@ public class LoginDAO {
 		}
 	}
 	
+	public String getGrade(String id) {
+		return sst.selectOne("LoginDAO.getGrade", id);
+	}
+	
 }
