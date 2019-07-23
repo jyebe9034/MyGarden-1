@@ -136,27 +136,6 @@
       })
    });
 </script>
-
-<!-- advertise header -->
-         <c:choose>
-             <c:when test="${loginName!=null}">
-              
-<style>.clickToClose{display:none;}</style>
-     
-          </c:when>
-          <c:otherwise>
-              
-<div class="container-fluid my">
-   <div class="row my">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
-         <span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>
-         <span class="position-absolute clickToCloseBtnBorder"></span>
-         <span class="position-absolute clickToCloseBtn">&Cross;</span>
-      </div>
-   </div>
-</div>
-          </c:otherwise>
-       </c:choose>
        
 <!--    html -->
 <div id="goToTop" class="animated infinite bounce">

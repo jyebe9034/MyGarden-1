@@ -1,6 +1,5 @@
 package my.garden.dao;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -11,7 +10,10 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +29,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,18 +44,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-
+import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
 
 @Repository
 public class LoginDAO {
@@ -91,7 +87,6 @@ public class LoginDAO {
 			dto.setM_realpath(uploadPath + "/" + prof);
 			dto.setM_profile("resources/prof/" + prof);
 		} catch (Exception e) {
-			System.out.println("ss");
 			e.printStackTrace();
 		} 
 	}
@@ -143,13 +138,13 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
-	public MembersDTO memSelectAll(String email) {
-		return sst.selectOne("LoginDAO.memSelectAll", email);
-	}
-	
 	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
+	}
+	
+	public MembersDTO memSelectAll(String email) {
+		return sst.selectOne("LoginDAO.memSelectAll", email);
 	}
 
 	public String pwDupCheck(String key) {
@@ -158,6 +153,10 @@ public class LoginDAO {
 		map.put("whereCol", "m_email");
 		map.put("value", key);
 		return sst.selectOne("LoginDAO.dupCheck", map);
+	}
+	
+	public int delete(String loginId) {
+		return sst.delete("LoginDAO.delete", loginId);
 	}
 	
 	public int memUpdateAll(MembersDTO dto) {
@@ -217,6 +216,10 @@ public class LoginDAO {
 	}
 	
 	public int findAccountChange(Map<String, String> map) {
+		return sst.insert("LoginDAO.updateOne", map);
+	}
+
+	public int changeGardenStuff(Map<String, String> map) {
 		return sst.insert("LoginDAO.updateOne", map);
 	}
 	
@@ -390,8 +393,33 @@ public class LoginDAO {
         return returnNode;
 	}
 	
-	public String getGrade(String id){
-		return sst.selectOne("LoginDAO.getGrade", id);
+	public Integer[] gardenCalendar(int year) {
+		Integer[] calArr = new Integer[12];
+        int day = 1;
+        int daysOfMonth = 0;
+		Calendar cal = Calendar.getInstance();
+		for(int month=0; month<12; month++) {
+	        cal.set(Calendar.MONTH, 0);
+	        int mm=cal.get(Calendar.MONTH)+month;
+//	        System.out.println(mm + 1 + "월");
+	        Calendar result = new GregorianCalendar(year, mm, day);
+	        daysOfMonth = result.getActualMaximum(Calendar.DAY_OF_MONTH);
+//	        System.out.println(year + "년 " + (mm+1) + "월의 일수: " + daysOfMonth);
+	        calArr[month] = daysOfMonth;
+		}
+       return calArr;
+	}
+	
+	public List<CalendarDTO> getCalendarList(String loginId) {
+	      return sst.selectList("LoginDAO.selectCalendar", loginId);
+	   }
+	
+	public List<ShopListDTO> getOrderlist(ShopListDTO dto){
+		if(sst.selectList("LoginDAO.selectOrderList", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderList", dto);
+		}
 	}
 	
 }
