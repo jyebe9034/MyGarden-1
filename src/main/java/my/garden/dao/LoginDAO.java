@@ -405,7 +405,11 @@ public class LoginDAO {
 	   }
 	
 	public List<ShopListDTO> getOrderlist(ShopListDTO dto){
-		return sst.selectList("LoginDAO.selectOrderList", dto);
+		if(sst.selectList("LoginDAO.selectOrderList", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderList", dto);
+		}
 	}
 	
 }

@@ -199,7 +199,7 @@ public class LoginController {
 		if(result==true) { //그 외 - 홈으로 이동
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
-			return "home";
+			return "login/homeThrough";
 		}else { //최초 로그인 - 정보입력 페이지로 이동
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("social", "naver");
@@ -236,7 +236,7 @@ public class LoginController {
 		if(result==true) { //그 외 - 홈으로 이동
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
-			return "home";
+			return "login/homeThrough";
 		}else { //최초 로그인 - 정보입력 페이지로 이동
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("profile", profile);
@@ -248,7 +248,6 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/getOrderList")
 	public String orderList(ShopListDTO dto, Timestamp date){
-		System.out.println(date);
 		dto.setS_email((String)session.getAttribute("loginId"));
 		dto.setS_orderdate(date);
 		session.setAttribute("orderList", loginserv.getOrderList(dto));

@@ -33,14 +33,14 @@
 			 + '<button type="button" class="btn btn-outline-secondary">'+(yyyy)+'</button>'
 		);
 	//date format		
-// 		function formatDate(date) { 
-// 			var d = new Date(date), 
-// 			month = '' + (d.getMonth() + 1), 
-// 			day = '' + d.getDate(), year = d.getFullYear(); 
-// 			if (month.length < 2) month = '0' + month; 
-// 			if (day.length < 2) day = '0' + day; 
-// 			return [year, month, day].join('-'); 
-// 		}
+		function formatDate(date) { 
+			var d = new Date(date), 
+			month = '' + (d.getMonth() + 1), 
+			day = '' + d.getDate(), year = d.getFullYear(); 
+			if (month.length < 2) month = '0' + month; 
+			if (day.length < 2) day = '0' + day; 
+			return [year, month, day].join('-'); 
+		}
 
 	//json
 // for(var i=0; i<${lists}.length; i++){
@@ -68,32 +68,36 @@ for(var i=0; i<$('.calDay').length+13; i++){
 			$('#mypageGardenChange').submit();
 		});
 		$('.close').on('click', function(){
+			$('#orderList').html("");
 			$('.orderList').slideUp();
 		});
 		$('.calDay').on('click', function(){
+			$('#orderList').html("");
+			$('.orderList').slideUp();
 			$.ajax({
 				url:"/getOrderList",
 				type:"post",
 				data:{date:$(this).attr('data-original-title')+" 00:00:00.000000000"}
 			}).done(function(resp){
-				console.log(resp);
-// 				if(resp==1){
-// 					$('.orderList').slideDown();
-// 					$('#orderList').html(
-// 						'<c:forEach var="order" items="${orderList}">'
-// 					    + '<tr>'
-// 					    + '<th scope="row">1</th>'
-// 					    + '<td rowspan="2"><img src="${order.s_p_imagepath}" width="200" height="150"></td>'
-// 					    + '<td colspan="2" class="pt-4 text-left">dsffsdfs</td>'
-// 					    + '</tr>'
-// 					    + '<tr>'
-// 					    + '<th scope="row" style="border:none;"></th>'
-// 					    + '<td style="border:none;" class="text-left">Thornton</td>'
-// 					    + '<td style="border:none;">@fat</td>'
-// 					    + '</tr>'
-// 					    + '</c:forEach>'		
-// 					);
-// 				}
+				var rst = JSON.parse(resp);
+				if(rst==""){
+				}else{
+					$('.orderList').slideDown();
+					for(var i=0; i<rst.length; i++){
+						$('#orderList').append(
+						    '<tr>'
+						    + '<th scope="row">'+rst[i].s_orderno_seq+'</th>'
+						    + '<td rowspan="2"><img src="'+rst[i].s_p_imagepath+'" width="200" height="150"></td>'
+						    + '<td colspan="2" class="pt-4 text-left">'+rst[i].s_p_title+'</td>'
+						    + '</tr>'
+						    + '<tr>'
+						    + '<th scope="row" style="border:none;"></th>'
+						    + '<td style="border:none;" class="text-left">'+rst[i].s_p_price+'원</td>'
+						    + '<td style="border:none;">'+formatDate(rst[i].s_orderdate)+'</td>'
+						    + '</tr>'		
+						);
+					}
+				}
 			});
 		});
 	});
