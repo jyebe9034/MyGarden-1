@@ -2,8 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PrivateGardenDAO">
 
-	<select id="selectMyGardenInfo" resultType="my.garden.dto.PrivateGardenDTO">
+	<select id="selectPrivateGarden" resultType="my.garden.dto.PrivateGardenDTO">
 		select * from gardens where g_email=#{g_email}
 	</select>
-
+	
+	<update id="updateGrade">
+		update members set m_grade=#{array[0]} where m_email=#{array[1]}
+	</update>
+	
+	<insert id="insertPrivateGarden" parameterType="my.garden.dto.PrivateGardenDTO">
+		insert into gardens values(#{g_email}, #{g_name}, default, #{g_hurb}, #{g_temper}, default,
+		default, default, default)
+	</insert>
+	
 </mapper>

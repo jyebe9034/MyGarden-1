@@ -26,9 +26,6 @@ public class MypageController {
 	@Autowired
 	ShoppingService shsvc;
 	
-	@Autowired 
-	private PrivateGardenService gserivce;
-	
 	@RequestMapping("mypageFirst")
 	public String Mypage(MembersDTO dto) {
 		String loginName = (String) session.getAttribute("loginName");
@@ -65,60 +62,4 @@ public class MypageController {
 		return "shopping/orderList";
 	}
 	
-	@RequestMapping("private")
-	public String toPrivate(Model model) {
-		String id = (String)session.getAttribute("loginId");
-		try {
-			PrivateGardenDTO dto = gserivce.selectPrivateGardenInfoService(id);
-			if(dto == null) {
-				return "privategarden/firstPrivateGarden";
-			}else {
-				model.addAttribute(dto);
-				return "privategarden/privateGarden";
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-	}
-	
-	@RequestMapping("privateGarden")
-	public String privateGarden(Model model) {
-		String id = (String)session.getAttribute("loginId");
-		if(id == null) {
-			return "alerts/privateIdCheck";
-		}else {
-			try {
-				PrivateGardenDTO dto = gserivce.selectPrivateGardenInfoService(id);
-				if(dto == null) {
-					return "privategarden/firstGuide";
-				}else {
-					model.addAttribute(dto);
-					return "privategarden/privateGarden";
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-				return "error";
-			}
-		}
-	}
-	
-	@RequestMapping("toSelectHurb")
-	public String toSelectHurb() {
-		return "privategarden/selectHurb";
-	}
-	
-	@RequestMapping("toDB")
-	public String toDB(String hurb) {
-		String id = (String)session.getAttribute("loginId");
-		try {
-			int result = gservice.insertHurbInfo(id, hurb);
-			System.out.println(result);
-			return "";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return null;
-	}
 }

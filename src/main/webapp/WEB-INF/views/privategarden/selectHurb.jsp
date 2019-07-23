@@ -214,7 +214,7 @@
 	<script>
 		$("#confirmBtn").on("click", function(){
 			var hurb = $("#sort").text();
-			$(location).attr("href", "toDB?hurb="+hurb);
+			$(location).attr("href", "toConfirmHurb?hurb="+hurb);
 		}) 
 	
 		$(".borders").on("click", function(){
@@ -234,7 +234,7 @@
 						about.append("<div class='character'>애플민트의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>소화불량이나 피로회복에 좋고 구취제거에 탁월하여 치약의 성분으로도 사용된다. 유럽에서는 향신료로도 널리 사용된다.</div>");
 						about.append("<div class='environment'>애플민트를 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 15~20도(평균 18도)</div>");
+						about.append("<div class='temp'>온도 : 15~20도</div>");
 						about.append("<div class='humid'>습도 : 약간의 습기는 좋지만 과습은 싫어함</div>");
 						about.append("<div class='light'>빛 : 강한 직사광선이 아닌 햇빛을 좋아함</div>");
 					}else if(name == "basil"){
@@ -243,11 +243,11 @@
 						about.append("<div class='aboutcharacter'>달콤하고 은은하면서 시원한 사과향이 나고 토마토 요리와 잘 어울린다. 올리브 오일에 담가 허브 오일로 이용해도 좋다."
 								 + "바질 페스토 만들기도 어렵지는 않지만 바질 잎이 많이 필요하다.</div>");
 						about.append("<div class='environment'>바질을 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 25~30도(평균 27도)</div>");
+						about.append("<div class='temp'>온도 : 25~30도</div>");
 						about.append("<div class='humid'>습도 : 약간 촉촉하게 유지해 주는 것이 좋음</div>");
 						about.append("<div class='light'>빛 : 햇빛을 좋아함</div>");
 					}else if(name == "watercress"){
-						$("#sort").text("워터크래스(watercress)");
+						$("#sort").text("워터크래스(Watercress)");
 						about.append("<div class='character'>워터크래스의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>독특한 매운맛이 난다. 비타민, 베타 카로틴, 미네랄 등 영양이 풍부하지만 가열하면 영양소가 파괴될 수 있어 생으로 이용하는 것이 좋다.</div>");
 						about.append("<div class='environment'>워터크래스를 위한 환경설정</div>");
@@ -255,7 +255,7 @@
 						about.append("<div class='humid'>습도 : 습기가 많은 곳을 좋아함</div>");
 						about.append("<div class='light'>빛 : 반그늘을 좋아함</div>");
 					}else if(name == "coriander"){
-						$("#sort").text("고수(coriander)");
+						$("#sort").text("고수(Coriander)");
 						about.append("<div class='character'>고수의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>씨앗 차는 두통, 소화와 입냄새 제거에 좋다. 잎은 강한 향으로 생선등의 비린내를 잡아준다. 그러나 향이 강해 호불호가 강하다.</div>");
 						about.append("<div class='environment'>고수를 위한 환경설정</div>");
@@ -263,46 +263,46 @@
 						about.append("<div class='humid'>습도 : 약간 촉촉한 상태를 좋아함</div>");
 						about.append("<div class='light'>빛 : 햇빛을 좋아함. 반양지도 괜찮음</div>");
 					}else if(name == "oregano"){
-						$("#sort").text("오레가노(oregano)");
+						$("#sort").text("오레가노(Oregano)");
 						about.append("<div class='character'>오레가노의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>이탈리아 요리에 잘 어울리며, 차로 이용하면 소화, 호흡기, 두통 등에 효과가 있다고 한다.</div>");
 						about.append("<div class='environment'>오레가노를 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 15도</div>");
+						about.append("<div class='temp'>온도 : 15~20도</div>");
 						about.append("<div class='humid'>습도 : 적정한 습도를 좋아함</div>");
 						about.append("<div class='light'>빛 : 햇빛을 좋아함</div>");
 					}else if(name == "parsley"){
-						$("#sort").text("파슬리(parsley)");
+						$("#sort").text("파슬리(Parsley)");
 						about.append("<div class='character'>파슬리의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>차, 요리 등에 들어가는 허브이다. 파슬리, 월계수잎, 타임 등을 묶어 생선이나 고기의 냄새를 없애고 맛을 내는데 사용한다."
 								+ "그러나 약성이 있으므로 과다 사용은 금물이다.</div>");
 						about.append("<div class='environment'>파슬리 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 10~18도(평균 14도)</div>");
+						about.append("<div class='temp'>온도 : 10~18도</div>");
 						about.append("<div class='humid'>습도 : 습한걸 좋아하며 고온 건조에 약함</div>");
 						about.append("<div class='light'>빛 : 햇빛을 좋아하지만 강한 햇빛은 싫어함</div>");
 					}else if(name == "peppermint"){
-						$("#sort").text("페퍼민트(peppermint)");
+						$("#sort").text("페퍼민트(Peppermint)");
 						about.append("<div class='character'>페퍼민트의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>키우기도 쉽고 향기가 좋아 인기있는 허브이다. 요리, 차, 포프리, 목욕제에 사용된다. 소화에 좋다.</div>");
 						about.append("<div class='environment'>페퍼민트를 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 15~20(평균 18도)</div>");
+						about.append("<div class='temp'>온도 : 15~20</div>");
 						about.append("<div class='humid'>습도 : 습한것을 좋아하지만 과습은 싫어함</div>");
 						about.append("<div class='light'>빛 : 반양지를 좋아함</div>");
 					}else if(name == "thyme"){
-						$("#sort").text("타임(thyme)");
+						$("#sort").text("타임(Thyme)");
 						about.append("<div class='character'>타임의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>요리, 차, 향(에센셜 오일), 입욕제로도 좋다. 활용도가 좋은 허브이다."
 								+ "타임은 총 300여종이 있으며 커먼타임 외에 레몬타임, 실버타임 등 주로 기르는 것도 여러종류이다.</div>");
 						about.append("<div class='environment'>타임을 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 16~23도(평균 19도)</div>");
+						about.append("<div class='temp'>온도 : 16~23도</div>");
 						about.append("<div class='humid'>습도 : 과습만 피하면 됌</div>");
 						about.append("<div class='light'>빛 : 햇빛을 좋아함</div>");
 					}else{ //rucola
-						$("#sort").text("루꼴라(rucola)");
+						$("#sort").text("루꼴라(Rucola)");
 						about.append("<div class='character'>루꼴라의 특징과 효능</div>");
 						about.append("<div class='aboutcharacter'>채소처럼 이용하기 쉬운 인기있는 허브이다. 비타민 C등의 영양도 풍부하고 소화촉진 효과도 있다."
 								+ "땅콩 같은 견과류의 향과 매운 맛이 난다.</div>");
 						about.append("<div class='environment'>루꼴라를 위한 환경설정</div>");
-						about.append("<div class='temp'>온도 : 10~18도(평균 14도)</div>");
+						about.append("<div class='temp'>온도 : 10~18도</div>");
 						about.append("<div class='humid'>습도 : 건조한 편이 좋지만 습해도 잘자람</div>");
 						about.append("<div class='light'>빛 : 햇빛을 좋아하지만 너무 강하면 잎이 뻣뻣해 짐</div>");
 					}

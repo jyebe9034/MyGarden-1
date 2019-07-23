@@ -143,6 +143,10 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
+	public MembersDTO memSelectAll(String email) {
+		return sst.selectOne("LoginDAO.memSelectAll", email);
+	}
+	
 	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);

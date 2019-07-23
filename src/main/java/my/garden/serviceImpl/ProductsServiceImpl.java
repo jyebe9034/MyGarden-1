@@ -1,6 +1,10 @@
 package my.garden.serviceImpl;
 
+import java.io.File;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,9 @@ import my.garden.service.ProductsService;
 
 @Service
 public class ProductsServiceImpl implements ProductsService {
+
+	@Autowired
+	private HttpSession session;
 
 	@Autowired
 	private ProductsDAO pdao;
@@ -73,7 +80,19 @@ public class ProductsServiceImpl implements ProductsService {
 	@Transactional("txManager")
 	public int deleteProductService(int pnumber) {
 		try {
-			return pdao.deleteProduct(pnumber);
+			ProductsDTO dto = pdao.selectOneProduct(pnumber);
+			String imgPath = dto.getP_imagepath();
+			int result = pdao.deleteProduct(pnumber);
+			if(result > 0) {
+				pdao.deleteImagePath(dto.getP_title()); // DB에 있는 이미지 파일 삭제
+				String rootPath = session.getServletContext().getRealPath("/resources/products/");
+				String oldPath = session.getServletContext().getRealPath("/" + imgPath);
+				File folder = new File(rootPath + dto.getP_title());
+				if(new File(oldPath).delete()) { // 실제 폴더 안의 이미지가 삭제되면
+					folder.delete(); // 폴더를 삭제해
+				}
+			}
+			return result;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;

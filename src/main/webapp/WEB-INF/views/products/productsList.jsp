@@ -87,7 +87,7 @@
 			var checked = $(this).val();
 			arr.push(checked);
 			$("#deleteBtn").on("click", function(){
-				location.href = "productsDelete?arr=" + checked;
+				location.href = "productsDelete?arr=" + arr;
 			})
 		})
 	})
