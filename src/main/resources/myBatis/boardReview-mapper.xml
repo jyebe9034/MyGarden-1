@@ -57,7 +57,11 @@
 
 	<!-- 	후기 수정 -->
 	<update id="updateReview" parameterType="map">
-		update BOARD_REVIEW set br_title = #{br_title}, br_content=#{br_content}, br_imagepath=#{br_imagepath}, br_writedate=default where br_no=#{br_no}
+		update BOARD_REVIEW 
+		set br_title = #{br_title}, br_content=#{br_content}, 
+<!-- 		br_imagepath=#{br_imagepath},  -->
+		br_writedate=default 
+		where br_no=#{br_no}
 	</update>
 
 	<!-- 후기 삭제 -->

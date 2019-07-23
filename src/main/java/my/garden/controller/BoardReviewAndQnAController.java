@@ -98,7 +98,7 @@ public class BoardReviewAndQnAController {
 		String id = (String) session.getAttribute("loginId"); 
 		int br_p_no = (int) session.getAttribute("pnumber");
 		String name = (String) session.getAttribute("loginName");
-	
+
 		System.out.println("name : " + name);
 		dto.setBr_p_no(br_p_no);
 		dto.setBr_email(id);
@@ -231,6 +231,8 @@ public class BoardReviewAndQnAController {
 		return "/boardProducts/reviewUpdateForm";
 	}
 
+
+
 	@RequestMapping("reviewDelete")
 	public String reviewDelete(HttpServletRequest request, int br_no) {
 		br_no = Integer.parseInt(request.getParameter("br_no"));
@@ -313,7 +315,7 @@ public class BoardReviewAndQnAController {
 	public String readQnA(HttpServletRequest request, int bq_no, String mine, String checkA) throws Exception {	
 		String id = (String) session.getAttribute("loginId");
 		session.setAttribute("bq_no", bq_no);
-		
+
 		MembersDTO mdto = new MembersDTO();
 		request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, id));
 
@@ -346,16 +348,16 @@ public class BoardReviewAndQnAController {
 
 		return "redirect:/readQnA?mine=y&bq_no="+bq_no;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("getImgs")
 	public String getImgs(BoardQnADTO dto, MultipartFile formData) {
-//		String id = (String) session.getAttribute("loginId");
+		//		String id = (String) session.getAttribute("loginId");
 
-//		String id = request.getParameter("id");
-//		System.out.println("id : " + id);
+		//		String id = request.getParameter("id");
+		//		System.out.println("id : " + id);
 		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
-		
+
 		String resourcePath = session.getServletContext().getRealPath("/resources/temp");
 		String renamedFilePath = resourcePath + "/" + System.currentTimeMillis() + "_temp_profileImage.png";
 		String result = null;
@@ -366,7 +368,7 @@ public class BoardReviewAndQnAController {
 			String filePath = "/resources/temp/" + newFile.getName();
 			result = newFile.getName();
 			//System.out.println(filePath);
-//			dto.setProfileImage(newFile.getName());
+			//			dto.setProfileImage(newFile.getName());
 
 			//System.out.println(result);
 
@@ -376,54 +378,27 @@ public class BoardReviewAndQnAController {
 		}
 		return result;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("updateImgs")
-	public int updateImgs(BoardQnADTO dto, MultipartFile formData, String fileId, String oriFilePath) {
+	public int updateImgs(BoardQnADTO dto, MultipartFile formData, String oriFilePath) {
 		String id = (String) session.getAttribute("loginId");
-		System.out.println("fileId : " + fileId);
 		System.out.println("oriFilePath : " + oriFilePath);
 		int bq_no = (int) session.getAttribute("bq_no");
-		
-//		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";		
-//		File dir = new File(path + "temp/"); //폴더경로
-//		System.out.println("폴더 존재? : " + dir.isDirectory());
-//		if(!dir.isDirectory()) { // 폴더가 있는지 확인.
-//			System.out.println("폴더생성");
-//			dir.mkdirs(); // 없으면 생성
-//		}
+
 		int updateResult =0;
-		
+
 		try {
 
 			String resourcePath = session.getServletContext().getRealPath("/");
 			System.out.println("resourcePath : " + resourcePath);
-//			if(fileId.equals("bq_imagepath1")) {
-				
-				System.out.println("원래 이미지 패스 : " + oriFilePath);
-				
-				File newFile = new File(resourcePath + oriFilePath);
-				formData.transferTo(newFile);
-				String bq_imagepath = oriFilePath;
-				//qnaService.updateImg1(bq_no, bq_imagepath);
-				updateResult = 1;
-//			}else if(fileId.equals("bq_imagepath2")) {
-//				String renamedFilePath = resourcePath + "/" + dto.getBq_imagepath2();
-//				String result = null;
-				//File newFile = new File(resourcePath+"/"+dto.getBq_imagepath2());
-//				File newFile = new File(oriFilePath);
-//				formData.transferTo(newFile);
-//				String bq_imagepath = "/resources/"+ id +"/" + newFile.getName();
-//				updateResult = 1;
-//			}else if(fileId.equals("bq_imagepath3")) {
-//				String renamedFilePath = resourcePath + "/" + dto.getBq_imagepath3();
-//				String result = null;
-				//File newFile = new File(resourcePath+"/"+dto.getBq_imagepath3());	
-//				File newFile = new File(oriFilePath);
-//				formData.transferTo(newFile);
-//				String bq_imagepath = "/resources/"+ id +"/" + newFile.getName();
-//				updateResult = 1;
-//			}
+
+			System.out.println("원래 이미지 패스 : " + oriFilePath);
+
+			File newFile = new File(resourcePath + oriFilePath);
+			formData.transferTo(newFile);
+			String bq_imagepath = oriFilePath;
+			updateResult = 1;
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -433,7 +408,7 @@ public class BoardReviewAndQnAController {
 
 		return updateResult;
 	}
-	
+
 
 	@ResponseBody
 	@RequestMapping("writeComment")
