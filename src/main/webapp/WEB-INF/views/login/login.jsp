@@ -410,7 +410,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		        				type:"post",
 		        				data:{email:$("#findPwMail").val(), pw:$('#findPw').val()}
 		        			}).done(function(resp){
-		        				$(location).attr('href', '/reLogin');
+		        				$(location).attr('href', '/findAccountAfterLogin');
 		        			});
 		        		}else{
 		        			$('#result').text("임시 비밀번호가 맞지 않습니다");
@@ -521,6 +521,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 									      </div>
 									      <div class="modal-body">
 									          <div class="form-group">
+									          	<label for="findPwMail" class="col-form-label">*소셜로그인 사용자는 해당 서비스를 이용할 수 없습니다</label>
 									            <input type="email" class="form-control" placeholder="나의 정원에 가입한 메일주소를 입력하세요" id="findPwMail">
 									          </div>
 									          <div class="form-group">							            

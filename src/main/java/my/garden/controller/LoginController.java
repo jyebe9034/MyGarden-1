@@ -82,16 +82,21 @@ public class LoginController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout() throws Exception {
+	public String logout() {
 		session.invalidate();
-		out = response.getWriter();
-//		out.print("<body>\r\n" + 
-//				"		//로그인 시 뒤로가기 방지\r\n" + 
-//				"		history.pushState(null, null, location.href);\r\n" + 
-//				" 			window.onpopstate = function () {\r\n" + 
-//				"        		history.go(1);\r\n" + 
-//				"			};</body>");
-		return "home";
+//		out = response.getWriter();
+		return "login/homeThrough";
+	}
+	
+	@RequestMapping("/mypageDelete")
+	public String mypageDelete() {
+		return "login/mypageDelete";
+	}
+	@RequestMapping("/delete")
+	public String delete() {
+		loginserv.delete((String)session.getAttribute("loginId"));
+		session.invalidate();
+		return "login/homeThrough";
 	}
 
 	@RequestMapping("/reLogin")
@@ -164,6 +169,11 @@ public class LoginController {
 		return "login/findAccountAfterLogin";
 	}
 	
+	@RequestMapping("/findAccountAfterLogin")
+	public String findAccountAfterLogin() {
+		return "login/findAccountAfterLogin";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/findId")
 	public String findId(String key) {
@@ -184,7 +194,21 @@ public class LoginController {
 		loginserv.updateOne(email, pw);
 		return null;
 	}
+	
+	@RequestMapping("/changeGardenProfile")
+	public String changeGardenProfile(MembersDTO dto, MultipartFile ex_file) {
+		dto.setM_email((String)session.getAttribute("loginId"));
+		loginserv.changeGardenProfile(dto, ex_file);
+		return "login/mypageFirstThrough";
+	}
 
+	@RequestMapping("/changeGardenName")
+	public String changeGardenName(MembersDTO dto) {
+		dto.setM_email((String)session.getAttribute("loginId"));
+		loginserv.changeGardenName(dto);
+		return "login/mypageFirstThrough";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/naverLogin")
 	public String naverLogin() {

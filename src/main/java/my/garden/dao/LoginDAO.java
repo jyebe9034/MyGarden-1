@@ -88,7 +88,6 @@ public class LoginDAO {
 			dto.setM_realpath(uploadPath + "/" + prof);
 			dto.setM_profile("resources/prof/" + prof);
 		} catch (Exception e) {
-			System.out.println("ss");
 			e.printStackTrace();
 		} 
 	}
@@ -153,6 +152,10 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
+	public int delete(String loginId) {
+		return sst.delete("LoginDAO.delete", loginId);
+	}
+	
 	public int memUpdateAll(MembersDTO dto) {
 		return sst.insert("LoginDAO.memUpdateAll", dto);
 	}
@@ -210,6 +213,10 @@ public class LoginDAO {
 	}
 	
 	public int findAccountChange(Map<String, String> map) {
+		return sst.insert("LoginDAO.updateOne", map);
+	}
+
+	public int changeGardenStuff(Map<String, String> map) {
 		return sst.insert("LoginDAO.updateOne", map);
 	}
 	

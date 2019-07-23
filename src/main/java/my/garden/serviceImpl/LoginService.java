@@ -77,11 +77,15 @@ public class LoginService {
 		}
 	}
 	
+	public int delete(String loginId) {
+		return logDao.delete(loginId);
+	}
+	
 	public int memUpdateAll(MembersDTO dto) {
 		if(dto.getM_social().equals("MG")) {
 			dto.setM_pw(logDao.SHA256(dto.getM_pw()));
 		}else {
-			dto.setM_pw("N");
+			dto.setM_pw(logDao.SHA256(logDao.randomCode()));
 		}
 		return logDao.memUpdateAll(dto);
 	}
@@ -117,6 +121,25 @@ public class LoginService {
 		map.put("value", m_email);
 		return logDao.findAccountChange(map);
 	}
+
+	public int changeGardenProfile(MembersDTO dto, MultipartFile ex_file) {
+		logDao.profile(dto, ex_file);
+		Map<String, String> map = new HashMap();
+		map.put("col", "m_profile");
+		map.put("colVal", dto.getM_profile());
+		map.put("whereCol", "m_email");
+		map.put("value", dto.getM_email());
+		return logDao.changeGardenStuff(map);
+	}
+
+	public int changeGardenName(MembersDTO dto) {
+		Map<String, String> map = new HashMap();
+		map.put("col", "m_garden");
+		map.put("colVal", dto.getM_garden());
+		map.put("whereCol", "m_email");
+		map.put("value", dto.getM_email());
+		return logDao.changeGardenStuff(map);
+	}
 	
 	public String naverLogin() {
 		return logDao.NaverLoginMakeUrl();
@@ -127,8 +150,7 @@ public class LoginService {
 	}
 	
 	public String NaverLoginGetInfo(String code) {
-		String socialEmail = logDao.NaverLoginGetInfo(code);
-		String check = logDao.emailDupCheck(socialEmail);
+		String socialEmail = logDao.NaverLoginGetInfo(code)+"_n";
         return socialEmail;
 	}
 	
@@ -166,10 +188,10 @@ public class LoginService {
  
 //        System.out.println("id : " + id);
 //        System.out.println("name : " + name);
-//        System.out.println("email : " + email);
+//        System.out.println("email : " + socialEmail);
         
         Map<String, String> map = new HashMap();
-        map.put("socialEmail", socialEmail);
+        map.put("socialEmail", id+"_k");
         map.put("profile", profile);
         return map;
 	}

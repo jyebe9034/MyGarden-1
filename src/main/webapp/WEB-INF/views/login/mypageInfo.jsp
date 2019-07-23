@@ -240,6 +240,10 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 .underlineHover:hover:after{
   width: 100%;
 }
+input[type=email]{
+  background:#D1E5DF;
+  border: 2px solid #D1E5DF;
+}
 /* OTHERS */
 *:focus {
     outline: none;
@@ -358,15 +362,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
        			$("input[name=m_phone]").val("${memDTO.m_phone}");
        		}
        	});
-//        	$("#detailAddress").on('blur', function(){
-//        		var regexAddr=/[^</>]/;
-//        		if(regexAddr.exec($("#detailAddress").val())){
-//        			$("#addrName").text("");
-//        		}else{
-//        			$("#addrName").text("허용되지 않는 문자입니다");
-//        			$("#detailAddress").val("");
-//        		}
-//        	});
        	$('#m_address1').on('focus', function(){
        		$("#addrName").text("주소를 수정하려면 상단 버튼을 눌러 우편번호부터 찾으세요");
        	});
@@ -384,8 +379,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
    	   				&& $('#password').val()!=""
    	    			&& $('input[name="m_phone"]').val()!=""
    	    	   		&& $('input[name="m_zipcode"]').val()!=""
-   	    	    	&& $('input[name="m_birth"]').val()!=""
-   	   	    	    && $('input[name="m_gender"]').val()!=""
    	    	    	&& $('input[name="m_address1"]').val()!=""
    	    	   	    && $('input[name="m_address2"]').val()!=""
    	    	    	&& $('#zonecode').val()!=""){
@@ -435,8 +428,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				  <a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
 				  <a href="#" class="list-group-item list-group-item-action currentActive">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
-				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 my">	
@@ -452,7 +444,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div class="onblur" id="userName"></div>
 			                        <input type="email" value="${memDTO.m_email}" name="m_email" class="fadeIn inputStuff" readonly>
 					<!-------------------- jstl ------------------------->
-			                        <c:if test="${memDTO.m_social == MG}">
+			                        <c:if test="${memDTO.m_social=='MG'}">
 				                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
 				                        	<div class="onblur" id="pastPwName"></div>
 				                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
@@ -472,8 +464,12 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				                        <input type="text" value="${memDTO.m_address2}" placeholder="상세주소" class="fadeIn inputStuff50" id="m_address2" name="m_address2" readonly>
 				                    </div>
 				                    <div class="onblur" id="addrName"></div>
+                    <!-------------------- jstl ------------------------->
+		                        <c:if test="${memDTO.m_social=='MG'}">
 			                        <input type="text" value="${memDTO.m_birth}" placeholder="생년월일" class="fadeIn inputStuff50" name="m_birth" readonly>
 			                        <input type="text" value="${memDTO.m_gender}" placeholder="성별" class="fadeIn inputStuff50" name="m_gender" readonly>
+			                    </c:if>   
+                    <!-------------------- jstl ------------------------->
 			                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
 			                        <input type="button" value="수정하기" id="updateInfo">
 			                    </form>
@@ -482,10 +478,14 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 								<script src="resources/js/zipcode.js"></script>
 								<!-- 	address js end-->
 		                        <p id="formFooter">
-		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">비밀번호 찾기</a>
+                    <!-------------------- jstl ------------------------->
+		                        <c:if test="${memDTO.m_social=='MG'}">
+		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#findPassword">비밀번호 찾기</a>
+		                        </c:if>	
+                    <!-------------------- jstl ------------------------->
 		                       	</p>
 		                       	<!-- Modal -->
-									<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									<div class="modal fade" id="findPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 									  <div class="modal-dialog modal-dialog-centered" role="document">
 									    <div class="modal-content">
 									      <div class="modal-header">

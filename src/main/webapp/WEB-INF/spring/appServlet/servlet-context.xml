@@ -11,7 +11,8 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd"
+		xmlns:mvc="http://www.springframework.org/schema/mvc">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
@@ -62,5 +63,16 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>
+	
+	
+	<!-- 컨트롤러로 요청이 가기전에 인터셉트 -->
+<!-- 	상단에 반드시 추가 -->
+<!-- 	xmlns:mvc="http://www.springframework.org/schema/mvc" -->
+	<mvc:interceptors>
+	     <mvc:interceptor>
+	         <mvc:mapping path="/login/**"/>
+	         <beans:bean class="my.garden.controller.LoginController" />
+	     </mvc:interceptor>
+	</mvc:interceptors>
 	
 </beans:beans>

@@ -3,39 +3,32 @@
      <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head>	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>나의 정원 - 회원가입</title>
+<title>나의 정원 - 정보수정</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
-.imageContainer{height:300px; overflow:hidden;}
-.carousel-inner{margin-top:-120px;}
-.loginForm{background:#399078; color:#fff; height:60px; font-size:27px;}
-#verMailBtn, #verCodeBtn, .filebox label, #joinBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
-#joinBtn{height:57px; position:absolute; top:6px; right:-5px;} 
-#verMailBtn:hover, #verCodeBtn:hover, #joinBtn:hover, .filebox label:hover{background:#4f9c87; color:#fff;}
-.filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
-.profile{width:130px; height:130px; border-radius:50%; margin:10px auto; overflow:hidden;}
+#joinBtn{height:57px; position:absolute; top:6px; right:14px; display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
+#joinBtn:hover{background:#4f9c87; color:#fff;}
 .fontGreen{font-weight:bold; color:#4f9c87;}
 .onblur{font-size:13px; color:#4f9c87;}
 .postCode{position:relative;}
-.modal-body{max-height:270px; overflow-y:auto;}
-#surplusForm, #verifingCode{display:none;}
+input[name=m_social]{pointer-events: none; visibility: hidden;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
   justify-content: center;
   width: 100%;
   min-height: 100%;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 #formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 0px 10px 10px;
   background: #fff;
   padding: 0px;
   max-width: 650px;
-  margin: 40px auto;
+  margin: 47px auto;
   position: relative;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -57,7 +50,7 @@
 .tab-content > div:last-child {
   display: none;
 }
-input[type=reset]{
+#reset{
   background:#72af9f;
   border: none;
   color: white;
@@ -99,15 +92,35 @@ input[type=button], input[type=submit]  {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type=button]:hover, input[type=submit]:hover  {
   opacity:0.8;
 }
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type=button]:active, input[type=submit]:active  {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95);
+}
+.inputStuff{
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 95%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
 }
 .inputStuff50{
   background-color: #f6f6f6;
@@ -129,36 +142,16 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-.inputStuff{
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
-  width: 100%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
 input[type=text]:focus,input[type=email]:focus, input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #60a593;
 }
-input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]:placeholder {
-  color: #cccccc;
-}
-input[type=email]{
+input:readonly{
   background:#D1E5DF;
   border: 2px solid #D1E5DF;
+}
+input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]:placeholder {
+  color: #eee;
 }
 .fadeInDown {
   -webkit-animation-name: fadeInDown;
@@ -247,89 +240,81 @@ input[type=email]{
 .underlineHover:hover:after{
   width: 100%;
 }
+input[type=email]{
+  background:#D1E5DF;
+  border: 2px solid #D1E5DF;
+}
 /* OTHERS */
 *:focus {
     outline: none;
 } 
 * {
   box-sizing: border-box;
-}
+} 
 </style>
 </head>
 <body>
-<!-- script -->
-	<script>
-		$(function(){
-			//slide
-			$('.carousel').carousel({
-				  interval: 5000
-				});
-			//input effect
-			$('.form').find('input, textarea').on('keyup blur focus', function (e) {
-			    var $this = $(this),
-			        label = $this.prev('label');
-			        if (e.type === 'keyup') {
-			              if ($this.val() === '') {
-			            label.removeClass('active highlight');
-			          } else {
-			            label.addClass('active highlight');
-			          }
-			      } else if (e.type === 'blur') {
-			          if( $this.val() === '' ) {
-			              label.removeClass('active highlight'); 
-			              } else {
-			              label.removeClass('highlight');   
-			              }   
-			      } else if (e.type === 'focus') {
-			        if( $this.val() === '' ) {
-			              label.removeClass('highlight'); 
-			              } 
-			        else if( $this.val() !== '' ) {
-			              label.addClass('highlight');
-			              }
-			      }
-			  });
-           	$("input[name=m_garden]").on("blur", function(){
-           		var regexGarden=/^[가-힣A-z]{2,12}$/;
-           		if(regexGarden.exec($("input[name=m_garden]").val())){
-               		$.ajax({
-               			url:"/gardenCheck",
-               			type:"post",
-               			data : {key : $("input[name=m_garden]").val()}
-               		}).done(function(resp){
-               			if(resp==true){
-                   			$("#gardenName").text("중복되는 정원 이름입니다");
-                   			$("input[name=m_garden]").val("");
-               			}else{
-                   			$("#gardenName").text("");
-               			}
-               		});
-           		}else{
-           			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-           			$("input[name=m_garden]").val("");
-           		}
-           	});
-           	$("input[name=m_name]").on("blur", function(){
-           		var regexName=/^[가-힣A-z]{2,12}$/;
-           		if(regexName.exec($("input[name=m_name]").val())){
-           			$("#userName").text("");
-           		}else{
-           			$("#userName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-           			$("input[name=m_name]").val("");
-           		}
-           	});
-       		$('#joinSubmit').on('click', function(){
-       			if($("input[name=m_garden]").val()!="" && $('input[name=m_email]').val()!="" && $('#customSwitch').is(":checked")){
-           			var con = confirm('이대로 제출하시겠습니까?');
-    				if(con){
-                		$('.formSubmit').submit();	
-               		}
+<script>
+	$(function(){
+		//slide
+		$('.carousel').carousel({
+			  interval: 5000
+			});
+		//input effect
+		$('.form').find('input, textarea').on('keyup blur focus', function (e) {
+		    var $this = $(this),
+		        label = $this.prev('label');
+		        if (e.type === 'keyup') {
+		              if ($this.val() === '') {
+		            label.removeClass('active highlight');
+		          } else {
+		            label.addClass('active highlight');
+		          }
+		      } else if (e.type === 'blur') {
+		          if( $this.val() === '' ) {
+		              label.removeClass('active highlight'); 
+		              } else {
+		              label.removeClass('highlight');   
+		              }   
+		      } else if (e.type === 'focus') {
+		        if( $this.val() === '' ) {
+		              label.removeClass('highlight'); 
+		              } 
+		        else if( $this.val() !== '' ) {
+		              label.addClass('highlight');
+		              }
+		      }
+		  });
+		//input form
+       	$("#pastPw").on("blur", function(){
+       		$.ajax({
+       			url:"/pwCheck",
+       			type:"post",
+       			data:{key:"${memDTO.m_email}", pw:$("#pastPw").val()}
+       		}).done(function(resp){
+       			if(resp==true){
+           			$("#pastPwName").text("");
        			}else{
-       				alert('다시 확인 후 제출하세요');
+           			$("#pastPwName").text("비밀번호가 일치하지 않습니다");
+           			$("#pastPw").val("");
        			}
-            });	
-		});
-	</script>
+       		});
+       	});
+   		$('#reset').on('click', function(){
+   			$(location).attr('href', '/mypageFirst');
+   		});
+   		$('#delete').on('click', function(){
+   			if($('#pastPw').val()!=""){
+       			var con = confirm('정말 탈퇴하시겠습니까?');
+ 				if(con){
+                		$('.formSubmit').submit();	
+            		}
+   			}else{
+   				alert('다시 확인 후 제출하세요');
+   			}
+        });	
+	});
+</script>
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
 <!-- 	images -->
@@ -339,13 +324,13 @@ input[type=email]{
 				<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="resources/img/join1.jpg" align="bottom" class="d-block w-100" alt="...">
+				      <img src="resources/img/mypage1.jpg" align="bottom" class="d-block w-100" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="resources/img/join2.jpg" class="d-block w-100" alt="...">
+				      <img src="resources/img/mypage2.jpg" class="d-block w-100" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="resources/img/join3.jpg" class="d-block w-100" alt="...">
+				      <img src="resources/img/mypage3.jpg" class="d-block w-100" alt="...">
 				    </div>
 				  </div>
 				</div>
@@ -353,44 +338,59 @@ input[type=email]{
 		</div>
 	</div>
 <!-- 	contents -->
-	<div class="container-fluid my">
-		<div id="row my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pl-3 pr-3 pb-4 m-auto my">
+	<div class="container my">
+		<div class="row text-center mt-5 my">
+		
+		<jsp:include page="/WEB-INF/views/module/mypage.jsp"/>
+		
+			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pt-5 my">
+				<div class="list-group">
+				  <a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
+				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
+				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
+				  <a href="#" class="list-group-item list-group-item-action currentActive">탈퇴하기</a>
+				</div>
+			</div>
+			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 my">	
 				<div class="blockSign">
 			        <div id="formContent">
-			        	<p class="loginForm font-weight-bold pt-2">Join Us</p>
-			            <div class="tab-content">
 			                <div id="signin">
-			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 소셜회원가입</h3>
-			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">사이트 이용에 필요한 인증과 최소한의 정보를 입력하세요</h6>
-			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post">		
-			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
-			                        	<span class="onblur" id="gardenName"></span>
-			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
-			                        	<span class="onblur" id="userName"></span>
-			                        <input type="email" value="${loginId }" class="fadeIn inputStuff" name="m_email" readonly>
-									<div class="custom-control custom-switch mt-3 mb-3">
-									  <input type="checkbox" class="custom-control-input" id="customSwitch">
-									  <label class="custom-control-label" for="customSwitch">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
-									</div>
-			                        <input type="reset" class="mt-4 mb-1" value="다시쓰기">
-			                        <input type="button" value="가입하기" id="joinSubmit">
-			                    </form>
+			                    <h3 class="font-weight-bold text-dark pt-5 pr-2">나의 정원 탈퇴하기
+			                    </h3>
+			                    <h6 class="pt-2 text-muted mr-2 ml-2">모든 정보는 영구삭제되며, 복구할 수 없습니다</h6>
+			                    <!-------------------- jstl ------------------------->
+			                        <c:choose>
+										<c:when test="${memDTO.m_social=='MG'}">  
+						                    <form class="pt-4 pl-5 pr-5 formSubmit" action="delete" method="post">	
+						                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
+						                        	<div class="onblur" id="pastPwName"></div>
+						                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
+						                        <input type="button" value="탈퇴하기" id="delete">
+						                    </form>
+				                    	</c:when>
+				                    	<c:otherwise>
+						                    <form class="pt-4 pl-5 pr-5 formSubmit" action="delete" method="post">
+						                        <input type="button" class="mt-4 mb-1" value="취소하기" id="reset">
+						                        <input type="button" value="탈퇴하기" id="delete">
+						                    </form>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                 <!-------------------- jstl ------------------------->   
 		                        <p id="formFooter">
 		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter">서비스 이용약관 및 개인정보취급방침</a>
 		                       	</p>
 		                       	<!-- Modal -->
-								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-								  <div class="modal-dialog modal-dialog-centered" role="document">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalCenterTitle">서비스 이용약관 및 개인정보취급방침</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body">
-								             개인정보 수집항목 및 수집방법	<br>
+									<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+								    	    <h5 class="modal-title" id="exampleModalCenterTitle">서비스 이용약관 및 개인정보취급방침</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									         개인정보 수집항목 및 수집방법	<br>
 										① 회사는 원활한 서비스 제공을 위해 최초 서비스 설치 후 서비스 이용에 대한 동의를 완료하는 시점에 아래와 같은 최소한의 개인정보를 수집하고 있습니다.	<br>
 										1. 회원의 서비스 이용정보	<br>
 										- 국가 코드, 폰 사용 언어, 앱 버전, 이메일·페이스북계정·구글플러스계정, 비밀번호	<br>
@@ -405,13 +405,13 @@ input[type=email]{
 										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
 										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
 										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-								      </div>
-								      <div class="modal-footer">
+									      </div>
+									      <div class="modal-footer">
 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
-								      </div>
-								    </div>
-								  </div>
-								</div>
+									      </div>
+									    </div>
+									  </div>
+									</div>
 								<!-- modal end -->
 			                </div>
 			                <div id="signup">
@@ -419,9 +419,10 @@ input[type=email]{
 			            </div>
 			        </div>
 			    </div>
-			</div>	
+			</div>
 		</div>
-	</div>
+	</div>	
+	
 <!-- 	footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 </body>

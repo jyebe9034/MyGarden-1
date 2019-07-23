@@ -41,27 +41,14 @@
 			if (day.length < 2) day = '0' + day; 
 			return [year, month, day].join('-'); 
 		}
-
-	//json
-// for(var i=0; i<${lists}.length; i++){
-// 	console.log(${lists}[i].date);
-// }
 		
-for(var i=0; i<$('.calDay').length+13; i++){
-	for(var j=0; j<${lists}.length; j++){
-		if($('.calDay:nth-child('+i+')').attr('data-original-title')==${lists}[j].date){
-			$('.calDay:nth-child('+i+')').css({'background': ${lists}[j].color, 'border':'none'});
+		for(var i=0; i<$('.calDay').length+13; i++){
+			for(var j=0; j<${lists}.length; j++){
+				if($('.calDay:nth-child('+i+')').attr('data-original-title')==${lists}[j].date){
+					$('.calDay:nth-child('+i+')').css({'background': ${lists}[j].color, 'border':'none'});
+				}
+			}
 		}
-	}
-}
-
-// for(var i=0; i<$('.calDay').length+13; i++){
-// if($('.calDay:nth-child('+i+')').attr('data-original-title')=='2019-01-05'){
-// 	$('.calDay:nth-child('+i+')').css('background', 'red');
-// }else if($('.calDay:nth-child('+i+')').attr('data-original-title')=='2019-12-31'){
-// 	$('.calDay:nth-child('+i+')').css('background', 'red');
-// }
-// }
 
 		$('.btn-group button').on('click', function(){
 			$('input[name=key]').val($(this).text());
@@ -137,7 +124,7 @@ for(var i=0; i<$('.calDay').length+13; i++){
 				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
-				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 pt-5 my">	
