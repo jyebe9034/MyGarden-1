@@ -221,13 +221,15 @@ public class LoginController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/getOrderList")
-	public String orderList(ShopListDTO dto, Timestamp date){
+	@RequestMapping("/getShoppedList")
+	public String getShoppedList(ShopListDTO dto, Timestamp date){
 		dto.setS_email((String)session.getAttribute("loginId"));
 		dto.setS_orderdate(date);
-		session.setAttribute("orderList", loginserv.getOrderList(dto));
-		List<ShopListDTO> lists = loginserv.getOrderList(dto);
-		return new Gson().toJson(loginserv.getOrderList(dto));
+		List<ShopListDTO> lists = loginserv.getShoppedList(dto);
+		for(ShopListDTO list : lists) {
+			System.out.println("1: "+list.getS_m_paymethod());
+		}
+		return new Gson().toJson(loginserv.getShoppedList(dto));
 	}
 	
 }

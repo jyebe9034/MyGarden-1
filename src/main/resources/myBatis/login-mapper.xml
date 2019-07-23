@@ -62,7 +62,7 @@
    </select>
    
    <select id="selectOrderList" resultType="my.garden.dto.ShopListDTO">
-   		select * from shoplist where s_email=#{s_email} and s_orderdate=#{s_orderdate}
+   		select * from shoplist where s_email=#{s_email} and s_orderdate between to_date(substr(#{s_orderdate}, 1,10), 'yy/mm/dd') and to_date(substr(#{s_orderdate}, 1,10), 'yy/mm/dd')+1
    </select>
 	
 </mapper>
