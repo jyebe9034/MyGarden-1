@@ -131,13 +131,14 @@ public class LoginService {
 	public int socialJoinSubmit(MembersDTO dto) {
 		dto.setM_social(request.getSession().getAttribute("social").toString());
 		dto.setM_ipaddress(request.getRemoteAddr());
-
-		if(request.getSession().getAttribute("profile").toString().equals("")) {
+		if(dto.getM_profile().toString().equals(null)) {
 			dto.setM_profile("resources/img/profile.png");
 		}else {
-			dto.setM_profile(request.getSession().getAttribute("profile").toString());
-		}		
-
+			dto.setM_profile(dto.getM_profile().toString());
+		}
+		System.out.println("profile : " + request.getSession().getAttribute("profile").toString());
+		System.out.println("mail : " + dto.getM_email());
+		
 		return logDao.socialJoinSubmit(dto);
 	}
 	

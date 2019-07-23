@@ -11,6 +11,7 @@ public interface ProductsDAO {
 	public List<ProductsDTO> selectProductsListByPage(int start, int end);
 	public ProductsDTO selectOneProduct(int pnumber);
 	public int deleteProduct(int p_no);
+	public int deleteImagePath(String img_p_title);
 	public int updateProduct(ProductsDTO dto);
 	public List<ProductsDTO> selectProductsListByKeyword(int start, int end, String keyword);
 }

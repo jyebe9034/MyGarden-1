@@ -96,30 +96,6 @@ public class LoginController {
 		return "login/login";
 	}
 	
-	@RequestMapping("/mypageFirst")
-	public String Mypage(MembersDTO dto) {
-		String loginName = (String)session.getAttribute("loginName");
-		if(loginName==null) {
-			return "login/login";
-		}else {
-			String id = (String)session.getAttribute("loginId");
-			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
-			return "login/mypageFirst";
-		}
-	}
-
-	@RequestMapping("/mypageInfo")
-	public String MypageInfo(MembersDTO dto) {
-		String loginName = (String)session.getAttribute("loginName");
-		if(loginName==null) {
-			return "login/login";
-		}else {
-			String id = (String)session.getAttribute("loginId");
-			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
-			return "login/mypageInfo";
-		}
-	}
-	
 	@ResponseBody
 	@RequestMapping("/pwCheck")
 	public boolean pwCheck(String key, String pw) {
@@ -192,7 +168,6 @@ public class LoginController {
 
 	@RequestMapping("/socialJoinSubmit")
 	public String socialJoinSubmit(MembersDTO dto) {
-		System.out.println(dto.getM_profile());
 		loginserv.socialJoinSubmit(dto);
 		return "login/findAccountAfterLogin";
 	}
