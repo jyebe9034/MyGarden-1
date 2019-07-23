@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- style -->
 <style>
@@ -22,7 +23,7 @@
         width: 100%;
 /* 		margin: 500px auto; */
 /* 		width: 800px; */
-		height: 2000px;
+/* 		height: 2000px; */
 	}
 	#revAndQnAWrapper .tabs a {
 		border-radius: 0px !important;
@@ -194,7 +195,7 @@
 		font-weight: bolder;
 	}
 	.qnaBtnBox{
-		width:95%;
+		width:99%;
 	}
 	
 	#qBtn{
@@ -266,21 +267,17 @@
 				})
 			})
 			
-// 			$(".reviewImage").on("click",function(){
-// 			  var reviewImgSrc = $(this).next().val();
-// 			      $(this).html("<img src='"+reviewImgSrc+"'>");
-// 			})
-			
 			/*추천 수(도움돼요)증가*/
 			$(document).on("click",".recommendBtn",function(){
 				var br_no = $(this).next().val();
 				var email = '${loginId}';
-				console.log("클릭한글번호:"+br_no);
+				var br_title = $(this).prev().val();
+				console.log("클릭한 글번호 : " + br_no);
+				console.log("클릭한 글제목 : " + br_title);
 				  var data = {
 							br_email : email,
-							br_no : br_no,
-	 						//br_title : $(this).prev().val()		
-							br_title : "제목 ㅋ"
+							br_no : br_no,	
+							br_title : br_title
 				  };
 				  
 				$.ajax({
@@ -301,6 +298,7 @@
 						$("input[class="+br_no+"]").prev().html("<img src='/resources/img/reviewLike.png' width='27px' class='recommendImage'>");
 					}else if(cancelRecommend==0){ //취소
 						$("input[class="+br_no+"]").prev().html("<img src='/resources/img/reviewHate.png' width='25px' class='recommendImage'>");
+						alert("도움돼요를 취소했습니다.");
 					}
 					//location.reload(true); //자동새로고침
 				
@@ -356,7 +354,7 @@
 			$("#goQnaTab").on("click",function(){
 				var offset = $("#qnaWrapper").offset();
 				//alert("offset.top : " + offset.top);
-				$('html, body').animate({scrollTop : offset.top - 200}, 10);
+				$('html, body').animate({scrollTop : offset.top - 100}, 10);
 			})			
 			$("#goReviewTab").on("click",function(){
 				var offset = $("#reviewWrapper").offset();
@@ -425,7 +423,7 @@
 
 						<c:forEach var="reviewList" items="${reviewList }">
 							<div class="col-3 reviewImage">
-								<img src="${reviewList.br_imagepath }">
+								<img src="${reviewList.br_imagepath }" onerror="this.src='/resources/free/noImg.png'">
 							</div>
 							<input type="hidden" value="${reviewList.br_imagepath }">
 							<div class="col-9">
@@ -451,7 +449,7 @@
 									
 									
 									<div class="reviewRecommend" value="${reviewList.br_recommend}">
-										<%--                                     	<input type="hidden" value="${reviewList.br_title}"> --%>
+										<input type="hidden" value="${reviewList.br_title}">
 										<span class="mb-1 recommendBtn"> 
 				
 											<c:forEach var="myRecommendNo" items="${myRecommendNo }">
@@ -538,26 +536,33 @@
 						<div class="col-2">작성자</div>
 						<div class="col-2">작성일</div>
 					</div>
-				<hr width=100% class="mr-0 ml-0">
+					<hr width=100% class="mr-0 ml-0">
 					<div class="row qnaRow">
+
+						<c:if test="${fn:length(qnaList) == '0'}">
+							<div class="col-12">
+								<span>등록된 문의글이 없습니다.</span>
+							</div>
+						</c:if>
+
 						<c:forEach var="qnaList" items="${qnaList }">
 							<div class="col-1">${qnaList.bq_no }</div>
 							<div class="col-1 checkedAnsBtn">
-								<c:choose>
-									<c:when test="${qnaList.bq_checkedAns eq 'y'}">
-										<div class="completedBtnBox">
-											<button class="btns completedBtn" disabled="disabled">답변완료</button>
-										</div>
-									</c:when>
-								</c:choose>
-									<input type="hidden" class="checkedAns" value="${qnaList.bq_checkedAns }">
+								<c:if test="${qnaList.bq_checkedAns eq 'y'}">
+									<div class="completedBtnBox">
+										<button class="btns completedBtn" disabled="disabled">답변완료</button>
+									</div>
+								</c:if>
+								<input type="hidden" class="checkedAns"
+									value="${qnaList.bq_checkedAns }">
 							</div>
 							<div class="col-6">
-								<input type="hidden" class="hidQnAWriter" value="${qnaList.bq_email}">
-								<input type="hidden" class="hidCheckedSecret" value="${qnaList.bq_checkedSecret }">
-								<span class="qnaTitle">${qnaList.bq_title }</span>
-								<input type="hidden" value="${qnaList.bq_no }">
-								<input type="hidden" value="${qnaList.bq_checkedAns }">
+								<input type="hidden" class="hidQnAWriter"
+									value="${qnaList.bq_email}"> <input type="hidden"
+									class="hidCheckedSecret" value="${qnaList.bq_checkedSecret }">
+								<span class="qnaTitle">${qnaList.bq_title }</span> <input
+									type="hidden" value="${qnaList.bq_no }"> <input
+									type="hidden" value="${qnaList.bq_checkedAns }">
 								<c:choose>
 									<c:when test="${qnaList.bq_checkedSecret eq 'y'}">
 										<img src="/resources/img/boardQnALock.JPG" width="15px">
@@ -566,13 +571,13 @@
 							</div>
 							<div class="col-2">${qnaList.bq_name }</div>
 							<div class="col-2">
-							<fmt:formatDate pattern="yyyy-MM-dd" value="${qnaList.bq_writedate }"/>
+								<fmt:formatDate pattern="yyyy-MM-dd"
+									value="${qnaList.bq_writedate }" />
 							</div>
-
 						</c:forEach>
+
 					</div>
-					
-					
+
 
 				</div>
 				<hr class="lines">

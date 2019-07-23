@@ -61,6 +61,7 @@
 		cursor: pointer;
 	}
 
+	[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
 	
 </style>
 
@@ -74,12 +75,22 @@
 					location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
 				})
 			
+				
+				
 			$(".writeBtn").on("click",function(){
 				var inputContent = $("#inputContent").text();
 				var inputTitle = $("#inputTitle").val();
-				alert(inputTitle);
-				$("#content").val(inputContent);
-				$("#writeReviewForm").submit();
+				
+				if(inputTitle==""){
+					alert("제목을 입력하세요.");
+					event.preventDefault();
+				}else if(inputContent==""){
+					alert("내용을 입력하세요.");
+					event.preventDefault();
+				}else{
+					$("#content").val(inputContent);
+					$("#writeReviewForm").submit();
+				}
 			})
 			
 		})
@@ -119,7 +130,7 @@
 		 <div class="form-group row">
 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
 		   	  <div class="col-sm-10">
-		      <div contenteditable="true" id="inputContent"></div>
+		      <div contenteditable="true" id="inputContent" data-text="내용을 입력해주세요."></div>
 		      <input type="hidden" class="form-control" id="content" name="br_content">
              </div>
 		  </div>
