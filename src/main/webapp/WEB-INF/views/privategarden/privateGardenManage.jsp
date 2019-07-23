@@ -388,7 +388,7 @@
 				</g>
 			</div>
 			<div id="potWrap">
-				<img id="pot" src="/resources/hurbs/pot.png">
+				<img id="pot" src="/resources/imgPrivategarden/pot.png">
 			</div>
 		</div>
 	</div>
