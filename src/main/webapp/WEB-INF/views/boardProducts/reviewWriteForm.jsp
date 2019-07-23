@@ -12,26 +12,36 @@
 		width: 700px;
 	}
 	
-	.writableReviewImage{
-		width:100px;
+	.productImage{
+		max-width:150px;
 		height:100px;
 	}
 	
 	#inputContent{
 		height: 300px;
+		border: 1px solid lightgrey;
+		border-radius: 5px;
+		padding: 10px;
+		margin-bottom: 15px;
+	}
+		
+	.btnsRow{
+		width: 100%;
+	}
+	.btnsBox{
+		text-align: center;
 	}
 	
-	
-	.goMainBtn{
-		background-color: #b4d9b5;
+	.goBackBtn{
+		background-color: #44b27d;
 /* 		color: #44b27d; */
 		color: white;
 		font-weight: bold;
 		border: 0px;
 		cursor: pointer;
 	}
-	.goMainBtn:hover{
-		background-color: #44b27d;
+	.goBackBtn:hover{
+		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
 		border: 0px;
@@ -53,6 +63,28 @@
 
 	
 </style>
+
+<!-- script -->
+	<script>
+		$(function(){
+			var pnumber = "${productInfo.p_no}"; //돌아가기 버튼 고치기!!!!!!
+			console.log(pnumber);
+			$(".goBackBtn").on("click",function(){
+					var pnumber = ${pnumber};
+					location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
+				})
+			
+			$(".writeBtn").on("click",function(){
+				var inputContent = $("#inputContent").text();
+				var inputTitle = $("#inputTitle").val();
+				alert(inputTitle);
+				$("#content").val(inputContent);
+				$("#writeReviewForm").submit();
+			})
+			
+		})
+	</script>
+	
 </head>
 <body>
 
@@ -67,17 +99,17 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<!-- 리뷰 작성 폼 -->
 	<div id="wrapper">
 		<span>후기작성</span>
 		<hr>
-		<div id="writableReviewInfo">
-			<img src="/resources/img/boardFreeWriter.png" class="writableReviewImage">
-			<span>친환경 시금치(br_p_no=1이라 가정)</span>
+		<div id="productInfo" >
+			<img src="${productInfo.p_imagepath}" class="productImage">
+			<span>${productInfo.p_title}</span>
 		</div>
 		<hr>
-		<form action="writeReview" method="post" enctype="multipart/form-data">
+		<form action="writeReview" id="writeReviewForm" method="post" enctype="multipart/form-data">
 		  <div class="form-group row">
 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
 		    <div class="col-sm-10">
@@ -86,36 +118,31 @@
 		  </div>
 		 <div class="form-group row">
 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
-		    <div class="col-sm-10">
-		      <input type="text" class="form-control" id="inputContent" name="br_content" placeholder="내용을 입력해주세요">
-		    </div>
+		   	  <div class="col-sm-10">
+		      <div contenteditable="true" id="inputContent"></div>
+		      <input type="hidden" class="form-control" id="content" name="br_content">
+             </div>
 		  </div>
 			
 		  <div class="form-group row">
-		  	 <label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
-			    <div class="col-sm-10">
+		  		<label for="inputImage" class="col-sm-2 col-form-label">사진 등록</label>
+		  		<div class="col-lg-10">
 			      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
 			      <p><small>※ 사진은 대표 사진 1장만 선택해 주세요.</small></p>
 			    </div>
 		  </div>	
 			
-		  <div class="form-group row">
-		    <div class="col-sm-10 d-flex justify-content-center">
-		      <button type="button" class="btn goMainBtn" >메인으로</button>
-		      <button type="submit" class="btn writeBtn" >등록</button>
+		  <div class="form-group row btnsRow">
+		    <div class="col-sm-12 btnsBox">
+		      <button type="button" class="btn goBackBtn">돌아가기</button>
+		      <button type="submit" class="btn writeBtn">등록</button>
 		    </div>
 		  </div>		  
 		</form>
 		
 	</div>
 
-<!-- script -->
-	<script>
-		$(".goMainBtn").on("click",function(){
-			$(location).attr("href","/");
-		})
-	</script>
-	
+
 <!-- 	footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 </body>

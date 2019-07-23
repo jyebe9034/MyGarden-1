@@ -96,18 +96,6 @@ public class ShoppingController {
 		return "shopping/orderComplete";
 	}
 
-	@RequestMapping("orderList")
-	public String toOrderList(HttpServletRequest request) {
-		String id = (String)session.getAttribute("loginId");		
-		try {
-			request.setAttribute("listWrapper", shsvc.getOrderList(id));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/orderList";
-	}
-
 	@ResponseBody
 	@RequestMapping(value = "insertCart", method = RequestMethod.POST)
 	public void insertCart(CartDTO dto) {
