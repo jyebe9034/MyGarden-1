@@ -32,6 +32,18 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		return sst.selectList("BoardFreeDAO.list", map);
 	}
 	
+	public List<BoardFreeDTO> searchList(int start, int end, String searchVal) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("searchVal", searchVal);
+		return sst.selectList("BoardFreeDAO.searchList", map);
+	}
+	
+	public int searchCountAll(String searchVal) {
+		return sst.selectOne("BoardFreeDAO.searchCountAll", searchVal);
+	}
+	
 	public BoardFreeDTO read(int bf_no) {
 		sst.selectOne("BoardFreeDAO.viewCount", bf_no);
 		return sst.selectOne("BoardFreeDAO.read", bf_no);
@@ -91,9 +103,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 	}
 		
 	//게시판 네비
-	public List<String> getBoardNavi(int currentPage) throws Exception {
-		int recordTotalCount = this.boardCountAll();
-		//System.out.println("게시판 레코드토탈카운트:"+recordTotalCount);
+	public List<String> getBoardNavi(int currentPage, int recordTotalCount) throws Exception {
 		
 		int recordCountPerPage = 4; 
 		int naviCountPerPage = 3;	
@@ -150,7 +160,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		for(int i = startNavi ; i <= endNavi ; i++) {
 			//sb.append("<a href='list.board?currentPage="+i+"'>"+i + "</a>");
 			//sb.append(i+"");
-			list.add(i+" ");
+			list.add(i+"");
 		}
 		if(needNext) {
 			//sb.append("다음>");
@@ -219,7 +229,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		for(int i = startNavi ; i <= endNavi ; i++) {
 			//sb.append("<a href='list.board?currentPage="+i+"'>"+i + "</a>");
 			//sb.append(i+"");
-			list.add(i+" ");
+			list.add(i+"");
 		}
 		if(needNext) {
 			//sb.append("다음>");

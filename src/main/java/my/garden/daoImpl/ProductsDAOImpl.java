@@ -77,6 +77,15 @@ public class ProductsDAOImpl implements ProductsDAO {
 		}
 	}
 	
+	public int deleteImagePath(String img_p_title) {
+		try {
+			return sst.delete("ProductsDAO.deleteImagePath", img_p_title);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public int updateProduct(ProductsDTO dto) {
 		try {
 			return sst.update("ProductsDAO.updateProduct", dto);

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dao.BoardReviewDAO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.BoardReviewRecommendDTO;
 
 @Repository
 public class BoardReviewDAOImpl implements BoardReviewDAO{
@@ -65,9 +66,9 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 			endNavi = pageTotalCount;
 		}
 
-		System.out.println("현재 위치 : " + currentPage);
-		System.out.println("네비 시작 : " + startNavi);
-		System.out.println("네비 끝 : " + endNavi);
+//		System.out.println("현재 위치 : " + currentPage);
+//		System.out.println("네비 시작 : " + startNavi);
+//		System.out.println("네비 끝 : " + endNavi);
 
 		boolean needPrev = true;
 		boolean needNext = true;
@@ -99,7 +100,9 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 		return sb.toString();
 	}
 
-	/*도움돼요 +씩 카운트*/
+	//--------------------------------------------------------------------
+	
+	/*도움돼요 전체 추천수 +1 카운트*/
 	public int updateRecommendCount(int br_recommend, int br_no) {
 		Map<String,Integer> map = new HashMap<>();
 		map.put("br_recommend", br_recommend);
@@ -137,6 +140,12 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 		return sst.selectOne("boardReviewMB.recommendCount", br_no);
 	}
 	
+	/*내가 추천한 글번호*/
+	public List<BoardReviewRecommendDTO>  myRecommendNo(String BR_EMAIL){
+		return sst.selectList("boardReviewMB.myRecommendNo", BR_EMAIL);		
+	}
+	
+	//---------------------------------------------------------------------
 	
 	/*후기 수정 전 정보*/
 	public BoardReviewDTO oneReview(int br_no) {

@@ -74,7 +74,7 @@
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/img/boardFree.png">
+		<img src="resources/free/boardFree.png">
 	</div>
 	<div class=container>
 		<form action="boardFreeWriteProc" method="post" id="freeForm">
@@ -85,7 +85,7 @@
 				<div id=content class=col-12></div>
 				<input type="hidden" id=sendContent name=bf_content>
 				<p id=contentExplain>
-					<img src="/resources/img/boardFreeWarning.png"> 게시글 작성 시 <span
+					<img src="/resources/free/boardFreeWarning.png"> 게시글 작성 시 <span
 						id=green>회원님의 소중한 개인정보를 포함하지 않도록</span> 주의 부탁드립니다.
 				</p>
 				<div class="col-12 footBtn">

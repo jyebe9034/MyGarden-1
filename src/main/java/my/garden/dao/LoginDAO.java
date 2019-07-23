@@ -1,6 +1,5 @@
 package my.garden.dao;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -142,6 +141,10 @@ public class LoginDAO {
 	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
+	}
+	
+	public MembersDTO memSelectAll(String email) {
+		return sst.selectOne("LoginDAO.memSelectAll", email);
 	}
 
 	public String pwDupCheck(String key) {

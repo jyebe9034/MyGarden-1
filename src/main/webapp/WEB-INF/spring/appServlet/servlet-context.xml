@@ -12,20 +12,21 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd"
-		xmlns:mvc="http://www.springframework.org/schema/mvc">
+		>
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+   <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+   <!-- Enables the Spring MVC @Controller programming model -->
+   <annotation-driven />
 
-	<context:component-scan base-package="my.garden" />
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	<!-- transction Management -->
-	<tx:annotation-driven transaction-manager="txManager"/>
+   <context:component-scan base-package="my.garden" />
+   <aop:aspectj-autoproxy proxy-target-class="true"/>
+   <!-- transction Management -->
+   <tx:annotation-driven transaction-manager="txManager"/>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/admin/**" location="/admin/" />
 <!-- 	<resources mapping="/css/**" location="/resources/css/" /> -->
 <!-- 	<resources mapping="/js/**" location="/resources/js/" /> -->
 
@@ -64,15 +65,5 @@
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>
 	
-	
-	<!-- 컨트롤러로 요청이 가기전에 인터셉트 -->
-<!-- 	상단에 반드시 추가 -->
-<!-- 	xmlns:mvc="http://www.springframework.org/schema/mvc" -->
-	<mvc:interceptors>
-	     <mvc:interceptor>
-	         <mvc:mapping path="/login/**"/>
-	         <beans:bean class="my.garden.controller.LoginController" />
-	     </mvc:interceptor>
-	</mvc:interceptors>
 	
 </beans:beans>

@@ -329,6 +329,10 @@ button.btn_select_all, button.btn_select_del {
 		$("#buySelect").on(
 				"click",
 				function() {
+					if(${loginId==null}){
+						alert("로그인이 필요한 메뉴입니다.")
+						$(location).attr("href","/login");
+					}else{
 					var checked = 0;
 					$(".goodsCheckbox").each(function() {
 						if ($(this).prop("checked")) {
@@ -381,12 +385,18 @@ button.btn_select_all, button.btn_select_del {
 						$("#productList").val(stringJson);
 						$("#cartForm").submit();
 					}
+				}
 				});
 
 		// 전체 주문
 		$("#buyAll").on(
 				"click",
 				function() {
+					if(${loginId==null}){
+						alert("로그인이 필요한 메뉴입니다.")
+						$(location).attr("href","/login");
+					}else{
+					$(".goodsCheckbox").prop("checked", true);
 					var checked = 0;
 					$(".goodsCheckbox").each(function() {
 						if ($(this).prop("checked")) {
@@ -432,10 +442,11 @@ button.btn_select_all, button.btn_select_del {
 					$("#productList").val(stringJson);
 					$("#cartForm").submit();
 					}
+				}
 				});
 		
 		$("#keepShopping").on("click", function() {
-			$(location).attr("href", "/")
+			$(location).attr("href", "productsList")
 		})
 		
 		$(".up")
@@ -606,7 +617,7 @@ button.btn_select_all, button.btn_select_del {
 								</thead>
 								<tbody>
 									<c:choose>
-										<c:when test='${list=="[]"}'>
+										<c:when test='${list=="[]"||list==null}'>
 											<tr>
 												<td class="td_bottom_line" align="center" colspan="9"
 													height="80">장바구니에 담긴 상품이 없습니다.</td>
@@ -633,7 +644,7 @@ button.btn_select_all, button.btn_select_del {
 																<div class="row">
 																	<div class="col-4">
 																		<img class="goodsImg"
-																			src="/resources/${dto.c_p_imagepath }">
+																			src="${dto.c_p_imagepath }">
 																	</div>
 																	<div class="col-6 nameWrapper ml-3" align="left">
 																		<span class="goodsName">${dto.c_p_title }</span>

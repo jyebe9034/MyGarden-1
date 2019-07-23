@@ -1,5 +1,6 @@
 package my.garden.controller;
 
+
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -20,13 +21,13 @@ import com.google.gson.Gson;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
-import my.garden.serviceImpl.LoginService;
+import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
-	LoginService loginserv;
+	LoginServiceImpl loginserv;
 	@Autowired
 	HttpServletResponse response;
 	@Autowired
@@ -104,62 +105,11 @@ public class LoginController {
 		session.invalidate();
 		return "login/login";
 	}
-	
-	@RequestMapping("/mypageFirst")
-	public String Mypage(MembersDTO dto) {
-		String loginName = (String)session.getAttribute("loginName");
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		String[] mname = new String[]{"Ja", "Fb", "Mr", "Ap", "Ma", "Ju", "Jl", "Ag", "Sp", "Ot", "Nv", "Dc"};
-		if(loginName==null) {
-			return "login/login";
-		}else {
-			String id = (String)session.getAttribute("loginId");
-			List<CalendarDTO> lists = loginserv.calendarList(id);
-			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
-			session.setAttribute("cal", loginserv.getCalender(year));
-			session.setAttribute("year", year);
-			session.setAttribute("mm", mname);
-			session.setAttribute("lists", new Gson().toJson(lists));
-			return "login/mypageFirst"; 
-		}
-	}
-	
-	@RequestMapping("/mypageGardenChange")
-	public String MypageGardenChange(MembersDTO dto, int key) {
-		String id = (String)session.getAttribute("loginId");
-		List<CalendarDTO> lists = loginserv.calendarList(id);
-		session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
-		session.removeAttribute("cal");
-		session.removeAttribute("year");
-		session.setAttribute("cal", loginserv.getCalender(key));
-		session.setAttribute("year", key);
-		session.setAttribute("lists", new Gson().toJson(lists));
-		return "login/mypageFirst";
-	}
 
-	@RequestMapping("/mypageInfo")
-	public String MypageInfo(MembersDTO dto) {
-		String loginName = (String)session.getAttribute("loginName");
-		if(loginName==null) {
-			return "login/login";
-		}else {
-			String id = (String)session.getAttribute("loginId");
-			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
-			return "login/mypageInfo";
-		}
-	}
-	
 	@ResponseBody
 	@RequestMapping("/pwCheck")
 	public boolean pwCheck(String key, String pw) {
 		return loginserv.pwDupCheck(key, pw);
-	}
-
-	@RequestMapping("/updateInfo")
-	public String updateInfo(MembersDTO dto) {
-		loginserv.memUpdateAll(dto);
-		return "login/mypageInfoThrough";
 	}
 	
 	@RequestMapping("/mailSender")
@@ -278,7 +228,5 @@ public class LoginController {
 		List<ShopListDTO> lists = loginserv.getOrderList(dto);
 		return new Gson().toJson(loginserv.getOrderList(dto));
 	}
-	
-	
 	
 }

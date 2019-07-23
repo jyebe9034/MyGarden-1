@@ -1,12 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나의 정원</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
+	<style>
+		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
+		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
+		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
+		
+		#chatboxWrap{
+			border-radius : 5px;
+			width : 350px;
+			height : 500px;
+			display : none;
+		}
+		#chatBox{
+			position : fixed;
+			left : 20px;
+			bottom : 100px;
+		}
+		#chatWrap{
+			width : 70px;
+			height : 70px;
+			position : fixed;
+			left : 30px;
+			bottom : 25px;
+		}
+		#chatBtn{
+			width : 70px;
+			height : 70px;
+		}
+		#chatBtn:hover{
+			cursor : pointer;
+		}
+	</style>
 </head>
 <body>
 <!-- script -->
@@ -15,6 +46,17 @@
 		 $('.clickToCloseBtn').on('click', function(){
 			 $('.clickToClose').addClass('d-none');
 		 });
+		 
+		 $("#chatWrap").on("click", function(){
+				console.log("클릭함");
+				if($("#chatboxWrap").css("display") == "none"){
+					console.log("보여줘");
+					$("#chatboxWrap").show();
+				}else{
+					console.log("사라져");
+					$("#chatboxWrap").hide();
+				}
+			})
 	});
 	</script>
 
@@ -41,7 +83,6 @@
        
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
 	
 <!-- 			carousel -->
 	<div class="container-fluid my">
@@ -145,7 +186,15 @@
 		</div>
 	</div>
 	
-<!-- 	footer -->
+	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
+	
+	<div id="chatWrap">
+		<img id="chatBtn" src="/resources/img/chat.png">
+	</div> 
+	<div id="chatboxWrap">
+		<iframe id="chatBox" src="chat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+	</div>
+
 </body>
 </html>
