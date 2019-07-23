@@ -1,8 +1,6 @@
-
 web.xml
 pom.xml
 /.metadata/
-
 *.java.hsp
 *.sonarj
 *.sw*
@@ -41,21 +39,4 @@ spring-*/src/main/java/META-INF/MANIFEST.MF
 out
 test-output
 atlassian-ide-plugin.xml
-<<<<<<< HEAD
 .gradletasknamecache
-<<<<<<< HEAD
-=======
-.gradletasknamecache
->>>>>>> 6f07ab7ff59c8d744106bfce31cbc053fce62178
-=======
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-pom.xml
-web.xml
-=======
->>>>>>> c4bf3ee75b586db55a34328bbbe72821e6c8c9b7
->>>>>>> d2d7218911ad742607a637c8a53dcf3b83c9cbf0
-=======
-
->>>>>>> 43a176c15621490cf7c21da50cf862601ff05e8e
