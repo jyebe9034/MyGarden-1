@@ -157,7 +157,8 @@ public class LoginServiceImpl {
 	public int socialJoinSubmit(MembersDTO dto) {
 		dto.setM_social(request.getSession().getAttribute("social").toString());
 		dto.setM_ipaddress(request.getRemoteAddr());
-		if(dto.getM_profile().toString().equals(null)) {
+		System.out.println(dto.getM_profile());
+		if(dto.getM_profile()==null) {
 			dto.setM_profile("resources/img/profile.png");
 		}else {
 			dto.setM_profile(dto.getM_profile().toString());

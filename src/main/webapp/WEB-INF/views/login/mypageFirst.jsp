@@ -66,7 +66,6 @@
 				data:{date:$(this).attr('data-original-title')+" 00:00:00.000000000"}
 			}).done(function(resp){
 				var rst = JSON.parse(resp);
-				console.log(rst);
 				if(rst==""){
 				}else{
 					$('.orderList').slideDown();

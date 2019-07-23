@@ -86,7 +86,6 @@ public class LoginController {
 	@RequestMapping("/logout")
 	public String logout() {
 		session.invalidate();
-//		out = response.getWriter();
 		return "login/homeThrough";
 	}
 	
@@ -226,9 +225,6 @@ public class LoginController {
 		dto.setS_email((String)session.getAttribute("loginId"));
 		dto.setS_orderdate(date);
 		List<ShopListDTO> lists = loginserv.getShoppedList(dto);
-		for(ShopListDTO list : lists) {
-			System.out.println("1: "+list.getS_m_paymethod());
-		}
 		return new Gson().toJson(loginserv.getShoppedList(dto));
 	}
 	
