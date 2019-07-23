@@ -12,13 +12,13 @@ import my.garden.dto.MembersDTO;
 import my.garden.dto.PrivateGardenDTO;
 import my.garden.service.PrivateGardenService;
 import my.garden.service.ShoppingService;
-import my.garden.serviceImpl.LoginService;
+import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class MypageController {
 	
 	@Autowired
-	LoginService loginserv;
+	LoginServiceImpl loginserv;
 	
 	@Autowired
 	HttpSession session;

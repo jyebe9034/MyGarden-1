@@ -14,7 +14,7 @@ import my.garden.dao.LoginDAO;
 import my.garden.dto.MembersDTO;
 
 @Service
-public class LoginService {
+public class LoginServiceImpl {
 
 	@Autowired
 	LoginDAO logDao;

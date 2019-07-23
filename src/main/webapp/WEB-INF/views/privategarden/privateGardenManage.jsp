@@ -269,8 +269,6 @@
 	#test {
 	  display: flex;
 	  justify-content: center;
-	  padding: 3em 0;
-	  margin-top : 150px;
 	}
 
 .plant {
@@ -313,6 +311,32 @@
 			100% {
 				transform: scale(1);
 			}
+		}
+			
+		#potWrap{
+			margin : auto;
+			width : 200px;
+			height : 300px;
+		}
+		
+		#pot{
+			width : 300px;
+			height : auto;
+			margin : auto;
+			position : relative;
+			top : 300px;
+			left : -130px;
+			z-index : 0;
+		}
+		
+		#Layer_1{
+			width : 200px;
+			height : auto;
+			position : relative;
+			top : 210px;
+			left : 470px;
+			z-index : 1;
+		}
 </style>
 </head>
 <body>
@@ -354,14 +378,17 @@
 			</div>
 		</div>
 		<div class="row">
-			<div id="test" class="container">
-				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="512px" height="512px" class="">
+			<div id="test">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="250px" height="250px" class="">
 				<g><g id="plant">
 					<path style="fill:#9AD14B;" d="M285.017,64.165c12.558,12.57,20.334,29.922,20.334,49.097c-38.35,0-69.431-31.081-69.431-69.431   C255.084,43.831,272.447,51.607,285.017,64.165z" data-original="#9AD14B" class="leaves-right"/>
 					<path style="fill:#9AD14B;" d="M354.291,135.926c0,27.024-21.916,48.94-48.94,48.94c0-13.512,5.47-25.744,14.333-34.607   C328.535,141.408,340.767,135.926,354.291,135.926z" data-original="#9AD14B" class="leaves-left"/>
 					<path style="fill:#9AD14B;" d="M305.352,113.262c0-27.809,11.266-52.985,29.499-71.206c18.221-18.221,43.397-29.499,71.206-29.499   C406.057,68.174,360.969,113.262,305.352,113.262z" data-original="#9AD14B" class="leaves-left"/>
 					<rect x="296.295" y="104.207" style="fill:#9AD14B;" width="18.112" height="118.455" data-original="#9AD14B" class="plant"/>
 				</g>
+			</div>
+			<div id="potWrap">
+				<img id="pot" src="/resources/hurbs/pot.png">
 			</div>
 		</div>
 	</div>

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dto.MembersDTO;
-import my.garden.serviceImpl.LoginService;
+import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class LoginController {
 	
 	@Autowired
-	LoginService loginserv;
+	LoginServiceImpl loginserv;
 	@Autowired
 	HttpServletResponse response;
 	@Autowired
