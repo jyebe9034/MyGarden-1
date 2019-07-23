@@ -121,7 +121,7 @@ s_statement varchar(20) not null,
 s_orderdate timestamp not null,
 s_reviewok char(1) check(s_reviewok in('y','n'))
 );
-insert into shoplist values(32, 22, 'espanoir0419@naver.com', 'phone', 33, 'resources/img/profile.png', 'title', 2, 3000, 
+insert into shoplist values(33, 22, 'espanoir0419@naver.com', 'phone', 33, 'resources/img/profile.png', 'title', 2, 3000, 
 'recipient', 'memo', 'paymethod', 'zipcode', 'address1', 'address2', 'statement', sysdate, 'y');
 select * from shoplist;
 select * from members;
@@ -131,14 +131,16 @@ select s_orderdate, COUNT(s_orderdate) from shoplist group by(s_orderdate) order
 --Áßº¹°ª
 select to_char(s_orderdate, 'yy/mm/dd') as orderdate, COUNT(s_orderdate) as count from shoplist where s_email='espanoir0419@naver.com' group by(s_orderdate);
 select s_orderdate as orderdate, COUNT(s_orderdate) as count from shoplist where s_email='espanoir0419@naver.com' group by(s_orderdate);
+select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') as orderdate, COUNT(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd')) as count from shoplist where s_email='espanoir0419@naver.com' group by(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd'));
 select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate='19/02/04';
 select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate='2019-07-23';
 select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate between '19/07/23 00:00:00.000000000' and '19/07/23 23:59:59.000000000';
-select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate between to_date(substr('2019-06-04 12:00', 1,10), 'yy/mm/dd') and to_date(substr('2019-06-04 12:00', 1,10), 'yy/mm/dd')+1;
+select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate between to_date(substr('2019-07-04 12:00', 1,10), 'yy/mm/dd') and to_date(substr('2019-07-04 12:00', 1,10), 'yy/mm/dd')+0.9999;
 select concat(substr('19/07/23 16:43:54.000000000', 1,8), ' 00:00:00.000000000') from dual;
 select concat(substr('19/07/23 16:43:54.000000000', 1,8), ' 23:59:59.000000000') from dual;
 select to_date(substr('19/07/23 16:43:54.000000000', 1,8))+1 from dual;
 select to_date(substr('2019-06-04 12:00', 1,10), 'yy/mm/dd') from dual;
+select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') from shoplist;
 select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate between to_date('2019-06-04 12:00', 'yy-mm-dd') and to_date('19/07/23', 'yy-mm-dd')+1;
 
 select count(*) from shoplist where s_email='espanoir0419@naver.com';
