@@ -155,6 +155,7 @@ public class LoginService {
         String socialEmail = null;
 
 
+
         // 유저정보 카카오에서 가져오기 Get properties
 
         JsonNode properties = userInfo.path("properties");
