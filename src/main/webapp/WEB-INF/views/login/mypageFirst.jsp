@@ -50,7 +50,7 @@
 				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
-				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pt-5 my">	

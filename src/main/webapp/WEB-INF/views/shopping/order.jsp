@@ -250,7 +250,8 @@ table.list_table_style td.cell {
 											<tr>
 												<td>총 상품금액</td>
 												<td align="right" class="fx12"><span id="total_price">
-												<fmt:formatNumber value="${count }" type="number" /></span> 원</td>
+														<fmt:formatNumber value="${count }" type="number" />
+												</span> 원</td>
 											</tr>
 											<tr>
 												<td height="8"></td>
@@ -590,6 +591,10 @@ table.list_table_style td.cell {
 
 				<script>
 		$("#pay").on("click", function(){
+		if(${loginId==null}){
+			alert("로그인이 필요한 메뉴입니다.")
+			$(location).attr("href","/login");
+		}else{
 		if($("#order_user_name").val()!="" && $("#order_email").val()!="" && $("#phone1").val()!="" && $("#phone2").val()!="" && $("#phone3").val()!="" && $("#zipcode").val()!="" && $("#address1").val()!="" && $("#address2").val()!="" && $("#recipient_user_name").val()!="" && $("#recvPhone1").val()!="" && $("#recvPhone2").val()!="" && $("#recvPhone3").val()!=""){
     	  if($("#cardPay").prop("checked")){
     	  
@@ -599,7 +604,7 @@ table.list_table_style td.cell {
             pg : 'inicis', // version 1.1.0부터 지원.
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : "${loginDTO.m_name}", //결제창에서 보여질 이름 //// 후원명 불러오기
+            name : "상품 결제", //결제창에서 보여질 이름 //// 후원명 불러오기
             amount : ${count}, // 입력받은 금액
             buyer_email : "${loginDTO.m_email}",
             buyer_name : "${loginDTO.m_name}",
@@ -690,7 +695,7 @@ table.list_table_style td.cell {
 		}else{
 			alert("필수 항목을 모두 입력해주세요.");
 		}
-         
+		}
       })
       
       

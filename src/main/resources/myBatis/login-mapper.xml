@@ -37,6 +37,10 @@
 		select ${m_email}, ${m_pw} from members where ${m_email}=#{id} and ${m_pw}=#{pw}
 	</select>
 	
+	<select id="getGrade" resultType="java.lang.String">
+		select m_grade from members where m_email=#{id}
+	</select>
+	
 	<select id="memSelectAll" resultType="my.garden.dto.MembersDTO">
 		select * from members where m_email = #{m_email}
 	</select>

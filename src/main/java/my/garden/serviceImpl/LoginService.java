@@ -174,4 +174,8 @@ public class LoginService {
         return map;
 	}
 	
+	public String getGrade(String id){
+		return logDao.getGrade(id);
+	}
+	
 }
