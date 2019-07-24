@@ -78,8 +78,14 @@
 				
 				
 			$(".writeBtn").on("click",function(){
-				var inputContent = $("#inputContent").text();
 				var inputTitle = $("#inputTitle").val();
+				var inputContent = $("#inputContent").text();
+				
+				var cntTitle = inputTitle.length; //제목 글자수 계산
+				var cntContent = inputContent.length; //내용 글자수 계산
+				console.log("제목 글자 수 : " + cntTitle);
+				console.log("내용 글자 수 : " + cntContent);
+			
 				
 				if(inputTitle==""){
 					alert("제목을 입력하세요.");
@@ -87,15 +93,31 @@
 				}else if(inputContent==""){
 					alert("내용을 입력하세요.");
 					event.preventDefault();
-				}else{
+				}
+				else{
 					$("#content").val(inputContent);
+					alert("글이 등록되었습니다.");
+					//event.preventDefault();
 					$("#writeReviewForm").submit();
 				}
 			})
 			
+
+		$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
+				if ($(this).val().length > 30) {
+					$(this).val($(this).val().substring(0, 30));
+					alert("제목은 30자 이내로 적어주세요.");
+				}
+			});
+		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
+				if ($(this).text().length > 69) {
+					$(this).text($(this).text().substring(0, 69)); 
+					alert("제목은 70자 이내로 적어주세요.");
+				}
+			});
+
 		})
 	</script>
-	
 </head>
 <body>
 
