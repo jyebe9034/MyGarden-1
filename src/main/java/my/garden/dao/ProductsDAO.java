@@ -14,4 +14,5 @@ public interface ProductsDAO {
 	public int deleteImagePath(String img_p_title);
 	public int updateProduct(ProductsDTO dto);
 	public List<ProductsDTO> selectProductsListByKeyword(int start, int end, String keyword);
+	public List<String> selectTitlesByCategory(String p_category) throws Exception;
 }

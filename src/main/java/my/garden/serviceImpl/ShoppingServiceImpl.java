@@ -128,5 +128,13 @@ public class ShoppingServiceImpl implements ShoppingService{
 		sbdto.setSb_email(id);
 		return dao.subsCancel(sbdto);
 	}
+	
+	@Transactional
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception{
+		dao.updateSubslist();	
+		sbdto.setSb_email(id);
+		return dao.selectSubsSearch(sbdto);
+	}
+	
 
 }

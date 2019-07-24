@@ -29,5 +29,6 @@ public interface ShoppingService {
 	
 	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception;
 	
-
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception;
+	
 }
