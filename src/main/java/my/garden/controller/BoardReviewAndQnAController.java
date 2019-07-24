@@ -65,8 +65,12 @@ public class BoardReviewAndQnAController {
 		List<BoardReviewDTO> reviewList = null;
 		List<BoardQnADTO> qnaList = null;
 		Integer[] myRecommendNo  = null;
-	
+		
+		
 		try {
+			List<BoardQnADTO> test = qnaService.qnaList(br_p_no, startNum2, endNum2);
+			System.out.println("사이즈 : " + test.size());
+						
 			List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);
 			//System.out.println(list.size());
 			//System.out.println(list.get(0).getBr_no());
@@ -122,13 +126,12 @@ public class BoardReviewAndQnAController {
 		int br_p_no = (int) session.getAttribute("pnumber");
 		String name = (String) session.getAttribute("loginName");
 
-		//System.out.println("리뷰작성자이름 : " + name);
 		dto.setBr_p_no(br_p_no);
 		dto.setBr_email(id);
 		dto.setBr_name(name);
 		//System.out.println("리뷰 내용 : " + dto.getBr_content());
 		//System.out.println("이미지" + image);
-		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
+		String path = session.getServletContext().getRealPath("/resources/");
 		File dir = new File(path + id + "/"); //폴더경로
 		//System.out.println("폴더 존재? : " + dir.isDirectory());
 		if(!dir.isDirectory()) { // 폴더가 있는지 확인.
@@ -155,7 +158,6 @@ public class BoardReviewAndQnAController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//return "redirect:reviewAndQnA?br_p_no=1&currentPage=1&qnaCurrentPage=1"; //나중에 고치기..글번호
 		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + br_p_no;
 	}
 
@@ -196,12 +198,13 @@ public class BoardReviewAndQnAController {
 
 	@RequestMapping("reviewUpdateForm")
 	public String reviewUpdateForm(HttpServletRequest request, int br_no) {
-		int pnumber = (int) session.getAttribute("pnumber");
+		int pnumber = (int) session.getAttribute("pnumber"); //상품 글 번호
 		ProductsDTO dto = pservice.selectOneProductService(pnumber);
-		br_no = Integer.parseInt(request.getParameter("br_no"));
+		br_no = Integer.parseInt(request.getParameter("br_no")); //후기 글번호
 		try {
 			request.setAttribute("oneReview", brService.oneReview(br_no));
 			request.setAttribute("productInfo", dto);
+			request.setAttribute("br_no", br_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -209,7 +212,8 @@ public class BoardReviewAndQnAController {
 	}
 
 	@RequestMapping("reviewUpdate")
-	public String reviewUpdate(HttpServletRequest request, BoardReviewDTO dto, MultipartFile image) {
+	public String reviewUpdate(HttpServletRequest request, BoardReviewDTO dto,MultipartFile image) {
+		int pnumber = (int) session.getAttribute("pnumber");
 		int br_no = Integer.parseInt(request.getParameter("br_no"));
 		String br_title = request.getParameter("br_title");
 		String br_content = request.getParameter("br_content");
@@ -235,15 +239,10 @@ public class BoardReviewAndQnAController {
 			//System.out.println("filePath : " + filePath);
 			map.put("br_imagepath", filePath);
 		}
-
-
-
 		map.put("br_title", br_title);
 		map.put("br_content", br_content);
 		map.put("br_no", br_no);
-
-
-
+		
 		try {
 			brService.updateReview(map);
 			request.setAttribute("oneReview", brService.oneReview(br_no));
@@ -251,26 +250,25 @@ public class BoardReviewAndQnAController {
 			e.printStackTrace();
 		}
 
-		return "/boardProducts/reviewUpdateForm";
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber; //ㅡㅡ
 	}
 
 
 
 	@RequestMapping("reviewDelete")
 	public String reviewDelete(HttpServletRequest request, int br_no) {
-		br_no = Integer.parseInt(request.getParameter("br_no"));
+		int pnumber = (int) session.getAttribute("pnumber");
 		try {
 			brService.deleteReview(br_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + br_no;
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 	}
 
 	@RequestMapping("qnaWriteForm")
-	public String qnaWriteForm(int bq_p_no) {
-
+	public String qnaWriteForm() {
 		return "/boardProducts/qnaWriteForm";
 	}
 	@RequestMapping("writeQnA")
@@ -293,7 +291,7 @@ public class BoardReviewAndQnAController {
 		//	if(!images.isEmpty()) { //이미지 들어있으면 
 		if(images.length>0) {
 
-			String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
+			String path = session.getServletContext().getRealPath("/resources/");
 			File dir = new File(path + id + "/"); //폴더경로
 			if(!dir.isDirectory()) { // 폴더가 있는지 확인.
 				System.out.println("폴더생성");
@@ -378,8 +376,8 @@ public class BoardReviewAndQnAController {
 
 		//		String id = request.getParameter("id");
 		//		System.out.println("id : " + id);
-		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
-
+		String path = session.getServletContext().getRealPath("/resources/");
+		
 		String resourcePath = session.getServletContext().getRealPath("/resources/temp");
 		String renamedFilePath = resourcePath + "/" + System.currentTimeMillis() + "_temp_profileImage.png";
 		String result = null;
@@ -406,8 +404,6 @@ public class BoardReviewAndQnAController {
 	public int updateImgs(BoardQnADTO dto, MultipartFile formData, String oriFilePath) {
 		String id = (String) session.getAttribute("loginId");
 		System.out.println("oriFilePath : " + oriFilePath);
-		int bq_no = (int) session.getAttribute("bq_no");
-
 		int updateResult =0;
 
 		try {
