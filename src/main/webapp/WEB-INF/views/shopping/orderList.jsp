@@ -103,8 +103,19 @@ table.list_table_style td.cell {
 	padding-left: 4px;
 	padding-right: 4px;
 }
-#empty{
+
+#empty {
 	font-size: 13px;
+}
+
+.title {
+	color: dodgerblue;
+}
+
+.title:hover {
+	color: navy;
+	text-decoration: underline;
+	cursor: pointer;
 }
 </style>
 
@@ -116,11 +127,26 @@ table.list_table_style td.cell {
 			$("#orderSearch").submit();
 		})
 
-		$(".showShipping").on("click", function(){
-			var title = $(this).parent().parent().find("td:nth-child(2)").find("table:nth-child(1)").find("tr:nth-child(1)").find("td:nth-child(2)").find("div:nth-child(1)").find("a:nth-child(1)").html();
-			window.open("shipping?s_orderno="+$(this).parent().find("input:nth-child(3)").val()+"&s_p_title="+title, "",
-			"width=900px, height=700px");
-		})
+		$(".showShipping").on("click",function() {
+					var title = $(this).parent().parent().find("td:nth-child(2)")
+					.find("table:nth-child(1)").find("tr:nth-child(1)").find("td:nth-child(2)")
+					.find("div:nth-child(1)").find("span:nth-child(1)").html();
+					window.open("shipping?s_orderno="
+							+ $(this).parent().find("input:nth-child(3)").val()
+							+ "&s_p_title=" + title, "",
+							"width=900px, height=700px");
+				})
+
+		$(".hide").hide();
+
+		$(".title").on(
+				"click",
+				function() {
+					$(".hide").hide();
+					$(this).parent().parent().parent().parent().parent()
+							.parent().parent().find("+tr").slideDown();
+				})
+
 	});
 </script>
 
@@ -164,14 +190,19 @@ table.list_table_style td.cell {
 
 			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
-					<a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
-				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
-				  <a href="orderList" class="list-group-item list-group-item-action currentActive">구매 내역</a>
-				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
-				  <c:if test="${grade == 'admin'}">
-				  		<a href="productsAdd" class="list-group-item list-group-item-action">상품 등록</a>
-				  </c:if>
-				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
+					<a href="/mypageFirst"
+						class="list-group-item list-group-item-action">Overview</a> <a
+						href="/mypageInfo" class="list-group-item list-group-item-action">내
+						정보 수정</a> <a href="orderList"
+						class="list-group-item list-group-item-action currentActive">구매
+						내역</a> <a href="subsList"
+						class="list-group-item list-group-item-action">정기 구독</a>
+					<c:if test="${grade == 'admin'}">
+						<a href="productsAdd"
+							class="list-group-item list-group-item-action">상품 등록</a>
+					</c:if>
+					<a href="/mypageDelete"
+						class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
 
@@ -254,11 +285,10 @@ table.list_table_style td.cell {
 																			<div class="goods_name">
 																				<c:choose>
 																					<c:when test="${count-1==0 }">
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																						</a>
+																						<span class="title">${dto.s_p_title }</span>
 																					</c:when>
 																					<c:otherwise>
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title } 외  ${count-1 } 건</a>
+																						<span class="title">${dto.s_p_title } 외 ${count-1 } 건</span>
 																					</c:otherwise>
 																				</c:choose>
 																			</div>
@@ -273,14 +303,14 @@ table.list_table_style td.cell {
 																<c:when test="${dto.s_statement =='배송중'}">
 																	<td class="cell"><span class="mr-1">${dto.s_statement }</span><input
 																		type="button" value="배송조회"
-																		class="showShipping btn btn-dark">
-																		<input type="hidden" value="${dto.s_orderno }"></td>
+																		class="showShipping btn btn-dark"> <input
+																		type="hidden" value="${dto.s_orderno }"></td>
 																</c:when>
 																<c:when test="${dto.s_statement =='입금 대기'}">
-																	<td class="cell" style="color:dodgerblue;">${dto.s_statement }</td>
+																	<td class="cell" style="color: dodgerblue;">${dto.s_statement }</td>
 																</c:when>
 																<c:when test="${dto.s_statement =='주문 만료'}">
-																	<td class="cell" style="color:red;">${dto.s_statement }</td>
+																	<td class="cell" style="color: red;">${dto.s_statement }</td>
 																</c:when>
 																<c:otherwise>
 																	<td class="cell">${dto.s_statement }</td>
@@ -290,6 +320,34 @@ table.list_table_style td.cell {
 														</tr>
 													</c:if>
 												</c:forEach>
+												<tr class="pt-3 pb-3 orderLists bottom_line hide"
+													style="display: none;">
+													<td colspan=5>
+														<table width="100%" border="0" cellpadding="0"
+															cellspacing="0">
+															<tr style="font-size:12px;">
+																<th width="60">주문번호</th>
+																<th width="110">상품명</th>
+																<th width="90">주문일</th>
+
+																<th width="70">주문금액</th>
+															</tr>
+															<c:forEach var="dto" items="${list}" varStatus="status">
+																<tr>
+																	<td class="cell">${dto.s_orderno }</td>
+																	<td class="cell"><img src="${dto.s_p_imagepath }"
+																		class="productsImg" width="70px" height="70px">
+																		<a
+																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }">${dto.s_p_title }</a>
+																	</td>
+																	<td class="cell">${dto.s_orderdate }</td>
+																	<td class="cell"><fmt:formatNumber
+																			value="${dto.s_p_price }" type="number" />원</td>
+																</tr>
+															</c:forEach>
+														</table>
+													</td>
+												</tr>
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>

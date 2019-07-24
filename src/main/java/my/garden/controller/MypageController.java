@@ -152,7 +152,6 @@ public class MypageController {
 			request.setAttribute("s_orderno",s_orderno);
 			request.setAttribute("s_p_title",s_p_title);
 			request.setAttribute("shippingDTO", shsvc.getOrderShipping(s_orderno, id).get(0));
-			System.out.println(s_orderno + " : " + s_p_title);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return "error";
