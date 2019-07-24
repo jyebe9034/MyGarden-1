@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -87,14 +88,14 @@ td{
 	padding: 15px;
 }
 
-.pagination .active .page-link, .back {
+.pagination .active .page-link {
 	background-color: #bcdeb4;
 	border: 1px solid #bcdeb4;
 	font-weight: bold;
 	color: white;
 }
 
-.pagination .active .page-link:hover, .back:hover {
+.pagination .active .page-link:hover {
 	background-color: #66b075;
 	border: 1px solid #bcdeb4;
 	font-weight: bold;
@@ -105,6 +106,14 @@ td{
 	font-size: 15px;
 	height: 30px;
 	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #66b075;
+	color: #66b075;
+}
+
+.back:hover{
+	background-color: #66b075;
+	color:white;
 }
 
 h4 {
@@ -156,6 +165,16 @@ h4 {
 	background-color: lightgrey;
 	transition-duration: 0.5 s;
 }
+
+#none{
+	text-align: center;
+	color: #b093c7;
+	font-weight: bold;
+}
+
+#none span{
+	font-size: 23px;
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
@@ -187,18 +206,10 @@ h4 {
 				</div>
 				<nav id="left-sidebar-nav" class="sidebar-nav">
 				<ul id="main-menu" class="metismenu">
-					<li class="active"><a href="adminIndex"><i
-							class="lnr lnr-home"></i> <span>전체 보기</span></a></li>
-					<li class=""><a href="adminMembers" class="has-arrow"
-						aria-expanded="false"><i class="lnr lnr lnr-user"></i> <span>회원
-								관리</span></a> <!-- <ul aria-expanded="true">
-							<li class=""><a href="#">공유정원 회원</a></li>
-							<li class=""><a href="#">비밀정원 회원</a></li>
-						</ul> --></li>
-					<li class=""><a href="adminStat" aria-expanded="false"><i
-							class="lnr lnr-chart-bars"></i> <span>통계</span></a></li>
-					<li class=""><a href="#"><i class="lnr lnr-alarm"></i> <span>공지사항</span>
-							<span class="badge bg-danger">15</span></a></li>
+					<li class="active"><a href="adminIndex">
+					<i	class="lnr lnr-home"></i><span>전체 보기</span></a></li>
+					<li class=""><a href="adminMembers">
+					<i class="lnr lnr lnr-leaf"></i><span>비밀 정원</span></a></li>
 				</ul>
 				</nav>
 			</div>
@@ -288,19 +299,19 @@ h4 {
 								</h2>
 								<div id="demo-donut-chart" class="ct-chart"></div>
 							</div>
+							<p class=col-6 id=none></p>
 							<!-- 인기상품 끝 -->
-						</div>
+						</div>	
 						<div class="col-md-6">
-							<!-- 방문자 -->
-							<div class="panel-content">
+							<!-- 판매 건수 -->
+							<div class="panel-content" id=sellCount>
 								<h2 class="heading">
-									<i class="fa fa-square"></i> 방문자
+									<i class="fa fa-square"></i> 판매 건수
 								</h2>
 								<ul class="list-unstyled list-referrals">
 									<li>
 										<p>
-											<span class="value">3,454</span><span class="text-muted">여성,
-												20대</span>
+											<span class="value">${popular[0].s_p_title }</span><span class="text-muted"> 몇개 팔렸는지 적어라</span>
 										</p>
 										<div
 											class="progress progress-xs progress-transparent custom-color-blue">
@@ -502,7 +513,7 @@ h4 {
 			<div id=orderCheck class="col-12">
 				<h4>
 					<i class="fa fa-shopping-basket"> 입금 대기 목록</i>
-					<button class=back>뒤로 가기</button>
+					<button class=back><i class="lnr lnr-undo"></i></button>
 				</h4>
 				<div class="table">
 					<table class="table table-bordered" width="100%"
@@ -537,7 +548,7 @@ h4 {
 			<div id=shippingCheck class="col-12">
 				<h4>
 					<i class="fa fa-shopping-basket"> 배송 대기 목록</i>
-					<button class=back>뒤로 가기</button>
+					<button class=back><i class="lnr lnr-undo"></i></button>
 				</h4>
 				<div class="table">
 					<table class="table table-bordered" width="100%"
@@ -615,6 +626,11 @@ h4 {
 			</div>
 		</div>
 	</div>
+	
+	
+	
+	
+	
 	<!-- END MAIN CONTENT -->
 	<div class="clearfix"></div>
 	</div>
@@ -664,7 +680,6 @@ h4 {
 	
 		$("#orderCheck").hide();
 		$("#deposit").on("click",function(){
-			console.log($(this).text());
 			$("#orginHide").hide();
 			$("#orderContents").html($("#orderCheck").html());
 		})
@@ -678,7 +693,6 @@ h4 {
 						},
 				type:"post"
 			}).done(function (resp) {
-				console.log("resp:"+resp.orderNo);
 				$(".moneyCheck").each(function (i,item) {
 					var order = $(this).parent().parent().children('.orNo').text();
 					var no = resp.orderNo;
@@ -706,10 +720,8 @@ h4 {
 						},
 				type:"post"
 			}).done(function (resp) {
-				console.log("resp:"+resp.orderNo);
 				$(".shippingCheck").each(function (i,item) {
 					var order = $(this).parent().parent().children('.orNo').text();
-					console.log("order:"+order)
 					var no = resp.orderNo;
 					if(order==no && resp.result>0){	
 						$(this).css("color","#66b075");
@@ -749,14 +761,16 @@ h4 {
 			sparklineNumberChart();
 
 			// 인기상품
+
+			if(${fn:length(count)==0}){
+				$("#demo-donut-chart").hide();
+				$("#sellCount").hide();
+				$("#none").html('<span class="lnr lnr-sad"></span>  회원들의 구매내역이 없습니다.');
+			}
+			
 			var dataDonut = {
-				series : [ '${count[0]}', '${count[1]}', '${count[2]}',
-						'${count[3]}', '${count[4]}' ],
-				labels : [ '${popular[0].s_p_title}'+"("+${count[0]}+"%)",
-							'${popular[1].s_p_title}'+"("+${count[1]}+"%)", 
-							'${popular[2].s_p_title}'+"("+${count[2]}+"%)",
-							'${popular[3].s_p_title}'+"("+${count[3]}+"%)", 
-							'${popular[4].s_p_title}'+"("+${count[4]}+"%)"]
+				series : ${count},
+				labels : ${popularProduct}
 			};
 			
 			new Chartist.Pie('#demo-donut-chart', dataDonut, {
@@ -929,10 +943,10 @@ h4 {
 
 			// notification popup
 			toastr.options.closeButton = true;
-			toastr.options.positionClass = 'toast-bottom-right';
+			toastr.options.positionClass = 'toast-bottom-left';
 			toastr.options.showDuration = 1000;
 			toastr['info']
-					('Hello, welcome to DiffDash, a unique admin dashboard.');
+					("'나의 정원' 관리자 페이지입니다.");
 
 		});
 

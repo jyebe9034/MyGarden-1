@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import my.garden.dto.BoardFreeDTO;
 import my.garden.dto.CommentFreeDTO;
+import my.garden.dto.MembersDTO;
 import my.garden.service.BoardFreeService;
+import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class BoardFreeController {
@@ -30,8 +32,10 @@ public class BoardFreeController {
 
 	@Autowired
 	HttpSession session;
-
-
+	
+	@Autowired
+	private LoginServiceImpl logDao;
+	
 	@RequestMapping("boardFreeList")
 	public String boardFreeList(String page, HttpServletRequest request) {
 		int nowPage=0;
@@ -67,6 +71,8 @@ public class BoardFreeController {
 						int bf_no=list.get(j).getBf_no();
 						int tmp = dao.serviceCmtCountAll(bf_no);
 						list.get(j).setBf_cmtcount(tmp);
+						String img = logDao.memSelectAll(list.get(j).getBf_email()).getM_profile();
+						list.get(j).setBf_writerImg(img);
 					}
 				}		
 			}
@@ -84,7 +90,7 @@ public class BoardFreeController {
 		if(value!=null) {
 			session.setAttribute("searchVal", value);
 		}
-		System.out.println(session.getAttribute("searchVal")+"현재페이지"+page);
+		//System.out.println(session.getAttribute("searchVal")+"현재페이지"+page);
 		String ssVal = (String)session.getAttribute("searchVal");
 		if(page==null) {
 			nowPage=1;
@@ -100,7 +106,7 @@ public class BoardFreeController {
 		try {
 			String searchVal = "%"+ssVal+"%";
 			list = dao.serviceSearchList(start, end, searchVal);
-			System.out.println("검색결과수:"+list.size()+":"+dao.serviceSearchCountAll(searchVal));
+			//System.out.println("검색결과수:"+list.size()+":"+dao.serviceSearchCountAll(searchVal));
 			List<String> navi = dao.serviceGetBoardNavi(nowPage, dao.serviceSearchCountAll(searchVal));
 			map.put("searchNavi", navi);
 			//댓글 갯수 관련
@@ -172,7 +178,10 @@ public class BoardFreeController {
 	@RequestMapping("boardFreeWriteProc")
 	public String boardFreeWriteProc(BoardFreeDTO dto, HttpServletRequest request) {
 		try {
-			int result = dao.serviceWrite(new BoardFreeDTO(0, dto.getBf_title(), (String)session.getAttribute("loginName"), (String)session.getAttribute("loginId"), dto.getBf_content(), null, 0, null, 0, null, 0));
+			MembersDTO memDto = logDao.memSelectAll((String)session.getAttribute("loginId"));	
+			String tmpImg = memDto.getM_profile();
+			System.out.println("임시이미지"+tmpImg);
+			int result = dao.serviceWrite(new BoardFreeDTO(0, dto.getBf_title(), (String)session.getAttribute("loginName"), (String)session.getAttribute("loginId"), dto.getBf_content(), null, 0, null, 0, null, 0, tmpImg));
 			request.setAttribute("result", result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -212,8 +221,11 @@ public class BoardFreeController {
 
 	@RequestMapping("boardFreeRead")
 	public String boardFreeRead(int no, String cmtPage, HttpServletRequest request) {
-		try {
-			request.setAttribute("page", dao.serviceRead(no));
+		try {	
+			BoardFreeDTO page = dao.serviceRead(no);
+			String img = logDao.memSelectAll(page.getBf_email()).getM_profile();
+			page.setBf_writerImg(img);
+			request.setAttribute("page", page);
 			//댓글관련
 			session.removeAttribute("now"); //새로 글을 읽을때는 제일 최신 댓글페이지 필요-->세션제거
 			int lastPage=0;
@@ -237,7 +249,10 @@ public class BoardFreeController {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
 				list.get(i).setCf_stringdate(stringdate);
+				MembersDTO memDto = logDao.memSelectAll(list.get(i).getCf_email());	
+				list.get(i).setCf_profileImg(memDto.getM_profile());
 			}
+			
 			request.setAttribute("list", list);
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -247,8 +262,8 @@ public class BoardFreeController {
 
 	@ResponseBody
 	@RequestMapping("freeCmtWrite")
-	public Map<String, Object> freeCmtWrite(int no, String content, HttpServletRequest request) {		
-		CommentFreeDTO dto = new CommentFreeDTO(no, 0, (String)session.getAttribute("loginName"), (String)session.getAttribute("loginId"), null, content, null);
+	public Map<String, Object> freeCmtWrite(int no, String content, HttpServletRequest request) {	
+		CommentFreeDTO dto = new CommentFreeDTO(no, 0, (String)session.getAttribute("loginName"), (String)session.getAttribute("loginId"), null, content, null, null);
 		Map<String, Object> map = new HashMap<>();
 		try {
 			//1. 댓글 등록
@@ -262,8 +277,6 @@ public class BoardFreeController {
 				}else {
 					now=(dao.serviceCmtCountAll(no)/10)+1;
 				}		
-			System.out.println("현재 댓글페이지:"+now);
-
 			//3. 댓글리스트
 			int start = (now*10)-9;
 			int end= now*10;
@@ -273,8 +286,11 @@ public class BoardFreeController {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
 				list.get(i).setCf_stringdate(stringdate);
+				
+				MembersDTO memDto = logDao.memSelectAll(list.get(i).getCf_email());	
+				list.get(i).setCf_profileImg(memDto.getM_profile());
+				
 				map.put("list", list);
-				System.out.println("댓글 썼을때"+list.size());
 				List<String> navi = dao.serviceGetCmtNavi(now, no);
 				map.put("navi", navi);
 				map.put("page", now);	
@@ -299,6 +315,8 @@ public class BoardFreeController {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
 				list.get(i).setCf_stringdate(stringdate);
+				MembersDTO memDto = logDao.memSelectAll(list.get(i).getCf_email());	
+				list.get(i).setCf_profileImg(memDto.getM_profile());
 			}
 			map.put("list", list);
 			List<String> navi = dao.serviceGetCmtNavi(page, no);
@@ -341,10 +359,13 @@ public class BoardFreeController {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
 				list.get(i).setCf_stringdate(stringdate);
+				MembersDTO memDto = logDao.memSelectAll(list.get(i).getCf_email());	
+				list.get(i).setCf_profileImg(memDto.getM_profile());
 				map.put("list", list);
 				List<String> navi = dao.serviceGetCmtNavi(now, no);
 				map.put("navi", navi);
-				map.put("page", now);	
+				map.put("page", now);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -383,10 +404,12 @@ public class BoardFreeController {
 				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
 				String stringdate = sdf.format(list.get(i).getCf_writedate());
 				list.get(i).setCf_stringdate(stringdate);
+				MembersDTO memDto = logDao.memSelectAll(list.get(i).getCf_email());	
+				list.get(i).setCf_profileImg(memDto.getM_profile());
 				map.put("list", list);
 				List<String> navi = dao.serviceGetCmtNavi(now, no);
 				map.put("navi", navi);
-				map.put("page", now);	
+				map.put("page", now);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

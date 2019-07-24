@@ -149,8 +149,7 @@ hr {
 						</div>
 						<input type=hidden value=${tmp.bf_no }>
 						<div class=otherContents>
-							<span class=writer><img
-								src="resources/free/boardFreeWriter.png">${tmp.bf_writer }</span>
+							<span class=writer><img src=${tmp.bf_writerImg }>${tmp.bf_writer }</span>
 							<span class=writeDate><img
 								src="resources/free/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
 							<span class=viewCount><img
@@ -266,8 +265,8 @@ hr {
 					$("#naviPlace").html(navi);
 				}	
 				}else{
-					$(".listOne").html("<center><img src=resources/img/noresults.png><br><br>'<b>"+resp.searchVal+"</b>' 에 대한 결과가 없습니다.<br><br>"
-					+"<button id='back' class='btn'>뒤로 가기</button>");
+					$(".listOne").html("<center><img src=resources/img/noresults.png width=500px><br><br><br>'<b>"+resp.searchVal+"</b>' 에 대한 결과가 없습니다.<br><br>"
+					+"<button id='back' class='btn'>돌아가기</button>");
 				}
 			})
 			}

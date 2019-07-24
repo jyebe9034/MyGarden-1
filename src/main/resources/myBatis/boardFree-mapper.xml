@@ -57,5 +57,4 @@
 		delete from comment_free where ${column}=${value}
 	</delete>
 	
-	
 </mapper>

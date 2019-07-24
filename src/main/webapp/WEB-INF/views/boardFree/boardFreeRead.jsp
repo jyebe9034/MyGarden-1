@@ -206,7 +206,7 @@ hr {
 			</div>
 
 			<div id=info>
-				<span id=writer><img src="resources/free/boardFreeWriter.png">${page.bf_writer }</span>
+				<span id=writer><img src="${page.bf_writerImg }">${page.bf_writer }</span>
 				<span id=writedate><img
 					src="resources/free/boardFreeWriteDate.png"> <fmt:formatDate
 						pattern="yyyy-MM-dd HH:mm" value="${page.bf_writedate }" /></span> <span
@@ -218,7 +218,7 @@ hr {
 				<c:forEach var="tmp" items="${list }">
 					<div class=commentOne>
 						<span class=rWriter> <img
-							src="resources/free/boardFreeCmtWriter.png">${tmp.cf_name }
+							src="${tmp.cf_profileImg }">${tmp.cf_name }
 						</span> <span class=rWritedate>${tmp.cf_stringdate}</span>
 						<div class="rContents row">
 							<div class="rContent col-10">${tmp.cf_comment }</div>
@@ -227,15 +227,24 @@ hr {
 								<button type=button class='mdBtn modifyBtn'>수정</button>
 								<button type=button class=mdBtn id=cancelBtn>취소</button>
 							</div>
-							<c:if test="${loginName==tmp.cf_name }">
-								<div class="rIcons col-2">
-									<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
-										src="resources/free/boardFreeCmtChange.png"></span> <span
-										class=cmtDelete id='${tmp.cf_no}'> <img
-										src="resources/free/boardFreeCmtDelete.png">
-									</span>
-								</div>
-							</c:if>
+							<c:choose>
+								<c:when test="${loginName==tmp.cf_name }">
+									<div class="rIcons col-2">
+										<span class=cmtChange flag=true id='${tmp.cf_no}'> <img
+											src="resources/free/boardFreeCmtChange.png"></span> <span
+											class=cmtDelete id='${tmp.cf_no}'> <img
+											src="resources/free/boardFreeCmtDelete.png">
+										</span>
+									</div>
+								</c:when>
+								<c:when test="${grade=='admin' }">
+									<div class="rIcons col-2">
+										<span class=cmtDelete id='${tmp.cf_no}'> 
+										<img src="resources/free/boardFreeCmtDelete.png">
+										</span>
+									</div>
+								</c:when>
+							</c:choose>
 						</div>
 						<hr>
 					</div>
@@ -253,11 +262,15 @@ hr {
 			</div>
 			<div class="col-12 footBtn">
 				<button type="button" class="bfBtn" id=back>목록으로</button>
-
-				<c:if test="${loginId==page.bf_email}">
-					<button type="button" class="bfBtn" id=modify>글수정</button>
-					<button type="button" class="bfBtn" id=delete>글삭제</button>
-				</c:if>
+				<c:choose>
+					<c:when test="${loginId==page.bf_email}">
+						<button type="button" class="bfBtn" id=modify>글수정</button>
+						<button type="button" class="bfBtn" id=delete>글삭제</button>
+					</c:when>
+					<c:when test="${grade=='admin'}">
+						<button type="button" class="bfBtn" id=delete>글삭제</button>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</div>
@@ -319,7 +332,7 @@ hr {
 						 for(var i=0; i<resp.list.length; i++){	
 							 var commentOne = $("<div class=commentOne></div>");
 						        var rWriter= $("<span class=rWriter></span>");
-						        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+						        rWriter.append('<img src='+resp.list[i].cf_profileImg+' alt=...>'+resp.list[i].cf_name);      
 						        var rContents = $("<div class='rContents row'></div>");
 						        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 						        var editContent = $("<div class='editContent col-10'></div>");					    
@@ -331,7 +344,11 @@ hr {
 						        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
 						        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 						        rContents.append(rIcons); 
-						        }        
+						        }else if(${grade  == 'admin'}){
+						        	var rIcons = $("<div class='rIcons col-2'></div>");  		    
+							        rIcons.append('<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
+							        rContents.append(rIcons); 
+						        }       
 						        commentOne.append(rWriter);
 						        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
 						        commentOne.append(rContents);
@@ -380,7 +397,7 @@ hr {
 					 for(var i=0; i<resp.list.length; i++){	
 						 var commentOne = $("<div class=commentOne></div>");
 					        var rWriter= $("<span class=rWriter></span>");
-					        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+					        rWriter.append('<img src='+resp.list[i].cf_profileImg+' alt=...>'+resp.list[i].cf_name);      
 					        var rContents = $("<div class='rContents row'></div>");
 					        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 					        var editContent = $("<div class='editContent col-10'></div>");					    
@@ -392,7 +409,11 @@ hr {
 					        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
 					        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 					        rContents.append(rIcons); 
-					        }        
+					        }else if(${grade  == 'admin'}){
+					        	var rIcons = $("<div class='rIcons col-2'></div>");  		    
+						        rIcons.append('<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
+						        rContents.append(rIcons); 
+					        }       
 					        commentOne.append(rWriter);
 					        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
 					        commentOne.append(rContents);
@@ -448,7 +469,7 @@ hr {
 				 for(var i=0; i<resp.list.length; i++){	
 					 var commentOne = $("<div class=commentOne></div>");
 				        var rWriter= $("<span class=rWriter></span>");
-				        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+				        rWriter.append('<img src='+resp.list[i].cf_profileImg+' alt=...>'+resp.list[i].cf_name);      
 				        var rContents = $("<div class='rContents row'></div>");
 				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 				        var editContent = $("<div class='editContent col-10'></div>");					    
@@ -460,7 +481,11 @@ hr {
 				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
 				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 				        rContents.append(rIcons); 
-				        }        
+				        }else if(${grade  == 'admin'}){
+				        	var rIcons = $("<div class='rIcons col-2'></div>");  		    
+					        rIcons.append('<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
+					        rContents.append(rIcons); 
+				        }       
 				        commentOne.append(rWriter);
 				        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
 				        commentOne.append(rContents);
@@ -509,7 +534,7 @@ hr {
 				 for(var i=0; i<resp.list.length; i++){	
 					 var commentOne = $("<div class=commentOne></div>");
 				        var rWriter= $("<span class=rWriter></span>");
-				        rWriter.append('<img src="resources/free/boardFreeCmtWriter.png">'+resp.list[i].cf_name);      
+				        rWriter.append('<img src='+resp.list[i].cf_profileImg+' alt=...>'+resp.list[i].cf_name);      
 				        var rContents = $("<div class='rContents row'></div>");
 				        rContents.append("<div class='rContent col-10'>"+resp.list[i].cf_comment+"</div>");
 				        var editContent = $("<div class='editContent col-10'></div>");					    
@@ -521,7 +546,11 @@ hr {
 				        rIcons.append('<span class=cmtChange flag=true id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtChange.png"></span>'
 				        		+'<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
 				        rContents.append(rIcons); 
-				        }        
+				        }else if(${grade  == 'admin'}){
+				        	var rIcons = $("<div class='rIcons col-2'></div>");  		    
+					        rIcons.append('<span class=cmtDelete id='+resp.list[i].cf_no+'><img src="resources/free/boardFreeCmtDelete.png"></span>');
+					        rContents.append(rIcons); 
+				        }       
 				        commentOne.append(rWriter);
 				        commentOne.append('<span class=rWritedate>'+resp.list[i].cf_stringdate+'</span>');
 				        commentOne.append(rContents);
