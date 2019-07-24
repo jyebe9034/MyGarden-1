@@ -346,8 +346,9 @@ input[type=email]{
            			type:"post",
            			data : {key : $("input[name=m_phone]").val()}
            		}).done(function(resp){
+           			console.log(resp);
            			if(resp==true){
-           				if($("input[name=m_phone]").val("${memDTO.m_phone}")){
+           				if($("input[name=m_phone]").val()==resp){
                    			$("#phoneName").text("");
            				}else{
                    			$("#phoneName").text("중복되는 번호입니다");
@@ -451,7 +452,7 @@ input[type=email]{
 			                        <c:if test="${memDTO.m_social=='MG'}">
 				                        <input type="password" placeholder="이전 비밀번호를 입력하세요*" class="fadeIn inputStuff" id="pastPw">
 				                        	<div class="onblur" id="pastPwName"></div>
-				                        <input type="password" placeholder="영문, 숫자  8자리 이상을 조합해 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
+				                        <input type="password" placeholder="최근 비밀번호 또는 새 비밀번호를 입력하세요*" class="fadeIn inputStuff" name="m_pw">
 				                        	<div class="onblur" id="pwName"></div>
 				                        <input type="password" placeholder="입력하신 비밀번호를 확인하세요*" id="password" class="fadeIn inputStuff">
 				                        	<div class="onblur" id="pwCheck"></div>
