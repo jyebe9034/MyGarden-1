@@ -39,9 +39,9 @@ public class AdminController {
 			int totalCount = dao.serviceTotalSaleCount();
 
 			List<Long> count = new ArrayList<>();
-			for(int i=0; i<5; i++) {
+			/*for(int i=0; i<5; i++) {
 				count.add(Math.round(((double)popular.get(i).getS_p_count()/totalCount)*100));
-			}
+			}*/
 			request.setAttribute("count", count);
 			request.setAttribute("depositWait", dao.serviceStatCheck("입금 대기"));
 			request.setAttribute("shippingWait", dao.serviceStatCheck("결제 완료"));

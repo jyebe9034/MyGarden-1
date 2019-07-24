@@ -25,7 +25,7 @@ public class HomeController {
 		return "products/productsAdd";
 	}
 
-	@RequestMapping("chat")
+	@RequestMapping("toChat")
 	public String toChat() {
 		return "chat/chat";
 	}

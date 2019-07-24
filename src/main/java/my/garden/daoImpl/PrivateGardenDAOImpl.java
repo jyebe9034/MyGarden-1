@@ -1,5 +1,8 @@
 package my.garden.daoImpl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +39,21 @@ public class PrivateGardenDAOImpl implements PrivateGardenDAO {
 	public int insertPrivateGarden(PrivateGardenDTO dto) {
 		try {
 			return sst.insert("PrivateGardenDAO.insertPrivateGarden", dto);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
+	public int updatePrivateGarden(String id, String light, String humid, int temp) {
+		System.out.println(id+" : "+light+" : "+humid+" : "+temp);
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("light", light);
+		map.put("humid", humid);
+		map.put("temper", temp);
+		try {
+			return sst.update("PrivateGardenDAO.updatePrivateGarden", map);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return -1;
