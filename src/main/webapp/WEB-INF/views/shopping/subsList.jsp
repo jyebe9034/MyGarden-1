@@ -156,238 +156,227 @@ table.list_table_style td.cell {
 	font-family: 'Spoqa Han Sans', sans-serif;
 }
 
-
-
-
-
 .emoji {
-  width: 120px;
-  height: 120px;
-  margin: 15px 15px 40px;
-  background: #FFDA6A;
-  display: inline-block;
-  border-radius: 50%;
-  position: relative;
+	width: 120px;
+	height: 120px;
+	margin: 15px 15px 40px;
+	background: #FFDA6A;
+	display: inline-block;
+	border-radius: 50%;
+	position: relative;
 }
 
 .emoji:after {
-  position: absolute;
-  bottom: -40px;
-  font-size: 18px;
-  width: 60px;
-  left: calc(50% - 30px);
-  color: #8A8A8A;
+	position: absolute;
+	bottom: -40px;
+	font-size: 18px;
+	width: 60px;
+	left: calc(50% - 30px);
+	color: #8A8A8A;
 }
 
-.emoji__face,
-.emoji__eyebrows,
-.emoji__eyes,
-.emoji__mouth,
-.emoji__tongue,
-.emoji__heart,
-.emoji__hand,
-.emoji__thumb {
-  position: absolute;
+.emoji__face, .emoji__eyebrows, .emoji__eyes, .emoji__mouth,
+	.emoji__tongue, .emoji__heart, .emoji__hand, .emoji__thumb {
+	position: absolute;
 }
 
-.emoji__face:before,
-.emoji__face:after,
-.emoji__eyebrows:before,
-.emoji__eyebrows:after,
-.emoji__eyes:before,
-.emoji__eyes:after,
-.emoji__mouth:before,
-.emoji__mouth:after,
-.emoji__tongue:before,
-.emoji__tongue:after,
-.emoji__heart:before,
-.emoji__heart:after,
-.emoji__hand:before,
-.emoji__hand:after,
-.emoji__thumb:before,
-.emoji__thumb:after {
-  position: absolute;
-  content: '';
+.emoji__face:before, .emoji__face:after, .emoji__eyebrows:before,
+	.emoji__eyebrows:after, .emoji__eyes:before, .emoji__eyes:after,
+	.emoji__mouth:before, .emoji__mouth:after, .emoji__tongue:before,
+	.emoji__tongue:after, .emoji__heart:before, .emoji__heart:after,
+	.emoji__hand:before, .emoji__hand:after, .emoji__thumb:before,
+	.emoji__thumb:after {
+	position: absolute;
+	content: '';
 }
 
 .emoji__face {
-  width: inherit;
-  height: inherit;
+	width: inherit;
+	height: inherit;
 }
 
 .emoji--sad:after {
-  content: 'Sad';
+	content: 'Sad';
 }
 
- 
 .emoji--sad .emoji__face:hover {
-  animation: sad-face 2s ease-in infinite;
+	animation: sad-face 2s ease-in infinite;
 }
 
-#confirmWrapper:hover .emoji__face{
-	  animation: sad-face 2s ease-in infinite;
+#confirmWrapper:hover .emoji__face {
+	animation: sad-face 2s ease-in infinite;
 }
+
 .emoji--sad .emoji__eyebrows {
-  left: calc(50% - 3px);
-  top: 35px;
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
-  background: transparent;
-  box-shadow: -40px 9px 0 0 #000000, -25px 0 0 0 #000000, 25px 0 0 0 #000000, 40px 9px 0 0 #000000;
+	left: calc(50% - 3px);
+	top: 35px;
+	height: 6px;
+	width: 6px;
+	border-radius: 50%;
+	background: transparent;
+	box-shadow: -40px 9px 0 0 #000000, -25px 0 0 0 #000000, 25px 0 0 0
+		#000000, 40px 9px 0 0 #000000;
 }
 
-.emoji--sad .emoji__eyebrows:before,
-.emoji--sad .emoji__eyebrows:after {
-  width: 30px;
-  height: 20px;
-  border: 6px solid #000000;
-  box-sizing: border-box;
-  border-radius: 50%;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  top: 2px;
-  left: calc(50% - 15px);
+.emoji--sad .emoji__eyebrows:before, .emoji--sad .emoji__eyebrows:after
+	{
+	width: 30px;
+	height: 20px;
+	border: 6px solid #000000;
+	box-sizing: border-box;
+	border-radius: 50%;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	top: 2px;
+	left: calc(50% - 15px);
 }
 
 .emoji--sad .emoji__eyebrows:before {
-  margin-left: -30px;
-  transform: rotate(-30deg);
+	margin-left: -30px;
+	transform: rotate(-30deg);
 }
 
 .emoji--sad .emoji__eyebrows:after {
-  margin-left: 30px;
-  transform: rotate(30deg);
+	margin-left: 30px;
+	transform: rotate(30deg);
 }
 
 .emoji--sad .emoji__eyes {
-  width: 14px;
-  height: 16px;
-  left: calc(50% - 7px);
-  top: 50px;
-  border-radius: 50%;
-  background: transparent;
-  box-shadow: 25px 0 0 0 #000000, -25px 0 0 0 #000000;
+	width: 14px;
+	height: 16px;
+	left: calc(50% - 7px);
+	top: 50px;
+	border-radius: 50%;
+	background: transparent;
+	box-shadow: 25px 0 0 0 #000000, -25px 0 0 0 #000000;
 }
 
 .emoji--sad .emoji__eyes:after {
-  background: #548DFF;
-  width: 12px;
-  height: 12px;
-  margin-left: 6px;
-  border-radius: 0 100% 40% 50% / 0 50% 40% 100%;
-  transform-origin: 0% 0%;
-  animation: tear-drop 2s ease-in infinite;
+	background: #548DFF;
+	width: 12px;
+	height: 12px;
+	margin-left: 6px;
+	border-radius: 0 100% 40% 50%/0 50% 40% 100%;
+	transform-origin: 0% 0%;
+	animation: tear-drop 2s ease-in infinite;
 }
 
 .emoji--sad .emoji__mouth {
-  width: 60px;
-  height: 80px;
-  left: calc(50% - 30px);
-  top: 80px;
-  box-sizing: border-box;
-  border: 6px solid #000000;
-  border-radius: 50%;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  background: transparent;
-  animation: sad-mouth 2s ease-in infinite;
+	width: 60px;
+	height: 80px;
+	left: calc(50% - 30px);
+	top: 80px;
+	box-sizing: border-box;
+	border: 6px solid #000000;
+	border-radius: 50%;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	background: transparent;
+	animation: sad-mouth 2s ease-in infinite;
 }
 
 .emoji--sad .emoji__mouth:after {
-  width: 6px;
-  height: 6px;
-  background: transparent;
-  border-radius: 50%;
-  top: 4px;
-  left: calc(50% - 3px);
-  box-shadow: -18px 0 0 0 #000000, 18px 0 0 0 #000000;
+	width: 6px;
+	height: 6px;
+	background: transparent;
+	border-radius: 50%;
+	top: 4px;
+	left: calc(50% - 3px);
+	box-shadow: -18px 0 0 0 #000000, 18px 0 0 0 #000000;
 }
 
-
-@keyframes sad-face {
-  25%,
-  35% {
-    top: -15px;
-  }
-  55%,
-  95% {
-    top: 10px;
-  }
-  100%,
-  0% {
-    top: 0;
-  }
+@keyframes sad-face { 
+25%, 35% {
+	top: -15px;
 }
 
-@keyframes sad-mouth {
-  25%,
-  35% {
-    transform: scale(0.85);
-    top: 70px;
-  }
-  55%,
-  100%,
-  0% {
-    transform: scale(1);
-    top: 80px;
-  }
+55%,95% {
+top: 10px;
 }
 
-@keyframes tear-drop {
-  0%,
-  100% {
-    display: block;
-    left: 35px;
-    top: 15px;
-    transform: rotate(45deg) scale(0);
-  }
-  25% {
-    display: block;
-    left: 35px;
-    transform: rotate(45deg) scale(2);
-  }
-  49.9% {
-    display: block;
-    left: 35px;
-    top: 65px;
-    transform: rotate(45deg) scale(0);
-  }
-  50% {
-    display: block;
-    left: -35px;
-    top: 15px;
-    transform: rotate(45deg) scale(0);
-  }
-  75% {
-    display: block;
-    left: -35px;
-    transform: rotate(45deg) scale(2);
-  }
-  99.9% {
-    display: block;
-    left: -35px;
-    top: 65px;
-    transform: rotate(45deg) scale(0);
-  }
+100%,0% {
+top: 0;
 }
+}
+
+@keyframes sad-mouth { 
+25%, 35% {
+	transform: scale(0.85);
+	top: 70px;
+}
+
+55%,100%,0%{
+transform: scale(1);
+top:80px;
+}
+}
+
+@keyframes tear-drop { 
+0%, 100% {
+	display: block;
+	left: 35px;
+	top: 15px;
+	transform: rotate(45deg) scale(0);
+}
+25%{
+display: block;
+left:35px;
+transform: rotate(45deg) scale(2);
+}
+
+49.9% {
+display: block;
+left: 35px;
+top: 65px;
+transform: rotate(45deg) scale(0);
+}
+
+50%{
+display: block;
+left: -35px;
+top: 15px;
+transform: rotate(45deg) scale(0);
+}
+
+75%{
+display: block;
+left: -35px;
+transform: rotate(45deg) scale(2);
+}
+
+99.9%{
+display: block;
+left: -35px;
+top: 65px;
+transform: rotate(45deg) scale(0);
+}
+}
+
 </style>
 
 
 <script>
 	$(function() {
 		$(".subsCancel").on("click", function() {
+			$("#sb_orderno_seq").val($(this).parent().find("input:nth-child(2)").val());
 			$("#cancelConfirm").fadeIn();
 		})
 
 		$("#confirm_cancel").on("click", function() {
+			$("#sb_orderno_seq").val("");
 			$("#cancelConfirm").hide();
 		})
-		
-		$("#confirm_yes").on("mousehover", function() {
-			$("#cancelConfirm").hide();
+
+		$("#confirm_yes").on("click", function() {
+			var ok = confirm("구독을 취소합니다.");
+			if (ok) {
+				$("#cancelForm").submit();
+			} else {
+				$("#cancelConfirm").hide();
+				$("#sb_orderno_seq").val("");
+			}
 		})
 	});
 </script>
@@ -432,14 +421,20 @@ table.list_table_style td.cell {
 
 			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
-					<a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
-				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
-				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
-				  <a href="subsList" class="list-group-item list-group-item-action currentActive">정기 구독</a>
-				  <c:if test="${grade == 'admin'}">
-				  		<a href="productsAdd" class="list-group-item list-group-item-action">상품 등록</a>
-				  </c:if>
-				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
+					<a href="/mypageFirst"
+						class="list-group-item list-group-item-action">Overview</a> <a
+						href="/mypageInfo" class="list-group-item list-group-item-action">내
+						정보 수정</a> <a href="orderList"
+						class="list-group-item list-group-item-action">구매 내역</a> <a
+						href="subsList"
+						class="list-group-item list-group-item-action currentActive">정기
+						구독</a>
+					<c:if test="${grade == 'admin'}">
+						<a href="productsAdd"
+							class="list-group-item list-group-item-action">상품 등록</a>
+					</c:if>
+					<a href="/mypageDelete"
+						class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
 
@@ -501,50 +496,54 @@ table.list_table_style td.cell {
 											</tr>
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="dto" items="${list}">
-												<tr class="pt-3 pb-3 orderLists bottom_line">
-													<td class="cell">${dto.sb_orderno_seq }</td>
-													<td class="cell">
-														<table width="100%" border="0" cellpadding="0"
-															cellspacing="0">
-															<tr>
-																<td valign="middle">
-																	<div class="goods_name">
-																		<a href="subscription">${dto.sb_category } <c:if
-																				test="${dto.sb_category=='나만의 박스'}">
+											<form action="subsCancel" method="post" id="cancelForm">
+												<c:forEach var="dto" items="${list}">
+
+													<tr class="pt-3 pb-3 orderLists bottom_line">
+														<td class="cell">${dto.sb_orderno_seq }</td>
+														<td class="cell">
+															<table width="100%" border="0" cellpadding="0"
+																cellspacing="0">
+																<tr>
+																	<td valign="middle">
+																		<div class="goods_name">
+																			<a href="subscription">${dto.sb_category } <c:if
+																					test="${dto.sb_category=='나만의 박스'}">
 																			(구성 : ${dto.sb_component1 }, ${dto.sb_component2 }, ${dto.sb_component3 })
 																		</c:if>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-														</table>
-													</td>
-													<td class="cell">${dto.sb_startday }</td>
-													<td class="cell">${dto.sb_period }</td>
-													<td class="cell pr-1"><fmt:formatNumber
-															value="${dto.sb_price }" type="number" />원</td>
-													<c:choose>
-														<c:when test="${dto.sb_statement =='구독중'}">
-															<td class="cell"><span class="mr-1">${dto.sb_statement }</span><input
-																type="button" value="구독취소"
-																class="subsCancel btn btn-dark"></td>
-														</c:when>
-														<c:when test="${dto.sb_statement =='입금 대기'}">
-															<td class="cell"><span class="mr-1"
-																style="color: dodgerblue;">${dto.sb_statement }</span></td>
-														</c:when>
-														<c:when
-															test="${dto.sb_statement =='구독 취소'||dto.sb_statement =='주문 만료'}">
-															<td class="cell"><span class="mr-1"
-																style="color: red;">${dto.sb_statement }</span></td>
-														</c:when>
-														<c:otherwise>
-															<td class="cell">${dto.sb_statement }</td>
-														</c:otherwise>
-													</c:choose>
-												</tr>
-											</c:forEach>
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														<td class="cell">${dto.sb_startday }</td>
+														<td class="cell">${dto.sb_period }</td>
+														<td class="cell pr-1"><fmt:formatNumber
+																value="${dto.sb_price }" type="number" />원</td>
+														<c:choose>
+															<c:when test="${dto.sb_statement =='구독중'}">
+																<td class="cell"><span class="mr-1">${dto.sb_statement }</span><input
+																	type="button" value="구독취소"
+																	class="subsCancel btn btn-dark"><input type="hidden" value="${dto.sb_orderno_seq }"></td>
+															</c:when>
+															<c:when test="${dto.sb_statement =='입금 대기'}">
+																<td class="cell"><span class="mr-1"
+																	style="color: dodgerblue;">${dto.sb_statement }</span></td>
+															</c:when>
+															<c:when
+																test="${dto.sb_statement =='구독 취소'||dto.sb_statement =='주문 만료'}">
+																<td class="cell"><span class="mr-1"
+																	style="color: red;">${dto.sb_statement }</span></td>
+															</c:when>
+															<c:otherwise>
+																<td class="cell">${dto.sb_statement }</td>
+															</c:otherwise>
+														</c:choose>
+													</tr>
+												</c:forEach>
+												<input type="hidden" id="sb_orderno_seq" name="sb_orderno_seq">
+											</form>
 										</c:otherwise>
 									</c:choose>
 								</tbody>
@@ -560,7 +559,9 @@ table.list_table_style td.cell {
 			border="0">
 			<tr>
 				<td align="center" valign="middle" style="padding: 0px 30px;">
-					<div style="background-color: #ffffff; border-radius: 10px; width: 350px;" id="confirmWrapper">
+					<div
+						style="background-color: #ffffff; border-radius: 10px; width: 350px;"
+						id="confirmWrapper">
 						<div class="emoji  emoji--sad mt-4" id="emoji">
 							<div class="emoji__face">
 								<div class="emoji__eyebrows"></div>

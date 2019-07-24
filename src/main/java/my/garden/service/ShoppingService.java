@@ -27,5 +27,7 @@ public interface ShoppingService {
 	
 	public List<SubscribeDTO> getSubsList(String id) throws Exception;
 	
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception;
+	
 
 }
