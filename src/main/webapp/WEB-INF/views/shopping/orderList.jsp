@@ -117,7 +117,8 @@ table.list_table_style td.cell {
 		})
 
 		$(".showShipping").on("click", function(){
-			window.open("shipping", "",
+			var title = $(this).parent().parent().find("td:nth-child(2)").find("table:nth-child(1)").find("tr:nth-child(1)").find("td:nth-child(2)").find("div:nth-child(1)").find("a:nth-child(1)").html();
+			window.open("shipping?s_orderno="+$(this).parent().find("input:nth-child(3)").val()+"&s_p_title="+title, "",
 			"width=900px, height=700px");
 		})
 	});
@@ -257,10 +258,7 @@ table.list_table_style td.cell {
 																						</a>
 																					</c:when>
 																					<c:otherwise>
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																							외 <fmt:formatNumber value="${count-1 }"
-																								type="number" /> 건
-																						</a>
+																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title } 외  ${count-1 } 건</a>
 																					</c:otherwise>
 																				</c:choose>
 																			</div>
@@ -275,7 +273,8 @@ table.list_table_style td.cell {
 																<c:when test="${dto.s_statement =='배송중'}">
 																	<td class="cell"><span class="mr-1">${dto.s_statement }</span><input
 																		type="button" value="배송조회"
-																		class="showShipping btn btn-dark"></td>
+																		class="showShipping btn btn-dark">
+																		<input type="hidden" value="${dto.s_orderno }"></td>
 																</c:when>
 																<c:when test="${dto.s_statement =='입금 대기'}">
 																	<td class="cell" style="color:dodgerblue;">${dto.s_statement }</td>

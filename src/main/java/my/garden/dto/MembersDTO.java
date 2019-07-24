@@ -15,7 +15,7 @@ public class MembersDTO {
 	private Timestamp m_joindate;
 	private String m_ipaddress;
 	private String m_grade;
-	private String m_social; //¼Ò¼È·Î±×ÀÎ ±¸ºÐ : MG / kakao / naver
+	private String m_social; // : MG / kakao / naver
 	private int m_point;
 	private String m_gender;
 	private Date m_birth;

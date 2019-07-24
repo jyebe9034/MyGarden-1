@@ -113,24 +113,6 @@ public class ShoppingController {
 	}
 
 
-	@RequestMapping(value = "orderSearch", method = RequestMethod.POST)
-	public String toOrderSearch(HttpServletRequest request, String orderDuration, String orderStatus) {
-		String id = (String)session.getAttribute("loginId");	
-		try {
-			request.setAttribute("listWrapper", shsvc.getOrderSearch(id, orderDuration, orderStatus));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/orderList";
-	}
-
-	@RequestMapping("shipping")
-	public String toShipping(HttpServletRequest request) {
-
-		return "shopping/shipping";
-	}
-
 	@RequestMapping("subscription")
 	public String toSubscribe(HttpServletRequest request, MembersDTO dto) {
 		String id = (String)session.getAttribute("loginId");
@@ -169,41 +151,7 @@ public class ShoppingController {
 		return "shopping/subsComplete";
 	}
 
-	@RequestMapping("subsList")
-	public String toSubsList(HttpServletRequest request) {
-		String id = (String)session.getAttribute("loginId");		
-		try {
-			request.setAttribute("list", shsvc.getSubsList(id));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/subsList";
-	}
-		
-	@RequestMapping(value = "subsCancel", method = RequestMethod.POST)
-	public String subsCancel(HttpServletRequest request, SubscribeDTO sbdto) {
-		String id = (String)session.getAttribute("loginId");	
-		try {
-			request.setAttribute("result", shsvc.subsCancel(id, sbdto));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/subsCancelProc";
-	}
 
-	@RequestMapping("subsSearch")
-	public String toSubsSearch(HttpServletRequest request, SubscribeDTO sbdto) {
-		String id = (String)session.getAttribute("loginId");	
-		try {
-			request.setAttribute("list", shsvc.getSubsSearch(id, sbdto));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/subsList";
-	}
 	
 }
 

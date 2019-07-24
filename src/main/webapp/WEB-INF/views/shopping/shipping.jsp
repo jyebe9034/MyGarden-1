@@ -948,27 +948,30 @@ strong{
 </div>
 <div class="container-fluid">
     <div class="panel-body headerWrapper">
-        <div class="col-md-12 header-title"><strong>스마트택배 배송조회</strong></div>
+        <div class="col-md-12 header-title"><strong>우체국 택배 배송조회</strong></div>
         <div class="col-md-12">
             <div class="form-group row myform">
                 <label for="invoice" class="col-xs-2 label-style mr-3">운송장번호</label>
-                <div id="invoice" class="col-xs-8 info-style">123456789012</div>
+                <div id="invoice" class="col-xs-8 info-style">${s_orderno }</div>
+            </div>
+            <div class="form-group row myform">
+                <label for="to" class="col-xs-2 label-style mr-4">보낸 상품</label>
+                <div id="to" class="col-xs-8 info-style">${s_p_title }</div>
             </div>
             <div class="form-group row myform">
                 <label for="to" class="col-xs-2 label-style mr-4">받는 사람</label>
-                <div id="to" class="col-xs-8 info-style">홍길동</div>
+                <div id="to" class="col-xs-8 info-style">${shippingDTO.s_m_recipient }</div>
             </div>
             <div class="form-group row myform">
                 <label for="from" class="col-xs-2 label-style mr-4">보낸 사람</label>
-                <div id="from" class="col-xs-8 info-style">김철수</div>
+                <div id="from" class="col-xs-8 info-style">(주)나의 정원</div>
             </div>
             <div class="form-group row myform">
                 <label for="adress" class="col-xs-2 label-style mr-4">수령 주소</label>
-                <div id="adress" class="col-xs-8 info-style">서울시 중구 남대문로가</div>
+                <div id="adress" class="col-xs-8 info-style">${shippingDTO.s_m_zipcode} ${shippingDTO.s_m_address1} ${shippingDTO.s_m_address2}</div>
             </div>
         </div>
     </div>
-
     <div class="col-sm-12 bodyWrapper">
         <table class="table table-striped">
             <thead>
