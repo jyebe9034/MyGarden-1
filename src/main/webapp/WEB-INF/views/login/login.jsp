@@ -87,24 +87,6 @@ span.mr-2{font-size:25px; display:inline-block; margin-bottom:20px;}
 .tab-content > div:last-child {
   display: none;
 }
-/* label { */
-/*     position:absolute; */
-/*     transform:translateY(6px); */
-/*     left:13px; */
-/*     color:rgba($white,.5); */
-/*     transition:all 0.25s ease; */
-/*     -webkit-backface-visibility: hidden; */
-/*     pointer-events: none; */
-/*     font-size:22px; */
-/*   } */
-/*   label.active { */
-/*     transform:translateY(50px); */
-/*     left:2px; */
-/*     font-size:14px; */
-/*     .req { */
-/*       opacity:0; */
-/*     } */
-/*   } */
 input[type=button], input[type=submit], input[type=reset]  {
   background-color: #4f9c87;
   border: none;

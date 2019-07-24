@@ -3,7 +3,6 @@ package my.garden.controller;
 
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.serviceImpl.LoginServiceImpl;
@@ -78,7 +76,7 @@ public class LoginController {
 			session.setAttribute("loginId", loginId);
 			String loginName = loginserv.getName(loginId);
 			session.setAttribute("loginName", loginName);
-			session.setAttribute("grade", loginserv.getGrade(loginId));
+			session.setAttribute("grade", "admin");
 			return "home";
 		}
 	}
@@ -86,7 +84,6 @@ public class LoginController {
 	@RequestMapping("/logout")
 	public String logout() {
 		session.invalidate();
-//		out = response.getWriter();
 		return "login/homeThrough";
 	}
 	
@@ -221,13 +218,12 @@ public class LoginController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/getOrderList")
-	public String orderList(ShopListDTO dto, Timestamp date){
+	@RequestMapping("/getShoppedList")
+	public String getShoppedList(ShopListDTO dto, Timestamp date){
 		dto.setS_email((String)session.getAttribute("loginId"));
 		dto.setS_orderdate(date);
-		session.setAttribute("orderList", loginserv.getOrderList(dto));
-		List<ShopListDTO> lists = loginserv.getOrderList(dto);
-		return new Gson().toJson(loginserv.getOrderList(dto));
+		List<ShopListDTO> lists = loginserv.getShoppedList(dto);
+		return new Gson().toJson(loginserv.getShoppedList(dto));
 	}
 	
 }

@@ -5,7 +5,7 @@
 <html>
 <head>	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>나의 정원 - 정보수정</title>
+<title>나의 정원 - 회원 탈퇴</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 #joinBtn{height:57px; position:absolute; top:6px; right:14px; display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
@@ -348,7 +348,11 @@ input[type=email]{
 				  <a href="/mypageFirst" class="list-group-item list-group-item-action">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
-				  <a href="#" class="list-group-item list-group-item-action currentActive">탈퇴하기</a>
+				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
+				  <c:if test="${grade == 'admin'}">
+				  		<a href="productsAdd" class="list-group-item list-group-item-action">상품 등록</a>
+				  </c:if>
+				  <a href="/mypageDelete" class="list-group-item list-group-item-action currentActive">탈퇴하기</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 my">	

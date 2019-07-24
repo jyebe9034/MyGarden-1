@@ -107,6 +107,11 @@
 				placeholder : '내용을 입력해주세요.',
 				tabsize : 5,
 				height : 500,
+				popover: {
+					image: [],
+					link: [],
+					air: []
+					},
 				callbacks : {
 					onImageUpload : function(files, editor, welEditable) {
 						for (var i = files.length - 1; i >= 0; i--) {

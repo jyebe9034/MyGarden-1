@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
 <title>First Private Garden</title>
 <style>
@@ -16,7 +15,7 @@
     }
 .hero-octonaut {
    position: absolute;
-   top: 140px;
+   top: 10px;
    left: calc(50% - 450px);
    animation: lands 2s alternate ease-in-out infinite;
    will-change: transform;
@@ -26,8 +25,8 @@
 }
 
 .r1{
-   top: 480px;
-   left: calc(50% - 330px);
+   top: 300px;
+   left: calc(50% - 360px);
    position: absolute;
    animation: r1 1.5s alternate ease-in-out infinite;
    will-change: transform;
@@ -36,8 +35,8 @@
 }
 
 .r2{
-   top: 510px;
-   left: calc(50% - 240px);
+   top: 350px;
+   left: calc(50% - 260px);
    position: absolute;
    animation: r2 3s alternate ease-in-out infinite;
    will-change: transform;
@@ -46,7 +45,7 @@
 }
 
 .r3{
-   top: 570px;
+   top: 440px;
    left: calc(50% - 130px);
    position: absolute;
    animation: r3 3s alternate ease-in-out infinite;
@@ -56,7 +55,7 @@
 }
 
 .r4{
-   top: 580px;
+   top: 430px;
    left: calc(50% - 0px);
    position: absolute;
    animation: r4 5s alternate ease-in-out infinite;
@@ -66,8 +65,8 @@
 }
 
 .r5{
-   top: 500px;
-   left: calc(50% + 85px);
+   top: 380px;
+   left: calc(50% + 100px);
    position: absolute;
    animation: r5 3s alternate ease-in-out infinite;
    will-change: transform;
@@ -76,8 +75,8 @@
 }
 
 .r6{
-   top: 480px;
-   left: calc(50% + 170px);
+   top: 340px;
+   left: calc(50% + 180px);
    position: absolute;
    animation: r6 1.5s alternate ease-in-out infinite;
    will-change: transform;
@@ -86,7 +85,7 @@
 }
 
 .flare{
-	top : -130px;
+   top : -300px;
    left: calc(50% + 150px);
    position: absolute;
    animation: lands 2s alternate ease-in-out infinite;
@@ -131,274 +130,76 @@
 100%{transform:translateY(5px);}
   0%{transform:translateY(-5px);} 
 }
- 
-  .penguin-top {
-    top: 10%;
-    left: 25%;
-    background: var(--penguin-skin, black);
-    width: 50%;
-    height: 45%;
-    border-radius: 70% 70% 60% 60%;
-  }
-  
-  .penguin-bottom {
-    top: 40%;
-    left: 23.5%;
-    background: var(--penguin-skin, black);
-    width: 53%;
-    height: 45%;
-    border-radius: 70% 70% 100% 100%;
-  }
-  
-  .right-hand {
-    top: 10%;
-    left: 25%;
-    background: var(--penguin-skin, black);
-    width: 30%;
-    height: 60%;
-    border-radius: 30% 30% 120% 30%;
-    transform: rotate(130deg);
-    z-index: -1;    
-    animation-duration: 2s;
-    animation-name: wave;
-    animation-iteration-count: infinite;
-    transform-origin: 0% 0%;
-    animation-timing-function: linear;
-  }
-  
-  .left-hand {
-    top: 0%;
-    left: 75%;
-    background: var(--penguin-skin, black);
-    width: 30%;
-    height: 60%;
-    border-radius: 30% 30% 30% 120%;
-    transform: rotate(-45deg);
-    z-index: -1;
-  }
-  
-  .right-cheek {
-    top: 15%;
-    left: 35%;
-    background: var(--penguin-belly, white);
-    width: 60%;
-    height: 70%;
-    border-radius: 70% 70% 60% 60%;
-  }
-  
-  .left-cheek {
-    top: 15%;
-    left: 5%;
-    background: var(--penguin-belly, white);
-    width: 60%;
-    height: 70%;
-    border-radius: 70% 70% 60% 60%;
-  }
-  
-  .belly {
-    top: 60%;
-    left: 2.5%;
-    background: var(--penguin-belly, white);
-    width: 95%;
-    height: 100%;
-    border-radius: 120% 120% 100% 100%;
-  }
-  
-  .right-feet {
-    top: 85%;
-    left: 60%;
-    background: var(--penguin-beak, orange);
-    width: 15%;
-    height: 30%;
-    border-radius: 50% 50% 50% 50%;
-    transform: rotate(-80deg);
-    z-index: -2;  
-  }
-  
-  .left-feet {
-    top: 85%;
-    left: 25%;
-    background: var(--penguin-beak, orange);
-    width: 15%;
-    height: 30%;
-    border-radius: 50% 50% 50% 50%;
-    transform: rotate(80deg);
-    z-index: -2;  
-  }
-  
-  .right-eye {
-    top: 45%;
-    left: 60%;
-    background: black;
-    width: 15%;
-    height: 17%;
-    border-radius: 50%; 
-  }
-  
-  .left-eye {
-    top: 45%;
-    left: 25%;
-    background: black;
-    width: 15%;
-    height: 17%;
-    border-radius: 50%;  
-  }
-  
-  .sparkle {
-    top: 25%;
-    left: 15%;
-    background: white;
-    width: 35%;
-    height: 35%;
-    border-radius: 50%;  
-  }
-  
-  .blush-right {
-    top: 65%;
-    left: 15%;
-    background: pink;
-    width: 15%;
-    height: 10%;
-    border-radius: 50%;  
-  }
-  
-  .blush-left {
-    top: 65%;
-    left: 70%;
-    background: pink;
-    width: 15%;
-    height: 10%;
-    border-radius: 50%;  
-  }
-  
-  .beak-top {
-    top: 60%;
-    left: 40%;
-    background: var(--penguin-beak, orange);
-    width: 20%;
-    height: 10%;
-    border-radius: 50%;  
-  }
-  
-  .beak-bottom {
-    top: 65%;
-    left: 42%;
-    background: var(--penguin-beak, orange);
-    width: 16%;
-    height: 10%;
-    border-radius: 50%;  
-  }
-
-  .shadow {
-    top: 83%;
-    left: 25%;
-    background: #D7D4D4;
-    width: 50%;
-    height: 10%;
-    border-radius: 50%;
-    z-index: -3;
-  }
-  
-  .penguin * {
-    position: absolute;
-  }
-	
-	.penguin {
-	  animation-duration: 10s;
-	  animation-name: loop;
-	  animation-iteration-count: infinite;
-	  transform-origin: 0% 0%;
-	  animation-timing-function: linear;
-	}
-	
-	@keyframes wave {
-	  10% {
-	    transform: rotate(110deg);
-	  }
-	  30% {
-	    transform: rotate(130deg);
-	  }
-	  50% {
-	    transform: rotate(110deg);
-	  }
-	  80% {
-	    transform: rotate(130deg);
-	  }
-	  100% {
-	    transform: rotate(110deg);
-	  }
-	}
-	
-	@keyframes loop {
-	  0% {
-	    transform: rotateY(0deg);
-	  }
-	  25% {
-	    transform: rotateY(-10deg);
-	  }
-	  50% {
-	    transform: rotateY(0deg);
-	  }
-	  75% {
-	    transform: rotateY(10deg);
-	  }
-	  100% {
-	    transform: rotateY(0deg);
-	  }
-}
-
-	.penguin {
-	    /* change code below */
-	    --penguin-skin: black;
-	    --penguin-belly: white;
-	    --penguin-beak: #f5b81f;
-	    /* change code above */
-	    
-	    position: fixed;
-	    top : 280px;
-	    left : 390px;
-	    display: block;
-	    width: 150px;
-	    height: 170px;
-  	}
 
 	#speechBubble{
-	  	border : 2px solid #6549b3;
 	  	width : 350px;
 	  	height : 150px;
-	  	position : fixed;
-	  	top : 210px;
-	  	left : 550px;
-	  	border-top-left-radius : 20px;
-	  	border-top-right-radius : 20px;
-	  	border-bottom-left-radius: 20px;
-	  	border-bottom-right-radius: 20px;
-	  	font-size : 20px;
-	  	margin-top : 30px;
-	  	
+	  	z-index : 1;	
 	}
 	  
 	#bubble{
-	 	margin : 15px 10px 8px 15px;
+	 	text-align: center;
+	 	position : relative;
+	 	top : -328px;
+	 	left : -302px;
+	 	color : white;
 	 	font-family: 'Hi Melody', cursive;
+	 	font-size : 18px;
 	}
 	
 	#hurbBtn{
-	  	background-color: #7355c9;
-	  	margin-right : 20px;
+	  	background-color: #0078c2;
 	  	font-size : 13px;
 	  	padding : 3px;
 	  	color : white;
-	  	float : right;
+	  	text-align: center;
+	  	z-index : 1;
 	}
 	
-	#wrapper{
+	#contentsWrap{
 		position : relative;
+	}
+	
+	#penguinWrap{
+		height : 350px;
+	}
+	
+	#spimg{
+		width : 400px;
+		height : 200px;
+		z-index : 0;
 	}
 	
 	#island{
 		position : relative;
-	    top : 150px;
+	}
+	
+	#penguin{
+		width : 150px;
+		height : 170px;
+		position : relative;
+		top : 210px;
+		left : 75px;
+		cursor : pointer;
+	}
+	
+	#bubbleimg{
+		position : relative;
+		top : -150px;
+		left : 50px; 
+		width : 300px;
+	}
+	
+	#wrapper{
+		height : 1000px;
+	}
+	
+	.garden:hover{
+		cursor : pointer;
+	}
+	
+	#bubbleWrap{
+		display : none;
 	}
 </style>
 </head>
@@ -407,62 +208,40 @@
 	<div id="bcolor"></div>
 	
 	<div id="wrapper" class="container">
-		<div class="row">
-			<div class="penguin col-12">
-			  <div class="penguin-bottom">
-			    <div class="right-hand"></div>
-			    <div class="left-hand"></div>
-			    <div class="right-feet"></div>
-			    <div class="left-feet"></div>
-			  </div>
-			  <div class="penguin-top">
-			    <div class="right-cheek"></div>
-			    <div class="left-cheek"></div>
-			    <div class="belly"></div>
-			    <div class="right-eye">
-			      <div class="sparkle"></div>
-			    </div>
-			    <div class="left-eye">
-			      <div class="sparkle"></div>
-			    </div>
-			    <div class="blush-right"></div>
-			    <div class="blush-left"></div>
-			    <div class="beak-top"></div>
-			    <div class="beak-bottom"></div>
-			  </div>
-			  <div class="shadow"></div>
-			</div>
-		   
-			<div id="speechBubble">
-				<div id="bubble">
-					  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
-					  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!
-				</div>
-				<div id="toHurb">
-					<!-- Button trigger modal -->
-					<button id="hurbBtn" type="button" class="btn btn-sm">
-					  허브 선택 하기
-					</button>
+		<div id="contentsWrap" class="row">
+		    <div id="penguinWrap" class="col-12">
+				<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
+				<div id="bubbleWrap">
+					<div id="bubbleimg"><img id="spimg" src="/resources/imgPrivategarden/speechbubble01.png"></div>
+					<div id="bubble">
+						  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
+						  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!<br>
+						<button id="hurbBtn" type="button" class="btn btn-sm">허브 선택 하기</button>
+					</div>
 				</div>
 			</div>
+			
+			<div id="island" class="col-12 mb-5">
+			  <img class="garden flare" src="/resources/imgPrivategarden/flare4.PNG" width="300px">
+			  <img class="garden hero-octonaut" src="/resources/imgPrivategarden/base.png" width="800px">
+			  <img class="garden r1" src="/resources/imgPrivategarden/00.png" width="40px">
+			  <img class="garden r2" src="/resources/imgPrivategarden/01.png" width="60px">
+			  <img class="garden r3" src="/resources/imgPrivategarden/02.png" width="45px">
+			  <img class="garden r4" src="/resources/imgPrivategarden/03.png" width="50px">
+			  <img class="garden r5" src="/resources/imgPrivategarden/04.png" width="65px">
+			  <img class="garden r6" src="/resources/imgPrivategarden/05.png" width="45px">	   
+		    </div>
 		</div>
-		
-		<div id="island" class="col-12 mb-5">
-		  <img class="flare" src="/resources/imgPrivategarden/flare4.PNG" width="250px">
-		  <img class="hero-octonaut" src="/resources/imgPrivategarden/base.png" width="800px">
-		  <img class="r1" src="/resources/imgPrivategarden/00.png" width="40px">
-		  <img class="r2" src="/resources/imgPrivategarden/01.png" width="60px">
-		  <img class="r3" src="/resources/imgPrivategarden/02.png" width="45px">
-		  <img class="r4" src="/resources/imgPrivategarden/03.png" width="50px">
-		  <img class="r5" src="/resources/imgPrivategarden/04.png" width="65px">
-		  <img class="r6" src="/resources/imgPrivategarden/05.png" width="45px">	   
-	    </div>
 	</div>
 	
 	<script>
+		$("#penguin").on("click", function(){
+			$("#bubbleWrap").css("display", "block");
+			/* $("#privategarden", parent.document).attr("src", "testModal"); */
+		})
+		
 		$("#hurbBtn").on("click", function(){
 			$(location).attr("href", "toSelectHurb");
-			/* $("#privategarden", parent.document).attr("src", "testModal"); */
 		})
 	</script>
 </body>
