@@ -104,7 +104,7 @@
 	.goBackBtn{
 		border: 1px solid #44b27d;
 		color: #44b27d;
-		font-weight: border;
+		font-weight: bord;
 	}
 	#commentBtn:hover, #updateCommentBtn:hover{
 		background-color: #b4d9b5;
@@ -117,7 +117,7 @@
 		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
-		border: 0px;
+		border: 1px solid #b4d9b5;
 		cursor: pointer;
 	}
 	.updateBtn{
@@ -174,7 +174,7 @@
 		border-radius: 10px;
 		padding: 15px;
 		color: #515c4e;
-        background-color : #f5ffeb;
+        background-color : #ecf7e9;
 		font-size: 20px;
     	font-weight: 300;
     	font-family: sans-serif;
@@ -214,6 +214,7 @@
 	#delCommentBtn:hover{
 		background-color: #b4d9b5;
 		color: white;
+		border: 0px;
 	}
 	
 	[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
@@ -283,7 +284,7 @@
 				$(document).on("click","#editBtn",function(){ //답변 수정 가능한 형태로~
 				
 					$("#inputComment").attr("contenteditable","true");
-					$("#inputComment").css("background-color","#f5ffeb");
+					$("#inputComment").css("background-color","#ecf7e9");
 					$(".commentBtnBox").html("<button type='button' class='btn' id='updateCommentBtn'>등록</button>");	
 					
 				})

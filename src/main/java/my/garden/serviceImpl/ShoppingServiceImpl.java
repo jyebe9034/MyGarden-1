@@ -123,6 +123,10 @@ public class ShoppingServiceImpl implements ShoppingService{
 		dao.updateSubslist();			
 		return dao.selectSubsList(id);
 	}
-
+	
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.subsCancel(sbdto);
+	}
 
 }

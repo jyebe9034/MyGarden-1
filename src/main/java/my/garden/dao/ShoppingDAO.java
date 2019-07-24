@@ -98,4 +98,8 @@ public class ShoppingDAO {
 		return sst.selectList("ShoppingDAO.selectSubsList", id);
 	}
 	
+	public int subsCancel(SubscribeDTO sbdto) throws Exception{
+		return sst.update("ShoppingDAO.subsCancel", sbdto);
+	}
+	
 }
