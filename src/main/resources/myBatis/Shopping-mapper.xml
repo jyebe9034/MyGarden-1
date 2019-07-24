@@ -78,4 +78,9 @@
 		select * from subscribe where sb_email = #{id}
 </select>
 
+<update id="subsCancel">
+	update subscribe set sb_statement = '구독 취소' where sb_orderno_seq=#{sb_orderno_seq} and sb_statement = '구독중' 
+	and sb_email = #{sb_email}
+</update>
+
 </mapper>
