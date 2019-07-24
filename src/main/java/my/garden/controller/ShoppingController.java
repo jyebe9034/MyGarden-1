@@ -171,6 +171,18 @@ public class ShoppingController {
 		}
 		return "shopping/subsList";
 	}
+		
+	@RequestMapping(value = "subsCancel", method = RequestMethod.POST)
+	public String subsCancel(HttpServletRequest request, SubscribeDTO sbdto) {
+		String id = (String)session.getAttribute("loginId");		
+		try {
+			request.setAttribute("result", shsvc.subsCancel(id, sbdto));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/subsCancelProc";
+	}
 
 }
 

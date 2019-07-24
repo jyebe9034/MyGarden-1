@@ -4,16 +4,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-	<%
-	response.setHeader("pragma", "no-cache");              
-	response.setHeader("Cache-control", "no-cache, no-store, must-revalidate");             
-	response.setHeader("Expires", "0");
-	%>
-	<script>
-		location.href="/";
-	</script>
+<script>
+	if(${result>0}){
+		alert("구독이 취소되었습니다.");
+		location.href = "subsList";
+	}else{
+		alert("구독 취소에 실패했습니다.");
+		location.href = "subsList";
+	}
+
+</script>
 </body>
 </html>

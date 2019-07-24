@@ -87,24 +87,6 @@ span.mr-2{font-size:25px; display:inline-block; margin-bottom:20px;}
 .tab-content > div:last-child {
   display: none;
 }
-/* label { */
-/*     position:absolute; */
-/*     transform:translateY(6px); */
-/*     left:13px; */
-/*     color:rgba($white,.5); */
-/*     transition:all 0.25s ease; */
-/*     -webkit-backface-visibility: hidden; */
-/*     pointer-events: none; */
-/*     font-size:22px; */
-/*   } */
-/*   label.active { */
-/*     transform:translateY(50px); */
-/*     left:2px; */
-/*     font-size:14px; */
-/*     .req { */
-/*       opacity:0; */
-/*     } */
-/*   } */
 input[type=button], input[type=submit], input[type=reset]  {
   background-color: #4f9c87;
   border: none;
@@ -341,6 +323,15 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
               		$('#loginForm').submit();
               	}
               });
+              $('input').keypress(function(event){
+            	     if ( event.which == 13 ) {
+            	    	 if($('input[name=loginId]').val()=="" || $('input[name=loginPw]').val()==""){
+                       		alert('아이디 혹은 비밀번호를 입력하세요');
+                       	}else{
+                       		$('#loginForm').submit();
+                       	}
+            	     }
+              });
               $('#idModal').on('click', function(){
               	$('#m_phone').val("");
               	$("#m_email").html("");
@@ -434,6 +425,35 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		        		$(location).attr('href', resp);
 		        	});	
 		        });
+ 		        //cookie
+		        function cookieToJson(cookie){
+					var cookieJson = {};
+				 	var cookies = document.cookie;
+				 	var trimedCookies = cookies.replace(/ /g, "");
+				 	var cookieArr = trimedCookies.split(";");
+				 	for(var i=0; i<cookieArr.length; i++){
+						var entry = cookieArr[i].split("=");
+						cookieJson[entry[0]] = entry[1];
+				 	}
+				 	return cookieJson;
+			 	}
+				$(function(){
+					if(document.cookie!=""){
+						var cookies = cookieToJson(document.cookie);
+						$("input[name=loginId]").val(cookies.userID);
+						$("input[type=checkbox]").prop("checked", true);
+					}
+				});
+				$('input').on('change', function(){
+					var exdate = new Date();
+					if($("input[type=checkbox]").is(":checked")){//체크를 한 건지 안 한건지
+						exdate.setDate(exdate.getDate()+30);
+						document.cookie = "userID=" + $("input[name=loginId]").val() + ";expires=" + exdate.toGMTString(); //체크하는 순간 30일 기간동안 아이디를 기억하는 쿠키 생성
+					}else{
+						exdate.setDate(exdate.getDate()-1); //체크를 해제하면 쿠키를 삭제하는 로직
+						document.cookie = "userID=" + $("input[name=loginId]").val() + ";expires=" + exdate.toGMTString();
+					}
+				});
 		});
 	</script>
 <!-- header -->
@@ -477,7 +497,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        <input type="password" placeholder="비밀번호를 입력하세요" name="loginPw"
 			                            class="fadeIn mb-4">
 			                        <div class="fadeIn mb-2">
-								      <label><input type="checkbox" class="form-check-input text-muted">이 계정을 기억합니다</label>
+								      <label><input type="checkbox" class="form-check-input text-muted"/>이 계정을 기억합니다</label>
 								    </div>
 			                        <input type="button" class="font-weight-bold mt-2" id="loginBtn" value="로그인"></input>
 			                        <p id="formFooter">

@@ -58,11 +58,11 @@
 	</insert>
    
    <select id="selectCalendar" resultType="my.garden.dto.CalendarDTO">
-      select s_orderdate as orderdate, COUNT(s_orderdate) as count from shoplist where s_email=#{value} group by(s_orderdate)
+      select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') as orderdate, COUNT(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd')) as count from shoplist where s_email=#{value} group by(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd'))
    </select>
    
    <select id="selectOrderList" resultType="my.garden.dto.ShopListDTO">
-   		select * from shoplist where s_email=#{s_email} and s_orderdate=#{s_orderdate}
+   		select * from shoplist where s_email=#{s_email} and s_orderdate between to_date(substr(#{s_orderdate}, 1,10), 'yy/mm/dd') and to_date(substr(#{s_orderdate}, 1,10), 'yy/mm/dd')+0.9999
    </select>
 	
 </mapper>

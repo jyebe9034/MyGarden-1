@@ -5,7 +5,7 @@
 <html>
 <head>	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>나의 정원 - 정보수정</title>
+<title>나의 정원 - 회원 탈퇴</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 #joinBtn{height:57px; position:absolute; top:6px; right:14px; display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }

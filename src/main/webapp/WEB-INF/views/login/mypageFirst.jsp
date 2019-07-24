@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,7 +49,6 @@
 				}
 			}
 		}
-
 		$('.btn-group button').on('click', function(){
 			$('input[name=key]').val($(this).text());
 			$('#mypageGardenChange').submit();
@@ -62,7 +61,7 @@
 			$('#orderList').html("");
 			$('.orderList').slideUp();
 			$.ajax({
-				url:"/getOrderList",
+				url:"/getShoppedList",
 				type:"post",
 				data:{date:$(this).attr('data-original-title')+" 00:00:00.000000000"}
 			}).done(function(resp){
@@ -119,7 +118,7 @@
 		<jsp:include page="/WEB-INF/views/module/mypage.jsp"/>
 		
 		
-			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5 my">
+			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
 				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
