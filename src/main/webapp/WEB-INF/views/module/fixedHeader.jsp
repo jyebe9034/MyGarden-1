@@ -47,13 +47,14 @@
    top: 0;
    left: 0;
    background: #f5f5f5;
-   box-shadow : 1px 1px 5px #777;
+   box-shadow: 0 5px 40px 0 rgba(0,0,0,0.3);
 }
 .navbar-light .navbar-nav .nav-link {
    color: #000;
 }
 .dropdown-menu {
    background-color: rgba(255, 255, 255, 0.3);
+   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
    top: 56px;
    border: none;
    border-radius: 0;
@@ -151,7 +152,7 @@
 				<div class="row">
 					<div
 						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-						<a href="mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a
+						<a href="mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="/aboutMyGarden">공지사항</a> <a
 							href="#">고객센터</a>
 					</div>
 				</div>
@@ -162,11 +163,11 @@
 				<div class="row">
 					<div
 						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-						<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="#">공지사항</a> <a
+						<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="/aboutMyGarden">공지사항</a> <a
 							href="#">고객센터</a>
 					</div>
 				</div>
-	       
+	  
 	       </c:otherwise>
 	    </c:choose>
 <!-- 	JSTL	 -->		

@@ -99,7 +99,7 @@
 <div class="container-fluid my" id="clickToClose">
    <div class="row my">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
-         <span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>
+         <span>회원가입과 함께 <a class="text-body font-weight-bold" href="/join">나만의 정원</a>을 가져 보세요!</span>
          <span class="position-absolute clickToCloseBtnBorder"></span>
          <span class="position-absolute clickToCloseBtn">&Cross;</span>
       </div>
