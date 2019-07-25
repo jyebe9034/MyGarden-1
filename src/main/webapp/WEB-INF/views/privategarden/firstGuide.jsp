@@ -135,8 +135,7 @@
 	#speechBubble{
 	  	width : 350px;
 	  	height : 150px;
-	  	z-index : 1;
-	  	
+	  	z-index : 1;	
 	}
 	  
 	#bubble{
@@ -235,8 +234,6 @@
 		    </div>
 		</div>
 	</div>
-	
-	
 	
 	<script>
 		$("#penguin").on("click", function(){

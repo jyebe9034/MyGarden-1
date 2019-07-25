@@ -128,10 +128,10 @@ public class BoardReviewAndQnAController {
 		dto.setBr_name(name);
 		//System.out.println("리뷰 내용 : " + dto.getBr_content());
 		//System.out.println("이미지" + image);
-		String path = "D:\\SpringOnly\\finalProject\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\MyGarden\\resources\\";
-		File dir = new File(path + id + "/"); //폴더경로
+		String path = session.getServletContext().getRealPath("/resources/");
+		File dir = new File(path + id); //폴더경로
 		//System.out.println("폴더 존재? : " + dir.isDirectory());
-		if(!dir.isDirectory()) { // 폴더가 있는지 확인.
+		if(!dir.exists()) { // 폴더가 있는지 확인.
 			System.out.println("폴더생성");
 			dir.mkdirs(); // 없으면 생성
 		}
