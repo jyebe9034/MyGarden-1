@@ -11,7 +11,7 @@
 		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
 		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
 		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
-		
+		#clickToClose{display:none;}
 		#chatboxWrap{
 			border-radius : 5px;
 			width : 350px;
@@ -42,11 +42,7 @@
 <body>
 <!-- script -->
 	<script>
-	$(function(){
-		 $('.clickToCloseBtn').on('click', function(){
-			 $('.clickToClose').addClass('d-none');
-		 });
-		 
+	$(function(){		 
 		 $("#chatWrap").on("click", function(){
 				console.log("클릭함");
 				if($("#chatboxWrap").css("display") == "none"){
@@ -57,19 +53,50 @@
 					$("#chatboxWrap").hide();
 				}
 			})
+	       //poplayher cookie
+			function getCookie(cname) {
+			    var name = cname + "=";
+			    var ca = document.cookie.split(';');
+			    for(var i=0; i<ca.length; i++) {
+			        var c = ca[i];
+			        while (c.charAt(0)==' ') c = c.substring(1);
+			        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+			    }
+			    return "";
+			}
+			function setCookie(cname, cvalue, exdays) {
+			    var d = new Date();
+			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			    var expires = "expires="+d.toUTCString();
+			    document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+			function couponClose(){
+			    setCookie("close","Y",1);
+			    $("#clickToClose").slideUp();
+			}
+		    cookiedata = document.cookie;
+		    if(cookiedata.indexOf("close=Y")<0){
+		        $("#clickToClose").css('display', 'block');
+		    }else{
+		        $("#clickToClose").css('display', 'none');
+		    }
+		    $(".clickToCloseBtn").click(function(){
+		        couponClose();
+		    });
 	});
+	      
 	</script>
 
 <!-- advertise header -->
          <c:choose>
              <c:when test="${loginName!=null}">
               
-<style>.clickToClose{display:none;}</style>
+<style>#clickToClose{display:none;}</style>
      
           </c:when>
           <c:otherwise>
               
-<div class="container-fluid my">
+<div class="container-fluid my" id="clickToClose">
    <div class="row my">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
          <span>회원가입과 함께 <b class="text-body">나만의 정원</b>을 가져 보세요!</span>

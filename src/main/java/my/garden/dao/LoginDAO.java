@@ -10,7 +10,6 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -47,6 +46,7 @@ import com.google.gson.JsonParser;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 @Repository
 public class LoginDAO {
@@ -419,6 +419,13 @@ public class LoginDAO {
 			return null;
 		}else {
 			return sst.selectList("LoginDAO.selectOrderList", dto);
+		}
+	}
+	public List<SubscribeDTO> getShoppedListSub(SubscribeDTO dto){
+		if(sst.selectList("LoginDAO.selectOrderListSub", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderListSub", dto);
 		}
 	}
 	
