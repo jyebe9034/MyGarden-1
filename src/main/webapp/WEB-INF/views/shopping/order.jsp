@@ -553,7 +553,7 @@ table.list_table_style td.cell {
 												예정
 												<div id="mannapoint_info"
 													style="color: #818181; font-size: 14px; font-weight: normal;">
-													(일반 0.5% 정기 1% 배송 시작 후 지급)</div>
+													(일반 5% 정기 5% 배송 시작 후 지급)</div>
 											</div>
 										</div>
 									</td>
