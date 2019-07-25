@@ -75,7 +75,16 @@
 </update>
 
 <select id="selectSubsList" resultType="my.garden.dto.SubscribeDTO">
-		select * from subscribe where sb_email = #{id}
+		select * from subscribe where sb_email = #{id} order by sb_orderno_seq desc
+</select>
+
+<update id="subsCancel">
+	update subscribe set sb_statement = '구독 취소' where sb_orderno_seq=#{sb_orderno_seq} and sb_statement = '구독중' 
+	and sb_email = #{sb_email}
+</update>
+
+<select id="selectSubsSearch" resultType="my.garden.dto.SubscribeDTO">
+		select * from subscribe where sb_email = #{sb_email} and sb_statement = #{sb_statement} order by sb_orderno_seq desc
 </select>
 
 </mapper>

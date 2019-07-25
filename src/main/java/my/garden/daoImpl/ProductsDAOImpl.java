@@ -107,4 +107,9 @@ public class ProductsDAOImpl implements ProductsDAO {
 			return null;
 		}
 	}
+	
+	public List<String> selectTitlesByCategory(String p_category) throws Exception{
+		return sst.selectList("ProductsDAO.selectTitlesByCategory", p_category);
+	}
+	
 }

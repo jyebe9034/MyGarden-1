@@ -63,6 +63,12 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return listWrapper;
 	}
 
+	public List<ShopListDTO> getOrderShipping(Long s_orderno, String id) throws Exception{
+		dto.setS_email(id);
+		dto.setS_orderno(s_orderno);
+		return dao.selectOrderList(dto);
+	}
+	
 	public int insertIntoCart(CartDTO dto) throws Exception{
 		if(dao.isCartExist(dto.getC_p_no())>0) {
 			return dao.updateCart(dto);			
@@ -123,6 +129,18 @@ public class ShoppingServiceImpl implements ShoppingService{
 		dao.updateSubslist();			
 		return dao.selectSubsList(id);
 	}
-
+	
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.subsCancel(sbdto);
+	}
+	
+	@Transactional
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception{
+		dao.updateSubslist();	
+		sbdto.setSb_email(id);
+		return dao.selectSubsSearch(sbdto);
+	}
+	
 
 }

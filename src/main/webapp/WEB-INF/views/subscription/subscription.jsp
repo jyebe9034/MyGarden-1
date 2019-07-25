@@ -146,7 +146,7 @@
 }
 
 .selects {
-	margin-left: 80px;
+	margin-left: 90px;
 }
 
 #modalBtn {
@@ -220,6 +220,10 @@
 
 #ableDate {
 	font-size: 12px;
+}
+
+#select1, #select2, #select3{
+	font-size: 13px;
 }
 </style>
 </head>
@@ -331,31 +335,37 @@
 						<div id="hide" class="mb-5">
 							<div class="periodSub">나만의 박스 구성 선택</div>
 							<div class="selects mt-2">
-								<select flag="false" class="mr-2 p-1 options" name="sb_component1"
+								<select flag="false" class="mr-3 mt-2 p-1 options" name="sb_component1"
 									id="select1">
 									<option selected value="미선택" hidden>과일/채소</option>
 									<option value="미선택">선택안함</option>
-									<option value="채소1">채소1</option>
-									<option>채소2</option>
-									<option>채소3</option>
-								</select><select flag="false" class="mr-2 p-1 options" name="sb_component2"
+									<c:forEach var="vegetable" items="${vagetables }">
+										<option value="${vegetable }"><c:out value="${vegetable }" /></option>
+									</c:forEach>
+									<c:forEach var="fruit" items="${fruits}">
+										<option value="${fruit }"><c:out value="${fruit }" /></option>
+									</c:forEach>
+								</select><select flag="false" class="mr-3 mt-2 p-1 options" name="sb_component2"
 									id="select2">
 									<option selected value="미선택" hidden>달걀/유제품</option>
 									<option value="미선택">선택안함</option>
-									<option>채소1</option>
-									<option>채소2</option>
-									<option>채소3</option>
-								</select><select flag="false" class="mr-2 p-1 options" name="sb_component3"
+									<c:forEach var="egg" items="${eggs}">
+										<option value="${egg }"><c:out value="${egg }" /></option>
+									</c:forEach>
+								</select><select flag="false" class="mr-3 mt-2 p-1 options" name="sb_component3"
 									id="select3">
 									<option selected value="미선택" hidden>곡물/기타</option>
 									<option value="미선택">선택안함</option>
-									<option>채소1</option>
-									<option>채소2</option>
-									<option>채소3</option>
+									<c:forEach var="grain" items="${grains}">
+										<option value="${grain }"><c:out value="${grain }" /></option>
+									</c:forEach>
+									<c:forEach var="source" items="${sources}">
+										<option value="${source }"><c:out value="${source }" /></option>
+									</c:forEach>
 								</select>
 							</div>
 						</div>
-						<div id="date" class="mt-4 mb-2">
+						<div id="date" class="mt-3 mb-2">
 							<div id="dateTitle" class="periodSub mb-3">
 								첫 배송일 선택<span id="ableDate">(내일부터 선택가능)</span>
 							</div>
@@ -363,7 +373,7 @@
 								 <input id="chooseDate" class="form-control" type="date" name="sb_startday">
 							</div>
 						</div>
-						<div class="mt-5 mb-4">
+						<div class="mt-5 mb-2">
 							<div class="periodSub">결제 방식 선택</div>
 							<div class="period2">
 								<label style="display: inline-block; padding-right: 10px;">

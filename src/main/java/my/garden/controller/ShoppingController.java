@@ -19,6 +19,7 @@ import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
+import my.garden.service.ProductsService;
 import my.garden.service.ShoppingService;
 
 @Controller
@@ -29,6 +30,9 @@ public class ShoppingController {
 
 	@Autowired
 	ShoppingService shsvc;
+	
+	@Autowired
+	private ProductsService pdsvc;
 
 	@RequestMapping("cart")
 	public String toCart(HttpServletRequest request) {
@@ -109,24 +113,6 @@ public class ShoppingController {
 	}
 
 
-	@RequestMapping(value = "orderSearch", method = RequestMethod.POST)
-	public String toOrderSearch(HttpServletRequest request, String orderDuration, String orderStatus) {
-		String id = (String)session.getAttribute("loginId");	
-		try {
-			request.setAttribute("listWrapper", shsvc.getOrderSearch(id, orderDuration, orderStatus));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/orderList";
-	}
-
-	@RequestMapping("shipping")
-	public String toShipping(HttpServletRequest request) {
-
-		return "shopping/shipping";
-	}
-
 	@RequestMapping("subscription")
 	public String toSubscribe(HttpServletRequest request, MembersDTO dto) {
 		String id = (String)session.getAttribute("loginId");
@@ -135,6 +121,11 @@ public class ShoppingController {
 			if(id!=null) {
 				request.setAttribute("loginDTO", shsvc.getMember(dto, id));
 			}
+			request.setAttribute("vagetables", pdsvc.selectTitlesByCategoryService("vagetable"));
+			request.setAttribute("fruits", pdsvc.selectTitlesByCategoryService("fruit"));
+			request.setAttribute("eggs", pdsvc.selectTitlesByCategoryService("egg"));
+			request.setAttribute("grains", pdsvc.selectTitlesByCategoryService("grain"));
+			request.setAttribute("sources", pdsvc.selectTitlesByCategoryService("source"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "error";
@@ -160,17 +151,7 @@ public class ShoppingController {
 		return "shopping/subsComplete";
 	}
 
-	@RequestMapping("subsList")
-	public String toSubsList(HttpServletRequest request) {
-		String id = (String)session.getAttribute("loginId");		
-		try {
-			request.setAttribute("list", shsvc.getSubsList(id));
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "error";
-		}
-		return "shopping/subsList";
-	}
 
+	
 }
 

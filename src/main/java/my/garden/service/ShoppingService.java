@@ -27,5 +27,10 @@ public interface ShoppingService {
 	
 	public List<SubscribeDTO> getSubsList(String id) throws Exception;
 	
-
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception;
+	
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception;
+	
+	public List<ShopListDTO> getOrderShipping(Long s_orderno, String id) throws Exception;
+	
 }
