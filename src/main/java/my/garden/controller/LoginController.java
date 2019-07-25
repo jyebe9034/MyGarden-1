@@ -2,7 +2,11 @@ package my.garden.controller;
 
 
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +24,7 @@ import com.google.gson.Gson;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
@@ -33,6 +38,7 @@ public class LoginController {
 	HttpSession session;
 	
 	PrintWriter out;
+	
 	
 	@RequestMapping("/login")
 	public String Login() {
@@ -219,12 +225,16 @@ public class LoginController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/getShoppedList")
-	public String getShoppedList(ShopListDTO dto, Timestamp date){
+	@RequestMapping(value="/getShoppedList", produces="text/html;charset=utf8")
+	public String getShoppedList(ShopListDTO dto, SubscribeDTO dto2, Timestamp date) {
 		dto.setS_email((String)session.getAttribute("loginId"));
 		dto.setS_orderdate(date);
-		List<ShopListDTO> lists = loginserv.getShoppedList(dto);
-		return new Gson().toJson(loginserv.getShoppedList(dto));
+		dto2.setSb_email((String)session.getAttribute("loginId"));
+		dto2.setSb_startday(new java.sql.Date(date.getTime()));
+		List<ShopListDTO> shop = loginserv.getShoppedList(dto);
+		List<SubscribeDTO> sub = loginserv.getShoppedListSub(dto2);
+		Object[] arr = new Object[] {sub, shop};
+		return new Gson().toJson(arr);
 	}
 	
 }

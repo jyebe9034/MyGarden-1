@@ -87,4 +87,8 @@
 		select * from subscribe where sb_email = #{sb_email} and sb_statement = #{sb_statement} order by sb_orderno_seq desc
 </select>
 
+<update id="completeShipping">
+	update shoplist set s_statement = '배송 완료' where s_orderno = #{s_orderno} and s_statement = '배송중'
+</update>
+
 </mapper>

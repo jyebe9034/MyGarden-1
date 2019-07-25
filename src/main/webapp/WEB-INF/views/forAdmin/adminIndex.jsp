@@ -88,7 +88,6 @@ td{
    padding: 15px;
 }
 
-
 .pagination .active .page-link {
 	background-color: #bcdeb4;
 	border: 1px solid #bcdeb4;
@@ -115,7 +114,6 @@ td{
 .back:hover{
 	background-color: #66b075;
 	color:white;
->>>>>>> 3f8e66fbc865d995a8d1a4d29b603fad9cb73b57
 }
 
 h4 {
