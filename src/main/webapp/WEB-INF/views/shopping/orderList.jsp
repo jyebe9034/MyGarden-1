@@ -329,10 +329,10 @@ table.list_table_style td.cell {
 																<th width="60">주문번호</th>
 																<th width="110">상품명</th>
 																<th width="90">주문일</th>
-
+																<th width="60">수량</th>
 																<th width="70">주문금액</th>
 															</tr>
-															<c:forEach var="dto" items="${list}" varStatus="status">
+															<c:forEach var="dto" items="${list}" varStatus="stat">
 																<tr>
 																	<td class="cell">${dto.s_orderno }</td>
 																	<td class="cell"><img src="${dto.s_p_imagepath }"
@@ -341,9 +341,34 @@ table.list_table_style td.cell {
 																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }">${dto.s_p_title }</a>
 																	</td>
 																	<td class="cell">${dto.s_orderdate }</td>
+																	<td class="cell">${dto.s_p_count }</td>
 																	<td class="cell"><fmt:formatNumber
-																			value="${dto.s_p_price }" type="number" />원</td>
+																			value="${dto.s_p_price*dto.s_p_count }" type="number" />원</td>
 																</tr>
+																<c:if test="${stat.last}">
+																	<tr>
+																		<td class="cell" height="30"></td>
+																	</tr>
+																	<tr>
+																		<td class="cell">받는 사람 </td>
+																		<td class="cell">${dto.s_m_recipient }</td>
+																	</tr>
+																	<tr>
+																		<td class="cell">결제 방법 </td>
+																		<td class="cell">${dto.s_m_paymethod }</td>
+																	</tr>
+																	<tr>
+																		<td class="cell">배송 메모 </td>
+																		<td class="cell">${dto.s_m_memo }</td>
+																	</tr>
+																	<tr>
+																		<td class="cell">배송지 </td>
+																		<td class="cell">${dto.s_m_zipcode } ${dto.s_m_address1 } ${dto.s_m_address2 }</td>
+																	</tr>
+																	<tr>
+																		<td class="cell" height="30"></td>
+																	</tr>		
+																</c:if>
 															</c:forEach>
 														</table>
 													</td>
