@@ -132,7 +132,7 @@
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 pt-5 my">	
-				<div class="row pt-3 my">
+				<div class="row my">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2 my">
 						<h3><span class="font-weight-bold">[${memDTO.m_garden}]</span>의 기록</h3>
 					</div>
