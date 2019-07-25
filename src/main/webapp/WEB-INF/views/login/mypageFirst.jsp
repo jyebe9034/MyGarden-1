@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -120,7 +121,7 @@
 		
 			<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
-				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
+				  <a href="/mypageFirst" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
 				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
@@ -131,7 +132,7 @@
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 pt-5 my">	
-				<div class="row pt-3 my">
+				<div class="row my">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2 my">
 						<h3><span class="font-weight-bold">[${memDTO.m_garden}]</span>의 기록</h3>
 					</div>

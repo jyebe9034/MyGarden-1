@@ -102,4 +102,8 @@ public class ShoppingDAO {
 		return sst.update("ShoppingDAO.subsCancel", sbdto);
 	}
 	
+	public List<SubscribeDTO> selectSubsSearch(SubscribeDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.selectSubsSearch", dto);
+	}
+	
 }

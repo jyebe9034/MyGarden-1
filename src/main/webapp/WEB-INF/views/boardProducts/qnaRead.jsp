@@ -104,7 +104,7 @@
 	.goBackBtn{
 		border: 1px solid #44b27d;
 		color: #44b27d;
-		font-weight: border;
+		font-weight: bord;
 	}
 	#commentBtn:hover, #updateCommentBtn:hover{
 		background-color: #b4d9b5;
@@ -117,7 +117,7 @@
 		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
-		border: 0px;
+		border: 1px solid #b4d9b5;
 		cursor: pointer;
 	}
 	.updateBtn{
@@ -168,11 +168,13 @@
 	}
 	
 	#inputComment{
-		width: 100%;
+		width: 95%;
+		margin: 0 auto;
 		height: 200px;
 		border-radius: 10px;
 		padding: 15px;
 		color: #515c4e;
+        background-color : #ecf7e9;
 		font-size: 20px;
     	font-weight: 300;
     	font-family: sans-serif;
@@ -212,12 +214,20 @@
 	#delCommentBtn:hover{
 		background-color: #b4d9b5;
 		color: white;
+		border: 0px;
 	}
+	
+	[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
+	
 </style>
 
 <!-- script -->
 <script>
 	$(function(){
+		
+// 		var grade = "${grade}";
+// 		console.log(grade);
+		
 		$(".goBackBtn").on("click",function(){
 			//$(location).attr("href","/");
 			var pnumber = ${readQnA.bq_p_no};
@@ -231,68 +241,50 @@
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
 
-
-// 		$(".imagesRow img").each(function(){
-// 			var imgSrc = $(this).next().val();
-// // 			alert(imgSrc);
-// 			var imgHeight = $(this)[0].naturalHeight;
-// 			console.log("imgHeight : " + imgHeight);
-// 			var imgWidth = $(this)[0].naturalWidth;
-// 			//alert("imgHeight : " + imgHeight);
-// 			if(imgHeight>1000 || imgWidth > 1000){
-// 				imgHeight = $(this)[0].naturalHeight*0.7;
-// 				imgWidth = $(this)[0].naturalWidth*0.7;
-// 				console.log("imgWidth : " + imgWidth);
-// 			}
-			
-// 			$(this).on("click",function(){
-// 				//$(".qnaImgModal").html("<img src='"+imgSrc+"' height='"+imgHeight+"px' width='"+imgWidth+"px'>");
-// 				$(".qnaImgModal").html("<img src='"+imgSrc+"'>");
-// 				//$(".qnaImgModal").height(imgHeight);
-// 				$(".qnaImgModal").width(1000);
-// 				$(".qnaImgModal img").height(imgHeight);
-// 				$(".qnaImgModal img").width(imgWidth);
-// 			})
-// 		})
-		
-		
 		$(document).on("click","#commentBtn",function(){  //답변 등록
 			var inputComment = $("#inputComment").text();
 			//$("#cq_comment").val(inputComment);
-			var data = {
-					cq_p_no : "${readQnA.bq_p_no}",
-					cq_no : ${readQnA.bq_no},
-					cq_name :  "${loginName}",
-					cq_email : "${loginId}",
-					cq_comment : inputComment
-				  };
-			$.ajax({
-				url: "writeComment",
-				type: "post",
-				dataType:"json",
-				async: true,
-				data: data
-			}).done(function(result){
-				var cq_comment = result.cq_comment;
-				var checkAns = result.checkAns;
-				//$(".cq_comment").text(cq_comment);
-				if(checkAns=='y'){
-					//$("#AnswerWrapper").html("");	
-					$("#inputComment").attr("contenteditable","false");
-					$("#inputComment").html(inputComment);
-// 					$("#inputComment").css("background-color","lightgrey");
-					$(".commentBtnBox").html("<button class='btn' id='delCommentBtn'>삭제하기</button>"
-							+ "<button type='button' class='btn' id='editBtn'>수정하기</button>");
-					alert("답변이 등록되었습니다.")
-				}
-			})
+			
+			if(inputComment==""){
+				alert("답변을 입력해주세요.");
+				event.preventDefault();
+			}else{
+				var data = {
+						cq_p_no : "${readQnA.bq_p_no}",
+						cq_no : ${readQnA.bq_no},
+						cq_name :  "${loginName}",
+						cq_email : "${loginId}",
+						cq_comment : inputComment
+					  };
+				$.ajax({
+					url: "writeComment",
+					type: "post",
+					dataType:"json",
+					async: true,
+					data: data
+				}).done(function(result){
+					var cq_comment = result.cq_comment;
+					var checkAns = result.checkAns;
+					//$(".cq_comment").text(cq_comment);
+					if(checkAns=='y'){
+						//$("#AnswerWrapper").html("");	
+						$("#inputComment").attr("contenteditable","false");
+						$("#inputComment").html(inputComment);
+	 					$("#inputComment").css("background-color","white");
+						$(".commentBtnBox").html("<button class='btn' id='delCommentBtn'>삭제하기</button>"
+								+ "<button type='button' class='btn' id='editBtn'>수정하기</button>");
+						alert("답변이 등록되었습니다.")
+					}
+				})	
+			}
+			
 		})
 				
 			
 				$(document).on("click","#editBtn",function(){ //답변 수정 가능한 형태로~
 				
 					$("#inputComment").attr("contenteditable","true");
-					$("#inputComment").css("background-color","#f5ffeb");
+					$("#inputComment").css("background-color","#ecf7e9");
 					$(".commentBtnBox").html("<button type='button' class='btn' id='updateCommentBtn'>등록</button>");	
 					
 				})
@@ -336,7 +328,7 @@
 									+"<label for=\"cq_comment\" class=\"col-12 col-form-label\">답변</label>"
 									+"</div>"
 									+"<div class=\"col-12 inputCommentBox\">"
-									+"<div contenteditable=\"true\" id=\"inputComment\">답변을 등록해주세요.</div>"
+									+"<div contenteditable=\"true\" id=\"inputComment\" data-text=\"내용을 입력해주세요.\"></div>"
 									+"</div></div>"
 									+"<div class=\"row commentBtnRow\">"
 									+"<div class=\"col-12 commentBtnBox\">"
@@ -412,39 +404,15 @@
                                         <input type="hidden" value="${readQnA.bq_imagepath1 }">
                                         <p><img src="${readQnA.bq_imagepath2 }" onerror="this.style.display='none'" ></p>
                                         <p><img src="${readQnA.bq_imagepath3 }" onerror="this.style.display='none'" ></p>
-                                        <!-- 		  			onclick="fnImgPop(this.src)" -->
                                     </div>
-
-                                    <!-- 		  		<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"> -->
-                                    <!-- 				  <div class="modal-dialog modal-lg"> -->
-                                    <!-- 				    <div class="modal-content"> -->
-                                    <!-- 				     	 <div class="modal-header"> -->
-                                    <!-- 					        <h5 class="modal-title">사진</h5> -->
-                                    <!-- 					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-                                    <!-- 					          <span aria-hidden="true">&times;</span> -->
-                                    <!-- 					        </button> -->
-                                    <!-- 					      </div> -->
-                                    <!-- 					      <div class="modal-body qnaImgModal"> -->
-                                    <!-- 					        사진 -->
-                                    <!-- 					      </div> -->
-                                    <!-- 					      <div class="modal-footer"> -->
-                                    <!-- 					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                                    <!-- 					      </div> -->
-                                    <!-- 				    </div> -->
-                                    <!-- 				  </div> -->
-                                    <!-- 				</div> -->
-
                                 </div>
 
                                 <div class="form-group row btnsRow">
                                     <div class="col-12 btns">
                                         <button type="button" class="btn goBackBtn" >돌아가기</button>
-                                        <!-- 		  	</div> -->
                                         <c:choose>
                                             <c:when test="${mine eq 'y'}">
-                                                <!-- 					<div class="col-6 btns"> -->
                                                 <button type="button" class="btn updateBtn" >수정하기</button>
-                                                <!--					</div>	-->
                                             </c:when>
                                         </c:choose>
                                     </div>		  
@@ -461,7 +429,7 @@
                                                 <label for="cq_comment" class="col-12 col-form-label">관리자 답변</label>
                                             </div>
                                             <div class="col-12 inputCommentBox">
-                                                <div contenteditable="true" id="inputComment">답변을 작성해주세요.</div>
+                                                <div contenteditable="true" id="inputComment" data-text="내용을 입력해주세요."></div>
                                             </div>
                                         </div>
                                         <div class="row commentBtnRow">
@@ -477,7 +445,7 @@
                                                 <label for="cq_comment" class="col-12 col-form-label">관리자 답변</label>
                                             </div>
                                             <div class="col-sm-12 inputCommentBox">
-                                                <div contenteditable="false" id="inputComment">등록된 답변이 없습니다.</div>
+                                                <div contenteditable="false" id="inputComment" data-text="내용을 입력해주세요."></div>
                                             </div>
                                         </div>	
 

@@ -360,7 +360,7 @@ transform: rotate(45deg) scale(0);
 <script>
 	$(function() {
 		$(".subsCancel").on("click", function() {
-			$("#sb_orderno_seq").val($(this).parent().find("input:nth-child(2)").val());
+			$("#sb_orderno_seq").val($(this).parent().find("input:nth-child(3)").val());
 			$("#cancelConfirm").fadeIn();
 		})
 
@@ -378,6 +378,15 @@ transform: rotate(45deg) scale(0);
 				$("#sb_orderno_seq").val("");
 			}
 		})
+		
+		$(".durBtns").on("click",function(){
+			if($(this).val()=="전체"){
+				$(location).attr("href","subsList");
+			}else{
+				$(location).attr("href","subsSearch?sb_statement="+$(this).val());
+			}
+		})
+		
 	});
 </script>
 
@@ -450,27 +459,18 @@ transform: rotate(45deg) scale(0);
 						<div class="orderWrapper">
 							<div id="listSearchBox">
 								<form action="orderSearch" id="orderSearch" method="post">
-									<span id="orderStatus" class="mr-3">주문상태 </span> <select
-										name="orderStatus" class="p-1">
-										<option>전체</option>
-										<option>입금 대기</option>
-										<option>결제 완료</option>
-										<option>배송중</option>
-										<option>배송 완료</option>
-										<option>구매 완료</option>
-										<option>구매 취소</option>
-									</select> <span id="orderDuration" class="ml-5 mr-3">조회기간 </span> <span>
-										<input type="button" value="1주일" id="week"
+									<span id="orderDuration" class="mr-2">현황 별 조회 : </span> 
+									<span>
+										<input type="button" value="구독중" id="onGoing"
 										class="btn btn-outline-secondary durBtns"> <input
-										type="button" value="1개월" id="month"
+										type="button" value="구독 취소" id="onCancel"
 										class="btn btn-outline-secondary durBtns"> <input
-										type="button" value="3개월" id="months"
+										type="button" value="입금 대기" id="onWait"
 										class="btn btn-outline-secondary durBtns"> <input
-										type="button" value="6개월" id="halfyear"
+										type="button" value="주문 만료" id="onExpired"
 										class="btn btn-outline-secondary durBtns"> <input
 										type="button" value="전체" id="all"
-										class="btn btn-outline-secondary durBtns"> <input
-										type="hidden" id="btnValue" name="orderDuration">
+										class="btn btn-outline-secondary durBtns">
 									</span>
 								</form>
 							</div>
@@ -507,10 +507,10 @@ transform: rotate(45deg) scale(0);
 																<tr>
 																	<td valign="middle">
 																		<div class="goods_name">
-																			<a href="subscription">${dto.sb_category } <c:if
-																					test="${dto.sb_category=='나만의 박스'}">
-																			(구성 : ${dto.sb_component1 }, ${dto.sb_component2 }, ${dto.sb_component3 })
-																		</c:if>
+																			<a href="subscription"><strong>${dto.sb_category }</strong> 
+																			<c:if test="${dto.sb_category=='나만의 박스'}">
+																				(구성 : ${dto.sb_component1 }, ${dto.sb_component2 }, ${dto.sb_component3 })
+																			</c:if>
 																			</a>
 																		</div>
 																	</td>
