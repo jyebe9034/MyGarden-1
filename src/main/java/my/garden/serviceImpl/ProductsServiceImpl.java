@@ -23,8 +23,7 @@ public class ProductsServiceImpl implements ProductsService {
 	@Autowired
 	private ProductsDAO pdao;
 	
-	@Transactional("txManager")
-	public int insertProductsService(ProductsDTO dto) {
+	public int insertProductsService(ProductsDTO dto) throws Exception {
 		try {
 			int result = pdao.insertProducts(dto);
 			return result;
@@ -34,8 +33,7 @@ public class ProductsServiceImpl implements ProductsService {
 		}
 	}
 	
-	@Transactional("txManager")
-	public int insertImageFileService(String title, String imgs) {
+	public int insertImageFileService(String title, String imgs) throws Exception {
 		try {
 			int result = pdao.insertImageFile(title, imgs);
 			return result;
@@ -45,8 +43,7 @@ public class ProductsServiceImpl implements ProductsService {
 		}
 	}
 	
-	@Transactional("txManager")
-	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category) {
+	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category) throws Exception {
 		try {
 			List<ProductsDTO> result = pdao.selectProductsListByCategory(start, end, category);
 			return result;
@@ -56,8 +53,7 @@ public class ProductsServiceImpl implements ProductsService {
 		}
 	}
 	
-	@Transactional("txManager")
-	public List<ProductsDTO> selectProductsListByPageService(int start, int end) {
+	public List<ProductsDTO> selectProductsListByPageService(int start, int end) throws Exception {
 		try {
 			List<ProductsDTO> result = pdao.selectProductsListByPage(start, end);
 			return result;
@@ -67,8 +63,7 @@ public class ProductsServiceImpl implements ProductsService {
 		}
 	}
 	
-	@Transactional("txManager")
-	public ProductsDTO selectOneProductService(int pnumber) {
+	public ProductsDTO selectOneProductService(int pnumber) throws Exception {
 		try {
 			return pdao.selectOneProduct(pnumber);
 		}catch(Exception e) {
@@ -99,8 +94,7 @@ public class ProductsServiceImpl implements ProductsService {
 		}
 	}
 	
-	@Transactional("txManager")
-	public int updateProductService(ProductsDTO dto) {
+	public int updateProductService(ProductsDTO dto) throws Exception {
 		try {
 			return pdao.updateProduct(dto);
 		}catch(Exception e) {
@@ -109,8 +103,7 @@ public class ProductsServiceImpl implements ProductsService {
 		}
 	}
 	
-	@Transactional("txManager")
-	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword){
+	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword) throws Exception {
 		try {
 			return pdao.selectProductsListByKeyword(start, end, keyword);
 		}catch(Exception e) {

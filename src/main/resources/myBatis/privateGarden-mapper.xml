@@ -11,8 +11,12 @@
 	</update>
 	
 	<insert id="insertPrivateGarden" parameterType="my.garden.dto.PrivateGardenDTO">
-		insert into gardens values(#{g_email}, #{g_name}, default, #{g_hurb}, #{g_temper}, default,
+		insert into gardens values(#{g_email}, #{g_name}, #{g_gardenname}, default, #{g_hurb}, #{g_temper}, default,
 		default, default, default)
 	</insert>
+	
+	<update id="updatePrivateGarden" parameterType="Map">
+		update gardens set g_temper=#{temper} where g_email=#{id} 
+	</update>
 	
 </mapper>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -113,6 +113,7 @@ p {
 	width: 100%;
 	border-radius: 10px;
 	padding: 10px;
+	word-break:break-all;
 }
 
 .reviewWriter {
@@ -137,30 +138,31 @@ p {
 	cursor: pointer;
 }
 
+.pageNaviBox {
+	width: 100%;
+}
 
-  .pageNaviBox{
-      width:100%;
-   }
-   .pageNaviBox ul{
-      margin:auto;
-      width: 200px; /*pageNavi위치조정*/
-      color:#44b27d;
-   }
-   .pagination a{
-/*       height: 25px; */
-/*       width: 5px; */
-       border: none; 
-   }
-   .pagination a:hover{
-   	 color:#b4d9b5;
-   	 background-color: white;
-	 font-weight: bold;
-   }
-   .pagination *{/*페이지네비 글씨 기본색*/
-      color:lightgrey;
-      
-   }
+.pageNaviBox ul {
+	margin: auto;
+	width: 200px; /*pageNavi위치조정*/
+	color: #44b27d;
+}
 
+.pagination a {
+	/*       height: 25px; */
+	/*       width: 5px; */
+	border: none;
+}
+
+.pagination a:hover {
+	color: #b4d9b5;
+	background-color: white;
+	font-weight: bold;
+}
+
+.pagination * { /*페이지네비 글씨 기본색*/
+	color: lightgrey;
+}
 
 #revAndQnAWrapper button {
 	width: 90px;
@@ -366,7 +368,7 @@ p {
 			    	$(location).attr("href","reviewDelete?br_no="+br_no);
 			    }
 			})
-			//-----------------------------------------------------------
+			//답변-----------------------------------------------------------
 			$("#qBtn").on("click",function(){
 				$(location).attr("href","qnaWriteForm");
 			})
@@ -391,14 +393,14 @@ p {
 // 				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
 				var writer = $(this).prev().prev().val();
- 				alert("writer : " + writer);
+// 				alert("writer : " + writer);
 // 				alert("admin : " + "${grade}");
 				var bq_checkedAns = $(this).next().next().val();
 				alert("bq_checkedAns : "+bq_checkedAns);
 				if("${grade}"=="admin"){
 					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
-					alert("비밀글은 작성자만 볼 수 있습니다.");
+//					alert("비밀글은 작성자만 볼 수 있습니다.");
 				}else{
 // 					alert("bq_no : " + bq_no);
 					if(writer=="${loginId}"){ //내 글을 클릭했을 때
@@ -415,7 +417,7 @@ p {
 	})
 </script>
 
-<!-- 	html -->
+<!--    html -->
 <div id="revAndQnAWrapper" class="container">
 	<!--=========================review===============================-->
 	<div id="reviewWrapper" class="container">
@@ -441,9 +443,9 @@ p {
 
 				<div class="container reviewBox">
 					<c:if test="${fn:length(reviewList) == '0'}">
-							<div class="col-12 noPostMsgBox">
-								<span class="noPostMsg">등록된 후기가 없습니다.</span>
-							</div>
+						<div class="col-12 noPostMsgBox">
+							<span class="noPostMsg">등록된 후기가 없습니다.</span>
+						</div>
 					</c:if>
 					<div class="row">
 
@@ -457,7 +459,8 @@ p {
 								<div class="reviewRightTop">
 									<div class="reviewTitle">${reviewList.br_title }</div>
 									<div class="reviewContent" display="none">
-										${reviewList.br_content }</div>
+										${reviewList.br_content }
+									</div>
 								</div>
 
 								<div class="reviewRightBottom">
@@ -512,8 +515,8 @@ p {
 							<hr class="lines">
 						</c:forEach>
 						<c:if test="${fn:length(reviewList) == '0'}">
-								<hr class="lines">
-							</c:if>
+							<hr class="lines">
+						</c:if>
 					</div>
 				</div>
 
@@ -609,11 +612,11 @@ p {
 				</div>
 				<hr class="lines">
 				<!--pagination/  -->
-					<div class="pageNaviBox">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination qnaPagenation d-flex justify-content-center">${getNaviForQnA }
-							</ul>
-						</nav>
+				<div class="pageNaviBox">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination qnaPagenation d-flex justify-content-center">${getNaviForQnA }
+						</ul>
+					</nav>
 				</div>
 				<!--/pagination  -->
 				<div class="row qnaBtnBox d-flex justify-content-end">
