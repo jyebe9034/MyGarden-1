@@ -109,13 +109,18 @@
 					alert("제목은 30자 이내만 입력이 가능합니다.");
 				}
 			});
-		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
-				if ($(this).text().length > 69) {
-					$(this).text($(this).text().substring(0, 69)); 
-					alert("내용은 70자 이내만 입력이 가능합니다.");
+			
+		$(document).on('keyup', '#inputContent', function() { //내용 글자수 입력 제한
+			var inputComment = $("#inputContent").text();
+			var cntCmt = $("#content").val(inputComment);
+			//alert("입력한거ㅡㅡ: " + cntCmt.val());
+				if ($(cntCmt).val().length > 140) {
+					$("#inputContent").text($(cntCmt).val().substring(0, 140)); 
+					alert("내용은 140자 이내만 입력이 가능합니다.");
 				}
 			});
-
+		
+		
 		})
 	</script>
 </head>

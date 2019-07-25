@@ -79,22 +79,28 @@ p {
 
 .reviewImage {
 	width: 100%;
-	height: 150px;
+ 	height: 150px;
 	text-align: center;
 }
 
 .reviewImage img {
 	max-width: 100%;
-	height: 150px;
+	height: 100%;
 	border-radius: 5px;
+}
+
+.reviewRightTopBox{
+    margin-bottom: 15px;
 }
 
 .reviewRightTop {
 	height: 60%;
+	margin-bottom: 10px;
 }
 
 .reviewRightBottom {
 	height: 40%;
+	
 }
 
 .reviewTitle {
@@ -109,12 +115,12 @@ p {
 
 .reviewContent {
 	color: #5b6660;
-	height: 80%;
+	height: 90%;
 	width: 100%;
 	border-radius: 10px;
 	padding: 10px;
 	word-break:break-all;
-}
+ }
 
 .reviewWriter {
 	color: #6c736f;
@@ -280,12 +286,20 @@ p {
 			$(".reviewContent").each(function(i,item){					
 				var reviewTitle = $(item).prev();
 				$(reviewTitle).on("click",function(){
+					
+					var rvImage = $(this).parent().parent().siblings(".reviewImage").children();
+					var rvImageHeights = rvImage.height();
+					var contentHeights = $(this).next("div").height();
+					var changeRvImgH = rvImageHeights + 140-(contentHeights-56);
+					console.log("rvImageHeights 나오냐? " + rvImageHeights);
+					
 					if($(item).attr("display")=="none"){
 						$(this).css("font-weight","bold");
 // 						$(this).css("font-size","17px");
 						$(item).show();
 						$(item).attr("display", "block");
 						$(item).css("background-color","#f3fff0");  
+ 						$(rvImage).css("maxheight",230)
 					}else{
 						$(this).css("font-weight","400");
 // 						$(this).css("font-size","16px");
@@ -421,7 +435,7 @@ p {
 
 <!--    html -->
 <div id="revAndQnAWrapper" class="container">
-	<!--========================review===============================-->
+	<!--=========================review===============================-->
 	<div id="reviewWrapper" class="container">
 		<ul class="nav nav-pills mb-3" id="pills-tabs" role="tablist">
 			<li class="nav-item tabs reviewTab"><a
@@ -457,29 +471,27 @@ p {
 									onerror="this.src='/resources/free/noImg.png'">
 							</div>
 							<input type="hidden" value="${reviewList.br_imagepath }">
-							<div class="col-9">
+							<div class="col-9 reviewRightTopBox">
 								<div class="reviewRightTop">
 									<div class="reviewTitle">${reviewList.br_title }</div>
 									<div class="reviewContent" display="none">
-										${reviewList.br_content }
-									</div>
+										${reviewList.br_content }</div>
 								</div>
 
-								<div class="reviewRightBottom">
+								<div class="reviewRightBottom row">
 									<hr class="innerLines">
+									
+									<div class="col-8">
+									
 									<div class="reviewWriter">
 										<img src="/resources/free/boardFreeWriter.png" width="20px">
 										${reviewList.br_name }
 									</div>
 									<div class="reviewWriteDate">
 										<img src="/resources/free/boardFreeWriteDate.png" width="20px">
-<%-- 										<fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.br_writedate }" /> --%>
+										<%-- 										<fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.br_writedate }" /> --%>
 										${reviewList.br_writedate }
 									</div>
-
-
-
-
 									<div class="reviewRecommend" value="${reviewList.br_recommend}">
 										<input type="hidden" value="${reviewList.br_title}"> <span
 											class="mb-1 recommendBtn"> <c:forEach
@@ -501,17 +513,19 @@ p {
 											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
 									</div>
 
+</div>
 
-
-
+	<div class="col-4">
 									<c:choose>
 										<c:when test="${loginId eq reviewList.br_email}">
-											<div class="reviewUpdateBtn d-flex justify-content-end">
+											<div class="reviewUpdateBtn">
 												<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
 												<button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
 											</div>
 										</c:when>
 									</c:choose>
+		</div>							
+									
 								</div>
 							</div>
 							<hr class="lines">
