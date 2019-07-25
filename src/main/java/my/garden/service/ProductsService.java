@@ -13,4 +13,5 @@ public interface ProductsService {
 	public int deleteProductService(int pnumber);
 	public int updateProductService(ProductsDTO dto) throws Exception;
 	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword) throws Exception;
+	public List<String> selectTitlesByCategoryService(String p_category)throws Exception;
 }

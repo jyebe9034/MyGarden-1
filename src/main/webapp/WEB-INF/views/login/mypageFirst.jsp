@@ -125,14 +125,15 @@
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
 				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
-				  <c:if test="${grade == 'admin'}">
+				  <%-- <c:if test="${grade == 'admin'}"> --%>
 				  		<a href="productsAdd" class="list-group-item list-group-item-action">상품 등록</a>
-				  </c:if>
+				  		<a href="chatManage" class="list-group-item list-group-item-action">채팅 문의 관리</a>
+				  <%-- </c:if> --%>
 				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 pt-5 my">	
-				<div class="row pt-3 my">
+				<div class="row my">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-2 my">
 						<h3><span class="font-weight-bold">[${memDTO.m_garden}]</span>의 기록</h3>
 					</div>

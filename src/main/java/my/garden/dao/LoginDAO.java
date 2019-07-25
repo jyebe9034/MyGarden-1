@@ -178,13 +178,14 @@ public class LoginDAO {
 		// Google일 경우 smtp.gmail.com 을 입력합니다. 
 		String host = "smtp.naver.com"; 
 		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden55*"; //네이버 이메일 비밀번호를 입력해주세요. 
+		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
 		int port=465; //포트번호 
 		
 		// 메일 내용 
 		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
 		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
-			String randomCode = this.randomCode();
+		String randomCode = this.randomCode();
+		System.out.println("인증번호 : " + randomCode);
 		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
 		

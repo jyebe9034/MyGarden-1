@@ -88,26 +88,6 @@ td{
    padding: 15px;
 }
 
-<<<<<<< HEAD
-.pagination .active .page-link, .back {
-   background-color: #bcdeb4;
-   border: 1px solid #bcdeb4;
-   font-weight: bold;
-   color: white;
-}
-
-.pagination .active .page-link:hover, .back:hover {
-   background-color: #66b075;
-   border: 1px solid #bcdeb4;
-   font-weight: bold;
-}
-
-.back {
-   margin-left: 20px;
-   font-size: 15px;
-   height: 30px;
-   border-radius: 5px;
-=======
 .pagination .active .page-link {
 	background-color: #bcdeb4;
 	border: 1px solid #bcdeb4;
@@ -134,7 +114,6 @@ td{
 .back:hover{
 	background-color: #66b075;
 	color:white;
->>>>>>> 3f8e66fbc865d995a8d1a4d29b603fad9cb73b57
 }
 
 h4 {
@@ -974,6 +953,5 @@ h4 {
 		$(".menuScrollOption").hide();
 		$(".clickToClose").hide();
 	</script>
->>>>>>> 3f8e66fbc865d995a8d1a4d29b603fad9cb73b57
 </body>
 </html>

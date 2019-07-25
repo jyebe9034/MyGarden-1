@@ -10,25 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.PrivateGardenDTO;
+import my.garden.dto.SubscribeDTO;
 import my.garden.service.PrivateGardenService;
 import my.garden.service.ShoppingService;
 import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class MypageController {
-	
+
 	@Autowired
 	LoginServiceImpl loginserv;
-	
+
 	@Autowired
 	HttpSession session;
-	
+
 	@Autowired
 	ShoppingService shsvc;
 
@@ -63,7 +65,7 @@ public class MypageController {
 			return "login/mypageInfo";
 		}
 	}
-	
+
 	@RequestMapping("/mypageGardenChange")
 	public String MypageGardenChange(MembersDTO dto, int key) {
 		String id = (String)session.getAttribute("loginId");
@@ -82,7 +84,7 @@ public class MypageController {
 		loginserv.memUpdateAll(dto);
 		return "login/mypageInfoThrough";
 	}
-	
+
 	@RequestMapping("orderList")
 	public String toOrderList(HttpServletRequest request) {
 		String id = (String)session.getAttribute("loginId");		
@@ -94,5 +96,72 @@ public class MypageController {
 		}
 		return "shopping/orderList";
 	}
+
+	@RequestMapping("subsList")
+	public String toSubsList(HttpServletRequest request) {
+		String id = (String)session.getAttribute("loginId");		
+		try {
+			request.setAttribute("list", shsvc.getSubsList(id));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/subsList";
+	}
+
+	@RequestMapping(value = "subsCancel", method = RequestMethod.POST)
+	public String subsCancel(HttpServletRequest request, SubscribeDTO sbdto) {
+		String id = (String)session.getAttribute("loginId");	
+		try {
+			request.setAttribute("result", shsvc.subsCancel(id, sbdto));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/subsCancelProc";
+	}
+
+	@RequestMapping("subsSearch")
+	public String toSubsSearch(HttpServletRequest request, SubscribeDTO sbdto) {
+		String id = (String)session.getAttribute("loginId");	
+		try {
+			request.setAttribute("list", shsvc.getSubsSearch(id, sbdto));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/subsList";
+	}
+
+	@RequestMapping(value = "orderSearch", method = RequestMethod.POST)
+	public String toOrderSearch(HttpServletRequest request, String orderDuration, String orderStatus) {
+		String id = (String)session.getAttribute("loginId");	
+		try {
+			request.setAttribute("listWrapper", shsvc.getOrderSearch(id, orderDuration, orderStatus));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/orderList";
+	}
+
+	@RequestMapping("shipping")
+	public String toShipping(HttpServletRequest request, Long s_orderno, String s_p_title) {
+		String id = (String)session.getAttribute("loginId");
+		try {
+			request.setAttribute("s_orderno",s_orderno);
+			request.setAttribute("s_p_title",s_p_title);
+			request.setAttribute("shippingDTO", shsvc.getOrderShipping(s_orderno, id).get(0));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
+		return "shopping/shipping";
+	}
 	
+	@RequestMapping("chatManage")
+	public String toChatManage() {
+		return "chat/chatManage";
+	}
+
 }

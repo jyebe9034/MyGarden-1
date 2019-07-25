@@ -22,7 +22,7 @@
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
-   -o-text-overflow: ellipsis
+   -o-text-overflow: ellipsis;
 }
 
 .cell {
@@ -190,7 +190,7 @@ table.list_table_style td.cell {
 															style="max-height: 60px; max-width: 60px;" /></td>
 														<td class="left" style="padding-left: 10px;">
 															<div class="goods_name">
-																<a href="../goods/view?no=4038">${dto.c_p_title }</a>
+																${dto.c_p_title }
 															</div>
 															<div class="shipFeeBadge"></div>
 														</td>

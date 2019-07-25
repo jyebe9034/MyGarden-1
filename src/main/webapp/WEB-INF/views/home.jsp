@@ -190,12 +190,14 @@
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 	
-	<div id="chatWrap">
-		<img id="chatBtn" src="/resources/img/chat.png">
-	</div> 
-	<div id="chatboxWrap">
-		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
-	</div>
+	<c:if test="${grade != 'admin' && loginId != ''}">
+		<div id="chatWrap">
+			<img id="chatBtn" src="/resources/img/chat.png">
+		</div> 
+		<div id="chatboxWrap">
+			<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+		</div>
+	</c:if>
 
 </body>
 </html>

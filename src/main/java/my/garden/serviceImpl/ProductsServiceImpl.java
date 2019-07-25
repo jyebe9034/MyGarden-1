@@ -111,4 +111,10 @@ public class ProductsServiceImpl implements ProductsService {
 			return null;
 		}
 	}
+	
+	@Transactional("txManager")
+	public List<String> selectTitlesByCategoryService(String p_category)throws Exception{
+		return pdao.selectTitlesByCategory(p_category);
+	}
+	
 }
