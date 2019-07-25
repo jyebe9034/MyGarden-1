@@ -127,16 +127,17 @@
 			$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
 				if ($(this).val().length > 30) {
 					$(this).val($(this).val().substring(0, 30));
-					alert("제목은 30자 이내로 적어주세요.");
+
+					alert("제목은 30자 이내로 입력이 가능합니다.");
 				}
 			});
 			$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
-					if ($(this).text().length > 69) {
-						$(this).text($(this).text().substring(0, 69)); 
-						alert("제목은 70자 이내로 적어주세요.");
-					}
-				});
-			
+				if ($(this).text().length > 69) {
+					$(this).text($(this).text().substring(0, 69)); 
+					alert("내용은 70자 이내로 입력이 가능합니다.");
+				}
+			});
+
 		})
 	</script>
 	
@@ -169,7 +170,7 @@
 			       <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
 			    
 			    <div class="col-sm-10">
-			      <input type="text" class="form-control byteLimit" id="inputTitle" name="br_title" value="${oneReview.br_title }" limitbyte="90">
+			      <input type="text" class="form-control byteLimit" id="inputTitle" name="br_title" value="${oneReview.br_title }">
 			    </div>
 			  </div>
 			 <div class="form-group row">
