@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -14,78 +14,78 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <!-- VENDOR CSS -->
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/bootstrap/css/bootstrap.min.css">
+   href="../../resources/admin/theme/assets/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/font-awesome/css/font-awesome.min.css">
+   href="../../resources/admin/theme/assets/vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/linearicons/style.css">
+   href="../../resources/admin/theme/assets/vendor/linearicons/style.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/metisMenu/metisMenu.css">
+   href="../../resources/admin/theme/assets/vendor/metisMenu/metisMenu.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">
+   href="../../resources/admin/theme/assets/vendor/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/chartist/css/chartist.min.css">
+   href="../../resources/admin/theme/assets/vendor/chartist/css/chartist.min.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
+   href="../../resources/admin/theme/assets/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/vendor/toastr/toastr.min.css">
+   href="../../resources/admin/theme/assets/vendor/toastr/toastr.min.css">
 <!-- MAIN CSS -->
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/css/main.css">
+   href="../../resources/admin/theme/assets/css/main.css">
 <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 <link rel="stylesheet"
-	href="../../resources/admin/theme/assets/css/demo.css">
+   href="../../resources/admin/theme/assets/css/demo.css">
 <!-- GOOGLE FONTS -->
 <link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
-	rel="stylesheet">
+   href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+   rel="stylesheet">
 <!-- ICONS -->
 <link rel="apple-touch-icon" sizes="76x76"
-	href="../../resources/admin/theme/assets/img/apple-icon.png">
+   href="../../resources/admin/theme/assets/img/apple-icon.png">
 </head>
 <style>
 .container {
-	width: 100%;
+   width: 100%;
 }
 
 #bcolor {
-	border: 0px;
-	width: 100%;
-	height: 100px;
-	background-color: #f8f9fa;
+   border: 0px;
+   width: 100%;
+   height: 100px;
+   background-color: #f8f9fa;
 }
 
 .navbar-fixed-top {
-	border: 0px;
+   border: 0px;
 }
 
 #myGardenTitle {
-	margin: 0 0 20px 0;
-	font-size: 28px;
+   margin: 0 0 20px 0;
+   font-size: 28px;
 }
 
 .my {
-	background-color: #e8e4f0;
+   background-color: #e8e4f0;
 }
 
 #dataTable, th {
-	text-align: center;
+   text-align: center;
 }
 
 th {
-	background-color: #8e74a8;
-	color: white;
+   background-color: #8e74a8;
+   color: white;
 }
 
 td{
-	text-align: center;
+   text-align: center;
 }
 .table {
-	margin: 0 auto;
-	padding: 15px;
+   margin: 0 auto;
+   padding: 15px;
 }
 
 .pagination .active .page-link {
@@ -117,53 +117,53 @@ td{
 }
 
 h4 {
-	color: #28a745;
-	font-weight: bold !important;
+   color: #28a745;
+   font-weight: bold !important;
 }
 
 .moneyCheck, .shippingCheck {
-	color: #d6d6d6;
-	background-color: white;
-	border: 0px;
-	font-size: 25px;
+   color: #d6d6d6;
+   background-color: white;
+   border: 0px;
+   font-size: 25px;
 }
 
 .headerFluid {
-	position: fixed !important;
-	top: 0;
-	left: 0;
-	opacity: 0.8;
+   position: fixed !important;
+   top: 0;
+   left: 0;
+   opacity: 0.8;
 }
 
 #moneyIcon {
-	width: 80px;
+   width: 80px;
 }
 
 #moneyDiv {
-	height: 100px;
-	margin: 0 !important;
-	line-height: 50px;
+   height: 100px;
+   margin: 0 !important;
+   line-height: 50px;
 }
 
 .number-chart {
-	height: 100%;
-	padding: 10px;
+   height: 100%;
+   padding: 10px;
 }
 
 .mini-stat {
-	height: 60px;
-	margin: 40px 0 0 0 !important;
+   height: 60px;
+   margin: 40px 0 0 0 !important;
 }
 
 .cmt {
-	font-size: 16px !important;
-	color: #9073c9;
+   font-size: 16px !important;
+   color: #9073c9;
 }
 
 .metric-inline:hover {
-	cursor: pointer;
-	background-color: lightgrey;
-	transition-duration: 0.5 s;
+   cursor: pointer;
+   background-color: lightgrey;
+   transition-duration: 0.5 s;
 }
 
 #none{
@@ -953,5 +953,6 @@ h4 {
 		$(".menuScrollOption").hide();
 		$(".clickToClose").hide();
 	</script>
+>>>>>>> 3f8e66fbc865d995a8d1a4d29b603fad9cb73b57
 </body>
 </html>

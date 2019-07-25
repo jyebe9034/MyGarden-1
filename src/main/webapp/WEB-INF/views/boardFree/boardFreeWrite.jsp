@@ -27,7 +27,13 @@
 	border-radius: 5px;
 	height: 50px;
 	line-height: 45px;
-	margin: 0px auto 30px auto;
+	margin: 0px auto;
+	overflow: hidden;
+}
+
+#titleCount {
+	margin: 10px auto;
+	text-align: right;
 }
 
 #titleExplain, #green {
@@ -81,8 +87,8 @@
 		<form action="boardFreeWriteProc" method="post" id="freeForm">
 			<div class=row>
 				<p id=titleExplain>레시피를 공유해보세요!</p>
-				<div id=title class=col-12 contenteditable></div>
-				<input type="hidden" id=sendTitle name=bf_title>
+				<input type=text id=title class=col-12 maxlength="30" name=bf_title>
+				<div class=col-12 id=titleCount>(0 / 30)</div>
 				<div id=content class=col-12></div>
 				<input type="hidden" id=sendContent name=bf_content>
 				<p id=contentExplain>
@@ -98,6 +104,15 @@
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
+		$("#title").on("keyup", function() {
+			var count = $(this).val().length;
+			$("#titleCount").text("(" + count + " / 30)");
+			if (count == 30) {
+				alert("제목은 최대 30자 까지 쓸 수 있습니다.");
+			}
+			;
+		})
+
 		$("#back").on("click", function() {
 			location.href = "boardFreeList?page=1";
 		})
@@ -107,11 +122,11 @@
 				placeholder : '내용을 입력해주세요.',
 				tabsize : 5,
 				height : 500,
-				popover: {
-					image: [],
-					link: [],
-					air: []
-					},
+				popover : {
+					image : [],
+					link : [],
+					air : []
+				},
 				callbacks : {
 					onImageUpload : function(files, editor, welEditable) {
 						for (var i = files.length - 1; i >= 0; i--) {
@@ -133,18 +148,17 @@
 				contentType : false,
 				enctype : 'multipart/form-data',
 				processData : false
-				}).done(function(resp) {
-					$(".note-editable").append("<img src="+resp+">")
-				})
+			}).done(function(resp) {
+				$(".note-editable").append("<img src="+resp+">")
+			})
 		}
 
 		$("#submitBtn").on("click", function() {
-			$("#sendTitle").val($("#title").text());
 			$("#sendContent").val($(".note-editable").html());
-			if ($("#sendTitle").val() == "" || $("#sendContent").val() == "") {
+			if ($("#title").val() == "" || $("#sendContent").val() == "") {
 				alert("제목 또는 내용을 입력해주세요.");
-			}else{
-			$("#freeForm").submit();
+			} else {
+				$("#freeForm").submit();
 			}
 		})
 	</script>

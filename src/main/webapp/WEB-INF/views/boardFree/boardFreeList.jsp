@@ -67,6 +67,13 @@
 	cursor: pointer;
 }
 
+.writer>img{
+	height: 30px !important;
+	width: 30px !important;
+	margin-right: 10px !important;
+	border-radius: 30px;
+}
+
 hr {
 	margin: 0px;
 	width: 100%;

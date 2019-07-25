@@ -107,6 +107,21 @@
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
 		})
 		
+		$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
+			if ($(this).val().length > 30) {
+				$(this).val($(this).val().substring(0, 30));
+				alert("제목은 30자 이내만 입력이 가능합니다.");
+			}
+		});
+		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
+				if ($(this).text().length > 1000) {
+					$(this).text($(this).text().substring(0, 1000)); 
+					alert("내용은 1000자 이내만 입력이 가능합니다.");
+				}
+			});
+		
+		
+		
 		$(".writeBtn").on("click",function(){
 			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
 			//alert("비밀글? : " + checkedSecret);
@@ -126,6 +141,9 @@
 				$("#writeQnAForm").submit();	
 			}
 		})
+		
+		
+		
 	})
 </script>
 	

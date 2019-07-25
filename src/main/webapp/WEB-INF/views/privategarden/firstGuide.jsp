@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -140,7 +141,7 @@
 	#bubble{
 	 	text-align: center;
 	 	position : relative;
-	 	top : -328px;
+	 	top : -333px;
 	 	left : -302px;
 	 	color : white;
 	 	font-family: 'Hi Melody', cursive;
@@ -185,7 +186,7 @@
 	
 	#bubbleimg{
 		position : relative;
-		top : -150px;
+		top : -155px;
 		left : 50px; 
 		width : 300px;
 	}
@@ -237,11 +238,11 @@
 	<script>
 		$("#penguin").on("click", function(){
 			$("#bubbleWrap").css("display", "block");
-			/* $("#privategarden", parent.document).attr("src", "testModal"); */
 		})
 		
 		$("#hurbBtn").on("click", function(){
 			$(location).attr("href", "toSelectHurb");
+			/* $("#privategarden", parent.document).attr("src", "testModal"); */
 		})
 	</script>
 </body>
