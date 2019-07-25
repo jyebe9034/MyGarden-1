@@ -19,6 +19,11 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
+	
+//	@RequestMapping("/loading")
+//	public String loading() {
+//		return "module/loading";
+//	}
 
 	@RequestMapping("productsAdd")
 	public String toProductsAdd() {

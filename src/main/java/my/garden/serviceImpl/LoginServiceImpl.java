@@ -16,6 +16,7 @@ import my.garden.dao.LoginDAO;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 @Service
 public class LoginServiceImpl {
@@ -231,6 +232,9 @@ public class LoginServiceImpl {
 	
 	public List<ShopListDTO> getShoppedList(ShopListDTO dto){
 		return logDao.getShoppedList(dto);
+	}
+	public List<SubscribeDTO> getShoppedListSub(SubscribeDTO dto){
+		return logDao.getShoppedListSub(dto);
 	}
 	
 	public String getGrade(String id) {

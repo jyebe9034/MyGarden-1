@@ -57,13 +57,13 @@
 		</div>
 		<div
 			class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-2 text-shadow socialEmo my">
-			<span><a href="facebook.com"><img src="resources/img/facebook.png"
-					width="50" height="50"></a></span> <span><a href="twitter.com"><img
+			<span><a href="https://www.facebook.com/"><img src="resources/img/facebook.png"
+					width="50" height="50"></a></span> <span><a href="https://twitter.com/"><img
 					src="resources/img/twitter.png" width="50" height="50"></a></span> <span><a
-				href="youtube.com"><img src="resources/img/youtube.png" width="50"
-					height="50"></a></span> <span><a href="instagram.com"><img
+				href="https://www.youtube.com/"><img src="resources/img/youtube.png" width="50"
+					height="50"></a></span> <span><a href="https://www.instagram.com/"><img
 					src="resources/img/instagram.png" width="50" height="50"></a></span> <span><a
-				href="github.com"><img src="resources/img/share.png" width="50"
+				href="https://github.com/"><img src="resources/img/share.png" width="50"
 					height="50"></a></span>
 		</div>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-1 footerEnd my">

@@ -446,11 +446,11 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				});
 				$('input').on('change', function(){
 					var exdate = new Date();
-					if($("input[type=checkbox]").is(":checked")){//체크를 한 건지 안 한건지
+					if($("input[type=checkbox]").is(":checked")){
 						exdate.setDate(exdate.getDate()+30);
-						document.cookie = "userID=" + $("input[name=loginId]").val() + ";expires=" + exdate.toGMTString(); //체크하는 순간 30일 기간동안 아이디를 기억하는 쿠키 생성
+						document.cookie = "userID=" + $("input[name=loginId]").val() + ";expires=" + exdate.toGMTString(); 
 					}else{
-						exdate.setDate(exdate.getDate()-1); //체크를 해제하면 쿠키를 삭제하는 로직
+						exdate.setDate(exdate.getDate()-1);
 						document.cookie = "userID=" + $("input[name=loginId]").val() + ";expires=" + exdate.toGMTString();
 					}
 				});
