@@ -92,6 +92,8 @@
 		border: 0px;
 		cursor: pointer;
 	}
+	
+	[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
 </style>
 
 <!-- script -->
@@ -99,52 +101,50 @@
 	$(function(){
 		
 		$(".goBackBtn").on("click",function(){
-			var pnumber = ${pnumber};
+		
+			var pnumber = "${pnumber}";
+			console.log("pnumber : " + pnumber);
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
 		})
 		
+		$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
+			if ($(this).val().length > 30) {
+				$(this).val($(this).val().substring(0, 30));
+				alert("제목은 30자 이내만 입력이 가능합니다.");
+			}
+		});
+		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
+				if ($(this).text().length > 1000) {
+					$(this).text($(this).text().substring(0, 1000)); 
+					alert("내용은 1000자 이내만 입력이 가능합니다.");
+				}
+			});
+		
+		
+		
 		$(".writeBtn").on("click",function(){
 			var checkedSecret = $("#secretBtn").prop("checked"); //true,false
-			alert("checkedSecret : " + checkedSecret);
-// 			if(checkedSecret==true){
-// 				$("#secretBtn").val("y");	
-// 			}
+			//alert("비밀글? : " + checkedSecret);
+			
 			$(this).val(checkedSecret);
 			
 			var inputContent = $("#inputContent").html();
-			$("#content").val(inputContent);
-			$("#writeQnAForm").submit();
+			var inputTitle =$("#inputTitle").val();
+			if(inputTitle==""){
+				alert("제목을 입력해주세요.");
+				event.preventDefault();
+			}else if(inputContent==""){
+				alert("내용을 입력해주세요");
+				event.preventDefault();
+			}else{
+				$("#content").val(inputContent);
+				$("#writeQnAForm").submit();	
+			}
 		})
 		
-
-				
-				
-// 				  var count = 1;
-// 				  $(".addImgBtn").click(function(){
-// 				   if(count >= 3){
-// 				    alert("최대 업로드수는 " + count + "개입니다.");
-// 				   } else {
-// 				    count++;
-// 				    $(".imagesBox").append("<p><input type='file' name='images' id='image" + count + "' />"
-// 				     	+ "<input type='button' class='btn delImgBtn' value='ㅡ'></p>");
-// 				   }
-// 				   $(".cntImages").val(count);
-// 				   alert(count);
-// 				  });
-				  
-// 				  $(document).on("click",".delImgBtn",function(){
-// 					  $(this).prev().remove();
-// 					  $(this).prev("input[name=images]").remove();
-// 					  $(this).remove();
-// 					  count--;
-// 					  $(".cntImages").val(count);
-// 					  alert(count);
-// 				  })
 		
 		
 	})
-	
-	
 </script>
 	
 	
@@ -186,7 +186,7 @@
 		 <div class="form-group row inputContentRow">
 <!-- 		    <label for="inputContent" class="col-sm-12 col-form-label">내용</label> -->
 		    <div class="col-12">
-               <div contenteditable="true" id="inputContent">문의하실 내용을 입력해주세요.</div>
+               <div contenteditable="true" id="inputContent" data-text="문의하실 내용을 입력해주세요."></div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>

@@ -61,6 +61,7 @@
 		cursor: pointer;
 	}
 
+	[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
 	
 </style>
 
@@ -74,17 +75,49 @@
 					location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
 				})
 			
+				
+				
 			$(".writeBtn").on("click",function(){
-				var inputContent = $("#inputContent").text();
 				var inputTitle = $("#inputTitle").val();
-				alert(inputTitle);
-				$("#content").val(inputContent);
-				$("#writeReviewForm").submit();
+				var inputContent = $("#inputContent").text();
+				
+				var cntTitle = inputTitle.length; //제목 글자수 계산
+				var cntContent = inputContent.length; //내용 글자수 계산
+				console.log("제목 글자 수 : " + cntTitle);
+				console.log("내용 글자 수 : " + cntContent);
+			
+				
+				if(inputTitle==""){
+					alert("제목을 입력하세요.");
+					event.preventDefault();
+				}else if(inputContent==""){
+					alert("내용을 입력하세요.");
+					event.preventDefault();
+				}
+				else{
+					$("#content").val(inputContent);
+					alert("글이 등록되었습니다.");
+					//event.preventDefault();
+					$("#writeReviewForm").submit();
+				}
 			})
 			
+
+		$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
+				if ($(this).val().length > 30) {
+					$(this).val($(this).val().substring(0, 30));
+					alert("제목은 30자 이내만 입력이 가능합니다.");
+				}
+			});
+		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
+				if ($(this).text().length > 69) {
+					$(this).text($(this).text().substring(0, 69)); 
+					alert("내용은 70자 이내만 입력이 가능합니다.");
+				}
+			});
+
 		})
 	</script>
-	
 </head>
 <body>
 
@@ -119,7 +152,7 @@
 		 <div class="form-group row">
 		    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
 		   	  <div class="col-sm-10">
-		      <div contenteditable="true" id="inputContent"></div>
+		      <div contenteditable="true" id="inputContent" data-text="내용을 입력해주세요."></div>
 		      <input type="hidden" class="form-control" id="content" name="br_content">
              </div>
 		  </div>
