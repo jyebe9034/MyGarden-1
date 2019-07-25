@@ -33,10 +33,10 @@
 <!--    <resources mapping="/css/**" location="/resources/css/" /> -->
 <!--    <resources mapping="/js/**" location="/resources/js/" /> -->
 
-	<websocket:handlers>
-		<websocket:mapping handler="echoHandler" path="/echo"/>
-		<websocket:sockjs/>
-	</websocket:handlers>
+<!-- 	<websocket:handlers> -->
+<!-- 		<websocket:mapping handler="echoHandler" path="/echo"/> -->
+<!-- 		<websocket:sockjs/> -->
+<!-- 	</websocket:handlers> -->
 	
 	<!-- <beans:bean id="echoHandler" class="com.tproject.util.EchoHandler"/> -->
 

@@ -10,13 +10,8 @@ public interface ProductsService {
 	public List<ProductsDTO> selectProductsListByCategoryService(int start, int end, String category) throws Exception;
 	public List<ProductsDTO> selectProductsListByPageService(int start, int end) throws Exception;
 	public ProductsDTO selectOneProductService(int pnumber) throws Exception;
-	public int deleteProductService(int pnumber);
-<<<<<<< HEAD
-	public int updateProductService(ProductsDTO dto);
-	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword);
+	public int deleteProductService(int pnumber) throws Exception;
 	public List<String> selectTitlesByCategoryService(String p_category)throws Exception;
-=======
 	public int updateProductService(ProductsDTO dto) throws Exception;
 	public List<ProductsDTO> selectProductsListByKeywordService(int start, int end, String keyword) throws Exception;
->>>>>>> 308f5d3fbf29e5a4ae850260f21d16dfe0529947
 }

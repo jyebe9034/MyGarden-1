@@ -138,11 +138,13 @@
 			}
 		});
 		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
-				if ($(this).text().length > 1000) {
-					$(this).text($(this).text().substring(0, 1000)); 
-					alert("내용은 1000자 이내만 입력이 가능합니다.");
+			var inputContent = $(this).text();
+			var content = $("#content").val(inputContent);
+				if ($(content).val().length > 1000) {
+					$(this).text($(content).val().substring(0, 1500)); 
+					alert("내용은 1500자 이내만 입력이 가능합니다.");
 				}
-			});
+		});
 		
 		$(".writeBtn").on("click",function(){
 			var checkedSecret = $("#secretBtn").prop("checked"); 
@@ -243,6 +245,7 @@
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 	
 	<!-- 			carousel -->
 	<div class="container-fluid my">
