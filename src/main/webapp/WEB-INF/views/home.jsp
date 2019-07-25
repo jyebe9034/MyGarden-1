@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나의 정원</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 	<style>
 		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
 		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
@@ -220,7 +221,7 @@
 		<img id="chatBtn" src="/resources/img/chat.png">
 	</div> 
 	<div id="chatboxWrap">
-		<iframe id="chatBox" src="chat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 	</div>
 
 </body>

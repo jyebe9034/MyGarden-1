@@ -53,9 +53,14 @@ public class ProductsController {
 		}
 		String rootPath = session.getServletContext().getRealPath("/resources");
 		try {
-			File newFile = new File(rootPath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
-			file.transferTo(newFile);
-			String imgs = "/resources/products/" + title + "/" + newFile.getName();
+			File newFile = new File(rootPath + "/products/" + title);
+			if(!newFile.exists()) {
+				newFile.mkdir();
+			}
+			
+			File realFile = new File(newFile + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
+			file.transferTo(realFile);
+			String imgs = "/resources/products/" + title + "/" + realFile.getName();
 			try {
 				int result = pservice.insertImageFileService(title, imgs);
 			}catch(Exception e) {
