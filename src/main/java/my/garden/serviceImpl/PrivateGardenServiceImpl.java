@@ -2,6 +2,7 @@ package my.garden.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import my.garden.dao.LoginDAO;
 import my.garden.dao.PrivateGardenDAO;
@@ -31,6 +32,7 @@ public class PrivateGardenServiceImpl implements PrivateGardenService {
 	// 페퍼민트 : 온도 15~20(default 18), 습도 약간 습함, 빛 반양지
 	// 타임 : 온도 16~23(default 19), 습도 약간 습함, 빛 햇빛좋아함
 	// 루꼴라 : 온도 10~18(default 14), 습도 상관없음, 빛 햇빛좋아하지만 너무 강하면 잎이 뻣벗해짐
+	@Transactional("txManager")
 	public int insertPrivateGardenService(String id, String hurb) throws Exception {
 		PrivateGardenDTO pdto;
 		MembersDTO dto = ldao.memSelectAll(id);
@@ -40,14 +42,18 @@ public class PrivateGardenServiceImpl implements PrivateGardenService {
 		}
 		
 		if(hurb.equals("바질(Basil")) {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),hurb, 27);
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 27);
 		}else if(hurb.equals("파슬리(Parsley)") || hurb.equals("루꼴라(Rucola")) {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),hurb, 14);
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 14);
 		}else if(hurb.equals("타임(Thyme")) {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),hurb, 19);
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 19);
 		}else {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),hurb, 18);
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 18);
 		}
 		return pdao.insertPrivateGarden(pdto);
+	}
+	
+	public int updatePrivateGardenService(String id, String light, String humid, int temp) throws Exception {
+		return pdao.updatePrivateGarden(id, light, humid, temp);
 	}
 }

@@ -67,7 +67,11 @@ public class LoginServiceImpl {
 	public MembersDTO memSelectAll(MembersDTO dto, String id) {
 		return logDao.memSelectAll(dto, id);
 	}
-
+	
+	public MembersDTO memSelectAll(String email) {
+		return logDao.memSelectAll(email);
+	}
+	
 	public boolean pwDupCheck(String key, String pw) {
 		String result = logDao.pwDupCheck(key).toString();
 		String pastPw = logDao.SHA256(pw).toString();

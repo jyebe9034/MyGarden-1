@@ -89,6 +89,6 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 	public List<String> serviceGetCmtNavi(int currentPage, int cf_bf_no) throws Exception{
 		return dao.getCmtNavi(currentPage, cf_bf_no);
 	}
-
+	
 }
 

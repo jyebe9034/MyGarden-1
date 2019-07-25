@@ -25,5 +25,4 @@ public interface BoardFreeService {
 	public List<CommentFreeDTO> serviceCmtList(int cf_bf_no, int start, int end) throws Exception;
 	public int serviceCmtCountAll(int cf_bf_no) throws Exception;
 	public List<String> serviceGetCmtNavi(int currentPage, int cf_bf_no) throws Exception;
-
 }
