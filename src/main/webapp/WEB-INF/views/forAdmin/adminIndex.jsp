@@ -953,6 +953,5 @@ h4 {
 		$(".menuScrollOption").hide();
 		$(".clickToClose").hide();
 	</script>
->>>>>>> 3f8e66fbc865d995a8d1a4d29b603fad9cb73b57
 </body>
 </html>

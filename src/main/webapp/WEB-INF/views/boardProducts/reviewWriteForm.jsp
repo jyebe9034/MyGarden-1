@@ -123,6 +123,7 @@
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 	
 	<!-- 			carousel -->
 	<div class="container-fluid my">

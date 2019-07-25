@@ -55,6 +55,7 @@
 		border-radius: 15px;
 		background-color: #e8ede190;
 		padding: 20px;
+		overflow: auto;
 	}
 	
 	.inputImagesRow{
@@ -114,9 +115,11 @@
 			}
 		});
 		$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
-				if ($(this).text().length > 1000) {
-					$(this).text($(this).text().substring(0, 1000)); 
-					alert("내용은 1000자 이내만 입력이 가능합니다.");
+			var inputContent = $(this).text();
+			var content = $("#content").val(inputContent);
+				if ($(content).val().length > 1000) {
+					$(this).text($(content).val().substring(0, 1500)); 
+					alert("내용은 1500자 이내만 입력이 가능합니다.");
 				}
 			});
 		
@@ -153,6 +156,7 @@
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 	
 	<!-- 			carousel -->
 	<div class="container-fluid my">
@@ -186,7 +190,7 @@
 		 <div class="form-group row inputContentRow">
 <!-- 		    <label for="inputContent" class="col-sm-12 col-form-label">내용</label> -->
 		    <div class="col-12">
-               <div contenteditable="true" id="inputContent" data-text="문의하실 내용을 입력해주세요."></div>
+               <div contenteditable="true" id="inputContent" data-text="문의하실 내용을 입력해주세요." maxlength="1000" ></div>
                <input type=hidden name="bq_content" id="content">
 		    </div>
 		  </div>

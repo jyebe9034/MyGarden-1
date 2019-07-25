@@ -368,7 +368,7 @@ p {
 			    	$(location).attr("href","reviewDelete?br_no="+br_no);
 			    }
 			})
-			//-----------------------------------------------------------
+			//답변-----------------------------------------------------------
 			$("#qBtn").on("click",function(){
 				$(location).attr("href","qnaWriteForm");
 			})
