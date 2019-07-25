@@ -106,4 +106,8 @@ public class ShoppingDAO {
 		return sst.selectList("ShoppingDAO.selectSubsSearch", dto);
 	}
 	
+	public int completeShipping(Long s_orderno) throws Exception{
+		return sst.update("ShoppingDAO.completeShipping", s_orderno);
+	}
+	
 }

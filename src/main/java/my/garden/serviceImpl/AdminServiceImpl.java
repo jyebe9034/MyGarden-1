@@ -1,15 +1,16 @@
 package my.garden.serviceImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import my.garden.dao.AdminDAO;
+import my.garden.dao.ShoppingDAO;
 import my.garden.dto.AdminMemDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.schedule.ScheduleTask;
 import my.garden.service.AdminService;
 
 @Service
@@ -17,6 +18,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	AdminDAO dao;
+	
+	@Autowired
+	ScheduleTask schedule;
 
 	public List<AdminMemDTO> serviceAllMembers() throws Exception{
 		return dao.allMembers();
@@ -46,7 +50,12 @@ public class AdminServiceImpl implements AdminService {
 		return dao.orderCheckList(stat);
 	}
 
+	@Transactional("txManager")
 	public int serviceUpdateOrder(String orderNo, String stat) throws Exception{
+		if(stat.equals("배송중")) {
+			schedule.setCount(0);
+			schedule.startScheduler(orderNo);	
+		}
 		return dao.updateOrder(orderNo, stat);
 	}
 	

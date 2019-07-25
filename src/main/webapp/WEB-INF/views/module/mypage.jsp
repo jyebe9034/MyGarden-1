@@ -11,14 +11,16 @@
 /* 	.gardenImg img{background-size:cover;} */
 	.currentActive{background:#4f9c87; color:#fff;}
 	.bg-f5{background: #f5f5f5;}
-	.gardenUpdateBtn{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color:#fff; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
+	.gardenUpdateBtn{display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color:#fff; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
 	.gardenUpdateBtn:hover{background:#4f9c87; color:#fff;}
 	.profile{width:130px; height:130px; border-radius:50%; margin:10px auto; overflow:hidden; display:none;}
 	.onblur{font-size:13px; color:#4f9c87;}
 	.filebox label{ display: inline-block; padding: .5em .75em; color: #4f9c87; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #4f9c87; border-bottom-color: #4f9c87; border-radius: .25em; }
 	.filebox label:hover{background:#4f9c87; color:#fff;}
 	.filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
-	
+	.gardenUpdateBtn:nth-child(2){top:35%; left:50%; margin-left:-20px; display:none;}
+	.gardenImg:hover .gardenUpdateBtn:nth-child(2){display:block;}
+	.gardenImg:hover .hoverImg{filter: brightness(70%); cursor:pointer;}
 </style>    
 <!-- js -->
 <script>
@@ -42,8 +44,8 @@
        			readURL(this);
        			$('.profile').css('display', 'block');
        		} else {
-       		     alert("이미지 파일만 가능합니다");
-       		 	 $('.profile').html('<img src="${memDTO.m_profile}" width=130 height=130>');
+       			 $("#fileName").text("이미지 파일만 가능합니다");
+       			 $("#ex_file").val("");
        		}
 		});	
 		//profile local image insert end
@@ -56,6 +58,7 @@
        	});
        	$('.gardenUpdateBtn').on('click', function(){
        		$("#gardenName").text("");
+   			$("#fileName").text("");
        	});
        	$("input[name=m_garden]").on("blur", function(){
        		var regexGarden=/^[가-힣A-z]{2,12}$/;
@@ -84,7 +87,7 @@
                		$('.changeGardenProfile').submit();	
            		}
    			}else{
-   				alert('다시 확인 후 제출하세요');
+   				$("#fileName").text("다시 확인 후 제출하세요");
    			}
         });	
        	$('.changeNameBtn').on('click', function(){
@@ -94,7 +97,7 @@
                		$('.changeGardenName').submit();	
            		}
    			}else{
-   				alert('다시 확인 후 제출하세요');
+   				$("#gardenName").text("다시 확인 후 제출하세요");
    			}
         });	
 	});
@@ -106,9 +109,9 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 my">
 	<div class="row my">
 		<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 border border-white bg-f5 my">
-			<div class="row pt-2 my">
+			<div class="row my">
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview my">
-					<h4 class="mt-3">${memDTO.m_name}님의</h4> 
+					<h4 class="mt-2">${memDTO.m_name}님의</h4> 
 					<h4 class="font-weight-bold">${memDTO.m_garden}</h4>
 					<button type="button" class="mt-3 btn gardenUpdateBtn" data-toggle="modal" data-target="#changeGardenName">
 						<img src="resources/img/edit2.png" width="20" height="20">&nbsp;수정하기
@@ -127,7 +130,7 @@
 						      	<form class="changeGardenName p-4" action="changeGardenName" method="post">
 					      		  <div class="form-group">
 						            <input type="text" class="form-control" placeholder="정원 이름을 입력하세요" name="m_garden">
-			                        <span class="onblur" id="gardenName"></span>
+			                        <div class="onblur mt-2" id="gardenName"></div>
 						          </div>
 						         </form> 
 						      </div>
@@ -165,10 +168,12 @@
 						</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview my">
-					<div class="gardenImg pt-2"><img src="${memDTO.m_profile}" width="200" height="150"></div>
-					<button type="button" class="mt-2 btn gardenUpdateBtn" data-toggle="modal" data-target="#changeGardenProfile">
-						<img src="resources/img/edit.png" width="20" height="20">
-					</button>
+					<div class="gardenImg position-relative">
+						<img src="${memDTO.m_profile}" class="hoverImg" width="250" height="150">
+						<button type="button" class="mt-2 btn gardenUpdateBtn position-absolute" data-toggle="modal" data-target="#changeGardenProfile">
+							<img src="resources/img/edit.png" width="20" height="20">
+						</button>
+					</div>
 				</div>
 			</div>	
 		</div>
@@ -184,11 +189,3 @@
 		</div>
 	</div>	
 </div>
-
-
-<!-- script -->
-<script>
-	$(function(){
-		
-	});
-</script>

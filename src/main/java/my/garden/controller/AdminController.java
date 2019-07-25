@@ -46,7 +46,7 @@ public class AdminController {
 					tmp = popular.size();
 				}
 				for(int i=0; i<tmp; i++) {
-					count.add(Math.round((double)(popular.get(i).getS_p_count()/totalCount)*100));
+					count.add(Math.round((popular.get(i).getS_p_count()/(double)totalCount)*100));
 				}		
 				for(int i=0; i<tmp; i++) {
 					popularProduct.add("'"+popular.get(i).getS_p_title()+" ("+count.get(i)+"%)'");
