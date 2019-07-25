@@ -10,7 +10,7 @@
    border-radius: 50%;
    padding: 2px;
    background:rgba(255,255,255,0.5);
-   box-shadow: 1px 1px 5px 1px #444;
+   box-shadow: 0 10px 30px 0 rgba(0,0,0,0.3);
    z-index: 999;
    font-size: 15px;
    cursor: pointer;

@@ -1,14 +1,16 @@
 package my.garden.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,9 +18,13 @@ import com.google.gson.Gson;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+
+
 import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.SubscribeDTO;
 import my.garden.service.PrivateGardenService;
+
+
 import my.garden.service.ShoppingService;
 import my.garden.serviceImpl.LoginServiceImpl;
 
@@ -33,13 +39,14 @@ public class MypageController {
 
 	@Autowired
 	ShoppingService shsvc;
+	
 
 	@RequestMapping("/mypageFirst")
 	public String Mypage(MembersDTO dto) {
 		String loginName = (String)session.getAttribute("loginName");
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
-		String[] mname = new String[]{"Ja", "Fb", "Mr", "Ap", "Ma", "Ju", "Jl", "Ag", "Sp", "Ot", "Nv", "Dc"};
+		String[] mname = new String[]{"1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"};
 		if(loginName==null) {
 			return "login/login";
 		}else {

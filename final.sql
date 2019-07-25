@@ -121,8 +121,8 @@ s_statement varchar(20) not null,
 s_orderdate timestamp not null,
 s_reviewok char(1) check(s_reviewok in('y','n'))
 );
-insert into shoplist values(33, 22, 'espanoir0419@naver.com', 'phone', 33, 'resources/img/profile.png', 'title', 2, 3000, 
-'recipient', 'memo', 'paymethod', 'zipcode', 'address1', 'address2', 'statement', sysdate, 'y');
+insert into shoplist values(56, 66666666, 'espanoir0419@naver.com', 'phone', 33, 'resources/img/profile.png', 'title', 2, 3000, 
+'recipient', 'memo', 'paymethod', 'zipcode', 'address1', 'address2', 'statement', '19/7/25 00:59:59.000000000', 'y');
 select * from shoplist;
 select * from members;
 delete from members where m_email='espanoir0419@naver.com_n';
@@ -143,13 +143,95 @@ select to_date(substr('2019-06-04 12:00', 1,10), 'yy/mm/dd') from dual;
 select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') from shoplist;
 select * from shoplist where s_email='espanoir0419@naver.com' and s_orderdate between to_date('2019-06-04 12:00', 'yy-mm-dd') and to_date('19/07/23', 'yy-mm-dd')+1;
 
-select count(*) from shoplist where s_email='espanoir0419@naver.com';
+
+
+
+
+
 commit;
 create sequence cf_seq
 start with 1
 increment by 1
 nocache
 nomaxvalue;
+
+create table subscribe(
+sb_orderno_seq number primary key,
+sb_email varchar(50) not null,
+sb_period varchar(20) not null,
+sb_category varchar(20) not null,
+sb_component1 varchar(20),
+sb_component2 varchar(20),
+sb_component3 varchar(20),
+sb_paymethod varchar(20) not null,
+sb_startday date default sysdate+1,
+sb_orderday date default sysdate,
+sb_statement varchar(20) not null,
+sb_price number not null
+);
+--drop table subscribe;
+create sequence sb_orderno_seq
+start with 1001
+increment by 1
+nocache
+nomaxvalue;
+insert into subscribe values(sb_orderno_seq.nextval, 'espanoir0419@naver.com','한 달에 한 번',
+'과일/채소', '상추', '오이', '우엉', '무통장입금', '19/12/22', sysdate, '입금 대기', 50000);
+select * from subscribe;
+--매주 한 번, 격주 :격주에 한 번, 월에한번 : 한 달에 한 번
+--'입금 대기' <-> 구독취소
+update subscribe set sb_email = 'espanoir0419@naver.com' where sb_email = 'espanoir@naver.com';
+
+select * from shoplist where s_email='espanoir0419@naver.com';
+select * from subscribe where sb_email='espanoir0419@naver.com';
+select s_orderdate, sb_startday from shoplist, subscribe where sb_email=s_email and sb_email='espanoir0419@naver.com' and s_email='espanoir0419@naver.com';
+select s_orderdate || sb_startday from shoplist, subscribe where sb_email='espanoir0419@naver.com' and s_email='espanoir0419@naver.com';
+
+
+SELECT s_orderdate FROM shoplist WHERE s_email='espanoir0419@naver.com'
+UNION ALL
+SELECT sb_startday FROM subscribe WHERE sb_email='espanoir0419@naver.com'
+ORDER BY 1;
+
+SELECT s_orderdate FROM shoplist WHERE s_email='espanoir0419@naver.com' UNION ALL SELECT sb_startday FROM subscribe WHERE sb_email='espanoir0419@naver.com';
+
+select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') as orderdate, COUNT(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd')) as count from (SELECT s_orderdate FROM shoplist WHERE s_email='espanoir0419@naver.com' UNION ALL SELECT sb_startday FROM subscribe WHERE sb_email='espanoir0419@naver.com') group by(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd')) order by 1;
+select sb_startday as orderdate, COUNT(sb_startday) as count from subscribe where sb_email = 'espanoir0419@naver.com' group by(sb_startday);
+select * from subscribe where sb_email='espanoir0419@naver.com' and sb_startday between to_date('2019-07-25', 'yy-mm-dd') and to_date('2019-07-25', 'yy-mm-dd')+0.99;
+
+select * from subscribe where sb_email = 'espanoir0419@naver.com';
+select sb_startday from subscribe where sb_email = 'espanoir@naver.com';
+
+select sb_startday, sb_period from subscribe where sb_email = 'espanoir@naver.com';
+select sb_startday, sb_startday+7, sb_startday+14, sb_startday+21 from subscribe where sb_email = 'espanoir@naver.com' and sb_period='매주 한 번';
+select sb_startday, sb_startday+7 from subscribe where sb_email = 'espanoir@naver.com' and sb_period='격주에 한 번';
+select sb_startday from subscribe where sb_email = 'espanoir@naver.com' and sb_period='한 달에 한 번';
+
+declare
+--sb_period subscribe.sb_period%type;
+sb_startday subscribe.sb_startday%type;
+begin select sb_period INTO sb_startday from subscribe where sb_email = 'espanoir@naver.com';
+IF sb_period = '매주 한 번' THEN
+  select sb_startday INTO sb_startday from subscribe where sb_email = 'espanoir@naver.com';
+ELSIF sb_period = '격주에 한 번' THEN
+  select sb_startday INTO sb_startday from subscribe where sb_email = 'espanoir@naver.com';
+ELSE 
+   select sb_startday INTO sb_startday from subscribe where sb_email = 'espanoir@naver.com';
+END IF;
+END;
+/
+
+create or replace procedure coffee_select_proc(pro_id coffee.id%type)
+is
+result coffee%rowtype;
+begin
+select * into result from coffee where id=pro_id;
+dbms_output.put_line(result.id || ' ' || result.name || ' ' || result.price);
+end;
+/
+exec coffee_select_proc(1004);
+-----------------------------------------------------
+
 
 create table comment_free(
 cf_bf_no number not null,
