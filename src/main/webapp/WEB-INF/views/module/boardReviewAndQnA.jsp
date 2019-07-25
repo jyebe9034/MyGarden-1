@@ -393,14 +393,14 @@ p {
 // 				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
 				var writer = $(this).prev().prev().val();
- 				alert("writer : " + writer);
+// 				alert("writer : " + writer);
 // 				alert("admin : " + "${grade}");
 				var bq_checkedAns = $(this).next().next().val();
 				alert("bq_checkedAns : "+bq_checkedAns);
 				if("${grade}"=="admin"){
 					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
-					alert("비밀글은 작성자만 볼 수 있습니다.");
+//					alert("비밀글은 작성자만 볼 수 있습니다.");
 				}else{
 // 					alert("bq_no : " + bq_no);
 					if(writer=="${loginId}"){ //내 글을 클릭했을 때
