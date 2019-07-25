@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css"
 	rel="stylesheet">

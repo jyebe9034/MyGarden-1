@@ -35,13 +35,25 @@ public class AdminController {
 			request.setAttribute("realSale", dao.serviceTotalSale() - dao.serviceTotalCancel());
 
 			List<ShopListDTO> popular = dao.servicePopularProduct();
-			request.setAttribute("popular", popular);
-			int totalCount = dao.serviceTotalSaleCount();
-
+			List<String> popularProduct = new ArrayList<>();
 			List<Long> count = new ArrayList<>();
-			for(int i=0; i<5; i++) {
-				count.add(Math.round(((double)popular.get(i).getS_p_count()/totalCount)*100));
+			if(popular.size()>0) {		
+				int totalCount = dao.serviceTotalSaleCount();
+				int tmp = 0;
+				if(popular.size()>5) {
+					tmp = 5;
+				}else {
+					tmp = popular.size();
+				}
+				for(int i=0; i<tmp; i++) {
+					count.add(Math.round((double)(popular.get(i).getS_p_count()/totalCount)*100));
+				}		
+				for(int i=0; i<tmp; i++) {
+					popularProduct.add("'"+popular.get(i).getS_p_title()+" ("+count.get(i)+"%)'");
+				}
 			}
+			request.setAttribute("popularProduct", popularProduct);
+			request.setAttribute("popular", popular);
 			request.setAttribute("count", count);
 			request.setAttribute("depositWait", dao.serviceStatCheck("입금 대기"));
 			request.setAttribute("shippingWait", dao.serviceStatCheck("결제 완료"));
@@ -69,29 +81,29 @@ public class AdminController {
 		}	
 		return "forAdmin/adminMembers";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("moneyStatChange")
 	public Map<String, Object> moneyStatChange(String no) {
 		Map<String, Object> map = new HashMap<>();
 		try {
-			 int result = dao.serviceUpdateOrder(no, "결제 완료");
-			 map.put("result", result);
-			 map.put("orderNo", no);
+			int result = dao.serviceUpdateOrder(no, "결제 완료");
+			map.put("result", result);
+			map.put("orderNo", no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("shippingStatChange")
 	public Map<String, Object> shippingStatChange(String no) {
 		Map<String, Object> map = new HashMap<>();
 		try {
-			 int result = dao.serviceUpdateOrder(no, "배송중");
-			 map.put("result", result);
-			 map.put("orderNo", no);
+			int result = dao.serviceUpdateOrder(no, "배송중");
+			map.put("result", result);
+			map.put("orderNo", no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

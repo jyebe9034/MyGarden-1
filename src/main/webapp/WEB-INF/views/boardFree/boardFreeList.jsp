@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
-
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <title>자유게시판</title>
 </head>
 <style>
@@ -29,16 +29,16 @@
 .realImg, .img {
 	padding: 0px;
 	width: 100%;
-	height: 151px;	
+	height: 151px;
 	text-align: center;
 }
 
 .img img {
 	max-width: 100%;
 	max-height: 151px;
-	border-radius: 5px;	
+	border-radius: 5px;
 	position: absolute;
-	left:0;
+	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
@@ -51,11 +51,17 @@
 	margin-left: 28px;
 }
 
-.sTitle{
+.searchContImg {
+	margin-left: 28px;
+	padding: 0px;
+}
+
+.sTitle {
 	margin-left: 35px;
 	margin-bottom: 10px;
 	color: #8e74a8;
 }
+
 .title:hover {
 	text-decoration: underline;
 	cursor: pointer;
@@ -117,10 +123,10 @@ hr {
 	color: #c1b1fc;
 }
 
-.searchContImg img{
-	width:150px !important;
+.searchContImg img {
+	width: 100px !important;
+	border-radius: 5px;
 }
-
 </style>
 <body>
 	<div class=col-12 id=titleImg>
@@ -143,8 +149,7 @@ hr {
 						</div>
 						<input type=hidden value=${tmp.bf_no }>
 						<div class=otherContents>
-							<span class=writer><img
-								src="resources/free/boardFreeWriter.png">${tmp.bf_writer }</span>
+							<span class=writer><img src=${tmp.bf_writerImg }>${tmp.bf_writer }</span>
 							<span class=writeDate><img
 								src="resources/free/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
 							<span class=viewCount><img
@@ -157,7 +162,7 @@ hr {
 				</div>
 			</c:forEach>
 		</div>
-		<br><br>
+		<br> <br>
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
@@ -226,8 +231,11 @@ hr {
 				$(this).css("color","#c1b1fc");
 		}
 		})
-		
+
 		$("#freeSearchBtn").on("click",function(){
+			if($("#searchVal").val()==""){
+				alert("검색어를 입력해주세요.");
+			}else{
 			$.ajax({
 				url:'searchForFree',
 				data:{
@@ -257,11 +265,18 @@ hr {
 					$("#naviPlace").html(navi);
 				}	
 				}else{
-					$(".listOne").html("<center><img src=resources/img/noresults.png><br><br>'<b>"+resp.searchVal+"</b>' 에 대한 결과가 없습니다.<br><br>"
-					+"<button id='back' class='btn'>뒤로 가기</button>");
+					$(".listOne").html("<center><img src=resources/img/noresults.png width=500px><br><br><br>'<b>"+resp.searchVal+"</b>' 에 대한 결과가 없습니다.<br><br>"
+					+"<button id='back' class='btn'>돌아가기</button>");
 				}
 			})
+			}
 		})
+		
+// 		$(document).on("keydown", "#searchVal", function(key) {		
+//         if (key.keyCode == 13) {
+//         	$("#freeSearchBtn").click();   	
+//         }
+// 		})
 		
 		$(document).on("click", ".searchNaviBtn", function(){
 			var page = $(this).text();
