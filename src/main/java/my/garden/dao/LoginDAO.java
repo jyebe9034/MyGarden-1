@@ -178,7 +178,7 @@ public class LoginDAO {
 		// Google일 경우 smtp.gmail.com 을 입력합니다. 
 		String host = "smtp.naver.com"; 
 		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden55*"; //네이버 이메일 비밀번호를 입력해주세요. 
+		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
 		int port=465; //포트번호 
 		
 		// 메일 내용 

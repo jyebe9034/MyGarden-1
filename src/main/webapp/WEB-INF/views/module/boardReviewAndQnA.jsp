@@ -167,8 +167,9 @@ p {
 #revAndQnAWrapper button {
 	width: 90px;
 	height: 30px;
-	font-size: 10px;
 	margin: 0 2px;
+	font-size: 15px;
+    line-height: 2px;
 }
 
 .writeReviewBtnWrapper {
@@ -245,6 +246,7 @@ p {
 	border-radius: 2px;
 	background-color: #bf9fd6;
 	color: white;
+	font-size:12px !important;
 }
 
 /* 		color: #456152; */
@@ -393,10 +395,10 @@ p {
 // 				alert("check: " + checkedSecret);
 				var bq_no = $(this).next().val();
 				var writer = $(this).prev().prev().val();
- 				alert("writer : " + writer);
+//				alert("writer : " + writer);
 // 				alert("admin : " + "${grade}");
 				var bq_checkedAns = $(this).next().next().val();
-				alert("bq_checkedAns : "+bq_checkedAns);
+//				alert("bq_checkedAns : "+bq_checkedAns);
 				if("${grade}"=="admin"){
 					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
@@ -471,8 +473,8 @@ p {
 									</div>
 									<div class="reviewWriteDate">
 										<img src="/resources/free/boardFreeWriteDate.png" width="20px">
-										<fmt:formatDate pattern="yyyy-MM-dd"
-											value="${reviewList.br_writedate }" />
+<%-- 										<fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.br_writedate }" /> --%>
+										${reviewList.br_writedate }
 									</div>
 
 
@@ -601,8 +603,7 @@ p {
 							</div>
 							<div class="col-2">${qnaList.bq_name }</div>
 							<div class="col-2">
-								<fmt:formatDate pattern="yyyy-MM-dd"
-									value="${qnaList.bq_writedate }" />
+								${qnaList.bq_writedate }
 							</div>
 						</c:forEach>
 

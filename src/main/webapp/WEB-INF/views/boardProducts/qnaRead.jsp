@@ -184,10 +184,6 @@ div {
 	background-color: white !important;
 }
 
-svg {
-	margin-bottom: 15px;
-}
-
 #inputComment {
 	width: 95%;
 	margin: 0 auto;
@@ -240,9 +236,8 @@ svg {
 	border: 0px;
 }
 
-[contentEditable=true]:empty:not (:focus ):before {
-	content: attr(data-text)
-}
+[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
+
 </style>
 
 <!-- script -->
@@ -356,7 +351,7 @@ svg {
 						data: {"cq_no" : ${readQnA.bq_no}}
 					}).done(function(resp){
 						if(resp=2){
-							alert("resp" + resp);
+							//alert("resp" + resp);
 							$("#answerWrapper").html("");
 							$("#answerWrapper").append("<div class='form-group row commentRow'>"
 									+"<div class=\"col-12 commentLabelBox\">"
@@ -425,8 +420,7 @@ svg {
 					<div class="col-12">
 						<img src="${writerInfo.m_profile}" class="profileImg"
 							border="1px solid black"> <span class="writerInfo">
-							${readQnA.bq_name }/작성자/ <fmt:formatDate
-								pattern="yyyy-MM-dd hh:mm:ss" value="${readQnA.bq_writedate }" />
+							${readQnA.bq_name }/작성자/${readQnA.bq_writedate }
 						</span>
 					</div>
 				</div>
