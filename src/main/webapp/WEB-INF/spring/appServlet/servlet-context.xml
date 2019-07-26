@@ -18,7 +18,7 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<context:component-scan base-package="my.garden" />
+	<context:component-scan base-package="my.garden"/>
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	<!-- transction Management -->
 	<tx:annotation-driven transaction-manager="txManager"/>
@@ -31,11 +31,9 @@
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="prefix" value="/WEB-INF/views/"/>
+		<beans:property name="suffix" value=".jsp"/>
 	</beans:bean>
-	
-	<context:component-scan base-package="my.garden" />
 	
 <!-- 	file upload -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -52,11 +50,11 @@
 	
 	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="mapperLocations" value="classpath:/myBatis/*-mapper.xml" />
+		<beans:property name="mapperLocations" value="classpath:/myBatis/*-mapper.xml"/>
 	</beans:bean>
 	
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+		<beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</beans:bean>	
 	
 	<beans:bean id="txManager"
