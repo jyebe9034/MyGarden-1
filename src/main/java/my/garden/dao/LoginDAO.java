@@ -185,16 +185,17 @@ public class LoginDAO {
 	
 	public String mailSender(String m_email) throws Exception {
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; 
-		final String password = "mygarden5*"; 
-		int port=465; 
+		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
+		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
+		int port=465; //포트번호 
 		
 		// 메일 내용 
-		String recipient = m_email; 
-		String subject = "나의 정원에서 코드 번호를 보내드립니다";
-			String randomCode = this.randomCode();
-		String body = "코드 번호는 " + randomCode + "입니다. ";  
-		Properties props = System.getProperties(); 
+		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
+		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
+		String randomCode = this.randomCode();
+		System.out.println("인증번호 : " + randomCode);
+		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
+		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
 		
 		// SMTP 서버 정보 설정 
 		props.put("mail.smtp.host", host); 
