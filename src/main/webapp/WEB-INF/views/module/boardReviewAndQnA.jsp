@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -79,7 +79,7 @@ p {
 
 .reviewImage {
 	width: 100%;
- 	height: 150px;
+	height: 150px;
 	text-align: center;
 }
 
@@ -89,18 +89,17 @@ p {
 	border-radius: 5px;
 }
 
-.reviewRightTopBox{
-    margin-bottom: 15px;
+.reviewRightTopBox {
+	margin-bottom: 15px;
 }
 
 .reviewRightTop {
-	height: 60%;
+ 	height: 60%; 
 	margin-bottom: 10px;
 }
 
 .reviewRightBottom {
-	height: 40%;
-	
+	height: 54px !important;
 }
 
 .reviewTitle {
@@ -119,8 +118,8 @@ p {
 	width: 100%;
 	border-radius: 10px;
 	padding: 10px;
-	word-break:break-all;
- }
+	word-break: break-all;
+}
 
 .reviewWriter {
 	color: #6c736f;
@@ -175,7 +174,7 @@ p {
 	height: 30px;
 	margin: 0 2px;
 	font-size: 15px;
-    line-height: 2px;
+	line-height: 2px;
 }
 
 .writeReviewBtnWrapper {
@@ -252,7 +251,7 @@ p {
 	border-radius: 2px;
 	background-color: #bf9fd6;
 	color: white;
-	font-size:12px !important;
+	font-size: 12px !important;
 }
 
 /* 		color: #456152; */
@@ -287,11 +286,7 @@ p {
 				var reviewTitle = $(item).prev();
 				$(reviewTitle).on("click",function(){
 					
-					var rvImage = $(this).parent().parent().siblings(".reviewImage").children();
-					var rvImageHeights = rvImage.height();
-					var contentHeights = $(this).next("div").height();
-					var changeRvImgH = rvImageHeights + 140-(contentHeights-56);
-					console.log("rvImageHeights 나오냐? " + rvImageHeights);
+ 					var rvImage = $(item).parent().parent().prev().prev().children();
 					
 					if($(item).attr("display")=="none"){
 						$(this).css("font-weight","bold");
@@ -299,12 +294,17 @@ p {
 						$(item).show();
 						$(item).attr("display", "block");
 						$(item).css("background-color","#f3fff0");  
- 						$(rvImage).css("maxheight",230)
+						$(this).parent().css("height","142px");
+						$(this).parent().css("margin-bottom","3px");
+ 						$(rvImage).css("height","213px")
 					}else{
 						$(this).css("font-weight","400");
 // 						$(this).css("font-size","16px");
 						$(item).hide();
 						$(item).attr("display", "none");   
+						$(this).parent().css("height","60%");
+						$(this).parent().css("margin-bottom","10px");
+						$(rvImage).css("height","150px")
 					}
 				})
 			})
@@ -416,7 +416,7 @@ p {
 				if("${grade}"=="admin"){
 					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
-//					alert("비밀글은 작성자만 볼 수 있습니다.");
+					alert("비밀글은 작성자만 볼 수 있습니다.");
 				}else{
 // 					alert("bq_no : " + bq_no);
 					if(writer=="${loginId}"){ //내 글을 클릭했을 때
@@ -475,57 +475,59 @@ p {
 								<div class="reviewRightTop">
 									<div class="reviewTitle">${reviewList.br_title }</div>
 									<div class="reviewContent" display="none">
-										${reviewList.br_content }</div>
+										${reviewList.br_content }
+									</div>
 								</div>
 
 								<div class="reviewRightBottom row">
 									<hr class="innerLines">
-									
+
 									<div class="col-8">
-									
-									<div class="reviewWriter">
-										<img src="/resources/free/boardFreeWriter.png" width="20px">
-										${reviewList.br_name }
-									</div>
-									<div class="reviewWriteDate">
-										<img src="/resources/free/boardFreeWriteDate.png" width="20px">
-										<%-- 										<fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.br_writedate }" /> --%>
-										${reviewList.br_writedate }
-									</div>
-									<div class="reviewRecommend" value="${reviewList.br_recommend}">
-										<input type="hidden" value="${reviewList.br_title}"> <span
-											class="mb-1 recommendBtn"> <c:forEach
-												var="myRecommendNo" items="${myRecommendNo }">
-												<c:choose>
-													<c:when test="${myRecommendNo eq reviewList.br_no }">
-														<span class="checkRecmd" flag="t"></span>
-														<!-- 														<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'> -->
-													</c:when>
-													<c:otherwise>
-														<span class="checkRecmd" flag="f"></span>
-														<!-- 														<img src="/resources/products/reviewHate.png" width="25px" class="recommendImage"> -->
-													</c:otherwise>
-												</c:choose>
-											</c:forEach> <img src="/resources/products/reviewHate.png" width="25px"
-											class="recommendImage">
-										</span> <input type="hidden" class="${reviewList.br_no}"
-											value="${reviewList.br_no}"> 도움돼요 <span
-											class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
+
+										<div class="reviewWriter">
+											<img src="/resources/free/boardFreeWriter.png" width="20px">
+											${reviewList.br_name }
+										</div>
+										<div class="reviewWriteDate">
+											<img src="/resources/free/boardFreeWriteDate.png"
+												width="20px">
+												${reviewList.br_writedate }
+										</div>
+										<div class="reviewRecommend"
+											value="${reviewList.br_recommend}">
+											<input type="hidden" value="${reviewList.br_title}">
+											<span class="mb-1 recommendBtn"> <c:forEach
+													var="myRecommendNo" items="${myRecommendNo }">
+													<c:choose>
+														<c:when test="${myRecommendNo eq reviewList.br_no }">
+															<span class="checkRecmd" flag="t"></span>
+															<!-- 														<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'> -->
+														</c:when>
+														<c:otherwise>
+															<span class="checkRecmd" flag="f"></span>
+															<!-- 														<img src="/resources/products/reviewHate.png" width="25px" class="recommendImage"> -->
+														</c:otherwise>
+													</c:choose>
+												</c:forEach> <img src="/resources/products/reviewHate.png" width="25px"
+												class="recommendImage">
+											</span> <input type="hidden" class="${reviewList.br_no}"
+												value="${reviewList.br_no}"> 도움돼요 <span
+												class="helpful" value="${reviewList.br_no}">${reviewList.br_recommend}</span>
+										</div>
+
 									</div>
 
-</div>
+									<div class="col-4">
+										<c:choose>
+											<c:when test="${loginId eq reviewList.br_email}">
+												<div class="reviewUpdateBtn">
+													<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
+													<button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
+												</div>
+											</c:when>
+										</c:choose>
+									</div>
 
-	<div class="col-4">
-									<c:choose>
-										<c:when test="${loginId eq reviewList.br_email}">
-											<div class="reviewUpdateBtn">
-												<button class="btn modifyBtn" value="${reviewList.br_no}">수정하기</button>
-												<button class="btn deleteBtn" value="${reviewList.br_no}">삭제하기</button>
-											</div>
-										</c:when>
-									</c:choose>
-		</div>							
-									
 								</div>
 							</div>
 							<hr class="lines">
@@ -616,9 +618,7 @@ p {
 								</c:choose>
 							</div>
 							<div class="col-2">${qnaList.bq_name }</div>
-							<div class="col-2">
-								${qnaList.bq_writedate }
-							</div>
+							<div class="col-2">${qnaList.bq_writedate }</div>
 						</c:forEach>
 
 					</div>

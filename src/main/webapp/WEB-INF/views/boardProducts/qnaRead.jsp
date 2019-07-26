@@ -14,9 +14,13 @@ div {
 	
 }
 
+#qnaHeaderImg {
+	width: 100% !important;
+}
+
 #qnaWrapper {
 	width: 1000px;
-	margin: 300px auto;
+	margin: 50px auto;
 }
 
 #updateQnAForm {
@@ -167,7 +171,7 @@ div {
 	height: 20%;
 }
 
-.commentLabelBox img{
+.commentLabelBox img {
 	margin-bottom: 15px;
 }
 
@@ -236,8 +240,9 @@ div {
 	border: 0px;
 }
 
-[contentEditable=true]:empty:not(:focus):before { content:attr(data-text) }
-
+[contentEditable=true]:empty:not (:focus ):before {
+	content: attr(data-text)
+}
 </style>
 
 <!-- script -->
@@ -398,6 +403,8 @@ div {
 			</div>
 		</div>
 	</div>
+
+<img alt="" src="/resources/products/qnaHeader.jpg" id="qnaHeaderImg">
 
 	<!-- 리뷰 작성 폼 -->
 	<div id="qnaWrapper">
