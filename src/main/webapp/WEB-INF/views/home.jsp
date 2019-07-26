@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나의 정원</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
-<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 	<style>
 		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
 		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
@@ -125,31 +124,31 @@
 				      <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
 				    </ol>
 				    <div class="carousel-inner">
-				      <div class="carousel-item">
+				      <div class="carousel-item active">
 				        <img src="resources/img/carousel1.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
-				          <h5>Third slide label</h5>
+				          <h5>First slide label</h5>
 				          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
 				        </div>
 				      </div>
 				      <div class="carousel-item">
-				        <img src="resources/img/carousel2.jpg" class="d-block w-100" alt="...">
+				        <img src="resources/img/caro2.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
 				          <h5>Second slide label</h5>
 				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				        </div>
 				      </div>
-				      <div class="carousel-item active">
+				      <div class="carousel-item">
 				        <img src="resources/img/carousel3.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
-				          <h5>First slide label</h5>
+				          <h5>Third slide label</h5>
 				          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 				        </div>
 				      </div>
 				      <div class="carousel-item">
-				        <img src="resources/img/carousel4.jpg" class="d-block w-100" alt="...">
+				        <img src="resources/img/carousel2.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-right mb-5">
-				          <h5>Third slide label</h5>
+				          <h5>Fourth slide label</h5>
 				          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
 				        </div>
 				      </div>

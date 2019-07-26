@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <title>자유게시판</title>
 </head>
 <style>

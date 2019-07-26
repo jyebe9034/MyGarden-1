@@ -3,6 +3,7 @@ package my.garden.service;
 import java.util.List;
 
 import my.garden.dto.AdminMemDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 
 public interface AdminService {
@@ -13,6 +14,8 @@ public interface AdminService {
 	public int serviceTotalSaleCount() throws Exception;
 	public int serviceStatCheck(String stat) throws Exception;
 	public List<ShopListDTO> serviceOrderCheckList(String stat) throws Exception;
+	public List<ShopListDTO> serviceSubscribeCheckList(String stat) throws Exception;
 	public int serviceUpdateOrder(String orderNo, String stat) throws Exception;
-	//public List<ShopListDTO> serviceOrderCheckUpdate(int orderNo, String changeStat, String listStat) throws Exception;
+	public int serviceUpdateSubscribe(String orderNo, String stat) throws Exception;
+	public List<PrivateGardenDTO> servicePrivateList() throws Exception;
 }

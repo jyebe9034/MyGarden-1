@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import my.garden.dao.AdminDAO;
 import my.garden.dto.AdminMemDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 
 @Repository
@@ -55,6 +56,9 @@ public class AdminDAOImpl implements AdminDAO {
 		return sst.selectList("AdminDAO.orderCheckList", stat);
 	}
 	
+	public List<ShopListDTO> subscribeCheckList(String stat){
+		return sst.selectList("AdminDAO.subscribeCheckList", stat);
+	}
 	public int updateOrder(String orderNo, String stat) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("no", orderNo);
@@ -62,4 +66,14 @@ public class AdminDAOImpl implements AdminDAO {
 		return sst.update("AdminDAO.updateOrder", map);
 	}
 	
+	public int updateSubscribe(String orderNo, String stat) {
+		Map<String, String> map = new HashMap<>();
+		map.put("no", orderNo);
+		map.put("stat", stat);
+		return sst.update("AdminDAO.updateSubscribe", map);
+	}
+	
+	public List<PrivateGardenDTO> privateList(){
+		return sst.selectList("AdminDAO.privateList");
+	}	
 }

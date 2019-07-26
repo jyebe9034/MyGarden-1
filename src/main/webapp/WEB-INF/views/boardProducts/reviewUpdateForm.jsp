@@ -146,8 +146,6 @@
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>s
-	
 	<!-- 			carousel -->
 	<div class="container-fluid my">
 		<div class="row my">

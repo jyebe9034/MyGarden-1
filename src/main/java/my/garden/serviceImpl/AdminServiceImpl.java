@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import my.garden.dao.AdminDAO;
 import my.garden.dto.AdminMemDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.service.AdminService;
 
@@ -46,13 +47,21 @@ public class AdminServiceImpl implements AdminService {
 		return dao.orderCheckList(stat);
 	}
 
+	public List<ShopListDTO> serviceSubscribeCheckList(String stat) throws Exception{
+		return dao.subscribeCheckList(stat);
+	}
+	
+	
 	public int serviceUpdateOrder(String orderNo, String stat) throws Exception{
 		return dao.updateOrder(orderNo, stat);
 	}
 	
-	/*public List<ShopListDTO> serviceOrderCheckUpdate(int orderNo, String changeStat, String listStat) throws Exception{
-		 dao.updateOrder(orderNo, changeStat);
-		 return dao.orderCheckList(listStat);
-	}*/
+	public int serviceUpdateSubscribe(String orderNo, String stat) throws Exception{
+		return dao.updateSubscribe(orderNo, stat);
+	}
+	
+	public List<PrivateGardenDTO> servicePrivateList() throws Exception{
+		return dao.privateList();
+	}
 
 }
