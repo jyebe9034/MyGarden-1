@@ -105,7 +105,7 @@ public class LoginServiceImpl {
 		return logDao.findAccountChange(map);
 	}
 	
-	public String findId(String key) {
+	public MembersDTO findId(String key) {
 		return logDao.findId(key);
 	}
 	
@@ -155,22 +155,18 @@ public class LoginServiceImpl {
 	}
 	
 	public String NaverLoginGetInfo(String code) {
-		String socialEmail = logDao.NaverLoginGetInfo(code)+"_n";
+		String socialEmail = logDao.NaverLoginGetInfo(code)+"(naver)";
         return socialEmail;
 	}
 	
 	public int socialJoinSubmit(MembersDTO dto) {
 		dto.setM_social(request.getSession().getAttribute("social").toString());
 		dto.setM_ipaddress(request.getRemoteAddr());
-		System.out.println(dto.getM_profile());
 		if(dto.getM_profile()==null) {
 			dto.setM_profile("resources/img/profile.png");
 		}else {
 			dto.setM_profile(dto.getM_profile().toString());
 		}
-		System.out.println("profile : " + request.getSession().getAttribute("profile").toString());
-		System.out.println("mail : " + dto.getM_email());
-		
 		return logDao.socialJoinSubmit(dto);
 	}
 	
@@ -187,8 +183,6 @@ public class LoginServiceImpl {
         String profile = null;
         String socialEmail = null;
 
-
-
         // 유저정보 카카오에서 가져오기 Get properties
 
         JsonNode properties = userInfo.path("properties");
@@ -203,7 +197,7 @@ public class LoginServiceImpl {
 //        System.out.println("email : " + socialEmail);
         
         Map<String, String> map = new HashMap();
-        map.put("socialEmail", id+"_k");
+        map.put("socialEmail", id+"(kakao)");
         map.put("profile", profile);
         return map;
 	}
@@ -239,6 +233,10 @@ public class LoginServiceImpl {
 	}
 	public List<SubscribeDTO> getShoppedListSub(SubscribeDTO dto){
 		return logDao.getShoppedListSub(dto);
+	}
+	
+	public SubscribeDTO selectSub(String id){
+		return logDao.selectSub(id);
 	}
 	
 	public String getGrade(String id) {

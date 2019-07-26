@@ -94,7 +94,13 @@ public class LoginDAO {
 	public int joinSubmit(MembersDTO dto) {
 		dto.setM_pw(this.SHA256(dto.getM_pw()));
 		dto.setM_ipaddress(request.getRemoteAddr());
-		return sst.insert("LoginDAO.joinSubmit", dto);
+		try {
+			int rst = sst.insert("LoginDAO.joinSubmit", dto);
+			return rst;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 	
 	public String emailDupCheck(String key) {
@@ -160,7 +166,11 @@ public class LoginDAO {
 	}
 	
 	public int memUpdateAll(MembersDTO dto) {
-		return sst.insert("LoginDAO.memUpdateAll", dto);
+		try {
+			return sst.insert("LoginDAO.memUpdateAll", dto);
+		}catch(Exception e) {
+			return -1;
+		}
 	}
 	
 	public String randomCode() {
@@ -174,19 +184,17 @@ public class LoginDAO {
 	}
 	
 	public String mailSender(String m_email) throws Exception {
-		// 네이버일 경우 smtp.naver.com 을 입력합니다. 
-		// Google일 경우 smtp.gmail.com 을 입력합니다. 
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
-		int port=465; //포트번호 
+		final String username = "sparkss0419"; 
+		final String password = "mygarden5*"; 
+		int port=465; 
 		
 		// 메일 내용 
-		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
-		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
+		String recipient = m_email; 
+		String subject = "나의 정원에서 코드 번호를 보내드립니다";
 			String randomCode = this.randomCode();
-		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
-		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
+		String body = "코드 번호는 " + randomCode + "입니다. ";  
+		Properties props = System.getProperties(); 
 		
 		// SMTP 서버 정보 설정 
 		props.put("mail.smtp.host", host); 
@@ -203,37 +211,40 @@ public class LoginDAO {
 				return new javax.mail.PasswordAuthentication(un, pw); 
 				} 
 			}); 
-		session.setDebug(true); //for debug 
-		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성 
-		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요. 
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
+		session.setDebug(true); 
+		Message mimeMessage = new MimeMessage(session); 
+		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); 
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 		
-		mimeMessage.setSubject(subject); //제목셋팅 
-		mimeMessage.setText(body); //내용셋팅 
-		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
+		mimeMessage.setSubject(subject); 
+		mimeMessage.setText(body); 
+		Transport.send(mimeMessage);
 		
 		return randomCode;
 	}
 	
 	public int findAccountChange(Map<String, String> map) {
-		return sst.insert("LoginDAO.updateOne", map);
+		try {
+			return sst.insert("LoginDAO.updateOne", map);
+		}catch(Exception e) {
+			return -1;
+		}
 	}
 
 	public int changeGardenStuff(Map<String, String> map) {
 		return sst.insert("LoginDAO.updateOne", map);
 	}
 	
-	public String findId(String key) {
+	public MembersDTO findId(String key) {
 		Map<String, String> map = new HashMap();
-		map.put("col", "m_email");
 		map.put("whereCol", "m_phone");
 		map.put("value", key);
-		return sst.selectOne("LoginDAO.dupCheck", map);
+		return sst.selectOne("LoginDAO.dupCheckAll", map);
 	}
 	
 	public String NaverLoginMakeUrl() {
 		try {
-		    String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
+		    String clientId = "zoUb6lNYx8sC2suyUmcS";
 		    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
 		    SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
@@ -426,6 +437,14 @@ public class LoginDAO {
 			return null;
 		}else {
 			return sst.selectList("LoginDAO.selectOrderListSub", dto);
+		}
+	}
+	
+	public SubscribeDTO selectSub(String id){
+		if(sst.selectOne("LoginDAO.selectSub", id)==null) {
+			return null;
+		}else {
+			return sst.selectOne("LoginDAO.selectSub", id);
 		}
 	}
 	

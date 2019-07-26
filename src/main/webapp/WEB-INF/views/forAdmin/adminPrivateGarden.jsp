@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,33 +69,32 @@
 	background-color: #e8e4f0;
 }
 
-#dataTable, th{
+#dataTable, th {
 	text-align: center;
 }
 
-th{
+th {
 	background-color: #9073c9;
 	color: white;
 }
 
-.table{
-	margin:0 auto;
+.table {
+	margin: 0 auto;
 	padding: 15px;
 }
 
-.pagination .active .page-link{
-background-color: #bcdeb4;
-border: 1px solid #bcdeb4;
-font-weight: bold;
+.pagination .active .page-link {
+	background-color: #bcdeb4;
+	border: 1px solid #bcdeb4;
+	font-weight: bold;
 }
 
 .headerFluid {
-   position: fixed !important;
-   top: 0;
-   left: 0;
-   opacity: 0.8;
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	opacity: 0.8;
 }
-
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
@@ -127,19 +126,10 @@ font-weight: bold;
 				</div>
 				<nav id="left-sidebar-nav" class="sidebar-nav">
 				<ul id="main-menu" class="metismenu">
-					<li class=""><a href="adminIndex"><i class="lnr lnr-home"></i>
-							<span>전체 보기</span></a></li>
-					<li class="active"><a href="adminMembers" class="has-arrow"
-						aria-expanded="false"><i class="lnr lnr lnr-user"></i> <span>회원
-								관리</span></a>
-						<ul aria-expanded="true">
-							<li class=""><a href="#">공유정원 회원</a></li>
-							<li class=""><a href="#">비밀정원 회원</a></li>
-						</ul></li>
-					<li class=""><a href="adminStat" aria-expanded="false"><i
-							class="lnr lnr-chart-bars"></i> <span>통계</span></a></li>
-					<li class=""><a href="#"><i class="lnr lnr-alarm"></i> <span>공지사항</span>
-							<span class="badge bg-danger">15</span></a></li>
+					<li class="active"><a href="adminIndex"> <i
+							class="lnr lnr-home"></i><span>전체 보기</span></a></li>
+					<li class=""><a href="adminPrivateGarden"> <i
+							class="lnr lnr lnr-leaf"></i><span>비밀 정원</span></a></li>
 				</ul>
 				</nav>
 			</div>
@@ -161,28 +151,44 @@ font-weight: bold;
 							<tr>
 								<th>아이디</th>
 								<th>이름</th>
-								<th>연락처</th>
-								<th>가입일자</th>
-								<th>IP주소</th>
-								<th>등급</th>
-								<th>포인트</th>
-								<th>성별</th>
 								<th>정원 이름</th>
+								<th>정원 생성일</th>
+								<th>허브 종류</th>
+								<th>온도</th>
+								<th>습도</th>
+								<th>빛</th>
+								<th>상태</th>
+								<th>소비여부</th>
 							</tr>
 						</thead>
 						<tbody>
 							<div id=mTable>
-								<c:forEach var="tmp" items="${member}">
+								<c:forEach var="tmp" items="${list}">
 									<tr>
-										<td>${tmp.m_email }</td>
-										<td>${tmp.m_name }</td>
-										<td>${tmp.m_phone }</td>
-										<td>${tmp.m_joindate }</td>
-										<td>${tmp.m_ipaddress }</td>
-										<td>${tmp.m_grade }</td>
-										<td>${tmp.m_point }</td>
-										<td>${tmp.m_gender }</td>
-										<td>${tmp.m_garden }</td>
+										<td>${tmp.g_email }</td>
+										<td>${tmp.g_name }</td>
+										<td>${tmp.g_gardenname }</td>
+										<td><fmt:formatDate value="${tmp.g_enrolldate }" pattern="yyyy-MM-dd"/></td>
+										<td>${tmp.g_hurb }</td>
+										<td>${tmp.g_temper }</td>
+										<td>${tmp.g_humid }</td>
+										<td>${tmp.g_light }</td>
+										<c:choose>
+											<c:when test="${tmp.g_process == 'y'}">
+												<td>재배 중</td>
+											</c:when>
+											<c:otherwise>
+												<td>재배 완료</td>
+											</c:otherwise>
+										</c:choose>
+										<c:choose>
+											<c:when test="${tmp.g_process == 'y'}">
+												<td>-</td>
+											</c:when>
+											<c:otherwise>
+												<td>${tmp.g_process}</td>
+											</c:otherwise>
+										</c:choose>
 									</tr>
 								</c:forEach>
 							</div>
