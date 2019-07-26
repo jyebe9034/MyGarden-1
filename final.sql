@@ -199,7 +199,8 @@ select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') as orderdate, COUNT(to_date
 select sb_startday as orderdate, COUNT(sb_startday) as count from subscribe where sb_email = 'espanoir0419@naver.com' group by(sb_startday);
 select * from subscribe where sb_email='espanoir0419@naver.com' and sb_startday between to_date('2019-07-25', 'yy-mm-dd') and to_date('2019-07-25', 'yy-mm-dd')+0.99;
 
-select * from subscribe where sb_email = 'espanoir0419@naver.com';
+SELECT * FROM (SELECT * FROM subscribe ORDER BY ROWNUM DESC) WHERE  sb_email = 'espanoir0419@naver.com' and ROWNUM = 1;
+SELECT * FROM (SELECT * FROM subscribe WHERE sb_email = 'espanoir0419@naver.com' ORDER BY sb_orderno_seq DESC) WHERE ROWNUM = 1;
 select sb_startday from subscribe where sb_email = 'espanoir@naver.com';
 
 select sb_startday, sb_period from subscribe where sb_email = 'espanoir@naver.com';

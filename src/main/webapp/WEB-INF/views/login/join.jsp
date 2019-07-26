@@ -430,6 +430,21 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            			$("input[name=m_phone]").val("");
            		}
            	});
+           	var today = new Date();
+           	var curYear = today.toString().substr(13,2);
+           	var curY = today.toString().substr(11,2);
+           	$("#date").on("blur", function(){
+           		if($('#date').val().substr(2,2) <= curYear-15){
+           			$("#birthCheck").text("");
+           		}else{
+           			if(curYear-15 < 10){
+               			$("#birthCheck").text(curY + "0" + curYear-15 + "년도 이상 출생자부터 가입 가능합니다");
+           			}else{
+               			$("#birthCheck").text(curY + curYear-15 + "년도 이상 출생자부터 가입 가능합니다");
+           			}
+           			$("#date").val("");
+           		}
+           	});
        		$('#joinSubmit').on('click', function(){
            		if($('#ex_file').val()!=""){
            			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
@@ -495,7 +510,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div class="onblur" id="eamilName"></div>
 			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
 			                      <div id="verifingCode">  	
-			                        <input type="text" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
+			                        <input type="password" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
 			                        	<button type="button" id="verCodeBtn" class="btn">인증하기</button>
 			                      </div>  	
 <!-- 			             surplusForm -->
@@ -512,6 +527,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div id="addressSet"></div>
 			                        </div>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
+		                        		<span class="onblur" id="birthCheck"></span>
 	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">
 			                        <div class="custom-control custom-radio custom-control-inline ml-3">
 									  <input type="radio" id="customRadioInline1" value="여성" name="m_gender" class="custom-control-input" checked/>

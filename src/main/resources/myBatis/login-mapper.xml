@@ -33,6 +33,10 @@
 		select ${col} from members where ${whereCol} = #{value}
 	</select>
 	
+	<select id="dupCheckAll" parameterType="map" resultType="my.garden.dto.MembersDTO">
+		select * from members where ${whereCol} = #{value}
+	</select>
+	
 	<delete id="delete">
 		delete from members where m_email = #{value}
 	</delete>
@@ -73,4 +77,8 @@
    		select * from subscribe where sb_email=#{sb_email} and sb_startday between to_date(#{sb_startday}, 'yy-mm-dd') and to_date(#{sb_startday}, 'yy-mm-dd')+0.9999
    </select>
 	
+   <select id="selectSub" resultType="my.garden.dto.SubscribeDTO">
+   		SELECT * FROM (SELECT * FROM subscribe ORDER BY ROWNUM DESC) WHERE  sb_email=#{value} and ROWNUM = 1
+   </select>
+   
 </mapper>
