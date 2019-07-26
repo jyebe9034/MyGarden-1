@@ -2,6 +2,8 @@ package my.garden.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import my.garden.dto.AdminMemDTO;
 import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
@@ -15,7 +17,7 @@ public interface AdminService {
 	public int serviceStatCheck(String stat) throws Exception;
 	public List<ShopListDTO> serviceOrderCheckList(String stat) throws Exception;
 	public List<ShopListDTO> serviceSubscribeCheckList(String stat) throws Exception;
-	public int serviceUpdateOrder(String orderNo, String stat) throws Exception;
 	public int serviceUpdateSubscribe(String orderNo, String stat) throws Exception;
 	public List<PrivateGardenDTO> servicePrivateList() throws Exception;
+	public int serviceUpdateOrder(String orderNo, String stat) throws Exception;
 }

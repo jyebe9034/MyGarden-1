@@ -21,7 +21,8 @@
 
    <!-- Enables the Spring MVC @Controller programming model -->
    <annotation-driven />
-
+   <task:annotation-driven/>
+   
    <context:component-scan base-package="my.garden" />
    <aop:aspectj-autoproxy proxy-target-class="true"/>
    <!-- transction Management -->

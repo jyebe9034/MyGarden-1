@@ -28,7 +28,13 @@
 }
 
 .cell {
-	border-left: 1px solid #ddd
+	border-left: 1px solid #ddd;
+	font-size: 12px;
+}
+
+.cells {
+	font-size: 12px;
+	border-right: 1px solid #dddddd;
 }
 
 input {
@@ -50,9 +56,6 @@ table.list_table_style thead th {
 	border-left: 0px;
 }
 
-.cell {
-	font-size: 12px;
-}
 
 table.list_table_style td.cell {
 	font-family: 'Spoqa Han Sans', sans-serif;
@@ -117,6 +120,11 @@ table.list_table_style td.cell {
 	text-decoration: underline;
 	cursor: pointer;
 }
+.detail{
+	border:1px solid #dddddd;
+	background-color:#F9F9F9;
+}
+
 </style>
 
 
@@ -139,13 +147,20 @@ table.list_table_style td.cell {
 
 		$(".hide").hide();
 
-		$(".title").on(
-				"click",
-				function() {
-					$(".hide").hide();
-					$(this).parent().parent().parent().parent().parent()
-							.parent().parent().find("+tr").slideDown();
+		$(".title").on("click",function() {
+					var detailBox = $(this).parent().parent().parent().parent().parent()
+					.parent().parent().find("+tr").find("td:nth-child(1)");
+					
+					if(detailBox.attr("flag")=="y"){
+						detailBox.attr("flag","n");
+						detailBox.slideUp();
+					}else{
+						$(".hide").hide();
+						detailBox.attr("flag","y");
+						detailBox.slideDown();
+					}
 				})
+			
 
 	});
 </script>
@@ -320,12 +335,11 @@ table.list_table_style td.cell {
 														</tr>
 													</c:if>
 												</c:forEach>
-												<tr class="pt-3 pb-3 orderLists bottom_line hide"
-													style="display: none;">
-													<td colspan=5>
-														<table width="100%" border="0" cellpadding="0"
-															cellspacing="0">
-															<tr style="font-size:12px;">
+												<tr class="pt-3 pb-3 bottom_line">
+													<td colspan=5 align="center" class="pt-3 pb-3 hide" style="display: none;" flag="n">
+														<table width="70%" border="0" cellpadding="0"
+															cellspacing="0" class="detail">
+															<tr style="font-size:12px;" height="40" align="center" class="bottom_line">
 																<th width="60">주문번호</th>
 																<th width="110">상품명</th>
 																<th width="90">주문일</th>
@@ -333,40 +347,40 @@ table.list_table_style td.cell {
 																<th width="70">주문금액</th>
 															</tr>
 															<c:forEach var="dto" items="${list}" varStatus="stat">
-																<tr>
-																	<td class="cell">${dto.s_orderno }</td>
+																<tr class="bottom_line">
+																	<td class="cell" align="center">${dto.s_orderno }</td>
 																	<td class="cell"><img src="${dto.s_p_imagepath }"
-																		class="productsImg" width="70px" height="70px">
+																		class="productsImg ml-3 mt-1 mb-1" width="50px" height="50px">
 																		<a
-																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }">${dto.s_p_title }</a>
+																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }" class="pl-3">${dto.s_p_title }</a>
 																	</td>
-																	<td class="cell">${dto.s_orderdate }</td>
-																	<td class="cell">${dto.s_p_count }</td>
-																	<td class="cell"><fmt:formatNumber
+																	<td class="cell" align="center">${dto.s_orderdate }</td>
+																	<td class="cell" align="center">${dto.s_p_count }</td>
+																	<td class="cell" align="center"><fmt:formatNumber
 																			value="${dto.s_p_price*dto.s_p_count }" type="number" />원</td>
 																</tr>
 																<c:if test="${stat.last}">
 																	<tr>
-																		<td class="cell" height="30"></td>
+																		<td class="cells" height="30" align="left" colspan=5></td>
 																	</tr>
 																	<tr>
-																		<td class="cell">받는 사람 </td>
-																		<td class="cell">${dto.s_m_recipient }</td>
+																		<th class="cell pl-4" align="left" height="30">받는 사람 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_recipient }</td>
 																	</tr>
 																	<tr>
-																		<td class="cell">결제 방법 </td>
-																		<td class="cell">${dto.s_m_paymethod }</td>
+																		<th class="cell pl-4" align="left" height="30">결제 방법 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_paymethod }</td>
 																	</tr>
 																	<tr>
-																		<td class="cell">배송 메모 </td>
-																		<td class="cell">${dto.s_m_memo }</td>
+																		<th class="cell pl-4" align="left" height="30">배송 메모 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_memo }</td>
 																	</tr>
 																	<tr>
-																		<td class="cell">배송지 </td>
-																		<td class="cell">${dto.s_m_zipcode } ${dto.s_m_address1 } ${dto.s_m_address2 }</td>
+																		<th class="cell pl-4" align="left" height="30">배송지 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_zipcode } ${dto.s_m_address1 } ${dto.s_m_address2 }</td>
 																	</tr>
 																	<tr>
-																		<td class="cell" height="30"></td>
+																		<td class="cells" height="30" colspan=5></td>
 																	</tr>		
 																</c:if>
 															</c:forEach>
