@@ -60,11 +60,12 @@
 	.check{
 		text-align : left;
 	}
-	#deleteBtn{
+	.adBtns {
 		background-color : #44b27d;
 		color : white;
+		margin-left : 10px;
 	}
-	#deleteBtn:hover{
+	.adBtns:hover{
 		background-color : #b4d9b5;
 		color : white;
 	}
@@ -82,12 +83,16 @@
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 		})
 		
+		$("#insertBtn").on("click", function(){
+			location.href = "productsAdd";
+		})
+		
 		var arr = [];
 		$("#wrap").on("click", ".checkDelete", function(){
 			var checked = $(this).val();
 			arr.push(checked);
 			$("#deleteBtn").on("click", function(){
-				location.href = "productsDelete?arr=" + checked;
+				location.href = "productsDelete?arr=" + arr;
 			})
 		})
 	})
@@ -107,7 +112,8 @@
 				</div>
 				<c:if test="${grade=='admin'}">
 					<div class="row">
-						<input id="deleteBtn" class="btn btn-sm" type="button" value="삭제">
+						<input id="deleteBtn" class="adBtns btn btn-sm" type="button" value="삭제">
+						<input id="insertBtn" class="adBtns btn btn-sm" type="button" value="등록">
 					</div>
 				</c:if>
 				<div class="row articles">

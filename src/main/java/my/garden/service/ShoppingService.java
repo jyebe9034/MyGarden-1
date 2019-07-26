@@ -5,6 +5,7 @@ import java.util.List;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 public interface ShoppingService {
 	
@@ -19,4 +20,17 @@ public interface ShoppingService {
 	public List<List<ShopListDTO>> getOrderList(String id) throws Exception;
 	
 	public int insertIntoCart(CartDTO dto) throws Exception;
+	
+	public List<List<ShopListDTO>> getOrderSearch(String id, String orderDuration, String orderStatus) throws Exception;
+
+	public int insertSubscribe(SubscribeDTO sbdto, String id) throws Exception;
+	
+	public List<SubscribeDTO> getSubsList(String id) throws Exception;
+	
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception;
+	
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception;
+	
+	public List<ShopListDTO> getOrderShipping(Long s_orderno, String id) throws Exception;
+	
 }

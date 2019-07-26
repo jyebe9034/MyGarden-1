@@ -45,6 +45,10 @@
 		select count(*) from br_recommend where br_no=#{br_no}
 	</select>
 	
+	<!-- 내가 추천한 글번호 -->
+	<select id="myRecommendNo" resultType="my.garden.dto.BoardReviewRecommendDTO">
+		select br_no from br_recommend where BR_EMAIL=#{BR_EMAIL}
+	</select>
 	
 	
 	<!-- 후기 수정 전 정보 -->
@@ -54,7 +58,11 @@
 
 	<!-- 	후기 수정 -->
 	<update id="updateReview" parameterType="map">
-		update BOARD_REVIEW set br_title = #{br_title}, br_content=#{br_content}, br_imagepath=#{br_imagepath}, br_writedate=default where br_no=#{br_no}
+		update BOARD_REVIEW 
+		set br_title = #{br_title}, br_content=#{br_content}, 
+<!-- 		br_imagepath=#{br_imagepath},  -->
+		br_writedate=default 
+		where br_no=#{br_no}
 	</update>
 
 	<!-- 후기 삭제 -->

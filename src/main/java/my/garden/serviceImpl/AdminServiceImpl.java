@@ -1,0 +1,67 @@
+package my.garden.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import my.garden.dao.AdminDAO;
+import my.garden.dao.ShoppingDAO;
+import my.garden.dto.AdminMemDTO;
+import my.garden.dto.ShopListDTO;
+import my.garden.schedule.ScheduleTask;
+import my.garden.service.AdminService;
+
+@Service
+public class AdminServiceImpl implements AdminService {
+
+	@Autowired
+	AdminDAO dao;
+	
+	@Autowired
+	ScheduleTask schedule;
+
+	public List<AdminMemDTO> serviceAllMembers() throws Exception{
+		return dao.allMembers();
+	}
+
+	public int serviceTotalSale() throws Exception{	
+		return dao.totalSale();
+	}
+
+	public int serviceTotalCancel() throws Exception{
+		return dao.totalCancel();
+	}
+
+	public List<ShopListDTO> servicePopularProduct() throws Exception{
+		return dao.popularProduct();
+	}
+
+	public int serviceTotalSaleCount() throws Exception{
+		return dao.totalSaleCount();
+	}
+
+	public int serviceStatCheck(String stat) throws Exception{
+		return dao.statCheck(stat);
+	}
+
+	public List<ShopListDTO> serviceOrderCheckList(String stat) throws Exception{
+		return dao.orderCheckList(stat);
+	}
+
+	@Transactional("txManager")
+	public int serviceUpdateOrder(String orderNo, String stat) throws Exception{
+		if(stat.equals("배송중")) {
+			schedule.setCount(0);
+			schedule.startScheduler(orderNo);	
+		}
+		return dao.updateOrder(orderNo, stat);
+	}
+	
+	/*public List<ShopListDTO> serviceOrderCheckUpdate(int orderNo, String changeStat, String listStat) throws Exception{
+		 dao.updateOrder(orderNo, changeStat);
+		 return dao.orderCheckList(listStat);
+	}*/
+
+}

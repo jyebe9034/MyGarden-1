@@ -19,18 +19,18 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
+	
+//	@RequestMapping("/loading")
+//	public String loading() {
+//		return "module/loading";
+//	}
 
 	@RequestMapping("productsAdd")
 	public String toProductsAdd() {
 		return "products/productsAdd";
 	}
 
-	@RequestMapping("subscription")
-	public String toSubscribe() {
-		return "subscription/subscription";
-	}
-
-	@RequestMapping("chat")
+	@RequestMapping("toChat")
 	public String toChat() {
 		return "chat/chat";
 	}

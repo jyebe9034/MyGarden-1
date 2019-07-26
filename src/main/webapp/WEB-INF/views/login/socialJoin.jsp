@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -288,21 +289,24 @@ input[type=email]{
 			              }
 			      }
 			  });
-// 			  $('.tab a').on('click', function (e) {
-// 			    e.preventDefault();
-// 			    $(this).parent().addClass('active');
-// 			    $(this).parent().siblings().removeClass('active');
-// 			    target = $(this).attr('href');
-// 			    $('.tab-content > div').not(target).hide();
-// 			    $(target).fadeIn(600);
-// 			  });
            	$("input[name=m_garden]").on("blur", function(){
-           		var regexGarden=/^[가-힣\w]{2,12}$/;
+           		var regexGarden=/^[가-힣A-z]{2,12}$/;
            		if(regexGarden.exec($("input[name=m_garden]").val())){
-           			$("#phoneName").text("");
+               		$.ajax({
+               			url:"/gardenCheck",
+               			type:"post",
+               			data : {key : $("input[name=m_garden]").val()}
+               		}).done(function(resp){
+               			if(resp==true){
+                   			$("#gardenName").text("중복되는 정원 이름입니다");
+                   			$("input[name=m_garden]").val("");
+               			}else{
+                   			$("#gardenName").text("");
+               			}
+               		});
            		}else{
-           			$("#phoneName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-           			$("input[name=m_phone]").val("");
+           			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
+           			$("input[name=m_garden]").val("");
            		}
            	});
            	$("input[name=m_name]").on("blur", function(){
@@ -310,72 +314,12 @@ input[type=email]{
            		if(regexName.exec($("input[name=m_name]").val())){
            			$("#userName").text("");
            		}else{
-           			$("#userName").text("2~12단어 이상으로 이루어진 영어, 한글만 가능합니다");
+           			$("#userName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
            			$("input[name=m_name]").val("");
            		}
            	});
-           	var pwCode;
-           	$("#verMailBtn").on("click", function(){
-           		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
-           		if(regexMail.exec($("input[name=m_email]").val())){
-               		$.ajax({
-               			url:"/emailCheck",
-               			type:"post",
-               			data : {key : $("input[name=m_email]").val()}
-               		}).done(function(resp){
-               			if(resp==true){
-                   			$("#eamilName").text("중복되는 메일입니다");
-                   			$("input[name=m_email]").val("");
-               			}else{
-               				$.ajax({
-               					url:"/findPwGetCode",
-               					type:"post",
-               					data:{key:$("input[name=m_email]").val()}
-               				}).done(function(resp){
-               					pwCode=resp;
-                       			$("#eamilName").text("메일로 발송된 인증번호를 입력하고 버튼을 누르세요");
-                       			$('#verText').val("");
-                       			$('#verifingCode').slideDown();
-               				});
-               			}
-               		});
-           		}else{
-           			$("#eamilName").text("사용할 수 없는 형식의 메일입니다");
-           			$("input[name=m_email]").val("");
-           		}
-           	});
-           	$('#verCodeBtn').on('click', function(){
-           		if(pwCode==$('#verText').val()){
-           			$("#eamilName").text("");
-           			$('#surplusForm').slideDown();
-           			$('#verifingCode').slideUp();
-           		}else{
-           			$("#eamilName").text("인증번호가 맞지 않습니다");
-           			$('#verText').val("");
-           		}
-           	});
-           	$("input[name=m_phone]").on("blur", function(){
-           		var regexPhone=/^01[01789]-[\d]{3,4}-[\d]{4}$/;
-           		if(regexPhone.exec($("input[name=m_phone]").val())){
-               		$.ajax({
-               			url:"/phoneCheck",
-               			type:"post",
-               			data : {key : $("input[name=m_phone]").val()}
-               		}).done(function(resp){
-               			if(resp==true){
-                   			$("#phoneName").text("중복되는 번호입니다");
-                   			$("input[name=m_phone]").val("");
-               			}else{
-                   			$("#phoneName").text("");
-               			}
-               		});
-           		}else{
-           			$("#phoneName").text("형식에 맞지 않는 번호입니다");
-           			$("input[name=m_phone]").val("");
-           		}
-           	});
        		$('#joinSubmit').on('click', function(){
-       			if($('.inputStuff').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
+       			if($("input[name=m_garden]").val()!="" && $('input[name=m_email]').val()!="" && $('#customSwitch').is(":checked")){
            			var con = confirm('이대로 제출하시겠습니까?');
     				if(con){
                 		$('.formSubmit').submit();	
@@ -419,37 +363,16 @@ input[type=email]{
 			                <div id="signin">
 			                    <h3 class="m-3 font-weight-bold text-dark pt-4">나의 정원 소셜회원가입</h3>
 			                    <h6 class="pt-2 pb-4 text-muted mr-2 ml-2">사이트 이용에 필요한 인증과 최소한의 정보를 입력하세요</h6>
-			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post"">		
+			                    <form class="pl-5 pr-5 formSubmit" action="socialJoinSubmit" method="post">		
 			                        <input type="text" placeholder="나만의 정원 이름을 지어주세요" class="fadeIn inputStuff" name="m_garden">
 			                        	<span class="onblur" id="gardenName"></span>
 			                        <input type="text" placeholder="사용자 이름을 입력하세요" class="fadeIn inputStuff" name="m_name">
 			                        	<span class="onblur" id="userName"></span>
 			                        <input type="email" value="${loginId }" class="fadeIn inputStuff" name="m_email" readonly>
-			                        	<div class="onblur" id="eamilName"></div>
-			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
-			                      <div id="verifingCode">  	
-			                        <input type="password" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
-			                        	<button type="button" id="verCodeBtn" class="btn">인증하기</button>
-			                      </div>  	
-<!-- 			             surplusForm -->
-			                      <div id="surplusForm">  	
-			                        <input type="text" placeholder="휴대폰 번호를 입력하세요 ex)010-000-0000" class="fadeIn inputStuff" name="m_phone">
-			                        	<span class="onblur" id="phoneName"></span>	
-		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
-	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">
-			                        <div class="custom-control custom-radio custom-control-inline ml-3">
-									  <input type="radio" id="customRadioInline1" value="여성" name="m_gender" class="custom-control-input" checked/>
-									  <label class="custom-control-label" for="customRadioInline1">여성</label>
-									</div>
-									<div class="custom-control custom-radio custom-control-inline">
-									  <input type="radio" id="customRadioInline2" value="남성" name="m_gender" class="custom-control-input">
-									  <label class="custom-control-label" for="customRadioInline2">남성</label>
-									</div>
 									<div class="custom-control custom-switch mt-3 mb-3">
 									  <input type="checkbox" class="custom-control-input" id="customSwitch">
 									  <label class="custom-control-label" for="customSwitch">서비스 이용약관, 개인정보취급방침을 모두 확인했으며 이에 동의합니다</label>
 									</div>
-								</div>	
 			                        <input type="reset" class="mt-4 mb-1" value="다시쓰기">
 			                        <input type="button" value="가입하기" id="joinSubmit">
 			                    </form>

@@ -6,8 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <title>Chat</title>
 <style>
 	#chatBorder{
@@ -51,6 +49,10 @@
 		border : 0px;
 		border-radius : 5px;
 	}
+	.mine{
+		margin-bottom : 0;
+		text-align : right;
+	}
 </style>
 </head>
 <body>
@@ -63,27 +65,24 @@
 	<input type="button" id="send" value="Send">
 	
 	<script>
-		var socket = new SockJS("/webchat");
-		var client = Stomp.over(socket);
+		var socket = new WebSocket("ws://192.168.60.22/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
 		
-		client.connect({}, function(resp){ // 접속
-			client.subscribe("/response", function(msg){ // 서버로부터 response된 정보를 받아오는 부분
-				var line = $("<div class='messages'></div>");
-				var result = JSON.parse(msg.body);
-				line.append(result.name + " : " + result.message);
-				$("#chatContents").append(line);
-				$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
-			});
-		}); 
+		socket.onmessage = function(msg){ // 콜백함수
+			var line = $("<div class='messages'></div>");
+			line.append("<div class='answer'>" + msg.data + "</div>");
+			$("#chatContents").append(line);
+			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+		} // 서버로부터 메세지가 도착한 경우
 		
-		$("#send").on("click", function(){ // 클라이언트에서 서버로 메세지를 보내는 부분
+		$("#send").on("click",function(){
 			var msg = $("#message").val();
+			$("#chatContents").append("<p class='mine'>" + msg + "</p>");
+			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
 			$("#message").val("");
 			$("#message").focus();
-			client.send("/app/chat", {}, JSON.stringify({message:msg})); 
-			// request는 무조건 String 타입으로 넘어감. 여기에서의 chat이 ChatController로 매핑돼.
-		})
-		
+			socket.send("${loginId} : " + msg);
+		}) // 서버로 메세지를 보내는 경우
+	
 		$("#message").keyup(function(key){
 			if(key.keyCode == 13){
 				$("#send").click();

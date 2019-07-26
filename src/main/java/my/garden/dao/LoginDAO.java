@@ -1,6 +1,5 @@
 package my.garden.dao;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -12,6 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +28,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,18 +43,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-
+import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 @Repository
 public class LoginDAO {
@@ -91,7 +87,6 @@ public class LoginDAO {
 			dto.setM_realpath(uploadPath + "/" + prof);
 			dto.setM_profile("resources/prof/" + prof);
 		} catch (Exception e) {
-			System.out.println("ss");
 			e.printStackTrace();
 		} 
 	}
@@ -147,6 +142,10 @@ public class LoginDAO {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
 	}
+	
+	public MembersDTO memSelectAll(String email) {
+		return sst.selectOne("LoginDAO.memSelectAll", email);
+	}
 
 	public String pwDupCheck(String key) {
 		Map<String, String> map = new HashMap();
@@ -154,6 +153,10 @@ public class LoginDAO {
 		map.put("whereCol", "m_email");
 		map.put("value", key);
 		return sst.selectOne("LoginDAO.dupCheck", map);
+	}
+	
+	public int delete(String loginId) {
+		return sst.delete("LoginDAO.delete", loginId);
 	}
 	
 	public int memUpdateAll(MembersDTO dto) {
@@ -175,13 +178,14 @@ public class LoginDAO {
 		// Google일 경우 smtp.gmail.com 을 입력합니다. 
 		String host = "smtp.naver.com"; 
 		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden55*"; //네이버 이메일 비밀번호를 입력해주세요. 
+		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
 		int port=465; //포트번호 
 		
 		// 메일 내용 
 		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
 		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
-			String randomCode = this.randomCode();
+		String randomCode = this.randomCode();
+		System.out.println("인증번호 : " + randomCode);
 		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
 		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
 		
@@ -213,6 +217,10 @@ public class LoginDAO {
 	}
 	
 	public int findAccountChange(Map<String, String> map) {
+		return sst.insert("LoginDAO.updateOne", map);
+	}
+
+	public int changeGardenStuff(Map<String, String> map) {
 		return sst.insert("LoginDAO.updateOne", map);
 	}
 	
@@ -384,6 +392,46 @@ public class LoginDAO {
             e.printStackTrace();
         }
         return returnNode;
+	}
+	
+	public Integer[] gardenCalendar(int year) {
+		Integer[] calArr = new Integer[12];
+        int day = 1;
+        int daysOfMonth = 0;
+		Calendar cal = Calendar.getInstance();
+		for(int month=0; month<12; month++) {
+	        cal.set(Calendar.MONTH, 0);
+	        int mm=cal.get(Calendar.MONTH)+month;
+//	        System.out.println(mm + 1 + "월");
+	        Calendar result = new GregorianCalendar(year, mm, day);
+	        daysOfMonth = result.getActualMaximum(Calendar.DAY_OF_MONTH);
+//	        System.out.println(year + "년 " + (mm+1) + "월의 일수: " + daysOfMonth);
+	        calArr[month] = daysOfMonth;
+		}
+       return calArr;
+	}
+	
+	public List<CalendarDTO> getCalendarList(String loginId) {
+	      return sst.selectList("LoginDAO.selectCalendar", loginId);
+	   }
+	
+	public List<ShopListDTO> getShoppedList(ShopListDTO dto){
+		if(sst.selectList("LoginDAO.selectOrderList", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderList", dto);
+		}
+	}
+	public List<SubscribeDTO> getShoppedListSub(SubscribeDTO dto){
+		if(sst.selectList("LoginDAO.selectOrderListSub", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderListSub", dto);
+		}
+	}
+	
+	public String getGrade(String id) {
+		return sst.selectOne("LoginDAO.getGrade", id);
 	}
 	
 }

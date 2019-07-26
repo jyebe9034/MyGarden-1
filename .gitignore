@@ -1,8 +1,6 @@
-
 web.xml
 pom.xml
 /.metadata/
-
 *.java.hsp
 *.sonarj
 *.sw*
@@ -42,4 +40,3 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
-

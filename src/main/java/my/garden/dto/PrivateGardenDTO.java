@@ -6,18 +6,26 @@ public class PrivateGardenDTO {
 	
 	private String g_email;
 	private String g_name;
+	private String g_gardenname;
 	private Timestamp g_enrolldate;
 	private String g_hurb;
 	private int g_temper;
-	private int g_humid;
-	private int g_water;
-	private int g_light;
+	private String g_humid;
+	private String g_light;
 	private String g_process;
 	private String g_consume;
 	
 	public PrivateGardenDTO() {}
+	public PrivateGardenDTO(String g_email, String g_name, String g_gardenname, String g_hurb, int g_temper) {
+		super();
+		this.g_email = g_email;
+		this.g_name = g_name;
+		this.g_gardenname = g_gardenname;
+		this.g_hurb = g_hurb;
+		this.g_temper = g_temper;
+	}
 	public PrivateGardenDTO(String g_email, String g_name, Timestamp g_enrolldate, String g_hurb, int g_temper,
-			int g_humid, int g_water, int g_light, String g_process, String g_consume) {
+			String g_humid, String g_light, String g_process, String g_consume) {
 		super();
 		this.g_email = g_email;
 		this.g_name = g_name;
@@ -25,7 +33,6 @@ public class PrivateGardenDTO {
 		this.g_hurb = g_hurb;
 		this.g_temper = g_temper;
 		this.g_humid = g_humid;
-		this.g_water = g_water;
 		this.g_light = g_light;
 		this.g_process = g_process;
 		this.g_consume = g_consume;
@@ -42,6 +49,12 @@ public class PrivateGardenDTO {
 	}
 	public void setG_name(String g_name) {
 		this.g_name = g_name;
+	}
+	public String getG_gardenname() {
+		return g_gardenname;
+	}
+	public void setG_gardenname(String g_gardenname) {
+		this.g_gardenname = g_gardenname;
 	}
 	public Timestamp getG_enrolldate() {
 		return g_enrolldate;
@@ -61,22 +74,16 @@ public class PrivateGardenDTO {
 	public void setG_temper(int g_temper) {
 		this.g_temper = g_temper;
 	}
-	public int getG_humid() {
+	public String getG_humid() {
 		return g_humid;
 	}
-	public void setG_humid(int g_humid) {
+	public void setG_humid(String g_humid) {
 		this.g_humid = g_humid;
 	}
-	public int getG_water() {
-		return g_water;
-	}
-	public void setG_water(int g_water) {
-		this.g_water = g_water;
-	}
-	public int getG_light() {
+	public String getG_light() {
 		return g_light;
 	}
-	public void setG_light(int g_light) {
+	public void setG_light(String g_light) {
 		this.g_light = g_light;
 	}
 	public String getG_process() {

@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dao.BoardReviewDAO;
 import my.garden.dto.BoardReviewDTO;
+import my.garden.dto.BoardReviewRecommendDTO;
 import my.garden.service.BoardReviewService;
 
 @Service
@@ -62,21 +63,26 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 		return brDao.recommendCount(br_no);
 	}
 	
-//	@Transactional("txManager")
-//	public int recommend(String br_email, int br_no, String br_title) throws Exception{
-//		System.out.println("원래 도움돼요 수 : " + brDao.recommendCount(br_no));
-//		int recommendCheck = brDao.recommendCheck(br_no, br_email);
-//		if(recommendCheck > 0) { //도움돼요 취소
-//			brDao.recommendDelete(br_no, br_email);
-//			System.out.println("도움돼요 취소");
-//		}else { //도움돼요 (추천하기)
-//			brDao.recommendUpdate(br_email, br_no, br_title);
-//			System.out.println("도움돼요");
-//		}
-//		System.out.println("도움돼요 수 : " + brDao.recommendCount(br_no));
-//		return brDao.recommendCount(br_no);
-//	}
+	@Transactional("txManager")
+	public int recommend(String br_email, int br_no, String br_title) throws Exception{
+		System.out.println("원래 도움돼요 수 : " + brDao.recommendCount(br_no));
+		int recommendCheck = brDao.recommendCheck(br_no, br_email);
+		if(recommendCheck > 0) { //도움돼요 취소
+			brDao.recommendDelete(br_no, br_email);
+			System.out.println("도움돼요 취소");
+		}else { //도움돼요 (추천하기)
+			brDao.recommendUpdate(br_email, br_no, br_title);
+			System.out.println("도움돼요");
+		}
+		System.out.println("도움돼요 수 : " + brDao.recommendCount(br_no));
+		return brDao.recommendCount(br_no);
+	}
 	
+	public List<BoardReviewRecommendDTO> myRecommendNo(String BR_EMAIL) throws Exception{
+		return brDao.myRecommendNo(BR_EMAIL);
+	}
+	
+	//------------------------------------------------------------------------------------
 	
 	public BoardReviewDTO oneReview(int br_no) throws Exception {
 		return brDao.oneReview(br_no);

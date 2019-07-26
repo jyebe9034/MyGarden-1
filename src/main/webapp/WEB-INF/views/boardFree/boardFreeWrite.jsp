@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css"
 	rel="stylesheet">
@@ -26,7 +27,13 @@
 	border-radius: 5px;
 	height: 50px;
 	line-height: 45px;
-	margin: 0px auto 30px auto;
+	margin: 0px auto;
+	overflow: hidden;
+}
+
+#titleCount {
+	margin: 10px auto;
+	text-align: right;
 }
 
 #titleExplain, #green {
@@ -74,29 +81,38 @@
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/img/boardFree.png">
+		<img src="resources/free/boardFree.png">
 	</div>
 	<div class=container>
 		<form action="boardFreeWriteProc" method="post" id="freeForm">
 			<div class=row>
 				<p id=titleExplain>레시피를 공유해보세요!</p>
-				<div id=title class=col-12 contenteditable></div>
-				<input type="hidden" id=sendTitle name=bf_title>
+				<input type=text id=title class=col-12 maxlength="30" name=bf_title>
+				<div class=col-12 id=titleCount>(0 / 30)</div>
 				<div id=content class=col-12></div>
 				<input type="hidden" id=sendContent name=bf_content>
 				<p id=contentExplain>
-					<img src="/resources/img/boardFreeWarning.png"> 게시글 작성 시 <span
+					<img src="/resources/free/boardFreeWarning.png"> 게시글 작성 시 <span
 						id=green>회원님의 소중한 개인정보를 포함하지 않도록</span> 주의 부탁드립니다.
 				</p>
 				<div class="col-12 footBtn">
-					<button type="button" class="btn" id="submitBtn">등록하기</button>
 					<button type="button" class="btn" id=back>뒤로가기</button>
+					<button type="button" class="btn" id="submitBtn">등록하기</button>
 				</div>
 			</div>
 		</form>
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
+		$("#title").on("keyup", function() {
+			var count = $(this).val().length;
+			$("#titleCount").text("(" + count + " / 30)");
+			if (count == 30) {
+				alert("제목은 최대 30자 까지 쓸 수 있습니다.");
+			}
+			;
+		})
+
 		$("#back").on("click", function() {
 			location.href = "boardFreeList?page=1";
 		})
@@ -106,6 +122,11 @@
 				placeholder : '내용을 입력해주세요.',
 				tabsize : 5,
 				height : 500,
+				popover : {
+					image : [],
+					link : [],
+					air : []
+				},
 				callbacks : {
 					onImageUpload : function(files, editor, welEditable) {
 						for (var i = files.length - 1; i >= 0; i--) {
@@ -127,18 +148,18 @@
 				contentType : false,
 				enctype : 'multipart/form-data',
 				processData : false
-				}).done(function(resp) {
-					$(".note-editable").append("<img src="+resp+">")
-				})
+			}).done(function(resp) {
+				$(".note-editable").append("<img src="+resp+">")
+			})
 		}
 
 		$("#submitBtn").on("click", function() {
-			$("#sendTitle").val($("#title").text());
 			$("#sendContent").val($(".note-editable").html());
-			if ($("#sendTitle").val() == "" || $("#sendContent").val() == "") {
+			if ($("#title").val() == "" || $("#sendContent").val() == "") {
 				alert("제목 또는 내용을 입력해주세요.");
+			} else {
+				$("#freeForm").submit();
 			}
-			$("#freeForm").submit();
 		})
 	</script>
 </html>

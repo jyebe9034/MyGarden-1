@@ -77,6 +77,15 @@ public class ProductsDAOImpl implements ProductsDAO {
 		}
 	}
 	
+	public int deleteImagePath(String img_p_title) {
+		try {
+			return sst.delete("ProductsDAO.deleteImagePath", img_p_title);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	
 	public int updateProduct(ProductsDTO dto) {
 		try {
 			return sst.update("ProductsDAO.updateProduct", dto);
@@ -98,4 +107,9 @@ public class ProductsDAOImpl implements ProductsDAO {
 			return null;
 		}
 	}
+	
+	public List<String> selectTitlesByCategory(String p_category) throws Exception{
+		return sst.selectList("ProductsDAO.selectTitlesByCategory", p_category);
+	}
+	
 }

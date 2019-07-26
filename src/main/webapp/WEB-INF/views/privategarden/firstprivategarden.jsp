@@ -8,8 +8,12 @@
 <title>비밀 정원 개설</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
-	.wrapper{
-		margin-bottom : 200px;
+	#iframeWrap{
+		width : 100%;
+		height : 1000px;
+	}
+	.contentswrap{
+		margin-bottom : 100px;
 	}
 </style>
 </head>
@@ -38,13 +42,10 @@
 	</div>
 	
 <!-- 	contents -->
-	<div class="container my wrapper">
+	<div class="container contentswrap">
 		<div class="row text-center mt-5 my">
-			
-		<jsp:include page="/WEB-INF/views/module/mypage.jsp"/>
-		
-		
-			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5 my">
+			<jsp:include page="/WEB-INF/views/module/mypage.jsp"/>
+			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 my">
 				<div class="list-group">
 				  <a href="#" class="list-group-item list-group-item-action currentActive">Overview</a>
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
@@ -53,13 +54,13 @@
 				  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
 				</div>
 			</div>
-			<div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pt-5 my">	
-				<iframe id="privategarden" src="privategarden" width="100%" height="900px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+			<div id="iframeWrap" class="col-lg-9 col-md-8 col-sm-12 col-xs-12 my">	
+				<iframe id="privategarden" src="privategarden" scrolling="yes" width="100%" height="1000px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 			</div>
 		</div>
-	</div>	
-	
-<!-- 	footer -->
-	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
+	</div>
+
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>		
 </body>
 </html>

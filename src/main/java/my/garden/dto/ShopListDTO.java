@@ -1,6 +1,7 @@
 package my.garden.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Component;
 
@@ -180,8 +181,9 @@ public class ShopListDTO {
 		this.s_statement = s_statement;
 	}
 
-	public Timestamp getS_orderdate() {
-		return s_orderdate;
+	public String getS_orderdate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");		
+		return sdf.format(s_orderdate);
 	}
 
 	public void setS_orderdate(Timestamp s_orderdate) {

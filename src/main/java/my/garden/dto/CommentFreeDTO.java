@@ -11,16 +11,15 @@ public class CommentFreeDTO {
 	private Timestamp cf_writedate;
 	private String cf_comment;
 	private String cf_stringdate;
+	private String cf_profileImg;
 	
 	public CommentFreeDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public CommentFreeDTO(int cf_bf_no, int cf_no, String cf_name, String cf_email, Timestamp cf_writedate,
-			String cf_comment, String cf_stringdate) {
+			String cf_comment, String cf_stringdate, String cf_profileImg) {
 		super();
 		this.cf_bf_no = cf_bf_no;
 		this.cf_no = cf_no;
@@ -29,8 +28,16 @@ public class CommentFreeDTO {
 		this.cf_writedate = cf_writedate;
 		this.cf_comment = cf_comment;
 		this.cf_stringdate = cf_stringdate;
+		this.cf_profileImg = cf_profileImg;
 	}
 
+	public String getCf_profileImg() {
+		return cf_profileImg;
+	}
+
+	public void setCf_profileImg(String cf_profileImg) {
+		this.cf_profileImg = cf_profileImg;
+	}
 
 	public int getCf_bf_no() {
 		return cf_bf_no;

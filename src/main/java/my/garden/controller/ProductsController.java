@@ -28,12 +28,16 @@ public class ProductsController {
 
 	@RequestMapping("insertProducts")
 	public String insertProducts(ProductsDTO dto) {
-		String resourcePath = session.getServletContext().getRealPath("/resources");
+		String rootPath = session.getServletContext().getRealPath("/resources");
 		String title = dto.getP_title();
 		try {
-			File newFile = new File(resourcePath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
-			dto.getImage().transferTo(newFile);
-			dto.setP_imagepath("/resources/products/" + title + "/" + newFile.getName());
+			File newFile = new File(rootPath + "/products/" + title);
+			if(!newFile.exists()) {
+				newFile.mkdir();
+			}
+			File realFile = new File(rootPath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
+			dto.getImage().transferTo(realFile);
+			dto.setP_imagepath("/resources/products/" + title + "/" + realFile.getName());
 			int result = pservice.insertProductsService(dto);
 			int result2 = pservice.insertImageFileService(title, dto.getP_imagepath());
 			return "products/productsAdd";
@@ -53,9 +57,14 @@ public class ProductsController {
 		}
 		String rootPath = session.getServletContext().getRealPath("/resources");
 		try {
-			File newFile = new File(rootPath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
-			file.transferTo(newFile);
-			String imgs = "/resources/products/" + title + "/" + newFile.getName();
+			File newFile = new File(rootPath + "/products/" + title);
+			if(!newFile.exists()) {
+				newFile.mkdir();
+			}
+			
+			File realFile = new File(newFile + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
+			file.transferTo(realFile);
+			String imgs = "/resources/products/" + title + "/" + realFile.getName();
 			try {
 				int result = pservice.insertImageFileService(title, imgs);
 			}catch(Exception e) {
@@ -132,18 +141,6 @@ public class ProductsController {
 			return null;
 		}
 	}
-
-//	@RequestMapping("productsRead") //지혜씨 이거 제 컨트롤러로 옮겼어여 ㅋ (BoardReviewAndQnAController)
-//	public String toProductsRead(int pnumber, Model model) {
-//		try{
-//			ProductsDTO dto = pservice.selectOneProductService(pnumber);
-//			model.addAttribute("result", dto);
-//			return "products/productsRead";
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//	}
 	
 	@RequestMapping("productsDelete")
 	public String deleteProducts(String[] arr, Model model) {
@@ -161,7 +158,7 @@ public class ProductsController {
 			return "redirect:/deleteCheck";
 		}catch(Exception e) {
 			e.printStackTrace();
-			return "redirect:/deleteCheck"; 
+			return "error"; 
 		}
 	}
 	

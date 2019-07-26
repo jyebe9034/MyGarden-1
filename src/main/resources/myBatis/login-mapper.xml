@@ -25,16 +25,24 @@
 	</insert>
 	
 	<insert id="socialJoinSubmit">
-		insert into members(m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_gender, m_birth, m_garden, m_profile) 
-			values(#{m_email}, #{m_name}, #{m_phone}, default, default, default, #{m_social}, default, #{m_gender}, #{m_birth}, #{m_garden}, #{m_profile})
+		insert into members(m_email, m_name, m_joindate, m_ipaddress, m_grade, m_social, m_point, m_garden, m_profile) 
+			values(#{m_email}, #{m_name}, default, #{m_ipaddress}, default, #{m_social}, default, #{m_garden}, #{m_profile})
 	</insert>
 	
 	<select id="dupCheck" parameterType="map" resultType="String">
 		select ${col} from members where ${whereCol} = #{value}
 	</select>
 	
+	<delete id="delete">
+		delete from members where m_email = #{value}
+	</delete>
+	
 	<select id="isLoginOk" parameterType="map" resultType="String">
 		select ${m_email}, ${m_pw} from members where ${m_email}=#{id} and ${m_pw}=#{pw}
+	</select>
+	
+	<select id="getGrade" resultType="java.lang.String">
+		select m_grade from members where m_email=#{id}
 	</select>
 	
 	<select id="memSelectAll" resultType="my.garden.dto.MembersDTO">
@@ -48,5 +56,21 @@
 	<insert id="updateOne" parameterType="map">
 		update members set ${col} = #{colVal} where ${whereCol} = #{value}
 	</insert>
+   
+   <select id="selectCalendar" resultType="my.garden.dto.CalendarDTO">
+      select to_date(substr(s_orderdate, 1,8), 'yy/mm/dd') as orderdate, 
+      		 COUNT(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd')) as count 
+      		 from 
+      		 	(SELECT s_orderdate FROM shoplist WHERE s_email=#{value} UNION ALL SELECT sb_startday FROM subscribe WHERE sb_email=#{value}) 
+      		group by(to_date(substr(s_orderdate, 1,8), 'yy/mm/dd'))
+   </select>
+   
+   <select id="selectOrderList" resultType="my.garden.dto.ShopListDTO">
+   		select * from shoplist where s_email=#{s_email} and s_orderdate between to_date(substr(#{s_orderdate}, 1,10), 'yy/mm/dd') and to_date(substr(#{s_orderdate}, 1,10), 'yy/mm/dd')+0.9999
+   </select>
+   
+   <select id="selectOrderListSub" resultType="my.garden.dto.SubscribeDTO">
+   		select * from subscribe where sb_email=#{sb_email} and sb_startday between to_date(#{sb_startday}, 'yy-mm-dd') and to_date(#{sb_startday}, 'yy-mm-dd')+0.9999
+   </select>
 	
 </mapper>

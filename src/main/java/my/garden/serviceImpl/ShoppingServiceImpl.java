@@ -11,6 +11,7 @@ import my.garden.dao.ShoppingDAO;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 import my.garden.service.ShoppingService;
 
 @Component
@@ -18,7 +19,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Autowired
 	ShoppingDAO dao;
-	
+
 	@Autowired
 	ShopListDTO dto;
 
@@ -26,7 +27,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectCartList(userId);
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public int delFromCart(String userId, CartDTO dto) throws Exception {
 		dto.setC_m_email(userId);
 		dao.delExpiredCart();
@@ -37,7 +38,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectMember(dto, id);
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public void insertIntoShopList(List<ShopListDTO> list, Long orderNo, String id) throws Exception {
 		for(ShopListDTO dto : list) {
 			dto.setS_orderno(orderNo);
@@ -49,8 +50,9 @@ public class ShoppingServiceImpl implements ShoppingService{
 		}	
 	}
 
-	@Transactional
-	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{	
+	@Transactional("txManager")
+	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{
+		dao.updateShoplist();
 		dto.setS_email(id);
 		List<Long> orderNoList = dao.selectOrderNo(id);
 		List<List<ShopListDTO>> listWrapper = new ArrayList<>();
@@ -60,6 +62,12 @@ public class ShoppingServiceImpl implements ShoppingService{
 		}		
 		return listWrapper;
 	}
+
+	public List<ShopListDTO> getOrderShipping(Long s_orderno, String id) throws Exception{
+		dto.setS_email(id);
+		dto.setS_orderno(s_orderno);
+		return dao.selectOrderList(dto);
+	}
 	
 	public int insertIntoCart(CartDTO dto) throws Exception{
 		if(dao.isCartExist(dto.getC_p_no())>0) {
@@ -68,6 +76,71 @@ public class ShoppingServiceImpl implements ShoppingService{
 			return dao.insertIntoCart(dto);
 		}
 	}
+
+	public List<List<ShopListDTO>> getOrderSearch(String id, String orderDuration, String orderStatus) throws Exception{	
+		dto.setS_email(id);
+		int duration = 0;
+		if(orderDuration.equals("1주일")) {
+			duration = 7;
+		}else if(orderDuration.equals("1개월")) {
+			duration = 30;
+		}else if(orderDuration.equals("3개월")) {
+			duration = 90;
+		}else if(orderDuration.equals("6개월")) {
+			duration = 180;
+		}else if(orderDuration.equals("전체")) {
+			duration = 1000;
+		}
+
+		List<Long> orderNoList = null;
+		
+		if(duration==1000) {
+			if(orderStatus.equals("전체")) {
+				orderNoList = dao.selectOrderNo(id);
+			}else {
+				orderNoList = dao.searchOrderNo(id, orderStatus);
+			}
+		}else {
+			if(orderStatus.equals("전체")) {
+				dto.setS_orderno_seq(duration);
+				orderNoList = dao.searchOrderNoAll(dto);
+			}else {
+				dto.setS_orderno_seq(duration);
+				dto.setS_statement(orderStatus);
+				orderNoList = dao.searchOrderNoDuration(dto);
+			}
+		}
+		
+		List<List<ShopListDTO>> listWrapper = new ArrayList<>();
+		for(Long no : orderNoList) {
+			dto.setS_orderno(no);
+			listWrapper.add(dao.selectOrderList(dto));
+		}		
+		return listWrapper;
+	}
 	
+	public int insertSubscribe(SubscribeDTO sbdto, String id) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.insertSubscribe(sbdto);
+	}
 	
+	@Transactional("txManager")
+	public List<SubscribeDTO> getSubsList(String id) throws Exception{
+		dao.updateSubslist();			
+		return dao.selectSubsList(id);
+	}
+	
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.subsCancel(sbdto);
+	}
+	
+	@Transactional("txManager")
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception{
+		dao.updateSubslist();	
+		sbdto.setSb_email(id);
+		return dao.selectSubsSearch(sbdto);
+	}
+	
+
 }
