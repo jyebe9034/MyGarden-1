@@ -454,6 +454,7 @@
 	
 		$("#penguin").on("click", function(){
 			$("#bubbleWrap").css("display", "block");
+			$("#clickHere").hide();
 		})
 	</script>
 
