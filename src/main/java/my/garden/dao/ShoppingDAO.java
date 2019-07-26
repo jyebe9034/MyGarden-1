@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 @Component
 public class ShoppingDAO {
@@ -81,5 +82,32 @@ public class ShoppingDAO {
 		return sst.selectList("ShoppingDAO.searchOrderNoDuration", dto);
 	}
 	
+	public int insertSubscribe(SubscribeDTO dto) throws Exception{
+		return sst.insert("ShoppingDAO.insertSubscribe", dto);
+	}
+	
+	public int updateShoplist() throws Exception{
+		return sst.update("ShoppingDAO.updateShopList");
+	}
+	
+	public int updateSubslist() throws Exception{
+		return sst.update("ShoppingDAO.updateSubsList");
+	}
+	
+	public List<SubscribeDTO> selectSubsList(String id) throws Exception{
+		return sst.selectList("ShoppingDAO.selectSubsList", id);
+	}
+	
+	public int subsCancel(SubscribeDTO sbdto) throws Exception{
+		return sst.update("ShoppingDAO.subsCancel", sbdto);
+	}
+	
+	public List<SubscribeDTO> selectSubsSearch(SubscribeDTO dto) throws Exception{
+		return sst.selectList("ShoppingDAO.selectSubsSearch", dto);
+	}
+	
+	public int completeShipping(Long s_orderno) throws Exception{
+		return sst.update("ShoppingDAO.completeShipping", s_orderno);
+	}
 	
 }

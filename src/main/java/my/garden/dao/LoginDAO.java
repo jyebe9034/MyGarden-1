@@ -1,6 +1,5 @@
 package my.garden.dao;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -12,6 +11,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +28,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,18 +43,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-
+import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 
 @Repository
 public class LoginDAO {
@@ -91,7 +87,6 @@ public class LoginDAO {
 			dto.setM_realpath(uploadPath + "/" + prof);
 			dto.setM_profile("resources/prof/" + prof);
 		} catch (Exception e) {
-			System.out.println("ss");
 			e.printStackTrace();
 		} 
 	}
@@ -99,7 +94,13 @@ public class LoginDAO {
 	public int joinSubmit(MembersDTO dto) {
 		dto.setM_pw(this.SHA256(dto.getM_pw()));
 		dto.setM_ipaddress(request.getRemoteAddr());
-		return sst.insert("LoginDAO.joinSubmit", dto);
+		try {
+			int rst = sst.insert("LoginDAO.joinSubmit", dto);
+			return rst;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 	
 	public String emailDupCheck(String key) {
@@ -147,6 +148,10 @@ public class LoginDAO {
 		dto.setM_email(id);
 		return sst.selectOne("LoginDAO.memSelectAll", dto);
 	}
+	
+	public MembersDTO memSelectAll(String email) {
+		return sst.selectOne("LoginDAO.memSelectAll", email);
+	}
 
 	public String pwDupCheck(String key) {
 		Map<String, String> map = new HashMap();
@@ -156,8 +161,16 @@ public class LoginDAO {
 		return sst.selectOne("LoginDAO.dupCheck", map);
 	}
 	
+	public int delete(String loginId) {
+		return sst.delete("LoginDAO.delete", loginId);
+	}
+	
 	public int memUpdateAll(MembersDTO dto) {
-		return sst.insert("LoginDAO.memUpdateAll", dto);
+		try {
+			return sst.insert("LoginDAO.memUpdateAll", dto);
+		}catch(Exception e) {
+			return -1;
+		}
 	}
 	
 	public String randomCode() {
@@ -171,19 +184,17 @@ public class LoginDAO {
 	}
 	
 	public String mailSender(String m_email) throws Exception {
-		// 네이버일 경우 smtp.naver.com 을 입력합니다. 
-		// Google일 경우 smtp.gmail.com 을 입력합니다. 
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden55*"; //네이버 이메일 비밀번호를 입력해주세요. 
-		int port=465; //포트번호 
+		final String username = "sparkss0419"; 
+		final String password = "mygarden5*"; 
+		int port=465; 
 		
 		// 메일 내용 
-		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
-		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
+		String recipient = m_email; 
+		String subject = "나의 정원에서 코드 번호를 보내드립니다";
 			String randomCode = this.randomCode();
-		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
-		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
+		String body = "코드 번호는 " + randomCode + "입니다. ";  
+		Properties props = System.getProperties(); 
 		
 		// SMTP 서버 정보 설정 
 		props.put("mail.smtp.host", host); 
@@ -200,33 +211,40 @@ public class LoginDAO {
 				return new javax.mail.PasswordAuthentication(un, pw); 
 				} 
 			}); 
-		session.setDebug(true); //for debug 
-		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성 
-		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요. 
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
+		session.setDebug(true); 
+		Message mimeMessage = new MimeMessage(session); 
+		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); 
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 		
-		mimeMessage.setSubject(subject); //제목셋팅 
-		mimeMessage.setText(body); //내용셋팅 
-		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
+		mimeMessage.setSubject(subject); 
+		mimeMessage.setText(body); 
+		Transport.send(mimeMessage);
 		
 		return randomCode;
 	}
 	
 	public int findAccountChange(Map<String, String> map) {
+		try {
+			return sst.insert("LoginDAO.updateOne", map);
+		}catch(Exception e) {
+			return -1;
+		}
+	}
+
+	public int changeGardenStuff(Map<String, String> map) {
 		return sst.insert("LoginDAO.updateOne", map);
 	}
 	
-	public String findId(String key) {
+	public MembersDTO findId(String key) {
 		Map<String, String> map = new HashMap();
-		map.put("col", "m_email");
 		map.put("whereCol", "m_phone");
 		map.put("value", key);
-		return sst.selectOne("LoginDAO.dupCheck", map);
+		return sst.selectOne("LoginDAO.dupCheckAll", map);
 	}
 	
 	public String NaverLoginMakeUrl() {
 		try {
-		    String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
+		    String clientId = "zoUb6lNYx8sC2suyUmcS";
 		    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
 		    SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
@@ -384,6 +402,54 @@ public class LoginDAO {
             e.printStackTrace();
         }
         return returnNode;
+	}
+	
+	public Integer[] gardenCalendar(int year) {
+		Integer[] calArr = new Integer[12];
+        int day = 1;
+        int daysOfMonth = 0;
+		Calendar cal = Calendar.getInstance();
+		for(int month=0; month<12; month++) {
+	        cal.set(Calendar.MONTH, 0);
+	        int mm=cal.get(Calendar.MONTH)+month;
+//	        System.out.println(mm + 1 + "월");
+	        Calendar result = new GregorianCalendar(year, mm, day);
+	        daysOfMonth = result.getActualMaximum(Calendar.DAY_OF_MONTH);
+//	        System.out.println(year + "년 " + (mm+1) + "월의 일수: " + daysOfMonth);
+	        calArr[month] = daysOfMonth;
+		}
+       return calArr;
+	}
+	
+	public List<CalendarDTO> getCalendarList(String loginId) {
+	      return sst.selectList("LoginDAO.selectCalendar", loginId);
+	   }
+	
+	public List<ShopListDTO> getShoppedList(ShopListDTO dto){
+		if(sst.selectList("LoginDAO.selectOrderList", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderList", dto);
+		}
+	}
+	public List<SubscribeDTO> getShoppedListSub(SubscribeDTO dto){
+		if(sst.selectList("LoginDAO.selectOrderListSub", dto)==null) {
+			return null;
+		}else {
+			return sst.selectList("LoginDAO.selectOrderListSub", dto);
+		}
+	}
+	
+	public SubscribeDTO selectSub(String id){
+		if(sst.selectOne("LoginDAO.selectSub", id)==null) {
+			return null;
+		}else {
+			return sst.selectOne("LoginDAO.selectSub", id);
+		}
+	}
+	
+	public String getGrade(String id) {
+		return sst.selectOne("LoginDAO.getGrade", id);
 	}
 	
 }

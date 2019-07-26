@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
-
 <title>자유게시판</title>
 </head>
 <style>
@@ -22,49 +21,70 @@
 
 .content {
 	width: 100%;
-	height: 130px;
 	text-align: left;
 	line-height: 75px;
-	margin-bottom: 40px;
 }
 
-.realImg {
-	margin-top: 5px;
+.realImg, .img {
 	padding: 0px;
 	width: 100%;
+	height: 151px;
 	text-align: center;
 }
 
 .img img {
 	max-width: 100%;
-	max-height: 150px;
+	max-height: 151px;
 	border-radius: 5px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 }
 
-.title {
+.title, .sTitle {
 	font-size: 20px;
 	font-weight: bold;
 	margin-left: 28px;
-	cursor: pointer;
+}
+
+.searchContImg {
+	margin-left: 28px;
+	padding: 0px;
+}
+
+.sTitle {
+	margin-left: 35px;
+	margin-bottom: 10px;
+	color: #8e74a8;
 }
 
 .title:hover {
 	text-decoration: underline;
+	cursor: pointer;
+}
+
+.writer>img{
+	height: 30px !important;
+	width: 30px !important;
+	margin-right: 10px !important;
+	border-radius: 30px;
 }
 
 hr {
 	margin: 0px;
 	width: 100%;
-	/* border: 1px solid #9e9e9e; */
 }
 
-#write {
+#write, #back {
 	background-color: #44b27d;
 	color: white;
 	border: 0px;
 }
 
-#write:hover {
+#write:hover, #back:hover {
 	background-color: #b4d9b5;
 	border: 0px;
 }
@@ -75,6 +95,8 @@ hr {
 
 .otherContents img {
 	margin: 0px 5px;
+	height: 28px;
+	width: auto;
 }
 
 .footBtn {
@@ -92,7 +114,7 @@ hr {
 	text-align: center;
 }
 
-.naviBtn {
+.naviBtn, .searchNaviBtn {
 	width: 30px;
 	text-align: center;
 	color: #44b27d;
@@ -102,9 +124,14 @@ hr {
 	cursor: pointer;
 }
 
-.naviBtn:hover {
+.naviBtn:hover, .searchNaviBtn:hover {
 	text-decoration: underline;
 	color: #c1b1fc;
+}
+
+.searchContImg img {
+	width: 100px !important;
+	border-radius: 5px;
 }
 </style>
 <body>
@@ -128,8 +155,7 @@ hr {
 						</div>
 						<input type=hidden value=${tmp.bf_no }>
 						<div class=otherContents>
-							<span class=writer><img
-								src="resources/free/boardFreeWriter.png">${tmp.bf_writer }</span>
+							<span class=writer><img src=${tmp.bf_writerImg }>${tmp.bf_writer }</span>
 							<span class=writeDate><img
 								src="resources/free/boardFreeWriteDate.png">${tmp.bf_stringdate }</span>
 							<span class=viewCount><img
@@ -142,6 +168,7 @@ hr {
 				</div>
 			</c:forEach>
 		</div>
+		<br> <br>
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
@@ -169,19 +196,19 @@ hr {
 		</c:if>
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
-<script>
+	<script>
 
-	$(".tmpImg").each(function (i, item) {
-		var tmp = $(this).html();
-		var regex = /(\/re.+?png)/;
-		var result = regex.exec(tmp);
-			$(".tmpImg").hide(); //자꾸 튀어나와서 숨겼음ㅡㅡ
-			if(result!=null){
-			$(this).next().html("<img src='"+result[1]+"'>");
-			}else{
-				$(this).next().html("<img src='/resources/free/noImg.png'>");
-			}
-	})
+ 	$(".tmpImg").each(function (i, item) {
+ 		var tmp = $(this).html();
+ 		var regex = /(\/re.+?png)/;
+ 		var result = regex.exec(tmp);
+ 			$(".tmpImg").hide(); //자꾸 튀어나와서 숨겼음ㅡㅡ
+ 			if(result!=null){
+ 			$(this).next().html("<img src='"+result[1]+"'>");
+ 			}else{
+ 				$(this).next().html("<img src='/resources/free/noImg.png'>");
+ 			}
+ 	}) 
 
 		$(document).on("click",".title",function(){
 			var seq = $(this).next().val();
@@ -206,12 +233,15 @@ hr {
 		
 		
 		$(".naviBtn").each(function(i,item){
-			if($(this).text() == ${page}){
+			if($(this).text() == ${page} ){
 				$(this).css("color","#c1b1fc");
 		}
 		})
-		
+
 		$("#freeSearchBtn").on("click",function(){
+			if($("#searchVal").val()==""){
+				alert("검색어를 입력해주세요.");
+			}else{
 			$.ajax({
 				url:'searchForFree',
 				data:{
@@ -219,27 +249,88 @@ hr {
 				},
 				type:"post"
 			}).done(function (resp) {
-				console.log(resp.searchPage);
 				$(".listOne").html("");
+				$("#naviPlace").html("");
+				var size = resp.searchList.length;
+				if(size>0){
 				var tmp = "";
-				
-				for(var i=0 ; i<resp.searchList.length ; i ++){
-				var tmp = tmp + '<div class="col-2 realImg"><div class=tmpImg>'+resp.searchList[i].bf_content+'</div><div class=img></div></div>'
-					+'<div class="col-10"><div class=title>'+resp.searchList[i].bf_title+'<hr size="3"></div>'
-				+'<input type=hidden value=><div class=otherContents><span class=writer>'
+				for(var i=0 ; i<resp.searchList.length ; i++){
+				tmp = tmp +'<div class="col-12"><div class=title>'+resp.searchList[i].bf_title+'</div>'
+				+'<input type=hidden value='+resp.searchList[i].bf_no +'>'
+				+'<hr><div class="col-12 searchContImg">'+resp.searchList[i].bf_content+'</div>'
+				+'<br><div class=otherContents><span class=writer>'
 				+'<img src="resources/free/boardFreeWriter.png">'+resp.searchList[i].bf_writer+'</span><span class=writeDate>'
 				+'<img src="resources/free/boardFreeWriteDate.png">'+resp.searchList[i].bf_stringdate+'</span><span class=viewCount>'
 				+'<img src="resources/free/boardFreeView.png">'+resp.searchList[i].bf_viewcount+'</span><span class=comment>'
-				+'<img src="resources/free/boardFreeReply.png">'+resp.searchList[i].bf_cmtcount+'</span></div></div><hr size="3">';
-				}		
-				console.log(tmp);
-				$(".listOne").html(tmp);
-				
-				
+				+'<img src="resources/free/boardFreeReply.png">'+resp.searchList[i].bf_cmtcount+'</span><hr></div></div><br><br>';
+				}					
+				$(".listOne").html("<div class=sTitle>'"+resp.searchVal+"' 관련 검색어 : "+resp.searchList.length+" 건</div><br>"+tmp+"<br><br>");
+				var navi = "";
+				for(var i=0; i<resp.searchNavi.length; i++){
+					navi = navi+'<span class=searchNaviBtn>'+resp.searchNavi[i]+'</span>';
+					$("#naviPlace").html(navi);
+				}	
+				}else{
+					$(".listOne").html("<center><img src=resources/img/noresults.png width=500px><br><br><br>'<b>"+resp.searchVal+"</b>' 에 대한 결과가 없습니다.<br><br>"
+					+"<button id='back' class='btn'>돌아가기</button>");
+				}
+			})
+			}
+		})
+		
+// 		$(document).on("keydown", "#searchVal", function(key) {		
+//         if (key.keyCode == 13) {
+//         	$("#freeSearchBtn").click();   	
+//         }
+// 		})
+		
+		$(document).on("click", ".searchNaviBtn", function(){
+			var page = $(this).text();
+			if(page == ">"){
+				page = parseInt($(this).prev().text())+1;
+				console.log(page);
+			}else if(page == "<"){
+				page = parseInt($(this).next().text())-1;
+				console.log(page);
+			}
+			$.ajax({
+				url:'searchForFree',
+				data:{
+					'page':page
+				},
+				type:"post"
+			}).done(function (resp) {
+				$(".listOne").html("");
+				$("#naviPlace").html("");
+				var size = resp.searchList.length;
+				if(size>0){
+				var tmp = "";
+				for(var i=0 ; i<resp.searchList.length ; i++){
+					tmp = tmp +'<div class="col-12"><div class=title>'+resp.searchList[i].bf_title+'</div>'
+					+'<input type=hidden value='+resp.searchList[i].bf_no +'>'
+					+'<div class="col-12 searchContImg"><hr>'+resp.searchList[i].bf_content+'</div>'
+					+'<br><div class=otherContents><span class=writer>'
+					+'<img src="resources/free/boardFreeWriter.png">'+resp.searchList[i].bf_writer+'</span><span class=writeDate>'
+					+'<img src="resources/free/boardFreeWriteDate.png">'+resp.searchList[i].bf_stringdate+'</span><span class=viewCount>'
+					+'<img src="resources/free/boardFreeView.png">'+resp.searchList[i].bf_viewcount+'</span><span class=comment>'
+					+'<img src="resources/free/boardFreeReply.png">'+resp.searchList[i].bf_cmtcount+'</span></div></div><hr size="3"><br>';
+				}					
+				$(".listOne").html("<div class=sTitle>'"+resp.searchVal+"' 관련 검색어 : "+resp.searchList.length+" 건</div><br>"+tmp+"<br><br>");
+				var navi = "";
+				for(var i=0; i<resp.searchNavi.length; i++){
+					navi = navi+'<span class=searchNaviBtn>'+resp.searchNavi[i]+'</span>';
+					$("#naviPlace").html(navi);
+				}	
+				}else{
+					$(".listOne").html("<center><img src=resources/img/noresults.png><br><br>'<b>"+resp.searchVal+"</b>' 에 대한 결과가 없습니다.<br><br>"
+					+"<button id='back' class='btn'>뒤로 가기</button>");
+				}
 			})
 		})
 		
-		
+		$(document).on("click", "#back", function(){
+			location.href="boardFreeList";
+		})
 	</script>
 </body>
 </html>

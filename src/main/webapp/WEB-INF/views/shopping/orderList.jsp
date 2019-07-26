@@ -28,7 +28,13 @@
 }
 
 .cell {
-	border-left: 1px solid #ddd
+	border-left: 1px solid #ddd;
+	font-size: 12px;
+}
+
+.cells {
+	font-size: 12px;
+	border-right: 1px solid #dddddd;
 }
 
 input {
@@ -50,9 +56,6 @@ table.list_table_style thead th {
 	border-left: 0px;
 }
 
-.cell {
-	font-size: 12px;
-}
 
 table.list_table_style td.cell {
 	font-family: 'Spoqa Han Sans', sans-serif;
@@ -103,9 +106,25 @@ table.list_table_style td.cell {
 	padding-left: 4px;
 	padding-right: 4px;
 }
-#empty{
+
+#empty {
 	font-size: 13px;
 }
+
+.title {
+	color: dodgerblue;
+}
+
+.title:hover {
+	color: navy;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.detail{
+	border:1px solid #dddddd;
+	background-color:#F9F9F9;
+}
+
 </style>
 
 
@@ -116,10 +135,33 @@ table.list_table_style td.cell {
 			$("#orderSearch").submit();
 		})
 
-		$(".showShipping").on("click", function(){
-			window.open("shipping", "",
-			"width=900px, height=700px");
-		})
+		$(".showShipping").on("click",function() {
+					var title = $(this).parent().parent().find("td:nth-child(2)")
+					.find("table:nth-child(1)").find("tr:nth-child(1)").find("td:nth-child(2)")
+					.find("div:nth-child(1)").find("span:nth-child(1)").html();
+					window.open("shipping?s_orderno="
+							+ $(this).parent().find("input:nth-child(3)").val()
+							+ "&s_p_title=" + title, "",
+							"width=900px, height=700px");
+				})
+
+		$(".hide").hide();
+
+		$(".title").on("click",function() {
+					var detailBox = $(this).parent().parent().parent().parent().parent()
+					.parent().parent().find("+tr").find("td:nth-child(1)");
+					
+					if(detailBox.attr("flag")=="y"){
+						detailBox.attr("flag","n");
+						detailBox.slideUp();
+					}else{
+						$(".hide").hide();
+						detailBox.attr("flag","y");
+						detailBox.slideDown();
+					}
+				})
+			
+
 	});
 </script>
 
@@ -164,12 +206,18 @@ table.list_table_style td.cell {
 			<div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 pt-5 my">
 				<div class="list-group">
 					<a href="/mypageFirst"
-						class="list-group-item list-group-item-action ">Overview</a> <a
+						class="list-group-item list-group-item-action">Overview</a> <a
 						href="/mypageInfo" class="list-group-item list-group-item-action">내
-						정보 수정</a> <a href="#"
+						정보 수정</a> <a href="orderList"
 						class="list-group-item list-group-item-action currentActive">구매
-						내역</a> <a href="#" class="list-group-item list-group-item-action">Dapibus
-						ac facilisis in</a>
+						내역</a> <a href="subsList"
+						class="list-group-item list-group-item-action">정기 구독</a>
+					<c:if test="${grade == 'admin'}">
+						<a href="productsAdd"
+							class="list-group-item list-group-item-action">상품 등록</a>
+					</c:if>
+					<a href="/mypageDelete"
+						class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
 
@@ -252,14 +300,10 @@ table.list_table_style td.cell {
 																			<div class="goods_name">
 																				<c:choose>
 																					<c:when test="${count-1==0 }">
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																						</a>
+																						<span class="title">${dto.s_p_title }</span>
 																					</c:when>
 																					<c:otherwise>
-																						<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
-																							외 <fmt:formatNumber value="${count-1 }"
-																								type="number" /> 건
-																						</a>
+																						<span class="title">${dto.s_p_title } 외 ${count-1 } 건</span>
 																					</c:otherwise>
 																				</c:choose>
 																			</div>
@@ -274,7 +318,14 @@ table.list_table_style td.cell {
 																<c:when test="${dto.s_statement =='배송중'}">
 																	<td class="cell"><span class="mr-1">${dto.s_statement }</span><input
 																		type="button" value="배송조회"
-																		class="showShipping btn btn-dark"></td>
+																		class="showShipping btn btn-dark"> <input
+																		type="hidden" value="${dto.s_orderno }"></td>
+																</c:when>
+																<c:when test="${dto.s_statement =='입금 대기'}">
+																	<td class="cell" style="color: dodgerblue;">${dto.s_statement }</td>
+																</c:when>
+																<c:when test="${dto.s_statement =='주문 만료'}">
+																	<td class="cell" style="color: red;">${dto.s_statement }</td>
 																</c:when>
 																<c:otherwise>
 																	<td class="cell">${dto.s_statement }</td>
@@ -284,6 +335,58 @@ table.list_table_style td.cell {
 														</tr>
 													</c:if>
 												</c:forEach>
+												<tr class="pt-3 pb-3 bottom_line">
+													<td colspan=5 align="center" class="pt-3 pb-3 hide" style="display: none;" flag="n">
+														<table width="70%" border="0" cellpadding="0"
+															cellspacing="0" class="detail">
+															<tr style="font-size:12px;" height="40" align="center" class="bottom_line">
+																<th width="60">주문번호</th>
+																<th width="110">상품명</th>
+																<th width="90">주문일</th>
+																<th width="60">수량</th>
+																<th width="70">주문금액</th>
+															</tr>
+															<c:forEach var="dto" items="${list}" varStatus="stat">
+																<tr class="bottom_line">
+																	<td class="cell" align="center">${dto.s_orderno }</td>
+																	<td class="cell"><img src="${dto.s_p_imagepath }"
+																		class="productsImg ml-3 mt-1 mb-1" width="50px" height="50px">
+																		<a
+																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }" class="pl-3">${dto.s_p_title }</a>
+																	</td>
+																	<td class="cell" align="center">${dto.s_orderdate }</td>
+																	<td class="cell" align="center">${dto.s_p_count }</td>
+																	<td class="cell" align="center"><fmt:formatNumber
+																			value="${dto.s_p_price*dto.s_p_count }" type="number" />원</td>
+																</tr>
+																<c:if test="${stat.last}">
+																	<tr>
+																		<td class="cells" height="30" align="left" colspan=5></td>
+																	</tr>
+																	<tr>
+																		<th class="cell pl-4" align="left" height="30">받는 사람 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_recipient }</td>
+																	</tr>
+																	<tr>
+																		<th class="cell pl-4" align="left" height="30">결제 방법 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_paymethod }</td>
+																	</tr>
+																	<tr>
+																		<th class="cell pl-4" align="left" height="30">배송 메모 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_memo }</td>
+																	</tr>
+																	<tr>
+																		<th class="cell pl-4" align="left" height="30">배송지 </td>
+																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_zipcode } ${dto.s_m_address1 } ${dto.s_m_address2 }</td>
+																	</tr>
+																	<tr>
+																		<td class="cells" height="30" colspan=5></td>
+																	</tr>		
+																</c:if>
+															</c:forEach>
+														</table>
+													</td>
+												</tr>
 											</c:forEach>
 										</c:otherwise>
 									</c:choose>

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -33,16 +34,6 @@
 <!-- MAIN CSS -->
 <link rel="stylesheet"
 	href="../../resources/admin/theme/assets/css/main.css">
-<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-<link rel="stylesheet"
-	href="../../resources/admin/theme/assets/css/demo.css">
-<!-- GOOGLE FONTS -->
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
-	rel="stylesheet">
-<!-- ICONS -->
-<link rel="apple-touch-icon" sizes="76x76"
-	href="../../resources/admin/theme/assets/img/apple-icon.png">
 </head>
 <style>
 .container {
@@ -78,22 +69,27 @@ th {
 	color: white;
 }
 
-td{
+td {
 	text-align: center;
 }
+
+#orderContents th {
+	width: 20% !important;
+}
+
 .table {
 	margin: 0 auto;
 	padding: 15px;
 }
 
-.pagination .active .page-link, .back {
+.pagination .active .page-link {
 	background-color: #bcdeb4;
 	border: 1px solid #bcdeb4;
 	font-weight: bold;
 	color: white;
 }
 
-.pagination .active .page-link:hover, .back:hover {
+.pagination .active .page-link:hover {
 	background-color: #66b075;
 	border: 1px solid #bcdeb4;
 	font-weight: bold;
@@ -104,6 +100,14 @@ td{
 	font-size: 15px;
 	height: 30px;
 	border-radius: 5px;
+	background-color: white;
+	border: 1px solid #66b075;
+	color: #66b075;
+}
+
+.back:hover {
+	background-color: #66b075;
+	color: white;
 }
 
 h4 {
@@ -111,7 +115,7 @@ h4 {
 	font-weight: bold !important;
 }
 
-.moneyCheck, .shippingCheck {
+.moneyCheck, .shippingCheck, .subsCheck {
 	color: #d6d6d6;
 	background-color: white;
 	border: 0px;
@@ -155,6 +159,28 @@ h4 {
 	background-color: lightgrey;
 	transition-duration: 0.5 s;
 }
+
+.none {
+	margin-left: 50px;
+	color: #b093c7;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.remark {
+	text-align: left;
+	font-size: 18px;
+	color: #8e74a8;
+	font-weight: bold;
+}
+
+.none span {
+	font-size: 23px;
+}
+
+#sellCount li {
+	margin-bottom: 10px;
+}
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
@@ -186,18 +212,10 @@ h4 {
 				</div>
 				<nav id="left-sidebar-nav" class="sidebar-nav">
 				<ul id="main-menu" class="metismenu">
-					<li class="active"><a href="adminIndex"><i
-							class="lnr lnr-home"></i> <span>전체 보기</span></a></li>
-					<li class=""><a href="adminMembers" class="has-arrow"
-						aria-expanded="false"><i class="lnr lnr lnr-user"></i> <span>회원
-								관리</span></a> <!-- <ul aria-expanded="true">
-							<li class=""><a href="#">공유정원 회원</a></li>
-							<li class=""><a href="#">비밀정원 회원</a></li>
-						</ul> --></li>
-					<li class=""><a href="adminStat" aria-expanded="false"><i
-							class="lnr lnr-chart-bars"></i> <span>통계</span></a></li>
-					<li class=""><a href="#"><i class="lnr lnr-alarm"></i> <span>공지사항</span>
-							<span class="badge bg-danger">15</span></a></li>
+					<li class="active"><a href="adminIndex"> <i
+							class="lnr lnr-home"></i><span>전체 보기</span></a></li>
+					<li class=""><a href="adminPrivateGarden"> <i
+							class="lnr lnr lnr-leaf"></i><span>비밀 정원</span></a></li>
 				</ul>
 				</nav>
 			</div>
@@ -285,195 +303,41 @@ h4 {
 								<h2 class="section-title">
 									<i class="fa fa-heart"></i> 인기 품목
 								</h2>
-								<div id="demo-donut-chart" class="ct-chart"></div>
+								<div id="demo-donut-chart" class="ct-chart">
+									<br> <br>
+								</div>
 							</div>
+							<p class=col-6 class=none></p>
 							<!-- 인기상품 끝 -->
 						</div>
 						<div class="col-md-6">
-							<!-- 방문자 -->
-							<div class="panel-content">
+							<!-- 판매 건수 -->
+							<div class="panel-content" id=sellCount>
 								<h2 class="heading">
-									<i class="fa fa-square"></i> 방문자
+									<i class="fa fa-square"></i> 판매 건수
 								</h2>
 								<ul class="list-unstyled list-referrals">
-									<li>
-										<p>
-											<span class="value">3,454</span><span class="text-muted">여성,
-												20대</span>
-										</p>
-										<div
-											class="progress progress-xs progress-transparent custom-color-blue">
-											<div class="progress-bar" data-transitiongoal="33"></div>
-										</div>
-									</li>
-									<li>
-										<p>
-											<span class="value">2,874</span><span class="text-muted">여성,
-												30대</span>
-										</p>
-										<div
-											class="progress progress-xs progress-transparent custom-color-purple">
-											<div class="progress-bar" data-transitiongoal="28"></div>
-										</div>
-									</li>
-									<li>
-										<p>
-											<span class="value">2,150</span><span class="text-muted">남성,
-												20대</span>
-										</p>
-										<div
-											class="progress progress-xs progress-transparent custom-color-green">
-											<div class="progress-bar" data-transitiongoal="21"></div>
-										</div>
-									</li>
-									<li>
-										<p>
-											<span class="value">1,870</span><span class="text-muted">남성,
-												30대</span>
-										</p>
-										<div
-											class="progress progress-xs progress-transparent custom-color-yellow">
-											<div class="progress-bar" data-transitiongoal="18"></div>
-										</div>
-									</li>
+									<c:forEach var="tmp" begin="0" end="4" items="${popular}" varStatus="status">
+										<li>
+											<p>
+												<span class="value">${tmp.s_p_title }</span><span
+													class="text-muted">${tmp.s_p_count } 건</span>
+											</p>
+											<div
+												class="progress progress-xs progress-transparent custom-color-blue"
+												id="count${status.index}">
+												<div class="progress-bar"
+													data-transitiongoal="${count[status.index] }"></div>
+											</div>
+										</li>
+									</c:forEach>
 								</ul>
 							</div>
-							<!-- 방문자 끝 -->
+							<!-- 판매 건수 끝 -->
 						</div>
 					</div>
 				</div>
 			</div>
-<!-- 			 END WEBSITE ANALYTICS --> 
-<!-- 			 수익 통계 -->
-<!-- 			<div class="dashboard-section"> -->
-<!-- 				<div class="section-heading clearfix"> -->
-<!-- 					<h2 class="section-title"> -->
-<!-- 						<i class="fa fa-shopping-basket"></i> 수익 통계 -->
-<!-- 					</h2> -->
-<!-- 				</div> -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-3"> -->
-<!-- 						<div class="panel-content"> -->
-<!-- 							<h3 class="heading"> -->
-<!-- 								<i class="fa fa-square"></i> 오늘 -->
-<!-- 							</h3> -->
-<!-- 							<ul class="list-unstyled list-justify large-number"> -->
-<!-- 								<li class="clearfix">Earnings <span>$215</span></li> -->
-<!-- 								<li class="clearfix">Sales <span>47</span></li> -->
-<!-- 							</ul> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-9"> -->
-<!-- 						<div class="panel-content"> -->
-<!-- 							<h3 class="heading"> -->
-<!-- 								<i class="fa fa-square"></i> Sales Performance -->
-<!-- 							</h3> -->
-<!-- 							<div class="row"> -->
-<!-- 								<div class="col-md-6"> -->
-<!-- 									<table class="table"> -->
-<!-- 										<thead> -->
-<!-- 											<tr> -->
-<!-- 												<th>&nbsp;</th> -->
-<!-- 												<th>Last Week</th> -->
-<!-- 												<th>This Week</th> -->
-<!-- 												<th>Change</th> -->
-<!-- 											</tr> -->
-<!-- 										</thead> -->
-<!-- 										<tbody> -->
-<!-- 											<tr> -->
-<!-- 												<th>Earnings</th> -->
-<!-- 												<td>$2752</td> -->
-<!-- 												<td><span class="text-info">$3854</span></td> -->
-<!-- 												<td><span class="text-success">40.04%</span></td> -->
-<!-- 											</tr> -->
-<!-- 											<tr> -->
-<!-- 												<th>Sales</th> -->
-<!-- 												<td>243</td> -->
-<!-- 												<td> -->
-<!-- 													<div class="text-info">322</div> -->
-<!-- 												</td> -->
-<!-- 												<td><span class="text-success">32.51%</span></td> -->
-<!-- 											</tr> -->
-<!-- 										</tbody> -->
-<!-- 									</table> -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-6"> -->
-<!-- 									<div id="chart-sales-performance">Loading ...</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="row"> -->
-<!-- 					<div class="col-md-8"> -->
-<!-- 						<div class="panel-content"> -->
-<!-- 							<h3 class="heading"> -->
-<!-- 								<i class="fa fa-square"></i> Recent Purchases -->
-<!-- 							</h3> -->
-<!-- 							<div class="table-responsive"> -->
-<!-- 								<table class="table table-striped no-margin"> -->
-<!-- 									<thead> -->
-<!-- 										<tr> -->
-<!-- 											<th>Order No.</th> -->
-<!-- 											<th>Name</th> -->
-<!-- 											<th>Amount</th> -->
-<!-- 											<th>Date &amp; Time</th> -->
-<!-- 											<th>Status</th> -->
-<!-- 										</tr> -->
-<!-- 									</thead> -->
-<!-- 									<tbody> -->
-<!-- 										<tr> -->
-<!-- 											<td><a href="#">763648</a></td> -->
-<!-- 											<td>Steve</td> -->
-<!-- 											<td>$122</td> -->
-<!-- 											<td>Oct 21, 2016</td> -->
-<!-- 											<td><span class="label label-success">COMPLETED</span></td> -->
-<!-- 										</tr> -->
-<!-- 										<tr> -->
-<!-- 											<td><a href="#">763649</a></td> -->
-<!-- 											<td>Amber</td> -->
-<!-- 											<td>$62</td> -->
-<!-- 											<td>Oct 21, 2016</td> -->
-<!-- 											<td><span class="label label-warning">PENDING</span></td> -->
-<!-- 										</tr> -->
-<!-- 										<tr> -->
-<!-- 											<td><a href="#">763650</a></td> -->
-<!-- 											<td>Michael</td> -->
-<!-- 											<td>$34</td> -->
-<!-- 											<td>Oct 18, 2016</td> -->
-<!-- 											<td><span class="label label-danger">FAILED</span></td> -->
-<!-- 										</tr> -->
-<!-- 										<tr> -->
-<!-- 											<td><a href="#">763651</a></td> -->
-<!-- 											<td>Roger</td> -->
-<!-- 											<td>$186</td> -->
-<!-- 											<td>Oct 17, 2016</td> -->
-<!-- 											<td><span class="label label-success">SUCCESS</span></td> -->
-<!-- 										</tr> -->
-<!-- 										<tr> -->
-<!-- 											<td><a href="#">763652</a></td> -->
-<!-- 											<td>Smith</td> -->
-<!-- 											<td>$362</td> -->
-<!-- 											<td>Oct 16, 2016</td> -->
-<!-- 											<td><span class="label label-success">SUCCESS</span></td> -->
-<!-- 										</tr> -->
-<!-- 									</tbody> -->
-<!-- 								</table> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="col-md-4"> -->
-<!-- 						<div class="panel-content"> -->
-<!-- 							<h3 class="heading"> -->
-<!-- 								<i class="fa fa-square"></i> Top Products -->
-<!-- 							</h3> -->
-<!-- 							<div id="chart-top-products" class="chartist"></div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<!-- END SALES SUMMARY -->
-			<!-- SOCIAL -->
 			<div class="dashboard-section no-margin">
 				<div class="section-heading clearfix">
 					<h2 class="section-title">
@@ -484,8 +348,8 @@ h4 {
 					<div class="row" id=originHide>
 						<div class="col-md-6 col-sm-6" id=deposit>
 							<p class="metric-inline">
-								<i class="fa fa-bell"></i>+${depositWait }<span>입금 대기</span> <i
-									class="fa fa-check-circle cmt"> 입금을 확인해주세요.</i>
+								<i class="fa fa-bell"></i>+${depositWait + subsWait }<span>입금
+									대기</span> <i class="fa fa-check-circle cmt"> 입금을 확인해주세요.</i>
 							</p>
 						</div>
 						<div class="col-md-6 col-sm-6" id=shipping>
@@ -500,120 +364,185 @@ h4 {
 			<!-- 	orderContents 숨김용 		-->
 			<div id=orderCheck class="col-12">
 				<h4>
-					<i class="fa fa-shopping-basket"> 입금 대기 목록</i>
-					<button class=back>뒤로 가기</button>
+					<i class="fa fa-bell"> 입금 대기 목록</i>
+					<button class=back>
+						<i class="lnr lnr-undo"></i>
+					</button>
 				</h4>
 				<div class="table">
-					<table class="table table-bordered" width="100%"
-						cellspacing="0">
-						<thead>
-							<tr>
-								<th>주문번호</th>
-								<th>주문자</th>
-								<th>연락처</th>
-								<th>주문 금액</th>
-								<th>입금 확인</th>
-							</tr>
-						</thead>
-						<tbody>
-								<c:forEach var="tmp" items="${depositCheckList}">
+					<p class=remark>공유정원 입금 내역</p>
+					<c:choose>
+						<c:when test="${fn:length(depositCheckList) == 0}">
+							<p class=none>
+								<span class="lnr lnr-sad"></span> 내역이 없습니다.
+							</p>
+						</c:when>
+						<c:otherwise>
+							<table class="table table-bordered" width="100%" cellspacing="0">
+								<thead>
 									<tr>
-										<td class=orNo>${tmp.s_orderno }</td>
-										<td>${tmp.s_email }</td>
-										<td>${tmp.s_phone }</td>
-										<td><fmt:formatNumber value="${tmp.s_p_count}"
-												pattern="#,###원" /></td>
-										<td><button class=moneyCheck>
-												<i class="fa fa-check-circle"></i>
-											</button></td>
+										<th>주문번호</th>
+										<th>주문자</th>
+										<th>연락처</th>
+										<th>주문 금액</th>
+										<th>입금 확인</th>
 									</tr>
-								</c:forEach>
-						</tbody>
-					</table>
+								</thead>
+								<tbody>
+									<c:forEach var="tmp" items="${depositCheckList}">
+										<tr>
+											<td class=orNo>${tmp.s_orderno }</td>
+											<td>${tmp.s_email }</td>
+											<td>${tmp.s_phone }</td>
+											<td><fmt:formatNumber value="${tmp.s_p_count}"
+													pattern="#,###원" /></td>
+											<td><button class=moneyCheck>
+													<i class="fa fa-check-circle"></i>
+												</button></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:otherwise>
+					</c:choose>
+				</div>
+
+				<div class="table">
+					<p class=remark>정기구독 입금 내역</p>
+					<c:choose>
+						<c:when test="${fn:length(subsCheckList) == 0}">
+							<p class=none>
+								<span class="lnr lnr-sad"></span> 내역이 없습니다.
+							</p>
+						</c:when>
+						<c:otherwise>
+							<table class="table table-bordered" width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th>주문번호</th>
+										<th>주문자</th>
+										<th>연락처</th>
+										<th>주문 금액</th>
+										<th>입금 확인</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="tmp" items="${subsCheckList}">
+										<tr>
+											<td class=orNo>${tmp.s_orderno }</td>
+											<td>${tmp.s_email }</td>
+											<td>${tmp.s_phone }</td>
+											<td><fmt:formatNumber value="${tmp.s_p_count}"
+													pattern="#,###원" /></td>
+											<td><button class=subsCheck>
+													<i class="fa fa-check-circle"></i>
+												</button></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 
 			<div id=shippingCheck class="col-12">
 				<h4>
-					<i class="fa fa-shopping-basket"> 배송 대기 목록</i>
-					<button class=back>뒤로 가기</button>
+					<i class="fa fa-truck"> 배송 대기 목록</i>
+					<button class=back>
+						<i class="lnr lnr-undo"></i>
+					</button>
 				</h4>
-				<div class="table">
-					<table class="table table-bordered" width="100%"
-						cellspacing="0">
-						<thead>
-							<tr>
-								<th>주문번호</th>
-								<th>주문자</th>
-								<th>연락처</th>
-								<th>주문 금액</th>
-								<th>배송 확인</th>
-							</tr>
-						</thead>
-						<tbody>
-								<c:forEach var="tmp" items="${shippingCheckList}">
-									<tr>
-										<td class=orNo>${tmp.s_orderno }</td>
-										<td>${tmp.s_email }</td>
-										<td>${tmp.s_phone }</td>
-										<td><fmt:formatNumber value="${tmp.s_p_count}"
-												pattern="#,###원" /></td>
-										<td><button class=shippingCheck>
-												<i class="fa fa-check-circle"></i>
-											</button></td>
-									</tr>
-								</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!-- END SOCIAL -->
+				<c:choose>
+					<c:when test="${fn:length(shippingCheckList) == 0}">
+						<p class=none>
+							<span class="lnr lnr-sad"></span> 내역이 없습니다.
+						</p>
+					</c:when>
+					<c:otherwise>
+						<div class="table">
 
-			<!-- DataTables Example -->
-			<div class="dashboard-section">
-				<div class="section-heading clearfix">
-					<h2 class="section-title">
-						<i class="fa fa-user-circle"></i> 회원관리
-					</h2>
-				</div>
-				<div class="table">
-					<table class="table table-bordered" id="dataTable" width="100%"
-						cellspacing="0">
-						<thead>
-							<tr>
-								<th>아이디</th>
-								<th>이름</th>
-								<th>연락처</th>
-								<th>가입일자</th>
-								<th>IP주소</th>
-								<th>등급</th>
-								<th>포인트</th>
-								<th>성별</th>
-								<th>정원 이름</th>
-							</tr>
-						</thead>
-						<tbody>
-							<div id=mTable>
-								<c:forEach var="tmp" items="${member}">
+							<table class="table table-bordered" width="100%" cellspacing="0">
+								<thead>
 									<tr>
-										<td>${tmp.m_email }</td>
-										<td>${tmp.m_name }</td>
-										<td>${tmp.m_phone }</td>
-										<td>${tmp.m_joindate }</td>
-										<td>${tmp.m_ipaddress }</td>
-										<td>${tmp.m_grade }</td>
-										<td>${tmp.m_point }</td>
-										<td>${tmp.m_gender }</td>
-										<td>${tmp.m_garden }</td>
+										<th>주문번호</th>
+										<th>주문자</th>
+										<th>연락처</th>
+										<th>주문 금액</th>
+										<th>배송 확인</th>
 									</tr>
-								</c:forEach>
-							</div>
-						</tbody>
-					</table>
-				</div>
+								</thead>
+								<tbody>
+									<c:forEach var="tmp" items="${shippingCheckList}">
+										<tr>
+											<td class=orNo>${tmp.s_orderno }</td>
+											<td>${tmp.s_email }</td>
+											<td>${tmp.s_phone }</td>
+											<td><fmt:formatNumber value="${tmp.s_p_count}"
+													pattern="#,###원" /></td>
+											<td><button class=shippingCheck>
+													<i class="fa fa-check-circle"></i>
+												</button></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+		<!-- END SOCIAL -->
+
+		<!-- DataTables Example -->
+		<div class="dashboard-section">
+			<div class="section-heading clearfix">
+				<h2 class="section-title">
+					<i class="fa fa-user-circle"></i> 회원관리
+				</h2>
+			</div>
+			<div class="table">
+				<table class="table table-bordered" id="dataTable" width="100%"
+					cellspacing="0">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>연락처</th>
+							<th>가입일자</th>
+							<th>IP주소</th>
+							<th>등급</th>
+							<th>포인트</th>
+							<th>성별</th>
+							<th>정원 이름</th>
+						</tr>
+					</thead>
+					<tbody>
+						<div id=mTable>
+							<c:forEach var="tmp" items="${member}">
+								<tr>
+									<td>${tmp.m_email }</td>
+									<td>${tmp.m_name }</td>
+									<td>${tmp.m_phone }</td>
+									<td>${tmp.m_joindate }</td>
+									<td>${tmp.m_ipaddress }</td>
+									<td>${tmp.m_grade }</td>
+									<td>${tmp.m_point }</td>
+									<td>${tmp.m_gender }</td>
+									<td>${tmp.m_garden }</td>
+								</tr>
+							</c:forEach>
+						</div>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+	</div>
+
+
+
+
+
 	<!-- END MAIN CONTENT -->
 	<div class="clearfix"></div>
 	</div>
@@ -660,13 +589,25 @@ h4 {
 	<script
 		src="../../resources/admin/theme/assets/vendor/dataTable/datatables-demo.js"></script>
 	<script>
-	
+		
+	for(var i=0; i < ${fn:length(count)}; i++){
+		if(i==1){
+			$("#count"+i).attr("class","progress progress-xs progress-transparent custom-color-green");
+		}else if(i==2){
+			$("#count"+i).attr("class","progress progress-xs progress-transparent custom-color-yellow");
+		}else if(i==3){
+			$("#count"+i).attr("class","progress progress-xs progress-transparent custom-color-purple");
+		}else if(i==4){
+			$("#count"+i).attr("class","progress progress-xs progress-transparent custom-color-orange");
+		}
+		}
+		
 		$("#orderCheck").hide();
 		$("#deposit").on("click",function(){
-			console.log($(this).text());
 			$("#orginHide").hide();
 			$("#orderContents").html($("#orderCheck").html());
 		})
+		
 		$(document).on("click",".moneyCheck",function(){
 			var no = $(this).parent().parent().children('.orNo').text();
 			confirm('주문번호 '+no+'의 입금을 확인 하시겠습니까?');
@@ -677,7 +618,6 @@ h4 {
 						},
 				type:"post"
 			}).done(function (resp) {
-				console.log("resp:"+resp.orderNo);
 				$(".moneyCheck").each(function (i,item) {
 					var order = $(this).parent().parent().children('.orNo').text();
 					var no = resp.orderNo;
@@ -688,7 +628,25 @@ h4 {
 				})		
 			})
 		
-		
+		$(document).on("click",".subsCheck",function(){
+			var no = $(this).parent().parent().children('.orNo').text();
+			confirm('주문번호 '+no+'의 입금을 확인하시겠습니까?');
+			$.ajax({
+				url:"subscribeStatChange",
+				data: {
+					"no":no
+						},
+				type:"post"
+			}).done(function (resp) {
+				$(".subsCheck").each(function (i,item) {
+					var order = $(this).parent().parent().children('.orNo').text();
+					var no = resp.orderNo;
+					if(order==no && resp.result>0){	
+						$(this).css("color","#66b075");
+					}
+				})
+				})		
+			})
 		
 		$("#shippingCheck").hide();
 		$("#shipping").on("click",function(){
@@ -705,10 +663,8 @@ h4 {
 						},
 				type:"post"
 			}).done(function (resp) {
-				console.log("resp:"+resp.orderNo);
 				$(".shippingCheck").each(function (i,item) {
 					var order = $(this).parent().parent().children('.orNo').text();
-					console.log("order:"+order)
 					var no = resp.orderNo;
 					if(order==no && resp.result>0){	
 						$(this).css("color","#66b075");
@@ -716,7 +672,6 @@ h4 {
 				})
 				})		
 			})
-		
 		
 		$(document).on("click",".back",function(){
 			 location.reload(true);
@@ -748,14 +703,16 @@ h4 {
 			sparklineNumberChart();
 
 			// 인기상품
+
+			if(${fn:length(count)==0}){
+				$("#demo-donut-chart").hide();
+				$("#sellCount").hide();
+				$(".none").html('<span class="lnr lnr-sad"></span>  회원들의 구매내역이 없습니다.');
+			}
+			
 			var dataDonut = {
-				series : [ '${count[0]}', '${count[1]}', '${count[2]}',
-						'${count[3]}', '${count[4]}' ],
-				labels : [ '${popular[0].s_p_title}'+"("+${count[0]}+"%)",
-							'${popular[1].s_p_title}'+"("+${count[1]}+"%)", 
-							'${popular[2].s_p_title}'+"("+${count[2]}+"%)",
-							'${popular[3].s_p_title}'+"("+${count[3]}+"%)", 
-							'${popular[4].s_p_title}'+"("+${count[4]}+"%)"]
+				series : ${count},
+				labels : ${popularProduct}
 			};
 			
 			new Chartist.Pie('#demo-donut-chart', dataDonut, {
@@ -767,10 +724,7 @@ h4 {
 				showLabel : true
 			});
 			
-			var labels = [ '${popular[0].s_p_title}',
-					'${popular[1].s_p_title}', '${popular[2].s_p_title}',
-					'${popular[3].s_p_title}', '${popular[4].s_p_title}' ];
-
+			
 			// stacked bar chart
 			var dataStackedBar = {
 				labels : [ 'Q1', 'Q2', 'Q3', 'Q4' ],
@@ -928,10 +882,10 @@ h4 {
 
 			// notification popup
 			toastr.options.closeButton = true;
-			toastr.options.positionClass = 'toast-bottom-right';
+			toastr.options.positionClass = 'toast-bottom-left';
 			toastr.options.showDuration = 1000;
 			toastr['info']
-					('Hello, welcome to DiffDash, a unique admin dashboard.');
+					("'나의 정원' 관리자 페이지입니다.");
 
 		});
 

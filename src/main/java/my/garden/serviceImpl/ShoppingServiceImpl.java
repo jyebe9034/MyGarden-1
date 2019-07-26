@@ -11,6 +11,7 @@ import my.garden.dao.ShoppingDAO;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
+import my.garden.dto.SubscribeDTO;
 import my.garden.service.ShoppingService;
 
 @Component
@@ -26,7 +27,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectCartList(userId);
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public int delFromCart(String userId, CartDTO dto) throws Exception {
 		dto.setC_m_email(userId);
 		dao.delExpiredCart();
@@ -37,7 +38,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectMember(dto, id);
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public void insertIntoShopList(List<ShopListDTO> list, Long orderNo, String id) throws Exception {
 		for(ShopListDTO dto : list) {
 			dto.setS_orderno(orderNo);
@@ -49,8 +50,9 @@ public class ShoppingServiceImpl implements ShoppingService{
 		}	
 	}
 
-	@Transactional
-	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{	
+	@Transactional("txManager")
+	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{
+		dao.updateShoplist();
 		dto.setS_email(id);
 		List<Long> orderNoList = dao.selectOrderNo(id);
 		List<List<ShopListDTO>> listWrapper = new ArrayList<>();
@@ -61,6 +63,12 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return listWrapper;
 	}
 
+	public List<ShopListDTO> getOrderShipping(Long s_orderno, String id) throws Exception{
+		dto.setS_email(id);
+		dto.setS_orderno(s_orderno);
+		return dao.selectOrderList(dto);
+	}
+	
 	public int insertIntoCart(CartDTO dto) throws Exception{
 		if(dao.isCartExist(dto.getC_p_no())>0) {
 			return dao.updateCart(dto);			
@@ -110,6 +118,29 @@ public class ShoppingServiceImpl implements ShoppingService{
 		}		
 		return listWrapper;
 	}
-
+	
+	public int insertSubscribe(SubscribeDTO sbdto, String id) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.insertSubscribe(sbdto);
+	}
+	
+	@Transactional("txManager")
+	public List<SubscribeDTO> getSubsList(String id) throws Exception{
+		dao.updateSubslist();			
+		return dao.selectSubsList(id);
+	}
+	
+	public int subsCancel(String id, SubscribeDTO sbdto) throws Exception{
+		sbdto.setSb_email(id);
+		return dao.subsCancel(sbdto);
+	}
+	
+	@Transactional("txManager")
+	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception{
+		dao.updateSubslist();	
+		sbdto.setSb_email(id);
+		return dao.selectSubsSearch(sbdto);
+	}
+	
 
 }

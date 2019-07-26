@@ -30,6 +30,10 @@
 		delete from products where p_no=#{p_no}
 	</delete>
 	
+	<delete id="deleteImagePath">
+		delete from image_product where img_p_title=#{img_p_title}
+	</delete>
+	
 	<update id="updateProduct" parameterType="my.garden.dto.ProductsDTO">
 		update products set p_imagepath=#{p_imagepath}, p_title=#{p_title}, p_subtitle=#{p_subtitle}, p_category=#{p_category}, 
 		p_inventory=#{p_inventory}, p_unit=#{p_unit}, p_seller=#{p_seller}, p_origin=#{p_origin}, p_price=#{p_price}, p_content=#{p_content} 
@@ -40,5 +44,10 @@
 		select * from (select row_number() over (order by p_no desc) as rown, products.* from products where p_title like '%'||#{keyword}||'%')
 		where rown between #{start} and #{end}
 	</select>
+	
+	<select id="selectTitlesByCategory" resultType="java.lang.String">
+		select p_title from products where p_category = #{p_category}
+	</select>
+	
 
 </mapper>

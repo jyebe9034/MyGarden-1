@@ -117,7 +117,7 @@
 														</td>
 														<td class="left" valign="middle">
 															<div class="goods_name" style="margin-left: 10px;">
-																<a href="#" title="${dto.s_p_title }">${dto.s_p_title }
+																<a href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }" title="${dto.s_p_title }">${dto.s_p_title }
 																	</a>
 															</div>
 														</td>
@@ -317,7 +317,7 @@
 												</tr>
 												<tr>
 													<td>입금계좌</td>
-													<td class="fx12">신한은행 110-355-650040</td>
+													<td class="fx12">신한은행 110-355-650040 이해영(나의 정원)</td>
 												</tr>
 											</c:if>
 											<tr>

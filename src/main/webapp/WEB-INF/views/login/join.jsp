@@ -282,14 +282,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			              }
 			      }
 			  });
-// 			  $('.tab a').on('click', function (e) {
-// 			    e.preventDefault();
-// 			    $(this).parent().addClass('active');
-// 			    $(this).parent().siblings().removeClass('active');
-// 			    target = $(this).attr('href');
-// 			    $('.tab-content > div').not(target).hide();
-// 			    $(target).fadeIn(600);
-// 			  });
 			//profile local image insert start
 			function readURL(input) {
 				if (input.files && input.files[0]) {
@@ -301,7 +293,16 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 				}
 			}
 			$("#ex_file").change(function() {
-				readURL(this);
+				var selectedFile = this.files[0];
+	       		var idxDot = selectedFile.name.lastIndexOf(".") + 1;
+	       		var extFile = selectedFile.name.substr(idxDot, selectedFile.name.length).toLowerCase();
+	       		if (extFile == "jpg" || extFile == "jpeg" || extFile == "png" || extFile == "svg" || extFile == "gif") {
+	       		   //do whatever want to do
+	       			readURL(this);
+	       		} else {
+	       		     alert("이미지 파일만 가능합니다");
+	       		 	 $('.profile').html('<img src="resources/img/profile.png" width=130 height=130>');
+	       		}
 			});	
 			//profile local image insert end
 			
@@ -311,24 +312,24 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            			$("#fileName").text("");
            		}
            	});
-			//파일 이미지 확장자 검증
-           	$("input[name=ex_file]").on("change", function(){
-           		var selectedFile = this.files[0];
-           		var idxDot = selectedFile.name.lastIndexOf(".") + 1;
-           		var extFile = selectedFile.name.substr(idxDot, selectedFile.name.length).toLowerCase();
-           		if (extFile == "jpg" || extFile == "jpeg" || extFile == "png" || extFile == "svg" || extFile == "gif") {
-           		   //do whatever want to do
-           		} else {
-           		     alert("Only jpg/jpeg, png, gif and svg files are allowed!");
-           		}
-           	});
            	$("input[name=m_garden]").on("blur", function(){
-           		var regexGarden=/^[가-힣\w]{2,12}$/;
+           		var regexGarden=/^[가-힣A-z]{2,12}$/;
            		if(regexGarden.exec($("input[name=m_garden]").val())){
-           			$("#phoneName").text("");
+               		$.ajax({
+               			url:"/gardenCheck",
+               			type:"post",
+               			data : {key : $("input[name=m_garden]").val()}
+               		}).done(function(resp){
+               			if(resp==true){
+                   			$("#gardenName").text("중복되는 정원 이름입니다");
+                   			$("input[name=m_garden]").val("");
+               			}else{
+                   			$("#gardenName").text("");
+               			}
+               		});
            		}else{
-           			$("#phoneName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-           			$("input[name=m_phone]").val("");
+           			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
+           			$("input[name=m_garden]").val("");
            		}
            	});
            	$("input[name=m_name]").on("blur", function(){
@@ -429,6 +430,21 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            			$("input[name=m_phone]").val("");
            		}
            	});
+           	var today = new Date();
+           	var curYear = today.toString().substr(13,2);
+           	var curY = today.toString().substr(11,2);
+           	$("#date").on("blur", function(){
+           		if($('#date').val().substr(2,2) <= curYear-15){
+           			$("#birthCheck").text("");
+           		}else{
+           			if(curYear-15 < 10){
+               			$("#birthCheck").text(curY + "0" + curYear-15 + "년도 이상 출생자부터 가입 가능합니다");
+           			}else{
+               			$("#birthCheck").text(curY + curYear-15 + "년도 이상 출생자부터 가입 가능합니다");
+           			}
+           			$("#date").val("");
+           		}
+           	});
        		$('#joinSubmit').on('click', function(){
            		if($('#ex_file').val()!=""){
            			if($('.inputStuff').val()!="" && $('#zonecode').val()!="" && $('#date').val()!="" && $('#customSwitch').is(":checked")){
@@ -494,7 +510,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div class="onblur" id="eamilName"></div>
 			                        	<button type="button" id="verMailBtn" class="m-1 btn">메일 인증번호 받기</button><br>
 			                      <div id="verifingCode">  	
-			                        <input type="text" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
+			                        <input type="password" placeholder="인증번호를 입력하세요" id="verText" class="fadeIn inputStuff50">	
 			                        	<button type="button" id="verCodeBtn" class="btn">인증하기</button>
 			                      </div>  	
 <!-- 			             surplusForm -->
@@ -511,6 +527,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                        	<div id="addressSet"></div>
 			                        </div>	
 		                        	<p class="fontGreen mt-3">생년월일과 성별을 입력하세요</p>
+		                        		<span class="onblur" id="birthCheck"></span>
 	                        		<input type="date" id="date" class="fadeIn inputStuff mb-2" name="m_birth">
 			                        <div class="custom-control custom-radio custom-control-inline ml-3">
 									  <input type="radio" id="customRadioInline1" value="여성" name="m_gender" class="custom-control-input" checked/>

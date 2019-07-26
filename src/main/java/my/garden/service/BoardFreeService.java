@@ -13,7 +13,7 @@ public interface BoardFreeService {
 	public List<BoardFreeDTO> serviceList(int start, int end)  throws Exception;
 	public List<BoardFreeDTO> serviceSearchList(int start, int end, String searchVal) throws Exception;
 	public BoardFreeDTO serviceRead(int bf_no)  throws Exception;
-	public List<String> serviceGetBoardNavi(int currentPage) throws Exception;
+	public List<String> serviceGetBoardNavi(int currentPage, int recordTotalCount) throws Exception;
 	public int serviceBoardCountAll()  throws Exception;
 	public int serviceBFmodify(int bf_no, String title, String content ) throws Exception;
 	public int serviceSearchCountAll(String searchVal) throws Exception;
@@ -25,5 +25,4 @@ public interface BoardFreeService {
 	public List<CommentFreeDTO> serviceCmtList(int cf_bf_no, int start, int end) throws Exception;
 	public int serviceCmtCountAll(int cf_bf_no) throws Exception;
 	public List<String> serviceGetCmtNavi(int currentPage, int cf_bf_no) throws Exception;
-
 }

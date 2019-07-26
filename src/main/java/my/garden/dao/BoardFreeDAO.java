@@ -18,11 +18,10 @@ public interface BoardFreeDAO {
 	public int modify(int bf_no, String column, String value);
 	public int boardCountAll();
 	public int searchCountAll(String searchVal);
-	
-	
+
 	public int cmtWrite(CommentFreeDTO dto);
 	public List<CommentFreeDTO> cmtList(int bf_no, int start, int end);
-	public List<String> getBoardNavi(int currentPage) throws Exception;
+	public List<String> getBoardNavi(int currentPage, int recordTotalCount) throws Exception;
 	public List<String> getCmtNavi(int currentPage, int bf_no) throws Exception;
 	public int cmtCountAll(int bf_no);
 	public int cmtModify(String cf_comment, int cf_no);

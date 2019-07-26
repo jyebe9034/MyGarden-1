@@ -101,11 +101,10 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		map.put("value", value);
 		return sst.delete("BoardFreeDAO.cmtDelete", map);
 	}
-		
+	
+	
 	//게시판 네비
-	public List<String> getBoardNavi(int currentPage) throws Exception {
-		int recordTotalCount = this.boardCountAll();
-		//System.out.println("게시판 레코드토탈카운트:"+recordTotalCount);
+	public List<String> getBoardNavi(int currentPage, int recordTotalCount) throws Exception {
 		
 		int recordCountPerPage = 4; 
 		int naviCountPerPage = 3;	
@@ -162,7 +161,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		for(int i = startNavi ; i <= endNavi ; i++) {
 			//sb.append("<a href='list.board?currentPage="+i+"'>"+i + "</a>");
 			//sb.append(i+"");
-			list.add(i+" ");
+			list.add(i+"");
 		}
 		if(needNext) {
 			//sb.append("다음>");
@@ -174,7 +173,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 	
 	public List<String> getCmtNavi(int currentPage, int bf_no) throws Exception {
 		int recordTotalCount = this.cmtCountAll(bf_no);
-		System.out.println("댓글 레코드토탈카운트:"+recordTotalCount);
+		//System.out.println("댓글 레코드토탈카운트:"+recordTotalCount);
 		
 		int recordCountPerPage = 10; 
 		int naviCountPerPage = 5;	
@@ -207,9 +206,9 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 			endNavi = pageTotalCount;
 		}
 		//총페이지가 15인데, endNavi가  20이라면 말이 안되기 때문에.
-		System.out.println("현재위치 : " + currentPage);
-		System.out.println("네비시작 : " + startNavi);
-		System.out.println("네비 끝 : " + endNavi);
+		//System.out.println("현재위치 : " + currentPage);
+		//System.out.println("네비시작 : " + startNavi);
+		//System.out.println("네비 끝 : " + endNavi);
 
 		boolean needPrev = true;
 		boolean needNext = true;
@@ -231,7 +230,7 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		for(int i = startNavi ; i <= endNavi ; i++) {
 			//sb.append("<a href='list.board?currentPage="+i+"'>"+i + "</a>");
 			//sb.append(i+"");
-			list.add(i+" ");
+			list.add(i+"");
 		}
 		if(needNext) {
 			//sb.append("다음>");

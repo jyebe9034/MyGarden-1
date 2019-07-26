@@ -1,26 +1,115 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나의 정원</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
+	<style>
+		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
+		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
+		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
+		#clickToClose{display:none;}
+		#chatboxWrap{
+			border-radius : 5px;
+			width : 350px;
+			height : 500px;
+			display : none;
+		}
+		#chatBox{
+			position : fixed;
+			left : 20px;
+			bottom : 100px;
+		}
+		#chatWrap{
+			width : 70px;
+			height : 70px;
+			position : fixed;
+			left : 30px;
+			bottom : 25px;
+		}
+		#chatBtn{
+			width : 70px;
+			height : 70px;
+		}
+		#chatBtn:hover{
+			cursor : pointer;
+		}
+	</style>
 </head>
 <body>
 <!-- script -->
 	<script>
-	$(function(){
-		 $('.clickToCloseBtn').on('click', function(){
-			 $('.clickToClose').addClass('d-none');
-		 });
+	$(function(){		 
+		 $("#chatWrap").on("click", function(){
+				console.log("클릭함");
+				if($("#chatboxWrap").css("display") == "none"){
+					console.log("보여줘");
+					$("#chatboxWrap").show();
+				}else{
+					console.log("사라져");
+					$("#chatboxWrap").hide();
+				}
+			})
+	       //poplayher cookie
+			function getCookie(cname) {
+			    var name = cname + "=";
+			    var ca = document.cookie.split(';');
+			    for(var i=0; i<ca.length; i++) {
+			        var c = ca[i];
+			        while (c.charAt(0)==' ') c = c.substring(1);
+			        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+			    }
+			    return "";
+			}
+			function setCookie(cname, cvalue, exdays) {
+			    var d = new Date();
+			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			    var expires = "expires="+d.toUTCString();
+			    document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+			function couponClose(){
+			    setCookie("close","Y",1);
+			    $("#clickToClose").slideUp();
+			}
+		    cookiedata = document.cookie;
+		    if(cookiedata.indexOf("close=Y")<0){
+		        $("#clickToClose").css('display', 'block');
+		    }else{
+		        $("#clickToClose").css('display', 'none');
+		    }
+		    $(".clickToCloseBtn").click(function(){
+		        couponClose();
+		    });
 	});
+	      
 	</script>
 
+<!-- advertise header -->
+         <c:choose>
+             <c:when test="${loginName!=null}">
+              
+<style>#clickToClose{display:none;}</style>
+     
+          </c:when>
+          <c:otherwise>
+              
+<div class="container-fluid my" id="clickToClose">
+   <div class="row my">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clickToClose text-center">
+         <span>회원가입과 함께 <a class="text-body font-weight-bold" href="/join">나만의 정원</a>을 가져 보세요!</span>
+         <span class="position-absolute clickToCloseBtnBorder"></span>
+         <span class="position-absolute clickToCloseBtn">&Cross;</span>
+      </div>
+   </div>
+</div>
+          </c:otherwise>
+       </c:choose>
+       
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
 	
 <!-- 			carousel -->
 	<div class="container-fluid my">
@@ -35,31 +124,31 @@
 				      <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
 				    </ol>
 				    <div class="carousel-inner">
-				      <div class="carousel-item">
+				      <div class="carousel-item active">
 				        <img src="resources/img/carousel1.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
-				          <h5>Third slide label</h5>
+				          <h5>First slide label</h5>
 				          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
 				        </div>
 				      </div>
 				      <div class="carousel-item">
-				        <img src="resources/img/carousel2.jpg" class="d-block w-100" alt="...">
+				        <img src="resources/img/caro2.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
 				          <h5>Second slide label</h5>
 				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				        </div>
 				      </div>
-				      <div class="carousel-item active">
+				      <div class="carousel-item">
 				        <img src="resources/img/carousel3.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
-				          <h5>First slide label</h5>
+				          <h5>Third slide label</h5>
 				          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 				        </div>
 				      </div>
 				      <div class="carousel-item">
-				        <img src="resources/img/carousel4.jpg" class="d-block w-100" alt="...">
+				        <img src="resources/img/carousel2.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-right mb-5">
-				          <h5>Third slide label</h5>
+				          <h5>Fourth slide label</h5>
 				          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
 				        </div>
 				      </div>
@@ -124,7 +213,15 @@
 		</div>
 	</div>
 	
-<!-- 	footer -->
+	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
+	
+	<div id="chatWrap">
+		<img id="chatBtn" src="/resources/img/chat.png">
+	</div> 
+	<div id="chatboxWrap">
+		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+	</div>
+
 </body>
 </html>
