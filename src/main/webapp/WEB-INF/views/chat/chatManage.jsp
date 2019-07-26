@@ -98,7 +98,7 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h5 id="toWhom" class="modal-title" id="exampleModalCenterTitle"></h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <button id="close" type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
@@ -120,7 +120,7 @@
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 	
 	<script>
-		var socket = new WebSocket("ws://192.168.60.22/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
+		var socket = new WebSocket("ws://192.168.0.14/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
 		
 		socket.onmessage = function(msg){ // 콜백함수
 			var line = $("<div class='messages'></div>");
@@ -137,12 +137,16 @@
 			var id = $("#toWhom").text();
 			var msg = $("#message").text();
 			socket.send("sdf@gmail.com" + " : " + msg + " : " + id);
+			$("#message").text("");
+			$("#close").click();
 		}) // 서버로 메세지를 보내는 경우
 		
 		$(document).on("click", "#temp", function(){
 			var tmp = $(this).prev().prev().text();
-			console.log(tmp);
+			var btn = $(this);
 			$("#toWhom").html(tmp);
+			btn.text("답변완료");
+			btn.prop("disabled", true);
 		})
 	
 		/* $("#message").keyup(function(key){
