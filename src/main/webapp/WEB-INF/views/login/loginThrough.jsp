@@ -8,7 +8,7 @@
 </head>
 <body>
 	<script>
-		alert('아이디 혹은 비밀번호가 맞지 않습니다');
+		alert('비밀번호가 맞지 않습니다');
 		location.href="/login";
 	</script>
 </body>

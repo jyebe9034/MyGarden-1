@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import my.garden.dao.AdminDAO;
 import my.garden.dto.AdminMemDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.service.AdminService;
 
@@ -56,30 +57,29 @@ public class AdminController {
 			request.setAttribute("popular", popular);
 			request.setAttribute("count", count);
 			request.setAttribute("depositWait", dao.serviceStatCheck("입금 대기"));
+			request.setAttribute("subsWait", dao.serviceSubscribeCheckList("입금 대기").size());
 			request.setAttribute("shippingWait", dao.serviceStatCheck("결제 완료"));
 			request.setAttribute("depositCheckList", dao.serviceOrderCheckList("입금 대기"));
+			request.setAttribute("subsCheckList", dao.serviceSubscribeCheckList("입금 대기"));
 			request.setAttribute("shippingCheckList", dao.serviceOrderCheckList("결제 완료"));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 		return "forAdmin/adminIndex";
 	}
 
-	@RequestMapping("adminStat")
-	public String adminStat() {
-		return "forAdmin/adminStat";
-	}
 
-	@RequestMapping("adminMembers")
-	public String adminMember(HttpServletRequest request) {
-		List<AdminMemDTO> member;
+	@RequestMapping("adminPrivateGarden")
+	public String adminPrivateGarden(HttpServletRequest request) {
+		List<PrivateGardenDTO> list;
 		try {
-			member = dao.serviceAllMembers();
-			request.setAttribute("member", member);
+			list = dao.servicePrivateList();
+			request.setAttribute("list", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
-		return "forAdmin/adminMembers";
+		return "forAdmin/adminPrivateGarden";
 	}
 
 	@ResponseBody
@@ -110,4 +110,17 @@ public class AdminController {
 		return map;
 	}
 
+	@ResponseBody
+	@RequestMapping("subscribeStatChange")
+	public Map<String, Object> subscribeStatChange(String no) {
+		Map<String, Object> map = new HashMap<>();
+		try {
+			int result = dao.serviceUpdateSubscribe(no, "구독중");
+			map.put("result", result);
+			map.put("orderNo", no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
 }

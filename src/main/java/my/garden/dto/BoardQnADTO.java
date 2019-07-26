@@ -1,6 +1,7 @@
 package my.garden.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardQnADTO {
 	private int bq_p_no;
@@ -120,8 +121,8 @@ public class BoardQnADTO {
 
 
 
-	public Timestamp getBq_writedate() {
-		return bq_writedate;
+	public String getBq_writedate() {
+		return this.formedTime();
 	}
 
 
@@ -185,5 +186,30 @@ public class BoardQnADTO {
 		this.bq_imagepath3 = bq_imagepath3;
 	}
 
+	//time 형식 두개 (메서드)
+	public String contentTime() { 
+		Timestamp date = this.bq_writedate;
+		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy/MM/dd");
+		String writeDate = simpleDate.format(date.getTime());
+		return writeDate;
+	}
+	
+	public String formedTime(){
+		long currentTime = System.currentTimeMillis();
+		long writeTime = this.bq_writedate.getTime();
+		if(currentTime - writeTime < (1000*60)) {
+			long time = currentTime - writeTime;
+			return time / 1000 + "초 전";
+		}else if(currentTime - writeTime < (1000*60*60)) {
+			long time = currentTime - writeTime;
+			return time / 1000 / 60 + "분 전";
+		}else if(currentTime - writeTime < (1000*60*60*24)) {
+			long time = currentTime - writeTime;
+			return time / 1000 / 60 / 60 + "시간 전";
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			return sdf.format(writeTime);
+		}
+	}
 	
 }

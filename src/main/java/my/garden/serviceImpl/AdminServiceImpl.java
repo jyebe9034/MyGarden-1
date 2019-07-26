@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import my.garden.dao.AdminDAO;
-import my.garden.dao.ShoppingDAO;
 import my.garden.dto.AdminMemDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.schedule.ScheduleTask;
 import my.garden.service.AdminService;
@@ -50,6 +50,7 @@ public class AdminServiceImpl implements AdminService {
 		return dao.orderCheckList(stat);
 	}
 
+
 	@Transactional("txManager")
 	public int serviceUpdateOrder(String orderNo, String stat) throws Exception{
 		if(stat.equals("배송중")) {
@@ -59,9 +60,17 @@ public class AdminServiceImpl implements AdminService {
 		return dao.updateOrder(orderNo, stat);
 	}
 	
-	/*public List<ShopListDTO> serviceOrderCheckUpdate(int orderNo, String changeStat, String listStat) throws Exception{
-		 dao.updateOrder(orderNo, changeStat);
-		 return dao.orderCheckList(listStat);
-	}*/
+	public int serviceUpdateSubscribe(String orderNo, String stat) throws Exception{
+		return dao.updateSubscribe(orderNo, stat);
+	}
+	
+	public List<PrivateGardenDTO> servicePrivateList() throws Exception{
+		return dao.privateList();
+	}
+
+	@Override
+	public List<ShopListDTO> serviceSubscribeCheckList(String stat) throws Exception {
+		return dao.subscribeCheckList(stat);
+	}
 
 }
