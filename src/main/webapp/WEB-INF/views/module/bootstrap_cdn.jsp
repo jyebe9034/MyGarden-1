@@ -12,7 +12,7 @@
 
 <style>
 @import
-	url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap|Black+Han+Sans|Gothic+A1|Nanum+Gothic|Nanum+Gothic+Coding|Noto+Sans+KR&display=swap')
+	url('https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap|Black+Han+Sans|Gothic+A1|Nanum+Gothic|Nanum+Gothic+Coding|Noto+Sans+KR|Orbitron&display=swap')
 	;
 /* 	font-family: 'Black Han Sans', sans-serif; */
 /* 	font-family: 'Nanum Gothic', sans-serif; */

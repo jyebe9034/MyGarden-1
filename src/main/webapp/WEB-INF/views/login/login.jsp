@@ -316,6 +316,26 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			  $('.joinSuggestion').on('click', function(){
 				  $(location).attr('href', '/join');
 			  });
+		      $('input[name=loginId]').on('blur', function(){
+	           		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
+	           		if(regexMail.exec($("input[name=loginId]").val())){
+	               		$.ajax({
+	               			url:"/emailCheck",
+	               			type:"post",
+	               			data : {key : $("input[name=loginId]").val()}
+	               		}).done(function(resp){
+	               			if(resp==true){
+	    	           			$("#loginId").text("");
+	               			}else{
+	    	           			$("#loginId").text("존재하지 않는 메일입니다");
+	    	           			$("input[name=loginId]").val("");
+	               			}
+	               		});
+	           		}else{
+	           			$("#loginId").text("사용할 수 없는 형식의 메일입니다");
+	           			$("input[name=loginId]").val("");
+	           		}
+	           	});
               $('#loginBtn').on('click', function(){
               	if($('input[name=loginId]').val()=="" || $('input[name=loginPw]').val()==""){
               		alert('아이디 혹은 비밀번호를 입력하세요');
@@ -332,9 +352,13 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
                        	}
             	     }
               });
-              $('#idModal').on('click', function(){
+              $('.idModal').on('click', function(){
               	$('#m_phone').val("");
               	$("#m_email").html("");
+		    	$("#findPwMail").attr("readonly", false);
+		    	$("#findPwMail").val("");
+		    	$("#findPw").attr("class", "d-none");
+		    	$("#newPw").removeAttr("class");
               });
 		      $('#findId').on('click', function(){
 		    	  if($("#m_phone").val()!=""){
@@ -347,11 +371,16 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 					      	}).done(function(resp){
 					      		if(resp==""){
 					      			$("#m_email").html("<h6 class='mb-2'>해당 번호에 대한 아이디가 존재하지 않습니다<h6>");
+					      		}else if(resp.m_social=="kakao"){
+					      			$("#m_email").html("<h6 class='mb-2'>카카오 소셜 회원입니다. 소셜 로그인 바랍니다.<h6>");
+					      		}else if(resp.m_social=="naver"){
+					      			$("#m_email").html("<h6 class='mb-2'>네이버 소셜 회원입니다. 소셜 로그인 바랍니다.<h6>");
 					      		}else{
-						      		$("#m_email").html("<h6 class='mb-2'>해당 번호에 대한 아이디는 <span class='font-weight-bold'>" + resp + "</span> 입니다</h6>");
+						      		$("#m_email").html("<h6 class='mb-2'>해당 번호에 대한 아이디는 <span class='font-weight-bold'>" + resp.m_email + "</span> 입니다</h6>");
 					      		}
 					      	});
 		           		}else{
+		           			$("#m_phone").val("");
 		           			$("#m_email").text("형식에 맞지 않는 번호입니다");
 		           		}
 		    	  }else{
@@ -361,6 +390,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		      var pwCode;
 		      $('#sendMail').on('click', function(){
 	           		var regexMail=/^[^\d](\w*|\d)@([a-z]*.?)*[a-z]$/;
+	           		var regexMail2=/^_$/;
 	           		if(regexMail.exec($("#findPwMail").val())){
 	               		$.ajax({
 	               			url:"/emailCheck",
@@ -368,6 +398,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 	               			data : {key : $("#findPwMail").val()}
 	               		}).done(function(resp){
 	               			if(resp==true){
+	               				$("#findPwMail").attr("readonly", true);
 	    	           			$("#result").text("");
 	         		        	$("#findPw").removeAttr("class", "d-block");
 	         		        	$("#newPw").attr("class", "d-block btn btn-primary");
@@ -386,8 +417,8 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 	               			}
 	               		});
 	           		}else{
-	           			$("#result").text("사용할 수 없는 형식의 메일입니다");
 	           			$("#findPwMail").val("");
+	           			$("#result").text("사용할 수 없는 형식의 메일입니다");
 	           		}
 	           	});
 		        $('#newPw').on('click', function(){
@@ -404,6 +435,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 		        				$(location).attr('href', '/findAccountAfterLogin');
 		        			});
 		        		}else{
+		        			$('#findPw').val("");
 		        			$('#result').text("임시 비밀번호가 맞지 않습니다");
 		        		}
 		        	}
@@ -494,6 +526,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                    <form action="/isLoginOk" method="post" id="loginForm">
 			                        <input type="email" placeholder="이메일을 입력하세요" name="loginId"
 			                            class="fadeIn" />
+			                            <div class="onblur" id="loginId"></div>
 			                        <input type="password" placeholder="비밀번호를 입력하세요" name="loginPw"
 			                            class="fadeIn mb-4">
 			                        <div class="fadeIn mb-2">
@@ -501,8 +534,8 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 								    </div>
 			                        <input type="button" class="font-weight-bold mt-2" id="loginBtn" value="로그인"></input>
 			                        <p id="formFooter">
-			                        	<a href="#" id="idModal" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter1">아이디 / </a>
-			                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter2">비밀번호 찾기</a>
+			                        	<a href="#" class="text-muted idModal" data-toggle="modal" data-target="#exampleModalCenter1">아이디 / </a>
+			                        	<a href="#" class="text-muted idModal" data-toggle="modal" data-target="#exampleModalCenter2">비밀번호 찾기</a>
 			                        </p>
 			                    </form> 
 		                       	<!-- Modal id -->
@@ -563,8 +596,7 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
 			                    <h3 class="m-3 font-weight-bold text-dark">나의 정원 소셜로그인</h3>
 			                    <form class="p-4">
 			                        <input type="button" class="socialButton mb-3 bg-success" value="네이버">
-			                        <input type="button" class="socialButton mb-3 bg-warning" value="카카오">
-			                        <input type="button" class="socialButton mb-4 bg-primary" value="구글">
+			                        <input type="button" class="socialButton mb-4 bg-warning" value="카카오">
 			                    </form>
 		                        <p id="formFooter">
 		                        	<a href="#" class="text-muted" data-toggle="modal" data-target="#exampleModalCenter3">소셜로그인 개인정보수집방침</a>

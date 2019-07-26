@@ -10,9 +10,21 @@
 	div{
 /* 		border: 1px solid black; */
 	}
+	
+	#qnaHeaderImg{
+		width: 100% !important;
+		
+	}
+	
 	#wrapper{
 		width: 1000px;
-		margin: 300px auto;
+		margin: 50px auto;
+	}
+		
+	#qnaHeaderTitle {
+	    width: 85%;
+	    margin: auto;
+	    color: #53782f;
 	}
 	
 	#writeQnAForm{
@@ -160,7 +172,7 @@
 		$("input[name=images]").each(function(){
 			$(this).on("change",function(){
 				var imageTag = $(this).prev();
-				alert("imageTag : " + imageTag);
+				//alert("imageTag : " + imageTag);
 		    	 var formData = new FormData();
 		    	 formData.append("formData",$(this)[0].files[0]);
 		    	 // formData = $(this)[0].files[0];
@@ -245,8 +257,6 @@
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
-	
 	<!-- 			carousel -->
 	<div class="container-fluid my">
 		<div class="row my">
@@ -255,11 +265,13 @@
 			</div>
 		</div>
 	</div>
+	
+<img alt="" src="/resources/products/qnaHeader.jpg" id="qnaHeaderImg">
 
-	<!-- 리뷰 작성 폼 -->
+	<!--문의 수정 폼 -->
 	<div id="wrapper">
-		<span>문의 수정하기</span>
-		<hr>
+		<div id="qnaHeaderTitle"><h3>문의 수정하기</h3></div>
+		
 		<form action="updateQnA" id="writeQnAForm" method="post" enctype="multipart/form-data">
 		  <div class="form-group row inputTitleRow">
 <!-- 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label> -->

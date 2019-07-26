@@ -219,7 +219,7 @@ h4 .badge{background:#eee;}
 						$('#orderList').append(
 						    '<tr>'
 						    + '<th scope="row" class="pt-4">'+rst[0][i].sb_orderno_seq+'</th>'
-						    + '<td rowspan="3" class="pt-3 pb-3"><img src="resources/img/profile.png" width="200" height="150"></td>'
+						    + '<td rowspan="3" class="pt-3 pb-3"><img src="resources/img/organic.png" width="200" height="150"></td>'
 						    + '<td colspan="2" class="pt-4 text-left">'+rst[0][i].sb_category+'</td>'
 						    + '</tr>'
 						    + '<tr>'
@@ -269,7 +269,7 @@ h4 .badge{background:#eee;}
 	      <div class="load load-mint"></div>
 	    </div>
 	    <div>
-	      <p>Loading...  </p>
+	      <p>Loading...</p>
 	    </div>
     </div>
 </div>
@@ -364,7 +364,7 @@ h4 .badge{background:#eee;}
 					  <thead>
 					    <tr>
 					      <th scope="col" class="pt-2 pb-2">No</th>
-					      <th scope="col" class="pt-2 pb-2">상품명</th>
+					      <th scope="col" class="pt-2 pb-2">상품</th>
 					      <th scope="col" colspan=2 class="pt-2 pb-2 text-left">주문정보</th>
 					    </tr>
 					  </thead>

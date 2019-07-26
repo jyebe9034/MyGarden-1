@@ -32,14 +32,14 @@ public class ProductsController {
 		String title = dto.getP_title();
 		try {
 			File newFile = new File(rootPath + "/products/" + title);
-			if(!newFile.exists()) {
-				newFile.mkdir();
-			}
-			File realFile = new File(rootPath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
-			dto.getImage().transferTo(realFile);
-			dto.setP_imagepath("/resources/products/" + title + "/" + realFile.getName());
-			int result = pservice.insertProductsService(dto);
-			int result2 = pservice.insertImageFileService(title, dto.getP_imagepath());
+	         if(!newFile.exists()) {
+	            newFile.mkdir();
+	         }         
+	         File realFile = new File(rootPath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
+	         dto.getImage().transferTo(realFile);
+	         dto.setP_imagepath("/resources/products/" + title + "/" + realFile.getName());
+	         int result = pservice.insertProductsService(dto);
+	         int result2 = pservice.insertImageFileService(title, dto.getP_imagepath());
 			return "products/productsAdd";
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -53,6 +53,7 @@ public class MypageController {
 			String id = (String)session.getAttribute("loginId");
 			List<CalendarDTO> lists = loginserv.calendarList(id);
 			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
+			session.setAttribute("subDTO", loginserv.selectSub(id));
 			session.setAttribute("cal", loginserv.getCalender(year));
 			session.setAttribute("year", year);
 			session.setAttribute("mm", mname);
@@ -88,8 +89,11 @@ public class MypageController {
 
 	@RequestMapping("/updateInfo")
 	public String updateInfo(MembersDTO dto) {
-		loginserv.memUpdateAll(dto);
-		return "login/mypageInfoThrough";
+		if(loginserv.memUpdateAll(dto)>0) {
+			return "login/mypageInfoThrough";
+		}else {
+			return "error";
+		}
 	}
 
 	@RequestMapping("orderList")

@@ -1,6 +1,7 @@
 package my.garden.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardReviewDTO {
 	private int br_p_no;
@@ -75,8 +76,8 @@ public class BoardReviewDTO {
 	public void setBr_content(String br_content) {
 		this.br_content = br_content;
 	}
-	public Timestamp getBr_writedate() {
-		return br_writedate;
+	public String getBr_writedate() {
+		return this.formedTime();
 	}
 	public void setBr_writedate(Timestamp br_writedate) {
 		this.br_writedate = br_writedate;
@@ -88,6 +89,30 @@ public class BoardReviewDTO {
 		this.br_recommend = br_recommend;
 	}
 	
-   
+	//time 형식 두개 (메서드)
+	public String contentTime() { 
+		Timestamp date = this.br_writedate;
+		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy/MM/dd");
+		String writeDate = simpleDate.format(date.getTime());
+		return writeDate;
+	}
+	
+	public String formedTime(){
+		long currentTime = System.currentTimeMillis();
+		long writeTime = this.br_writedate.getTime();
+		if(currentTime - writeTime < (1000*60)) {
+			long time = currentTime - writeTime;
+			return time / 1000 + "초 전";
+		}else if(currentTime - writeTime < (1000*60*60)) {
+			long time = currentTime - writeTime;
+			return time / 1000 / 60 + "분 전";
+		}else if(currentTime - writeTime < (1000*60*60*24)) {
+			long time = currentTime - writeTime;
+			return time / 1000 / 60 / 60 + "시간 전";
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			return sdf.format(writeTime);
+		}
+	}
 	
 }

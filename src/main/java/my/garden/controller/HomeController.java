@@ -20,10 +20,10 @@ public class HomeController {
 		return "home";
 	}
 	
-//	@RequestMapping("/loading")
-//	public String loading() {
-//		return "module/loading";
-//	}
+	@RequestMapping("/aboutMyGarden")
+	public String aboutMyGarden() {
+		return "login/aboutMyGarden";
+	}
 
 	@RequestMapping("productsAdd")
 	public String toProductsAdd() {

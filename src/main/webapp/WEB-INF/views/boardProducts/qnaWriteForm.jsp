@@ -10,10 +10,23 @@
 	div{
 /* 		border: 1px solid black; */
 	}
+	
+	#qnaHeaderImg{
+		width: 100% !important;
+		
+	}
+	
 	#wrapper{
 		width: 1000px;
-		margin: 300px auto;
+	    margin: 50px auto;
 	}
+	
+	#qnaHeaderTitle {
+	    width: 85%;
+	    margin: auto;
+	    color: #53782f;
+	}
+
 	
 	#writeQnAForm{
 		width: 90%;
@@ -155,9 +168,7 @@
 <body>
 
 <!-- header -->
-	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
-	
+	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>	
 	<!-- 			carousel -->
 	<div class="container-fluid my">
 		<div class="row my">
@@ -167,9 +178,11 @@
 		</div>
 	</div>
 
-	<!-- 리뷰 작성 폼 -->
+<img alt="" src="/resources/products/qnaHeader.jpg" id="qnaHeaderImg">
+
+	<!-- 문의 작성 폼 -->
 	<div id="wrapper">
-<!-- 		<span>문의하기</span> -->
+	<div id="qnaHeaderTitle"><h3>문의 글 작성</h3></div>
 <!-- 		<hr> -->
 		<form action="writeQnA" id="writeQnAForm" method="post" enctype="multipart/form-data">
 		  <div class="form-group row inputTitleRow">

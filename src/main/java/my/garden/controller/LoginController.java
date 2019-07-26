@@ -53,7 +53,11 @@ public class LoginController {
 	@RequestMapping("/joinSubmit")
 	public String JoinSubmit(MembersDTO dto, MultipartFile ex_file) {
 		int result = loginserv.joinSubmit(dto, ex_file);
-		return "login/joinThrough";
+		if(result>0) {
+			return "login/joinThrough";
+		}else {
+			return "error";
+		}
 	}
 	
 	@ResponseBody
@@ -75,7 +79,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/isLoginOk")
-	public String IsLoginOk(String loginId, String loginPw) {
+	public String isLoginOk(String loginId, String loginPw) {
 		loginserv.isLoginOk(loginId, loginPw);
 		if(loginserv.isLoginOk(loginId, loginPw)==null) {
 			return "login/loginThrough";
@@ -130,14 +134,13 @@ public class LoginController {
 	
 	@ResponseBody
 	@RequestMapping("/findId")
-	public String findId(String key) {
+	public MembersDTO findId(String key) {
 		return loginserv.findId(key);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/findPwGetCode")
 	public String findPwGetCode(String key) {
-		System.out.println(key);
 		String pwCode = loginserv.findPwGetCode(key);
 		return pwCode;
 	}
