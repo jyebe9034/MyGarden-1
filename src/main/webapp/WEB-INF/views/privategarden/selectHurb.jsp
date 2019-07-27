@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
+   type="text/javascript"></script>
 <title>Select Hurb</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
@@ -212,11 +214,60 @@
    <jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 	
 	<script>
+		
 		$("#confirmBtn").on("click", function(){
-			var hurb = $("#sort").text();
-			$(location).attr("href", "toConfirmHurb?hurb="+hurb);
-		}) 
-	
+			$("#addrConfirm").hide();
+		if(${loginId==null}){
+			alert("로그인이 필요한 메뉴입니다.")
+			$(location).attr("href","/login");
+		}else{
+  		 alert("허브 결제를 진행합니다.");  	  
+         var IMP = window.IMP; // 생략가능
+         IMP.init('imp33112290'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+         IMP.request_pay({
+            pg : 'inicis', // version 1.1.0부터 지원.
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : "허브 결제 : "+ $("#sort").text(), //결제창에서 보여질 이름 //// 후원명 불러오기
+            amount : 100, // 입력받은 금액
+            buyer_email : "${loginDTO.m_email}",
+            buyer_name : "${loginDTO.m_name}",
+            buyer_tel : "${loginDTO.m_phone}",
+            m_redirect_url : "toConfirmHurb?hurb="+$("#sort").text()
+         /*  
+             모바일 결제시,
+             결제가 끝나고 랜딩되는 URL을 지정 
+             (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐) 
+          */
+         }, function(rsp) {
+            if (rsp.success) {
+               alert("결제가 완료되었습니다. 허브 키우기로 이동합니다.");
+               $.ajax({
+                  url : "https://www.myservice.com/payments/complete", // 가맹점 서버
+                  method : "POST",
+                  headers : {
+                     "Content-Type" : "application/json"
+                  },
+                  data : {
+                     imp_uid : rsp.imp_uid,
+                     merchant_uid : rsp.merchant_uid
+                  }
+               }).done(function(data) {
+            	    
+               })
+				
+                var hurb = $("#sort").text();
+  				$(location).attr("href", "toConfirmHurb?hurb="+hurb);
+               
+            } else {
+               alert('결제에 실패하였습니다.');
+            }
+         });
+
+		}
+      })
+		
+		
 		$(".borders").on("click", function(){
 			$(".borders").css("border", "");
 			$(".borders").attr("myflag", "false");
@@ -315,6 +366,6 @@
 			$("#addrConfirm").hide();
 		})
 	</script>
-	
+	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 </body>
 </html>
