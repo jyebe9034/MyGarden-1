@@ -8,7 +8,7 @@
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
 	type="text/javascript"></script>
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>정기 구독</title>
+<title>나의 정원 - 정기 구독</title>
 <style>
 #bcolor {
 	width: 100%;
@@ -485,19 +485,19 @@
 			var select1 = $("#select1").val();
 			var select2 = $("#select2").val();
 			var select3 = $("#select3").val();
-			if (select1 != "과일/채소" && select1 != "선택안함") {
+			if (select1 != "미선택") {
 				$("#select1").attr("flag", "true");
 			} else {
 				$("#select1").attr("flag", "false");
 			}
 
-			if (select2 != "달걀/유제품" && select2 != "선택안함") {
+			if (select2 != "미선택") {
 				$("#select2").attr("flag", "true");
 			} else {
 				$("#select2").attr("flag", "false");
 			}
 
-			if (select3 != "곡물/기타" && select3 != "선택안함") {
+			if (select3 != "미선택") {
 				$("#select3").attr("flag", "true");
 			} else {
 				$("#select3").attr("flag", "false");

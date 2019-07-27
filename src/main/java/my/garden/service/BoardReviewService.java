@@ -24,6 +24,6 @@ public interface BoardReviewService {
 	public int updateReview(Map<String, Object> map) throws Exception;
 	public void deleteReview(int br_no) throws Exception;
 	
-	
+	public List<BoardReviewDTO> topRcmdReviews() throws Exception;
 	
 }

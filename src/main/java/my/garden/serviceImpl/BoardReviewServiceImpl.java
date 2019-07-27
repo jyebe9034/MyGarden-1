@@ -99,6 +99,11 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 		brDao.deleteRecommend(br_no);
 	}
 	
+	//------------------------------------------------------------------------------------
+	
+	public List<BoardReviewDTO> topRcmdReviews() throws Exception{
+		return brDao.topRcmdReviews();		
+	}
 	
 	
 }

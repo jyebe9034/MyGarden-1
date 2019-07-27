@@ -29,12 +29,16 @@
 
 .cell {
 	border-left: 1px solid #ddd;
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .cells {
 	font-size: 12px;
 	border-right: 1px solid #dddddd;
+}
+
+.tds{
+	font-size: 12px;
 }
 
 input {
@@ -49,16 +53,14 @@ table.list_table_style {
 }
 
 table.list_table_style thead th {
-	font-size: 12px;
+	font-size: 13px;
 	height: 35px;
-	font-family: 'Spoqa Han Sans', sans-serif;
 	border-right: 0px;
 	border-left: 0px;
 }
 
 
 table.list_table_style td.cell {
-	font-family: 'Spoqa Han Sans', sans-serif;
 	border-right: 0px;
 	border-left: 0px;
 }
@@ -86,11 +88,11 @@ table.list_table_style td.cell {
 
 #listSearchBox {
 	padding: 40px;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .durBtns {
-	font-size: 13px;
+	font-size: 14px;
 	margin-right: 3px;
 	padding: 3px;
 	padding-left: 4px;
@@ -108,21 +110,29 @@ table.list_table_style td.cell {
 }
 
 #empty {
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .title {
-	color: dodgerblue;
+	color: #4f9c87;
 }
 
 .title:hover {
-	color: navy;
+	color: rgb(53, 105, 91);
 	text-decoration: underline;
 	cursor: pointer;
 }
 .detail{
 	border:1px solid #dddddd;
 	background-color:#F9F9F9;
+}
+
+.titleLinks{
+	color: #4f9c97;
+}
+
+.titleLinks:hover {
+	color: rgb(53, 105, 91);
 }
 
 </style>
@@ -300,10 +310,10 @@ table.list_table_style td.cell {
 																			<div class="goods_name">
 																				<c:choose>
 																					<c:when test="${count-1==0 }">
-																						<span class="title">${dto.s_p_title }</span>
+																						<span class="title"><strong>${dto.s_p_title }</strong></span>
 																					</c:when>
 																					<c:otherwise>
-																						<span class="title">${dto.s_p_title } 외 ${count-1 } 건</span>
+																						<span class="title"><strong>${dto.s_p_title } 외 ${count-1 } 건</strong></span>
 																					</c:otherwise>
 																				</c:choose>
 																			</div>
@@ -348,15 +358,15 @@ table.list_table_style td.cell {
 															</tr>
 															<c:forEach var="dto" items="${list}" varStatus="stat">
 																<tr class="bottom_line">
-																	<td class="cell" align="center">${dto.s_orderno }</td>
-																	<td class="cell"><img src="${dto.s_p_imagepath }"
+																	<td class="tds" align="center">${dto.s_orderno }</td>
+																	<td class="tds"><img src="${dto.s_p_imagepath }"
 																		class="productsImg ml-3 mt-1 mb-1" width="50px" height="50px">
 																		<a
-																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }" class="pl-3">${dto.s_p_title }</a>
+																		href="productsRead?&revPage=1&qnaPage=1&pnumber=${dto.s_p_no }" class="pl-3 titleLinks">${dto.s_p_title }</a>
 																	</td>
-																	<td class="cell" align="center">${dto.s_orderdate }</td>
-																	<td class="cell" align="center">${dto.s_p_count }</td>
-																	<td class="cell" align="center"><fmt:formatNumber
+																	<td class="tds" align="center">${dto.s_orderdate }</td>
+																	<td class="tds" align="center">${dto.s_p_count }</td>
+																	<td class="tds" align="center"><fmt:formatNumber
 																			value="${dto.s_p_price*dto.s_p_count }" type="number" />원</td>
 																</tr>
 																<c:if test="${stat.last}">
@@ -364,19 +374,19 @@ table.list_table_style td.cell {
 																		<td class="cells" height="30" align="left" colspan=5></td>
 																	</tr>
 																	<tr>
-																		<th class="cell pl-4" align="left" height="30">받는 사람 </td>
+																		<th class="tds pl-4" align="left" height="30">받는 사람 </td>
 																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_recipient }</td>
 																	</tr>
 																	<tr>
-																		<th class="cell pl-4" align="left" height="30">결제 방법 </td>
+																		<th class="tds pl-4" align="left" height="30">결제 방법 </td>
 																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_paymethod }</td>
 																	</tr>
 																	<tr>
-																		<th class="cell pl-4" align="left" height="30">배송 메모 </td>
+																		<th class="tds pl-4" align="left" height="30">배송 메모 </td>
 																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_memo }</td>
 																	</tr>
 																	<tr>
-																		<th class="cell pl-4" align="left" height="30">배송지 </td>
+																		<th class="tds pl-4" align="left" height="30">배송지 </td>
 																		<td class="cells" align="left" height="30" colspan=4>${dto.s_m_zipcode } ${dto.s_m_address1 } ${dto.s_m_address2 }</td>
 																	</tr>
 																	<tr>

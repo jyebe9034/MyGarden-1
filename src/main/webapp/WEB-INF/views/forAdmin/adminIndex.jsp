@@ -9,7 +9,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
-<title>관리자 페이지 - 메인</title>
+<title>나의 정원 - 관리자 페이지 | 메인</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="viewport"
@@ -317,7 +317,7 @@ h4 {
 									<i class="fa fa-square"></i> 판매 건수
 								</h2>
 								<ul class="list-unstyled list-referrals">
-									<c:forEach var="tmp" items="${popular}" varStatus="status">
+									<c:forEach var="tmp" begin="0" end="4" items="${popular}" varStatus="status">
 										<li>
 											<p>
 												<span class="value">${tmp.s_p_title }</span><span

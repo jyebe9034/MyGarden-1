@@ -32,13 +32,13 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 	public String getNavi(int qnaPage,int bq_p_no) throws Exception{
 		return qnaDao.getNavi(qnaPage, bq_p_no);
 	}
-	public BoardQnADTO readQnA(int bq_no, String mine)  throws Exception{
-		return qnaDao.readQnA(bq_no, mine);
+	public BoardQnADTO readQnA(int bq_no)  throws Exception{
+		return qnaDao.readQnA(bq_no);
 	}
 	
 	@Transactional("txManager")
 	public int updateQnA(BoardQnADTO dto, int bq_no) throws Exception {
-		qnaDao.readQnA(bq_no, "y");
+		qnaDao.readQnA(bq_no);
 		return qnaDao.updateQnA(dto, bq_no);
 	}
 	

@@ -27,4 +27,5 @@ public interface BoardReviewDAO {
 	public int deleteReview(int br_no) throws Exception; 
 	public int deleteRecommend(int br_no) throws Exception;
 
+	public List<BoardReviewDTO> topRcmdReviews() throws Exception;
 }

@@ -74,6 +74,12 @@
 		delete BR_RECOMMEND where br_no=#{br_no}
 	</delete>
 	
+
+	<select id="topRcmdReviews" resultType="my.garden.dto.BoardReviewDTO">
+		select * 
+		from (select ROW_Number() over (order by br_recommend DESC) as row_num, board_review.* from board_review) 
+		where row_num between 1 and 4
+	</select>
 	
 	
 </mapper>

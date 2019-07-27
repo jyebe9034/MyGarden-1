@@ -41,7 +41,7 @@ public class BoardReviewAndQnAController {
 	@Autowired
 	private BoardQnAService qnaService;
 	@Autowired
-	LoginServiceImpl loginservice;
+	private LoginServiceImpl loginservice;
 
 	@Autowired
 	private ProductsService pservice;
@@ -311,14 +311,18 @@ public class BoardReviewAndQnAController {
 	}
 
 	@RequestMapping("readQnA")
-	public String readQnA(HttpServletRequest request, int bq_no, String mine, String checkA) throws Exception {	
+	public String readQnA(HttpServletRequest request, int bq_no, String checkA) throws Exception {	
 		String id = (String) session.getAttribute("loginId");
 		session.setAttribute("bq_no", bq_no);
+		
+		
+		
 		MembersDTO mdto = new MembersDTO();
 		try {
-			request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, id));
-			request.setAttribute("mine", mine);
-			request.setAttribute("readQnA", qnaService.readQnA(bq_no, mine));
+			String writer = qnaService.readQnA(bq_no).getBq_email();
+			request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, writer));
+//			request.setAttribute("mine", mine);
+			request.setAttribute("readQnA", qnaService.readQnA(bq_no));
 			request.setAttribute("commentList", qnaService.commentList(bq_no));
 			//System.out.println("checkAns : " + checkA);
 			request.setAttribute("checkAns", checkA);
@@ -331,7 +335,7 @@ public class BoardReviewAndQnAController {
 	@RequestMapping("updateQnAForm")
 	public String updateQnAForm(HttpServletRequest request,int bq_no) throws Exception {	
 		try {
-			request.setAttribute("readQnA", qnaService.readQnA(bq_no, "y"));	
+			request.setAttribute("readQnA", qnaService.readQnA(bq_no));	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -458,7 +462,6 @@ public class BoardReviewAndQnAController {
 		//System.out.println(cq_no);
 		return result; //result=2라면, 성공
 	}
-
 
 
 }

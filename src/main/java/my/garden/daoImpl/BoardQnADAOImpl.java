@@ -103,7 +103,7 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sb.toString();
 	}
 
-	public BoardQnADTO readQnA(int bq_no, String mine) {		
+	public BoardQnADTO readQnA(int bq_no) {		
 		return sst.selectOne("boardQnAMB.readQnA", bq_no);
 	}
 	

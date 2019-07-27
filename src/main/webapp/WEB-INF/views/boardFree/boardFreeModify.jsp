@@ -11,7 +11,7 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
-<title>글수정</title>
+<title>나의 정원 - 글 수정</title>
 </head>
 <style>
 #titleImg {
@@ -78,14 +78,13 @@ background-color: #f5f5f5 !important;
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/free/boardFree.png">
+		<img src="resources/free/boardFree.jpg">
 	</div>
 	<div class=container>
 		<form action="boardFreeModifyProc" method="post" id="freeForm">
 			<div class=row>
 				<p id=titleExplain>레시피를 공유해보세요!</p>
-				<div id=title class=col-12 contenteditable></div>
-				<input type="hidden" id=sendTitle name=bf_title>
+				<input type=text id=title class=col-12 maxlength="30" name=bf_title>
 				<div id=content class=col-12 contenteditable>${dto.bf_content}</div>
 				<input type="hidden" id=sendContent name=bf_content>
 				<input type="hidden" name=no value=${dto.bf_no }>
@@ -103,7 +102,17 @@ background-color: #f5f5f5 !important;
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
 		var title = '${dto.bf_title }';
-		$("#title").html(title);
+		$("#title").val(title);
+		
+		$("#title").on("keyup", function() {
+			var count = $(this).val().length;
+			$("#titleCount").text("(" + count + " / 30)");
+			if (count == 30) {
+				alert("제목은 최대 30자 까지 쓸 수 있습니다.");
+			}
+			;
+		})
+		
 		$("#back").on("click", function() {
 			location.href = "boardFreeList?page=1";
 		})
@@ -146,7 +155,7 @@ background-color: #f5f5f5 !important;
 		$("#submitBtn").on("click", function() {
 			$("#sendTitle").val($("#title").text());
 			$("#sendContent").val($(".note-editable").html());
-			if ($("#sendTitle").val() == "" || $("#sendContent").val() == "") {
+			if ($("#title").val() == "" || $("#sendContent").val() == "") {
 				alert("제목 또는 내용을 입력해주세요.");
 			}
 			$("#freeForm").submit();

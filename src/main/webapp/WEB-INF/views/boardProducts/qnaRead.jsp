@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>문의글</title>
+<title>나의 정원 - 문의글</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp" />
 <style>
 div {
@@ -254,14 +254,13 @@ div {
 		
 		$(".goBackBtn").on("click",function(){
 			//$(location).attr("href","/");
-			var pnumber = ${readQnA.bq_p_no};
+			var pnumber = "${pnumber}";
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 			
 		})
 	
 		$(".updateBtn").on("click",function(){
-			var bq_no = ${readQnA.bq_no};
-			
+			var bq_no = ${bq_no};
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
 
@@ -286,7 +285,7 @@ div {
 			}else{
 				var data = {
 						cq_p_no : "${readQnA.bq_p_no}",
-						cq_no : ${readQnA.bq_no},
+						cq_no : "${readQnA.bq_no}",
 						cq_name : "${loginName}",
 						cq_email : "${loginId}",
 						cq_comment : inputComment
@@ -459,18 +458,18 @@ div {
 				<div class="form-group row btnsRow">
 					<div class="col-12 btns">
 						<button type="button" class="btn goBackBtn">돌아가기</button>
-						<c:choose>
-							<c:when test="${mine eq 'y'}">
+<%-- 						<c:choose> --%>
+							<c:if test="${loginId eq readQnA.bq_email }">
 								<button type="button" class="btn updateBtn">수정하기</button>
-							</c:when>
-						</c:choose>
+							</c:if>
+<%-- 						</c:choose> --%>
 					</div>
 				</div>
 			</form>
 			<div id="answerWrapper">
 
 				<c:choose>
-					<c:when test="${checkAns eq 'n' and grade eq 'admin'}">
+					<c:when test="${readQnA.bq_checkedAns eq 'n' and grade eq 'admin'}">
 						<!-- ========================답변(관리자만 가능)============================= -->
 
 						<div class="form-group row commentRow">
@@ -491,7 +490,7 @@ div {
 						</div>
 
 					</c:when>
-					<c:when test="${checkAns eq 'n' and grade ne 'admin'}">
+					<c:when test="${readQnA.bq_checkedAns eq 'n' and grade ne 'admin'}">
 						<div class="form-group row commentRow">
 							<div class="col-12 commentLabelBox">
 								<img alt="" src="resources/products/adminCmtImg.png"> <label
@@ -516,7 +515,7 @@ div {
 								<div contenteditable="false" id="inputComment">${commentList.cq_comment }</div>
 							</div>
 						</div>
-						<c:if test="${checkAns eq 'y' and grade eq 'admin'}">
+						<c:if test="${readQnA.bq_checkedAns eq 'y' and grade eq 'admin'}">
 							<div class="row commentBtnRow">
 								<div class="col-12 commentBtnBox">
 									<button class="btn" id="delCommentBtn">삭제하기</button>

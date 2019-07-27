@@ -131,8 +131,21 @@
 	
 	#wrapper{
 		height : 800px;
+		margin-bottom: 100px;
 	}
 		
+	#clickHere img{
+		width: 50px;
+		transform : rotate(180deg)
+	}
+	
+	#clickWrap{
+		height: 60px;
+		position: relative;
+		top:190px;
+		left: 80px;
+	}
+	
 	#bubbleWrap{
 		display : none;
 		height : 0;
@@ -257,6 +270,35 @@
 		top : -28px;
 	}
 	
+	#cloudFrame{
+		width:280px;
+		height:280px;
+		border:none;
+		border-radius:50%;
+        box-sizing: border-box;
+		box-shadow: 0 0 15px 15px rgba(79,115,135,1);
+	}
+	#cloud{
+		position:absolute;
+		top:240px;
+		left:460px;
+		border:none;
+		box-sizing: border-box;
+	}
+	#sunFrame{
+		width:900px;
+		height:600px;
+		border:none;
+		border-radius:50%;
+        box-sizing: border-box;
+	}
+	#sun{
+		position:absolute;
+		top:110px;
+		left:230px;
+		border:none;
+		box-sizing: border-box;
+	}
 </style>
 </head>
 <body>
@@ -264,7 +306,11 @@
 	<div id="bcolor"></div>
 	
 	<div id="wrapper" class="container">
+		
 		<div id="contentsWrap" class="row">
+			<div id="clickWrap" class="col-12">
+			<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
+			</div>
 		    <div id="penguinWrap" class="col-6">
 				<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
 				<div id="bubbleWrap">
@@ -276,6 +322,12 @@
 				<div id="hurb" class="infos"><label>허브 종류 : </label>${result.g_hurb}</div>
 				<div id="enrolldate" class="infos"><label>정원 개설일 : </label><fmt:formatDate value="${result.g_enrolldate}" pattern="yyyy-MM-dd"/></div>
 			</div>
+		</div>
+		<div id="cloud">		
+			<iframe src="cloud" id="cloudFrame"></iframe>
+		</div>
+		<div id="sun">		
+			<iframe src="sun" id="sunFrame"></iframe>
 		</div>
 		<div id="controlWrap" class="row">
 			<div id="sproutWrap" class="col-6">
@@ -306,7 +358,7 @@
 			</div>
 		</div>
 	</div>
-	
+	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 	<script>
 		$("#save").on("click", function(){
 			var sun = $("#lightView").val();
@@ -334,6 +386,8 @@
 		var water = 3;
 		var temper = 3;
 		$("#btn1").on("click",function(){
+			$("#sun").fadeIn();
+			$("#sun").delay(2000).fadeOut();
 			if(light < 6 && light != 0){
 				light = light + 1;
 			}else if(light == 0){
@@ -369,6 +423,8 @@
 		}
 		
 		$("#btn3").on("click",function(){
+			$("#cloud").fadeIn();
+			$("#cloud").delay(2000).fadeOut();
 			if(water < 6 && water != 0){
 				water = water + 1;
 			}else if(water == 0){
@@ -441,7 +497,11 @@
 	
 		$("#penguin").on("click", function(){
 			$("#bubbleWrap").css("display", "block");
+			$("#clickHere").hide();
 		})
+		
+		$("#cloud").hide();
+		$("#sun").hide();
 	</script>
 
 </body>

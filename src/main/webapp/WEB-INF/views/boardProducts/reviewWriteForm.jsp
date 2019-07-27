@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>후기작성</title>
+<title>나의 정원 - 후기작성</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 
@@ -136,20 +136,12 @@
 				}
 			}
 
-			var pnumber = "${productInfo.p_no}"; //돌아가기 버튼 고치기!!!!!!
-			console.log(pnumber);
-			$(".goBackBtn")
-					.on(
-							"click",
-							function() {
-								var pnumber = $
-								{
-									pnumber
-								}
-								;
-								location.href = "productsRead?&revPage=1&qnaPage=1&pnumber="
-										+ pnumber;
-							})
+			
+			$(".goBackBtn").on("click",function() {
+				var pnumber = "${productInfo.p_no}"; 
+				console.log(pnumber);
+				location.href = "productsRead?&revPage=1&qnaPage=1&pnumber="+ pnumber;
+			})
 
 			$(".writeBtn").on("click", function() {
 				var inputTitle = $("#inputTitle").val();
