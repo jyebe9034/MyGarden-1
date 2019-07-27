@@ -8,7 +8,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
-<title>관리자 페이지 - 회원관리</title>
+<title>나의 정원 - 관리자 페이지 | 회원관리</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="viewport"

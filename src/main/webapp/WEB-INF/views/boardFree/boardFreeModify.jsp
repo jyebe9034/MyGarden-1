@@ -11,7 +11,7 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
-<title>글수정</title>
+<title>나의 정원 - 글 수정</title>
 </head>
 <style>
 #titleImg {

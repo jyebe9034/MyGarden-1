@@ -10,6 +10,8 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -17,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -36,6 +40,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +54,7 @@ import com.google.gson.JsonParser;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ProductsDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
 
@@ -307,8 +317,7 @@ public class LoginDAO {
 	}
 	
 	public String NaverLoginGetInfo(String token) {
-		//String token : 네이버 로그인 접근 토큰;
-        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+        String header = "Bearer " + token;
         try {
             String apiURL = "https://openapi.naver.com/v1/nid/me";
             URL url = new URL(apiURL);
@@ -317,9 +326,9 @@ public class LoginDAO {
             con.setRequestProperty("Authorization", header);
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if(responseCode==200) { // 정상 호출
+            if(responseCode==200) { 
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // 에러 발생
+            } else {  
                 br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
             String inputLine;
@@ -328,11 +337,11 @@ public class LoginDAO {
                 response.append(inputLine);
             }
             br.close();
-            response.toString(); //사용자 정보 리턴
+            response.toString(); 
             JsonParser parser = new JsonParser();
             JsonObject jObject = parser.parse(response.toString()).getAsJsonObject();
             JsonObject infoGroup = jObject.get("response").getAsJsonObject();
-            //뽑아낸 정보
+            
             return infoGroup.get("email").getAsString();
         } catch (Exception e) {
             System.out.println(e);
@@ -451,5 +460,58 @@ public class LoginDAO {
 	public String getGrade(String id) {
 		return sst.selectOne("LoginDAO.getGrade", id);
 	}
+	
+	
+	
+	
+	
+//	private static String chromeDriverRoute = "D:\\SpringOnly\\workspace\\MyGarden_DB\\src\\main\\webapp\\resources\\lib\\chromedriver.exe"; //�뱶�씪�씠釉� �젅��寃쎈줈
+//	
+//	//selenium
+//	private WebDriver seleniumSetting() { 
+//		System.setProperty("webdriver.chrome.driver", chromeDriverRoute);
+//		ChromeOptions opt = new ChromeOptions();
+//		opt.addArguments("--silent");
+//		opt.addArguments("--headless");
+//		WebDriver driver = new ChromeDriver(opt);
+//		return driver;
+//	}
+//	public int getItems(ProductsDTO dto, MultipartFile fake) {
+////		"/clist?code=0010&mode=initial"과일
+////        "/clist?code=0007&mode=initial"채소
+////        "/clist?code=0037&mode=initial"반찬
+////        "/clist?code=0021&mode=initial"육류
+////        "/clist?code=0034&mode=initial"수산물
+////        "/clist?code=0038&mode=initial"건어물
+////        "/clist?code=0016&mode=initial"달걀/유제품
+////        "/clist?code=0086&mode=initial"곡물
+////        "/clist?code=0017&mode=initial"소스/조미료
+////        "/clist?code=0004&mode=initial"가공
+//		WebDriver driver = this.seleniumSetting();
+//		driver.get("https://mannabox.co.kr" + key);
+//		WebElement result = driver.findElement(By.xpath("//*[@id=\"goods_list\"]"));
+//		String innerHTML = result.getAttribute("innerHTML");
+//		Pattern p = Pattern.compile("background-color:#ffffff;.+\\n\\n.+\\n.+\\n.+\\n.+img data-original=\"(.+?)\".+\\n.+\\n\\n.+data_goods_name=\"(.+?)\".+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+size:.+;\">(.+?)</span>"); 
+//		Matcher m = p.matcher(innerHTML); 
+//
+//		while(m.find()) { 
+//			dto.setImage(fake);
+//			dto.setP_imagepath(m.group());
+//			dto.setP_title(m.group());
+//			dto.setP_subtitle("설명 참조");
+//			dto.setP_category("category");
+//			dto.setP_inventory(1000);
+//			dto.setP_unit("상품명 참조");
+//			dto.setP_seller("");
+//			dto.setP_origin("");
+//			dto.setP_price(Integer.parseInt(m.group()));
+//			dto.setP_content("");
+//			dto.setP_sales(0);
+//			dto.setP_writedate(new Timestamp(System.currentTimeMillis()));
+//		}
+//		driver.close();
+//	}
+	
+	
 	
 }
