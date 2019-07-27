@@ -13,7 +13,7 @@
 .wrapper{
 	margin-bottom : 150px;
 }
-.calMonth{font-size:12px; width:25px; height:25px; float:left;}
+.calMonth{font-size:11px; width:25px; height:25px; float:left; padding-top:7px;}
 .calDay{width:25px; height:25px; text-indent:-9999px; float:left; cursor:pointer;}
 .calDay:hover{background:#eee;}
 .orderList{display:none;}
@@ -333,7 +333,7 @@ h4 .badge{background:#eee;}
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-3 pr-5 pl-5 my">
 						<div class="garden text-left">
 							<c:forEach begin="0" end="11" step="1" var="i">
-								<h6 class="m-1 pt-1 calMonth text-center">${mm[i] }</h6>
+								<h6 class="m-1 calMonth text-center">${mm[i] }</h6>
 									<c:forEach begin="1" end="${cal[i]}" step="1" var="x">
 										<c:choose>
 											<c:when test="${i<9 && x<10}">  

@@ -65,7 +65,7 @@
 
 .eachImg {
 	width: 100%;
-	height: 250px;
+	height: auto;
 }
 
 .cards {
@@ -167,9 +167,9 @@
 										value="${list.p_no}">
 								</div>
 							</c:if>
-							<div class="card cards" style="width: 18rem;">
+							<div class="card cards anker" style="width: 18rem;" pnumber="${list.p_no}">
 								<img src="${list.p_imagepath}" class="card-img-top eachImg">
-								<div class="card-body anker" pnumber="${list.p_no}">
+								<div class="card-body">
 									<h5 class="card-title title">${list.p_title}</h5>
 									<p class="card-text price">${list.p_price}</p>
 								</div>
@@ -224,9 +224,9 @@
 									$(root).append(tmp);
 								</c:if>
 								
-								var divCards = $("<div class='card cards' style='width: 18rem;'></div>");
+								var divCards = $("<div class='card cards anker' style='width: 18rem;' pnumber='" + resp[i].p_no + "'></div>");
 								var imgEach = $("<img class='card-img-top eachImg' src='" + resp[i].p_imagepath +"'>");
-								var cb_anker = $("<div class='card-body anker' pnumber='" + resp[i].p_no + "'></div>");
+								var cb_anker = $("<div class='card-body'></div>");
 								var h5title = $("<h5 class='card-title title'>" + resp[i].p_title  + "</h5>");
 								var priceP = $("<p class='card-text price'>" + numberWithCommas(resp[i].p_price) + "</p>");
 								

@@ -138,17 +138,7 @@
             <div id="main" class="col-12">
                <img id="titleImg" src="${result.p_imagepath}">
                <div id="title" class="col-12">${result.p_title}</div>
-               <div id="text1" class="col-12">${result.p_subtitle}</div>
-               <div id="text2" class="col-12">${result.p_content}
-                        매일 다채롭게 활용되는 채소팩, 레디믹스 데일리입니다.<br>
-                        만나농장에서 정성껏 키워낸 베이비리프 채소를<br>
-                        배송 당일 수확 후 세척해 신선하게 보내드립니다.<br><br>
-                        
-                        언제 어디서나 간편하게 즐기는 샐러드로,<br>
-                        스테이크나 파스타 등의 요리에 멋을 더하는 아름다운 가니쉬 채소로,<br>
-                        각종 요리에 향긋한 풍미를 더하는 기본 채소로,<br>
-                        늘 우리 일상에 함께하는 베이비리프 채소 팩, 레디믹스 데일리를 만나보세요.<br>
-               </div>
+               <div id="text2" class="col-12">${result.p_content}</div>
             </div>
             <div id="table" class="col-12">
                <table>
