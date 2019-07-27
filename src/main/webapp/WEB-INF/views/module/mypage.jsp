@@ -6,8 +6,9 @@
 <style>
 	.imageContainer{height:300px; overflow:hidden;}
 	.carousel-inner{margin-top:-120px;}
-	.overview{padding:20px 30px 20px 30px;}
-	.gardenImg{width:95%px; height:150px; overflow:hidden;}
+	.overview{padding:20px 30px 10px 30px;}
+	.overview2{padding:20px 10px 10px 0px;}
+	.gardenImg{width:95%; height:150px; overflow:hidden;}
 /* 	.gardenImg img{background-size:cover;} */
 	.currentActive{background:#4f9c87; color:#fff;}
 	.bg-f5{background: #f5f5f5;}
@@ -20,6 +21,7 @@
 	.filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 	.gardenUpdateBtn:nth-child(2){top:35%; left:50%; margin-left:-20px; display:none;}
 	.gardenImg:hover .gardenUpdateBtn:nth-child(2){display:block;}
+	.hoverImg{margin-left:-15px;}
 	.gardenImg:hover .hoverImg{filter: brightness(70%); cursor:pointer;}
 </style>    
 <!-- js -->
@@ -167,7 +169,7 @@
 						  </div>
 						</div>
 				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview my">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview2 my">
 					<div class="gardenImg position-relative">
 						<img src="${memDTO.m_profile}" class="hoverImg" width="250" height="150">
 						<button type="button" class="mt-2 btn gardenUpdateBtn position-absolute" data-toggle="modal" data-target="#changeGardenProfile">

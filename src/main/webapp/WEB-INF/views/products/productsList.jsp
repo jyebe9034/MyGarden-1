@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>공유 정원</title>
+<title>나의 정원 - 공유 정원</title>
 <style>
 
 #sharedWrap {

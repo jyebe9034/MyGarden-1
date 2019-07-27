@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>Products Read</title>
+<title>나의 정원 - Products Read</title>
 <style>
    #bcolor{
       width : 100%;

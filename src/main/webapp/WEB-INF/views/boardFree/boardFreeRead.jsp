@@ -13,8 +13,8 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
-<title>글읽기</title>
-</head>
+<title>나의 정원 - 글 읽기</title>
+</head> 
 <style>
 #titleImg {
 	overflow: hidden;
