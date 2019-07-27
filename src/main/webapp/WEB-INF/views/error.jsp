@@ -14,7 +14,7 @@
 .contents h1{color:#f5f5f5; font-size:60px;}
 .btn-outline-light:hover{color:#4f9c87;}
 body { 
-  background: #009688;
+  background: #65a896;
 }
 .loop-wrapper {
   margin: 0 auto;
@@ -86,7 +86,7 @@ body {
   background: #eee;
 }
 .truck {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/truck.svg) no-repeat;
+  background: url(resources/img/truck.png) no-repeat;
   background-size: contain;
   height: 60px;
 }
