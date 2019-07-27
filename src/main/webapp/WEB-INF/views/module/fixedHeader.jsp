@@ -6,7 +6,7 @@
 #goToTop {
    position: fixed;
    right: 28px;
-   bottom: 90px;
+   bottom: 28px;
    border-radius: 50%;
    padding: 2px;
    background:rgba(255,255,255,0.5);

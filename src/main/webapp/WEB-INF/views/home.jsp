@@ -24,31 +24,29 @@
 		.lastBtn button:hover{background:#4f9c87;; color:#f4f4f4;}
 		#chatboxWrap{
 			border-radius : 5px;
-			width : 280px;
-			height : 400px;
+			width : 350px;
+			height : 500px;
 			display : none;
 		}
 		#chatBox{
 			position : fixed;
-			right : 100px;
-			bottom : 30px;
+			left : 20px;
+			bottom : 100px;
 		}
 		#chatWrap{
-			position: fixed;
-		   right: 28px;
-		   bottom: 28px;
-		   border-radius: 50%;
-		   padding: 2px;
-		   background:rgba(255,255,255,0.5);
-		   box-shadow: 0 10px 30px 0 rgba(0,0,0,0.3);
-		   z-index: 999;
-		   font-size: 15px;
-		   cursor: pointer;
+			width : 70px;
+			height : 70px;
+			position : fixed;
+			left : 30px;
+			bottom : 25px;
+		}
+		#chatBtn{
+			width : 70px;
+			height : 70px;
 		}
 		#chatBtn:hover{
 			cursor : pointer;
 		}
-		#message{padding-left:50px;}
 		.special:hover{filter: brightness(80%); cursor:pointer;}
 	</style>
 </head>
@@ -363,7 +361,7 @@
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 	
 	<div id="chatWrap">
-		<img id="chatBtn" src="/resources/img/chat.png" width="40" height="40"/>
+		<img id="chatBtn" src="/resources/img/chat.png">
 	</div> 
 	<div id="chatboxWrap">
 		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
