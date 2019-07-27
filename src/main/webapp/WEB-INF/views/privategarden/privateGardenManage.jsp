@@ -135,12 +135,12 @@
 	}
 		
 	#clickHere img{
-		width: 80px;
+		width: 50px;
 		transform : rotate(180deg)
 	}
 	
 	#clickWrap{
-		height: 80px;
+		height: 60px;
 		position: relative;
 		top:190px;
 		left: 80px;
