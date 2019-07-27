@@ -83,6 +83,7 @@
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 pt-5 my">	
 				<div id="title">채팅 문의 관리</div>
+				<hr>
 				<div id="chatBox">
 					<div class="messages">
 						<div class="consumer">문의한 사람</div>
@@ -98,7 +99,7 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <h5 id="toWhom" class="modal-title" id="exampleModalCenterTitle"></h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <button id="close" type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
@@ -136,13 +137,18 @@
 		$("#send").on("click",function(){
 			var id = $("#toWhom").text();
 			var msg = $("#message").text();
-			socket.send("sdf@gmail.com" + " : " + msg + " : " + id);
+			console.log(id + " : " + msg);
+			socket.send("admin123@naver.com" + " : " + msg + " : " + id);
+			$("#message").text("");
+			$("#close").click();
 		}) // 서버로 메세지를 보내는 경우
 		
 		$(document).on("click", "#temp", function(){
 			var tmp = $(this).prev().prev().text();
-			console.log(tmp);
+			var btn = $(this);
 			$("#toWhom").html(tmp);
+			btn.text("답변완료");
+			btn.prop("disabled", true);
 		})
 	
 		/* $("#message").keyup(function(key){

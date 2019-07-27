@@ -13,6 +13,7 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="resources/js/jquery.mCustomScrollbar.js"></script>
 <link rel="stylesheet" href="resources/css/recipe.css">
+<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
 	<style>
 		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
 		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
@@ -53,6 +54,7 @@
 		h1{
       		font-family: 'Merienda One', cursive;
       		color: #3a5c19;
+
       	}
 	</style>
 </head>
@@ -63,10 +65,8 @@
        $("#chatWrap").on("click", function(){
             console.log("클릭함");
             if($("#chatboxWrap").css("display") == "none"){
-               console.log("보여줘");
                $("#chatboxWrap").show();
             }else{
-               console.log("사라져");
                $("#chatboxWrap").hide();
             }
          })
@@ -142,235 +142,237 @@
        </c:choose>
        
 <!-- header -->
-	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	
-<!-- 			carousel -->
-	<div class="container-fluid my">
-		<div class="row my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-0 p-0 my">
-				<div class="bd-example">
-				  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-				    <ol class="carousel-indicators">
-				      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-				      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-				      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-				      <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
-				    </ol>
-				    <div class="carousel-inner">
-				      <div class="carousel-item active">
-				        <img src="resources/img/carousel1.jpg" class="d-block w-100" alt="...">
-				        <div class="carousel-caption d-none d-md-block text-center mb-5">
-				          <h5 class="font-weight-bold"">나의 정원에서 수확합니다</h5>
-				          <p class="font-weight-bold"">나만의 정원에서는 언제든 신선한 채소를 만나볼 수 있어요!</p>
-				        </div>
-				      </div>
-				      <div class="carousel-item">
-				        <img src="resources/img/caro2.jpg" class="d-block w-100" alt="...">
-				        <div class="carousel-caption d-none d-md-block text-left mb-5">
-				          <h5 class="font-weight-bold"">어디에도 없는 나만의 레시피</h5>
-				          <p class="font-weight-bold"">아보카도 하나로 다섯가지 요리 만들기</p>
-				        </div>
-				      </div>
-				      <div class="carousel-item">
-				        <img src="resources/img/carousel3.jpg" class="d-block w-100" alt="...">
-				        <div class="carousel-caption d-none d-md-block text-left mb-5">
-				          <h5 class="font-weight-bold">어린 잎, 맑은 콩</h5>
-				          <p class="font-weight-bold">상큼하고 신선한 어린 잎과 고소한 콩으로 여는 아침</p>
-				        </div>
-				      </div>
-				      <div class="carousel-item">
-				        <img src="resources/img/carousel2.jpg" class="d-block w-100" alt="...">
-				        <div class="carousel-caption d-none d-md-block text-right mb-5">
-				          <h5 class="font-weight-bold"">여름을 닮은 허브 잼</h5>
-				          <p class="font-weight-bold"">계절을 품은 푸른빛 향신료 즐기기</p>
-				        </div>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- 	contents -->
-	<div class="container pt-5 my">
-		<div class="row text-center m-auto p-0 my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 pb-2 text-center my">
-				<h1 class="pb-2">Wire the Organic</h1><hr>
-				<h4 class="pt-2 pb-4">나의 정원에서 가질 수 있는 특별한 네가지</h4>
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-				<h5 class="pt-2 pb-1">내가 소유하는</h5>
-				<h5 class="pb-2">나만의 정원!</h5>
-				<img src="resources/img/main1.jpg" width="250" height="360" class="special" href="mypageFirst">
-				<h6 class="pt-3">계좌를 개설하는 것처럼</h6>
-				<h6 class="pb-2">정원을 개설할 수 있습니다</h6>
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-				<h5 class="pt-2 pb-1">유기농 작물</h5>
-				<h5 class="pb-2">커스터마이징!</h5>
-				<img src="resources/img/main3.jpg" width="250" height="360" class="special" href="privateGarden">
-				<h6 class="pt-3">비밀정원에서 나만의</h6>
-				<h6 class="pb-2">작물을 직접 관리해 보세요</h6>
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-				<h5 class="pt-2 pb-1">매일매일 사계절</h5>
-				<h5 class="pb-2">제철음식을 식탁에!</h5>
-				<img src="resources/img/main2.jpg" width="250" height="360" class="special" href="/productsList">
-				<h6 class="pt-3">똑똑한 정원은 사계절에</h6>
-				<h6 class="pb-2">구애받지 않습니다</h6>
-			</div>
-			<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-				<h5 class="pt-2 pb-1">수십가지 검수와</h5>
-				<h5 class="pb-2">까다로운 관리!</h5>
-				<img src="resources/img/main4.jpg" width="250" height="360" class="special" href="/productsList">
-				<h6 class="pt-3">스마트팜 기반 관리 시스템이</h6>
-				<h6 class="pb-2">오너의 건강까지 생각합니다</h6>
-			</div>
-		</div>
-		<div class="row text-center mt-5 my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 text-center my">
-				<h1 class="pb-2">Best of My Garden</h1><hr>
-				<h4 class="pt-2 pb-2">나의 정원에서 자라는 작물들을 만나보세요!</h4>
-			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-4 pb-4 m-auto my">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-				  <li class="nav-item">
-				    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#best" role="tab" aria-controls="home" aria-selected="true">Best</a>
-				  </li>
-				  <li class="nav-item">
-				    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#like" role="tab" aria-controls="profile" aria-selected="false">Like</a>
-				  </li>
-				  <li class="nav-item">
-				    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#review" role="tab" aria-controls="contact" aria-selected="false">Review</a>
-				  </li>
-				  <li class="nav-item" style="padding-top:2px;">
-				    <a class="nav-link border-0 font-weight-bold" href="/productsList">More +</a>
-				  </li>
-				</ul>
-				<div class="tab-content" id="myTabContent">
-				  <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="home-tab">
-				  	<div class="row pt-3 m-auto">
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-							<img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-							<h5 class="pt-2 pb-3">dddddddd</h5>
-						</div>
-					</div>
-				  </div>
-				  <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="profile-tab">...</div>
-				  <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="contact-tab">...</div>
-				</div>
-			</div>
-		</div>
-		<div class="row text-center mt-4 my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 text-center my">
-				<h1 class="pb-2">Collaboration</h1><hr>
-				<h5 class="p-1">나의 정원 x 월드컵 축구대표팀</h5>
-				<h4 class="pt-2 pb-3">국가대표가 추천하는 건강 식단</h4>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
-				<h5 class="pt-2 pb-2">조소현 선수</h5>
-				<img src="resources/img/player1.jpg" width="330" height="340" class="special" href="/productsList">
-				<h6 class="pt-3 pb-2">&ldquo;규칙적인 샐러딩 습관이 중요합니다 &rdquo;</h6>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
-				<h5 class="pt-2 pb-2">지소연 선수</h5>
-				<img src="resources/img/player2.jpg" width="330" height="340" class="special" href="/productsList">
-				<h6 class="pt-3 pb-2">&ldquo;나의 정원에서 제철과일을 즐겨 먹어요&rdquo;</h6>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
-				<h5 class="pt-2 pb-2">문미라 선수</h5>
-				<img src="resources/img/player3.jpg" width="330" height="340" class="special" href="/productsList">
-				<h6 class="pt-3 pb-1">&ldquo;나의 정원에선 채소뿐만 아니라 </h6>
-				<h6 class="pb-2">다른 유기농 유제품도 함께 수확할 수 있어서 좋아요&rdquo;</h6>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
-				<h5 class="pt-2 pb-2">손화연 선수</h5>
-				<img src="resources/img/player4.jpg" width="330" height="340" class="special" href="/productsList">
-				<h6 class="pt-3 pb-1">&ldquo;영양과 맛, 두가지를 다 잡은</h6>
-				<h6 class="pb-2">저만의 오트밀 레시피를 알려드리겠습니다&rdquo;</h6>
-			</div>
-		</div>
-		<div class="row text-center mt-3 my">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 text-center my">
-				<h1 class="pb-2">Owner's Recipe</h1><hr>
-				<h4 class="pt-2 pb-4">정원 오너들이 공유하는 레시피</h4>
-			</div>
-		    <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar text-left mb-5 my">
-				<img src="resources/img/main1.jpg" width="400" height="600" style="float:left;" class="pr-2">
-				<div style="float:left;" class="pt-4 pr-2 pl-2 pb-2">
-					<h5 class="font-weight-bold">레시피 제목</h5>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-						sssssssssss<br>
-				</div>
-			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
-				<!-- partial:index.partial.html -->
-				<div class="slider">
-					<img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10004088_1491055334449687_1187165020_n.jpg" class="special" href="/"/>
-					<img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10817863_856543214397968_517239188_n.jpg" />
-					<img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10919749_326992714172441_299394464_n.jpg" />
-					<img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10617007_939025979457209_6938406_n.jpg" />
-					<img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1168617_1435408473368301_409182770_n.jpg" />
-				    <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/11189836_754178218029431_2102772742_n.jpg" />
-				    <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10843869_1658219887738208_2033326788_n.jpg" />
-				    <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1515054_1379051609022475_1394148610_n.jpg" />
-					</div>
-				<!-- partial -->
-<!-- 				  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->
-				<script  src="resources/js/recipe.js"></script>
-			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-5 pt-4 pb-5 lastBtn my">
-				<button type="button" class="btn btn-lg mt-2 mr-2" href="/boardFreeList">더 보기</button>
-				<button type="button" class="btn btn-lg mt-2" href="/aboutMyGarden">About 나의 정원</button>
-			</div>
-		</div>
-	</div>
-	
-	<!-- footer -->
-	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
-	
-	<div id="chatWrap">
-		<img id="chatBtn" src="/resources/img/chat.png">
-	</div> 
-	<div id="chatboxWrap">
-		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
-	</div>
+   <jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
+   
+<!--          carousel -->
+   <div class="container-fluid my">
+      <div class="row my">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-0 p-0 my">
+            <div class="bd-example">
+              <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                  <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="resources/img/carousel1.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-center mb-5">
+                      <h5 class="font-weight-bold"">나의 정원에서 수확합니다</h5>
+                      <p class="font-weight-bold"">나만의 정원에서는 언제든 신선한 채소를 만나볼 수 있어요!</p>
+                    </div>
+                  </div>
+                    <div class="carousel-item">
+                    <img src="resources/img/caro1.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-left mb-5">
+                      <h5 class="font-weight-bold"">어디에도 없는 하나 뿐인 샐러드</h5>
+                      <p class="font-weight-bold"">직접 키운 허브로 만들어보세요!</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="resources/img/carousel3.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-left mb-5">
+                      <h5 class="font-weight-bold">어린 잎, 맑은 콩</h5>
+                      <p class="font-weight-bold">상큼하고 신선한 어린 잎과 고소한 콩으로 여는 아침</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <img src="resources/img/carousel2.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block text-right mb-5">
+                      <h5 class="font-weight-bold"">여름을 닮은 허브 잼</h5>
+                      <p class="font-weight-bold"">계절을 품은 푸른빛 향신료 즐기기</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+      </div>
+   </div>
+<!--    contents -->
+   <div class="container pt-5 my">
+      <div class="row text-center m-auto p-0 my">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 pb-2 text-center my">
+            <h1 class="pb-2">Wire the Organic</h1><hr>
+            <h4 class="pt-2 pb-4">나의 정원에서 가질 수 있는 특별한 네가지</h4>
+         </div>
+         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+            <h5 class="pt-2 pb-1">내가 소유하는</h5>
+            <h5 class="pb-2">나만의 정원!</h5>
+            <img src="resources/img/main1.jpg" width="250" height="360" class="special" href="mypageFirst">
+            <h6 class="pt-3">계좌를 개설하는 것처럼</h6>
+            <h6 class="pb-2">정원을 개설할 수 있습니다</h6>
+         </div>
+         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+            <h5 class="pt-2 pb-1">유기농 작물</h5>
+            <h5 class="pb-2">커스터마이징!</h5>
+            <img src="resources/img/main3.jpg" width="250" height="360" class="special" href="privateGarden">
+            <h6 class="pt-3">비밀정원에서 나만의</h6>
+            <h6 class="pb-2">작물을 직접 관리해 보세요</h6>
+         </div>
+         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+            <h5 class="pt-2 pb-1">매일매일 사계절</h5>
+            <h5 class="pb-2">제철음식을 식탁에!</h5>
+            <img src="resources/img/main2.jpg" width="250" height="360" class="special" href="/productsList">
+            <h6 class="pt-3">똑똑한 정원은 사계절에</h6>
+            <h6 class="pb-2">구애받지 않습니다</h6>
+         </div>
+         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+            <h5 class="pt-2 pb-1">수십가지 검수와</h5>
+            <h5 class="pb-2">까다로운 관리!</h5>
+            <img src="resources/img/main4.jpg" width="250" height="360" class="special" href="/productsList">
+            <h6 class="pt-3">스마트팜 기반 관리 시스템이</h6>
+            <h6 class="pb-2">오너의 건강까지 생각합니다</h6>
+         </div>
+      </div>
+      <div class="row text-center mt-5 my">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 text-center my">
+            <h1 class="pb-2">Best of My Garden</h1><hr>
+            <h4 class="pt-2 pb-2">나의 정원에서 자라는 작물들을 만나보세요!</h4>
+         </div>
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-4 pb-4 m-auto my">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#best" role="tab" aria-controls="home" aria-selected="true">Best</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#like" role="tab" aria-controls="profile" aria-selected="false">Like</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#review" role="tab" aria-controls="contact" aria-selected="false">Review</a>
+              </li>
+              <li class="nav-item" style="padding-top:2px;">
+                <a class="nav-link border-0 font-weight-bold" href="/productsList">More +</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="home-tab">
+                 <div class="row pt-3 m-auto">
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
+                     <h5 class="pt-2 pb-3">dddddddd</h5>
+                  </div>
+               </div>
+              </div>
+              <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="profile-tab">...</div>
+              <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="contact-tab">...</div>
+            </div>
+         </div>
+      </div>
+      <div class="row text-center mt-4 my">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 text-center my">
+            <h1 class="pb-2">Collaboration</h1><hr>
+            <h5 class="p-1">나의 정원 x 월드컵 축구대표팀</h5>
+            <h4 class="pt-2 pb-3">국가대표가 추천하는 건강 식단</h4>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
+            <h5 class="pt-2 pb-2">조소현 선수</h5>
+            <img src="resources/img/player1.jpg" width="330" height="340" class="special" href="/productsList">
+            <h6 class="pt-3 pb-2">&ldquo;규칙적인 샐러딩 습관이 중요합니다 &rdquo;</h6>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
+            <h5 class="pt-2 pb-2">지소연 선수</h5>
+            <img src="resources/img/player2.jpg" width="330" height="340" class="special" href="/productsList">
+            <h6 class="pt-3 pb-2">&ldquo;나의 정원에서 제철과일을 즐겨 먹어요&rdquo;</h6>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
+            <h5 class="pt-2 pb-2">문미라 선수</h5>
+            <img src="resources/img/player3.jpg" width="330" height="340" class="special" href="/productsList">
+            <h6 class="pt-3 pb-1">&ldquo;나의 정원에선 채소뿐만 아니라 </h6>
+            <h6 class="pb-2">다른 유기농 유제품도 함께 수확할 수 있어서 좋아요&rdquo;</h6>
+         </div>
+         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
+            <h5 class="pt-2 pb-2">손화연 선수</h5>
+            <img src="resources/img/player4.jpg" width="330" height="340" class="special" href="/productsList">
+            <h6 class="pt-3 pb-1">&ldquo;영양과 맛, 두가지를 다 잡은</h6>
+            <h6 class="pb-2">저만의 오트밀 레시피를 알려드리겠습니다&rdquo;</h6>
+         </div>
+      </div>
+      <div class="row text-center mt-3 my">
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 text-center my">
+            <h1 class="pb-2">Owner's Recipe</h1><hr>
+            <h4 class="pt-2 pb-4">정원 오너들이 공유하는 레시피</h4>
+         </div>
+          <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar text-left mb-5 my">
+            <img src="resources/img/main1.jpg" width="400" height="600" style="float:left;" class="pr-2">
+            <div style="float:left;" class="pt-4 pr-2 pl-2 pb-2">
+               <h5 class="font-weight-bold">레시피 제목</h5>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+                  sssssssssss<br>
+            </div>
+         </div>
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
+            <!-- partial:index.partial.html -->
+            <div class="slider">
+               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10004088_1491055334449687_1187165020_n.jpg" class="special" href="/"/>
+               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10817863_856543214397968_517239188_n.jpg" />
+               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10919749_326992714172441_299394464_n.jpg" />
+               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10617007_939025979457209_6938406_n.jpg" />
+               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1168617_1435408473368301_409182770_n.jpg" />
+                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/11189836_754178218029431_2102772742_n.jpg" />
+                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10843869_1658219887738208_2033326788_n.jpg" />
+                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1515054_1379051609022475_1394148610_n.jpg" />
+               </div>
+            <!-- partial -->
+<!--               <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->
+            <script  src="resources/js/recipe.js"></script>
+         </div>
+         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-5 pt-4 pb-5 lastBtn my">
+            <button type="button" class="btn btn-lg mt-2 mr-2" href="/boardFreeList">더 보기</button>
+            <button type="button" class="btn btn-lg mt-2" href="/aboutMyGarden">About 나의 정원</button>
+         </div>
+      </div>
+   </div>
+   
+   <!-- footer -->
+   <jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
+   <c:if test="${grade == 'public' || grade == 'private'}">
+      <div id="chatWrap">
+         <img id="chatBtn" src="/resources/img/chat.png">
+      </div> 
+      <div id="chatboxWrap">
+         <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+      </div>
+   </c:if>
+
 </body>
 </html>
