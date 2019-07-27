@@ -139,10 +139,11 @@
 		transform : rotate(180deg)
 	}
 	
-	#clickHere{
+	#clickWrap{
+		height: 80px;
 		position: relative;
-		top:  230px;
-		left:20px;
+		top:190px;
+		left: 80px;
 	}
 	
 	#bubbleWrap{
@@ -276,8 +277,11 @@
 	<div id="bcolor"></div>
 	
 	<div id="wrapper" class="container">
-	<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
+		
 		<div id="contentsWrap" class="row">
+			<div id="clickWrap" class="col-12">
+			<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
+			</div>
 		    <div id="penguinWrap" class="col-6">
 				<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
 				<div id="bubbleWrap">
