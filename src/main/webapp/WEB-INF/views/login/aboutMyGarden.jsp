@@ -69,6 +69,18 @@
   }
 }
 	.scrollBar, .scrollBar-lg{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0px 0px 15px #222;}
+	@keyframes hero-octonaut1{
+	  0%{transform:translateY(-18px);}
+	  100%{transform:translateY(18px);}
+	}
+	@keyframes hero-octonaut2{
+	  0%{transform:translateY(18px);}
+	  100%{transform:translateY(-18px);}
+	}
+	.planetIcon img{cursor: pointer; animation-duration: 2s; animation-delay: 2s;}
+	.hero1{animation: hero-octonaut1 2s alternate ease-in-out infinite;}
+	.hero2{animation: hero-octonaut2 2s alternate ease-in-out infinite;}
+	.planetIcon img:hover{opacity:0.7;}
 </style>
 </head>
 <body>
@@ -397,6 +409,12 @@
 	
 	<div class="containerBox text-center my">
 		<div id="row my">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 m-auto d-none d-md-block planetIcon my">
+				<img src="resources/img/planet1.png"  width="130" height="130" alt="" class="p-3 hero1">
+				<img src="resources/img/planet2.png"  width="100" height="100" alt="" class="p-3 hero2">
+				<img src="resources/img/planet3.png"  width="170" height="140" alt="" class="p-3 hero1">
+				<img src="resources/img/planet4.png" width="70" height="70" alt="" class="p-3 hero2">
+			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-4 my">
 				<h5>&ldquo;단순히 인터넷 쇼핑을 하는 것만이 아닌,</h5>  
 				<h5>그곳에 나의 정원을 만들고 소유하는 건 어떨까?&rdquo;</h5>
@@ -449,12 +467,6 @@
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
 				STEP4. 비밀정원에서는 ....................
-			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 m-auto d-none d-md-block planetIcon my">
-				<img src="resources/img/planet1.png"  width="130" height="130" alt="" class="p-3 hero1">
-				<img src="resources/img/planet2.png"  width="100" height="100" alt="" class="p-3 hero2">
-				<img src="resources/img/planet3.png"  width="170" height="140" alt="" class="p-3 hero1">
-				<img src="resources/img/planet4.png" width="70" height="70" alt="" class="p-3 hero2">
 			</div>
 		</div>
 	</div>
