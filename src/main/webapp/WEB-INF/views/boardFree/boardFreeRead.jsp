@@ -13,8 +13,8 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
-<title>글읽기</title>
-</head>
+<title>나의 정원 - 글 읽기</title>
+</head> 
 <style>
 #titleImg {
 	overflow: hidden;
@@ -204,7 +204,7 @@ hr {
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/free/boardFree.png">
+		<img src="resources/free/boardFree.jpg">
 	</div>
 	<div class=container>
 		<div class=row>

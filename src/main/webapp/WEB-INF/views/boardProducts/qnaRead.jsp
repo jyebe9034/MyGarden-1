@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>문의글</title>
+<title>나의 정원 - 문의글</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp" />
 <style>
 div {

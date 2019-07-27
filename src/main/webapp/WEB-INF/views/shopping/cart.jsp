@@ -72,8 +72,8 @@ button.btn_select_all, button.btn_select_del {
 
 #selectAll {
 	display: inline-block;
-	padding: 10px 15px;
-	font-size: 12px;
+	padding: 8px 13px;
+	font-size: 13px;
 	color: #818181;
 	text-align: center;
 	vertical-align: middle;
@@ -83,8 +83,8 @@ button.btn_select_all, button.btn_select_del {
 
 #selectDel {
 	display: inline-block;
-	padding: 10px 15px;
-	font-size: 12px;
+	padding: 8px 13px;
+	font-size: 13px;
 	color: #818181;
 	text-align: center;
 	vertical-align: middle;
@@ -92,15 +92,21 @@ button.btn_select_all, button.btn_select_del {
 	cursor: pointer;
 }
 
+#selectDel:hover{
+	background-color:#dddddd;
+}
+
+#selectAll:hover{
+	background-color:#dddddd;
+}
+
 #totalPrice {
-	font-family: 'Spoqa Han Sans', sans-serif;
 	font-size: 18px;
 	color: #757575;
 }
 
 .totalprice {
 	margin-left: 15px;
-	font-family: 'Spoqa Han Sans', sans-serif;
 	font-size: 24px;
 	font-weight: bold;
 	color: #44b27d;
@@ -119,7 +125,6 @@ button.btn_select_all, button.btn_select_del {
 #buyAll {
 	width: 180px;
 	text-align: center;
-	font-family: 'Spoqa Han Sans', sans-serif;
 	display: inline-block;
 	padding: 15px 0px;
 	font-size: 16px;
@@ -133,7 +138,6 @@ button.btn_select_all, button.btn_select_del {
 #buySelect {
 	width: 180px;
 	text-align: center;
-	font-family: 'Spoqa Han Sans', sans-serif;
 	display: inline-block;
 	padding: 15px 0px;
 	font-size: 16px;
@@ -147,7 +151,6 @@ button.btn_select_all, button.btn_select_del {
 #keepShopping {
 	width: 180px;
 	text-align: center;
-	font-family: 'Spoqa Han Sans', sans-serif;
 	display: inline-block;
 	padding: 15px 0px;
 	font-size: 16px;

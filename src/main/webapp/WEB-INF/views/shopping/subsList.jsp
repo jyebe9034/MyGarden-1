@@ -43,19 +43,17 @@ table.list_table_style {
 }
 
 table.list_table_style thead th {
-	font-size: 12px;
+	font-size: 14px;
 	height: 35px;
-	font-family: 'Spoqa Han Sans', sans-serif;
 	border-right: 0px;
 	border-left: 0px;
 }
 
 .cell {
-	font-size: 12px;
+	font-size: 14px;
 }
 
 table.list_table_style td.cell {
-	font-family: 'Spoqa Han Sans', sans-serif;
 	border-right: 0px;
 	border-left: 0px;
 }
@@ -83,11 +81,11 @@ table.list_table_style td.cell {
 
 #listSearchBox {
 	padding: 40px;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .durBtns {
-	font-size: 13px;
+	font-size: 14px;
 	margin-right: 3px;
 	padding: 3px;
 	padding-left: 4px;
@@ -153,7 +151,6 @@ table.list_table_style td.cell {
 	border-bottom: 1px solid #eaeaea;
 	font-size: 14px;
 	font-weight: bold;
-	font-family: 'Spoqa Han Sans', sans-serif;
 }
 
 .emoji {
@@ -354,6 +351,13 @@ transform: rotate(45deg) scale(0);
 }
 }
 
+.titleLinks{
+	color: #4f9c97;
+}
+
+.titleLinks:hover {
+	color: rgb(53, 105, 91);
+}
 </style>
 
 
@@ -481,10 +485,10 @@ transform: rotate(45deg) scale(0);
 									<tr>
 										<th width="60">상품 번호</th>
 										<th width="70">구독 상품</th>
-										<th width="90">배송 시작일</th>
+										<th width="70">배송 시작일</th>
 										<th width="70">배송 주기</th>
 										<th width="70">주문 금액</th>
-										<th width="80" class="goods_delivery_info pr-1">구독 현황</th>
+										<th width="90" class="goods_delivery_info pr-1">구독 현황</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -507,7 +511,7 @@ transform: rotate(45deg) scale(0);
 																<tr>
 																	<td valign="middle">
 																		<div class="goods_name">
-																			<a href="subscription"><strong>${dto.sb_category }</strong> 
+																			<a href="subscription" class="titleLinks"><strong>${dto.sb_category }</strong> 
 																			<c:if test="${dto.sb_category=='나만의 박스'}">
 																				(구성 : ${dto.sb_component1 }, ${dto.sb_component2 }, ${dto.sb_component3 })
 																			</c:if>

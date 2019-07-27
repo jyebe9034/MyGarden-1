@@ -15,6 +15,7 @@
 	.imageContainer{height:300px; overflow:hidden;}
 	.intromg{color:#f5f5f5; font-family: 'Noto Serif KR', serif; font-size:50px; overflow:hidden; background:url(resources/img/space.jpg) repeat; background-size:50%; box-shadow: 0px 0px 55px #222;}
 	.mg{color:#f5f5f5; font-family: 'Noto Serif KR', serif; font-size:30px;}
+	.container h5{color:#f5f5f5;}
 	.planetIcon img{cursor: pointer; animation-duration: 2s; animation-delay: 2s;}
 	.hero1{animation: hero-octonaut1 2s alternate ease-in-out infinite;}
 	.hero2{animation: hero-octonaut2 2s alternate ease-in-out infinite;}
@@ -464,18 +465,14 @@
 					</div>
 	<!-- 		animation -->
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
-				STEP1. 나의 정원에서 제공하는 서비스를 알아보세요
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-4 my">
+				<h5>&ldquo;단순히 인터넷 쇼핑을 하는 것만이 아닌,</h5>  
+				<h5>그곳에 나의 정원을 만들고 소유하는 건 어떨까?&rdquo;</h5>
+				<h5 class="mt-4">&ldquo;가지고는 싶은데, 관리하기는 귀찮고...</h5>
+				<h5>그렇다면 공유 정원과 비밀 정원으로 공간을 나누자!&rdquo;</h5>
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 my">
-			 	<div class="row mt-1">
-		            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto scrollBar-lg mb-5 my">
-		            	<img src="resources/img/greeners.png">
-		            </div>
-		        </div>
-		    </div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
-				STEP2. &Lang;나의 정원&Rang;에서 나만의 정원을 생성해 보세요!
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 mg my">
+				&Lang;나의 정원&Rang;의 초석은 이렇게 만들어졌습니다
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 my">
 			 	<div class="row mt-1 pl-2 pr-2">
@@ -489,7 +486,7 @@
 							      <h5 class="ml-5">this.seed = seed;</h5>
 							   <h5 class="ml-4">}</h5><br>
 							<h5 class="ml-2">}</h5>
-							<br><br>
+							<br>
 							<h5 class="ml-2 text-muted">// 비밀정원 만들기</span>
 							<h5 class="ml-2">public class Garden {</h5><br>
 							  <h5 class="ml-4"> public static void main(String[] args) {</h5><br>
@@ -501,8 +498,22 @@
 		            </div>
 		        </div>
 			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 pb-3 mg my">
+				STEP1. 나의 정원에서 제공하는 서비스를 알아보세요
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-3 my">
+				<h5>- 나의 정원을 개설하면 스마트팜으로 재배된 작물들을 매일 만나보실 수 있습니다</h5>  
+				<h5 class="mt-4">- 비밀정원에서는 내가 키우고 싶은 작물들을 직접 키워볼 수 있습니다</h5>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 my">
+			 	<div class="row mt-1">
+		            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto scrollBar-lg mb-5 my">
+		            	<img src="resources/img/greeners.png">
+		            </div>
+		        </div>
+		    </div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
-				STEP3. 스마트팜 기반으로 운영되는 똑똑한 작물들을 나만의 정원에서 매일 수확할 수 있습니다
+				STEP2. 스마트팜 기반으로 운영되는 똑똑한 작물들을 <br> 나만의 정원에서 매일 수확할 수 있습니다
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
 				STEP4. 비밀정원에서는 ....................
