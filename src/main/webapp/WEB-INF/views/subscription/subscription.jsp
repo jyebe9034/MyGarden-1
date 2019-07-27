@@ -8,7 +8,7 @@
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
 	type="text/javascript"></script>
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>정기 구독</title>
+<title>나의 정원 - 정기 구독</title>
 <style>
 #bcolor {
 	width: 100%;

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
-<title>Chat</title>
+<title>나의 정원 - Chat</title>
 <style>
 	#chatBorder{
 		border : 0.5px solid #cacbcc;
