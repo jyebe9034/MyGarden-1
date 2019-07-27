@@ -9,6 +9,7 @@
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
    <!--     scroll -->
       <link rel="stylesheet" href="resources/css/jquery.mCustomScrollbar.css"/>
+      <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="resources/js/jquery.mCustomScrollbar.js"></script>
 <link rel="stylesheet" href="resources/css/recipe.css">
@@ -48,6 +49,11 @@
 			cursor : pointer;
 		}
 		.special:hover{filter: brightness(80%); cursor:pointer;}
+		
+		h1{
+      		font-family: 'Merienda One', cursive;
+      		color: #3a5c19;
+      	}
 	</style>
 </head>
 <body>
