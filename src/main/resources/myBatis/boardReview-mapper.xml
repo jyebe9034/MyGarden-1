@@ -78,7 +78,7 @@
 	<select id="topRcmdReviews" resultType="my.garden.dto.BoardReviewDTO">
 		select * 
 		from (select ROW_Number() over (order by br_recommend DESC) as row_num, board_review.* from board_review) 
-		where row_num between 1 and 4
+		where row_num between 1 and 6
 	</select>
 	
 	

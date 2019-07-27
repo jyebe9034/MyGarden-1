@@ -54,8 +54,51 @@
 		h1{
       		font-family: 'Merienda One', cursive;
       		color: #3a5c19;
-
       	}
+      	
+      	.rvWrapper{
+      		width: 100%;
+      	}
+      	.rvCardBox{
+      		width: 100%;
+      		height: 500px;
+      	}
+      	.rvCard{
+      		width: 100%;
+      		margin: auto;
+      		height: 100%;
+      	}
+      	
+      	.imageBox{
+      		height: 150px;
+/*       		width: 40%; */
+      	}
+      	.imageBox img{
+      		max-height: 150px;
+      		border-radius: 5px;
+      		padding: 5px;
+      	}
+      	
+      	.contentsBox{
+      		height:100%;
+      	}
+      	.rvContents{
+      		height: 80%;
+      	}
+      	.rvBottom{
+      		height:20%;
+      	}
+      	.rvBottom a{
+      		border : 1px solid #4f9c87;
+      		background-color: white;
+      		color:#4f9c87;
+      	}
+      	.rvBottom a:hover{
+      		border : 1px solid white;
+      		background-color: #4f9c87;
+      		color:white;
+      	}
+      	
 	</style>
 </head>
 <body>
@@ -297,27 +340,35 @@
               
               <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="profile-tab">
      <!-- like 고치기 -->         
+     
+     <div class="row rvWrapper">
 	<c:forEach var="topReviews" items="${topReviews }">
 
-						<div class="row no-gutters topRvWrapper">
-							<div class="col-6 rvCardBox p-3">
-								<div class="card mb-3">
-									<div class="col-md-4">
-										<img src="${topReviews.br_imagepath }" class="card-img" onerror="this.src='/resources/free/noImg.png'">
+
+							<div class="col-lg-4 col-md-6 col-sm-6 rvCardBox p-3">
+								<div class="card mb-3 rvCard">
+									<div class="imageBox">
+										<img src="${topReviews.br_imagepath }" class="card-img" onerror="this.src='/resources/free/noImg.png'" >
 									</div>
-									<div class="col-md-8">
+									<div class="contentsBox">
 										<div class="card-body">
-											<h5 class="card-title">${topReviews.br_title }</h5>
-											<p class="card-text">${topReviews.br_content }</p>
-											<p class="card-text">
-												<small class="text-muted">${topReviews.br_writedate }</small>
-											</p>
+											<div class="rvContents">
+												<h5 class="card-title">${topReviews.br_title }</h5>
+												<p class="card-text">${topReviews.br_content }</p>
+											</div>
+											<div class="rvBottom">
+												<p class="card-text">
+													<small class="text-muted">${topReviews.br_writedate }</small>
+												</p>
+												<a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn btn-primary">후기보러가기</a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 
 	</c:forEach>
+	</div>
 	 <!-- like 고치기 -->   
               
               </div>
