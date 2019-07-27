@@ -26,9 +26,7 @@
     user-select: none;
 }
 /* Tag */
-html{
-    font-family: 'Noto Sans KR', sans-serif;
-}
+
 body{
 	padding-top:50px;
 	padding-bottom:50px;
@@ -642,14 +640,12 @@ main{
 }
 
 .label-style {
-    font-family: NotoSansCJKkr;
     font-size: 16px;
     color: #3cc6d3;
     font-weight: normal;
 }
 
 .info-style {
-    font-family: NotoSansCJKkr;
     font-size: 16px;
     font-weight: normal;
     color: #343434;
@@ -713,8 +709,37 @@ main{
 	
 }
 strong{
-	font-size:18px;
+	font-size:17px;
 }
+
+/* 전체 폰트용 코드  */
+@font-face {
+	font-family: 'S-CoreDream-3Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Eoe_Zno_L';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_L.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	font-family: 'S-CoreDream-3Light';
+}
+
+* {
+	font-family: 'Eoe_Zno_L';
+}
+/* 폰트용 코드  */
+
 </style>
 <script>
 	$(function(){

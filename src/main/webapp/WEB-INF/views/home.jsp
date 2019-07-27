@@ -7,10 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나의 정원</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
-	<!--     scroll -->
-		<link rel="stylesheet" href="resources/css/jquery.mCustomScrollbar.css"/>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="resources/js/jquery.mCustomScrollbar.js"></script>
+   <!--     scroll -->
+      <link rel="stylesheet" href="resources/css/jquery.mCustomScrollbar.css"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="resources/js/jquery.mCustomScrollbar.js"></script>
 <link rel="stylesheet" href="resources/css/recipe.css">
 	<style>
 		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
@@ -54,67 +54,67 @@
 </head>
 <body>
 <!-- script -->
-	<script>
-	$(function(){		 
-		 $("#chatWrap").on("click", function(){
-				console.log("클릭함");
-				if($("#chatboxWrap").css("display") == "none"){
-					console.log("보여줘");
-					$("#chatboxWrap").show();
-				}else{
-					console.log("사라져");
-					$("#chatboxWrap").hide();
-				}
-			})
-	       //poplayher cookie
-			function getCookie(cname) {
-			    var name = cname + "=";
-			    var ca = document.cookie.split(';');
-			    for(var i=0; i<ca.length; i++) {
-			        var c = ca[i];
-			        while (c.charAt(0)==' ') c = c.substring(1);
-			        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
-			    }
-			    return "";
-			}
-			function setCookie(cname, cvalue, exdays) {
-			    var d = new Date();
-			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-			    var expires = "expires="+d.toUTCString();
-			    document.cookie = cname + "=" + cvalue + "; " + expires;
-			}
-			function couponClose(){
-			    setCookie("close","Y",1);
-			    $("#clickToClose").slideUp();
-			}
-		    cookiedata = document.cookie;
-		    if(cookiedata.indexOf("close=Y")<0){
-		        $("#clickToClose").css('display', 'block');
-		    }else{
-		        $("#clickToClose").css('display', 'none');
-		    }
-		    $(".clickToCloseBtn").click(function(){
-		        couponClose();
-		    });
-		    $(".special").on('click', function(){
-		    	$(location).attr('href', $(this).attr('href'));
-		    });
-			//scroll
-			$(".scrollBar").mCustomScrollbar({
-				axis:"y",
-				theme:"rounded-dark",
-				autoExpandScrollbar:true,
-				advanced:{autoExpandHorizontalScroll:true},
-				setWidth: "100%",
-				setHeight: 500,
-				scrollButtons:{ enable: true }
-			});
-			$('.lastBtn button').on('click', function(){
-				$(location).attr('href', $(this).attr('href'));
-			});
-	});
-	      
-	</script>
+   <script>
+   $(function(){       
+       $("#chatWrap").on("click", function(){
+            console.log("클릭함");
+            if($("#chatboxWrap").css("display") == "none"){
+               console.log("보여줘");
+               $("#chatboxWrap").show();
+            }else{
+               console.log("사라져");
+               $("#chatboxWrap").hide();
+            }
+         })
+          //poplayher cookie
+         function getCookie(cname) {
+             var name = cname + "=";
+             var ca = document.cookie.split(';');
+             for(var i=0; i<ca.length; i++) {
+                 var c = ca[i];
+                 while (c.charAt(0)==' ') c = c.substring(1);
+                 if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+             }
+             return "";
+         }
+         function setCookie(cname, cvalue, exdays) {
+             var d = new Date();
+             d.setTime(d.getTime() + (exdays*24*60*60*1000));
+             var expires = "expires="+d.toUTCString();
+             document.cookie = cname + "=" + cvalue + "; " + expires;
+         }
+         function couponClose(){
+             setCookie("close","Y",1);
+             $("#clickToClose").slideUp();
+         }
+          cookiedata = document.cookie;
+          if(cookiedata.indexOf("close=Y")<0){
+              $("#clickToClose").css('display', 'block');
+          }else{
+              $("#clickToClose").css('display', 'none');
+          }
+          $(".clickToCloseBtn").click(function(){
+              couponClose();
+          });
+          $(".special").on('click', function(){
+             $(location).attr('href', $(this).attr('href'));
+          });
+         //scroll
+         $(".scrollBar").mCustomScrollbar({
+            axis:"y",
+            theme:"rounded-dark",
+            autoExpandScrollbar:true,
+            advanced:{autoExpandHorizontalScroll:true},
+            setWidth: "100%",
+            setHeight: 500,
+            scrollButtons:{ enable: true }
+         });
+         $('.lastBtn button').on('click', function(){
+            $(location).attr('href', $(this).attr('href'));
+         });
+   });
+         
+   </script>
 
 <!-- advertise header -->
          <c:choose>
@@ -368,6 +368,5 @@
 	<div id="chatboxWrap">
 		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 	</div>
-
 </body>
 </html>
