@@ -76,7 +76,7 @@
 						<div id="category" class="col-10">
 							<select name="p_category" id="itemSelect" class="items">
 								<option value="fruit">fruit</option>
-								<option value="vagetable">vegetable</option>
+								<option value="vegetable">vegetable</option>
 								<option value="egg">egg</option>
 								<option value="grain">grain</option>
 								<option value="source">source</option>
