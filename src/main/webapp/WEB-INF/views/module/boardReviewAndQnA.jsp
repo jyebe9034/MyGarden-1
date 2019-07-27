@@ -311,42 +311,47 @@ p {
 			
 			/*추천 수(도움돼요)증가*/
 			$(document).on("click",".recommendBtn",function(){
-				var br_no = $(this).next().val();
-				var email = '${loginId}';
-				var br_title = $(this).prev().val();
-				console.log("클릭한 글번호 : " + br_no);
-				console.log("클릭한 글제목 : " + br_title);
-				  var data = {
-							br_email : email,
-							br_no : br_no,	
-							br_title : br_title
-				  };
-				  
-				$.ajax({
-					url: "recommend",
-					type: "post",
-					dataType: "json",
- 					async: true,
-					data: data
-				}).done(function(result){					
- 					var recommend = result.recommendUpdate;
- 					console.log("도움돼요 : " + result.recommendUpdate);
- 					var cancelRecommend = result.recommendDelete;
- 					console.log("도움돼요 취소 : " + result.recommendDelete);
- 					var recommendCount = result.recommendCount;
-					console.log("도움돼요 수 : " + result.recommendCount);
 				
-					if(recommend==1){ //추천
-						$("input[class="+br_no+"]").prev().html("<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'>");
-					}else if(cancelRecommend==0){ //취소
-						$("input[class="+br_no+"]").prev().html("<img src='/resources/products/reviewHate.png' width='25px' class='recommendImage'>");
-						alert("도움돼요를 취소했습니다.");
-					}
-					//location.reload(true); //자동새로고침
-				
-					$("."+br_no+"").next().text(result.recommendCount);
+				if(${loginId==null}){
+					alert("로그인 후 이용가능한 서비스 입니다.");
+				}else{
+					var br_no = $(this).next().val();
+					var email = '${loginId}';
+					var br_title = $(this).prev().val();
+					console.log("클릭한 글번호 : " + br_no);
+					console.log("클릭한 글제목 : " + br_title);
+					  var data = {
+								br_email : email,
+								br_no : br_no,	
+								br_title : br_title
+					  };
+					  
+					$.ajax({
+						url: "recommend",
+						type: "post",
+						dataType: "json",
+	 					async: true,
+						data: data
+					}).done(function(result){					
+	 					var recommend = result.recommendUpdate;
+	 					console.log("도움돼요 : " + result.recommendUpdate);
+	 					var cancelRecommend = result.recommendDelete;
+	 					console.log("도움돼요 취소 : " + result.recommendDelete);
+	 					var recommendCount = result.recommendCount;
+						console.log("도움돼요 수 : " + result.recommendCount);
 					
-				})
+						if(recommend==1){ //추천
+							$("input[class="+br_no+"]").prev().html("<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'>");
+						}else if(cancelRecommend==0){ //취소
+							$("input[class="+br_no+"]").prev().html("<img src='/resources/products/reviewHate.png' width='25px' class='recommendImage'>");
+							alert("도움돼요를 취소했습니다.");
+						}
+						//location.reload(true); //자동새로고침
+					
+						$("."+br_no+"").next().text(result.recommendCount);
+						
+					})
+				}
 			})
 			
 			/*현재페이지 표시해주는 스타일*/
@@ -414,15 +419,15 @@ p {
 				var bq_checkedAns = $(this).next().next().val();
 //				alert("bq_checkedAns : "+bq_checkedAns);
 				if("${grade}"=="admin"){
-					$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
+					$(location).attr("href","readQnA?bq_no="+bq_no);	
 				}else if(checkedSecret=="y" & writer!="${loginId}"){					
 					alert("비밀글은 작성자만 볼 수 있습니다.");
 				}else{
 // 					alert("bq_no : " + bq_no);
 					if(writer=="${loginId}"){ //내 글을 클릭했을 때
-						$(location).attr("href","readQnA?mine=y&bq_no="+bq_no+"&checkA="+bq_checkedAns);		
+						$(location).attr("href","readQnA?bq_no="+bq_no);		
 					}else{
-						$(location).attr("href","readQnA?mine=n&bq_no="+bq_no+"&checkA="+bq_checkedAns);	
+						$(location).attr("href","readQnA?bq_no="+bq_no);	
 					}
 					
 				}
