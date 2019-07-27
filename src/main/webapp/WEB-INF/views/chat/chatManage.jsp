@@ -124,7 +124,7 @@
 		var socket = new WebSocket("ws://192.168.60.22/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
 		
 		socket.onmessage = function(msg){ // 콜백함수
-			var line = $("<hr><div class='messages'></div>");
+			var line = $("<div class='messages'></div>");
 			var message = msg.data;
 			var arr = message.split(" : ");
 			line.append("<div class='consumer'>" + arr[0] + "</div>")
@@ -137,7 +137,8 @@
 		$("#send").on("click",function(){
 			var id = $("#toWhom").text();
 			var msg = $("#message").text();
-			socket.send("sdf@gmail.com" + " : " + msg + " : " + id);
+			console.log(id + " : " + msg);
+			socket.send("admin123@naver.com" + " : " + msg + " : " + id);
 			$("#message").text("");
 			$("#close").click();
 		}) // 서버로 메세지를 보내는 경우

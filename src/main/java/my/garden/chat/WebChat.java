@@ -1,4 +1,3 @@
-
 package my.garden.chat;
 
 import java.util.Collections;
@@ -45,31 +44,18 @@ public class WebChat {
 	
 		if(client != admin) { // 만약 client가 관리자가 아니라면(즉, 소비자가 메세지를 보낸다면)
 			admin.getBasicRemote().sendText(id + " : " + msg); // client의 메세지는 관리자에게 전달되어야 하고
-			cservice.insertClientSendMessageService(id, msg, "client");
+//			cservice.insertClientSendMessageService(id, msg, "client");
 		}else if(client == admin) { // 만약 client가 관리자라면(즉, 관리자가 메세지를 보낸다면)
 			String cid = arr[2];
 			Session toclient = clients.get(cid);
 			toclient.getBasicRemote().sendText(msg);
-			cservice.insertAdminSendMessageService(id, msg, cid, "admin");
+			System.out.println(id+" : "+msg+" : "+cid);
+//			cservice.insertAdminSendMessageService(id, msg, cid, "admin");
 		}	
 	}
 
 	@OnOpen // 메서드의 이름은 아무렇게나 지어도 되지만 어노테이션 OnOpen은 꼭 붙여줘야 함.
 	public void onOpen(Session session, EndpointConfig ec) {
-
-		/*new Thread() {
-			public void run() {
-				try {
-					while(true) {
-						System.out.println("A:" + clients);
-						Thread.sleep(1000);
-					}
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}.start();*/
-
 		HttpSession hsession = (HttpSession)ec.getUserProperties().get("httpSession");
 		String id = (String)hsession.getAttribute("loginId");
 		String name = (String)hsession.getAttribute("loginName");

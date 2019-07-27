@@ -166,10 +166,6 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
   transition: all 0.3s ease-in-out;
 	width:90%; height:50px;
 }
-.bg-primary{
-  -webkit-box-shadow: 0 10px 30px 0 #5CAAFF!important;
-  box-shadow: 0 10px 30px 0 #5CAAFF!important;
-}
 .bg-success{
   -webkit-box-shadow: 0 10px 30px 0 #91D2A0!important;
   box-shadow: 0 10px 30px 0 #91D2A0!important;

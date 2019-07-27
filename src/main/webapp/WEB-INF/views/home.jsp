@@ -13,48 +13,50 @@
       <script src="resources/js/jquery.mCustomScrollbar.js"></script>
 <link rel="stylesheet" href="resources/css/recipe.css">
 <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
-   <style>
-      .clickToClose{background:#86B404; padding:10px 0; color:#eee;}
-      .clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
-      .clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
-      .scrollBar{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0 20px 50px 0 rgba(0,0,0,0.4);}
-      #clickToClose{display:none;}
-      .carousel-caption {text-shadow: 2px 2px 2px #444;}
-      .nav-tabs a{color:#495057;}
-      .lastBtn button{border:1px solid #4f9c87; color:#4f9c87; font-family:'Eoe_Zno_L';}
-      .lastBtn button:hover{background:#4f9c87;; color:#f4f4f4;}
-      #chatboxWrap{
-         border-radius : 5px;
-         width : 350px;
-         height : 500px;
-         display : none;
-      }
-      #chatBox{
-         position : fixed;
-         left : 20px;
-         bottom : 100px;
-      }
-      #chatWrap{
-         width : 70px;
-         height : 70px;
-         position : fixed;
-         left : 30px;
-         bottom : 25px;
-      }
-      #chatBtn{
-         width : 70px;
-         height : 70px;
-      }
-      #chatBtn:hover{
-         cursor : pointer;
-      }
-      .special:hover{filter: brightness(80%); cursor:pointer;}
-      
-      h1{
-      font-family: 'Merienda One', cursive;
-      color: #3a5c19;
-      }
-   </style>
+	<style>
+		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
+		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
+		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
+		.scrollBar{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0 20px 50px 0 rgba(0,0,0,0.4);}
+		#clickToClose{display:none;}
+		.carousel-caption {text-shadow: 2px 2px 2px #444;}
+		.nav-tabs a{color:#495057;}
+		.lastBtn button{border:1px solid #4f9c87; color:#4f9c87; font-family:'Eoe_Zno_L';}
+		.lastBtn button:hover{background:#4f9c87;; color:#f4f4f4;}
+		#chatboxWrap{
+			border-radius : 5px;
+			width : 280px;
+			height : 400px;
+			display : none;
+		}
+		#chatBox{
+			position : fixed;
+			right : 100px;
+			bottom : 30px;
+		}
+		#chatWrap{
+			position: fixed;
+		   right: 28px;
+		   bottom: 28px;
+		   border-radius: 50%;
+		   padding: 2px;
+		   background:rgba(255,255,255,0.5);
+		   box-shadow: 0 10px 30px 0 rgba(0,0,0,0.3);
+		   z-index: 999;
+		   font-size: 15px;
+		   cursor: pointer;
+		}
+		#chatBtn:hover{
+			cursor : pointer;
+		}
+		#message{padding-left:50px;}
+		.special:hover{filter: brightness(80%); cursor:pointer;}
+		
+		h1{
+      		font-family: 'Merienda One', cursive;
+      		color: #3a5c19;
+        }
+	</style>
 </head>
 <body>
 <!-- script -->
@@ -63,10 +65,8 @@
        $("#chatWrap").on("click", function(){
             console.log("클릭함");
             if($("#chatboxWrap").css("display") == "none"){
-               console.log("보여줘");
                $("#chatboxWrap").show();
             }else{
-               console.log("사라져");
                $("#chatboxWrap").hide();
             }
          })
@@ -365,13 +365,14 @@
    
    <!-- footer -->
    <jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
-   <%-- <c:if test="${grade != 'admin' && loginId != ''}"> --%>
+   <c:if test="${grade == 'public' || grade == 'private'}">
       <div id="chatWrap">
          <img id="chatBtn" src="/resources/img/chat.png">
       </div> 
       <div id="chatboxWrap">
          <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
       </div>
-   <%-- </c:if> --%>
+   </c:if>
+
 </body>
 </html>
