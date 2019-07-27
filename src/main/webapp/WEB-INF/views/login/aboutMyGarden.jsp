@@ -21,7 +21,7 @@
 }
 .container {
   width: 800px;
-  height: 800px;
+  height: 770px;
   margin: 0 auto;
 }
 #sun {
@@ -68,19 +68,153 @@
     transform: scale(1);
   }
 }
+.background {
+  position: relative;
+  width: 500px;
+  height: 130px;
+  margin:0 auto;
+}
+.cable {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  width: 2px;
+  height: 125px;
+  border-radius: 25%;
+  background: #fbd286;
+  animation: move 0.4s infinite alternate ease-in-out;
+}
+.cable-2 {
+  left: calc(50% - 35px);
+  animation: move 0.5s infinite alternate ease-in-out;
+}
+.cable-3 {
+  left: calc(50% + 35px);
+  animation: move 0.6s infinite alternate ease-in-out;
+}
+.cable-4 {
+  left: calc(50% - 70px);
+  animation: move 0.7s infinite alternate ease-in-out;
+}
+.cable-5 {
+  left: calc(50% + 70px);
+  animation: move 0.8s infinite alternate ease-in-out;
+}
+.cable-6 {
+  left: calc(50% - 105px);
+  animation: move 0.9s infinite alternate ease-in-out;
+}
+.cable-7 {
+  left: calc(50% + 105px);
+  animation: move 1s infinite alternate ease-in-out;
+}
+.leaf {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: linear-gradient(55deg, #47cf73, #9df179, #47cf73 70%);
+}
+.leaf-1 {
+  top: 0px;
+  left: 0px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  animation: fly 1s infinite alternate ease-in-out;
+  transform-style: preserve-3d;
+  transform: rotateY(50deg);
+}
+.leaf-2 {
+  top: 25px;
+  left: -22px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+  animation: fly 1s infinite alternate ease-in-out;
+  transform-style: preserve-3d;
+  transform: rotateY(50deg);
+}
+.leaf-3 {
+  top: 50px;
+  left: 0px;
+  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  animation: fly 1s infinite alternate ease-in-out;
+  transform-style: preserve-3d;
+  transform: rotateY(50deg);
+}
+.leaf-4 {
+  top: 75px;
+  left: -22px;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+  animation: fly 1s infinite alternate ease-in-out;
+  transform-style: preserve-3d;
+  transform: rotateY(50deg);
+}
+@-moz-keyframes fly {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@-webkit-keyframes fly {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@-o-keyframes fly {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@keyframes fly {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+@-moz-keyframes move {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@-webkit-keyframes move {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@-o-keyframes move {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes move {
+  0% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
 	.scrollBar, .scrollBar-lg{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0px 0px 15px #222;}
-	@keyframes hero-octonaut1{
-	  0%{transform:translateY(-18px);}
-	  100%{transform:translateY(18px);}
-	}
-	@keyframes hero-octonaut2{
-	  0%{transform:translateY(18px);}
-	  100%{transform:translateY(-18px);}
-	}
-	.planetIcon img{cursor: pointer; animation-duration: 2s; animation-delay: 2s;}
-	.hero1{animation: hero-octonaut1 2s alternate ease-in-out infinite;}
-	.hero2{animation: hero-octonaut2 2s alternate ease-in-out infinite;}
-	.planetIcon img:hover{opacity:0.7;}
 </style>
 </head>
 <body>
@@ -410,10 +544,52 @@
 	<div class="containerBox text-center my">
 		<div id="row my">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 m-auto d-none d-md-block planetIcon my">
-				<img src="resources/img/planet1.png"  width="130" height="130" alt="" class="p-3 hero1">
-				<img src="resources/img/planet2.png"  width="100" height="100" alt="" class="p-3 hero2">
-				<img src="resources/img/planet3.png"  width="170" height="140" alt="" class="p-3 hero1">
-				<img src="resources/img/planet4.png" width="70" height="70" alt="" class="p-3 hero2">
+				<!-- partial:index.partial.html -->
+				<div class="background">
+				  <div class="cable">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				  <div class="cable cable-2">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				  <div class="cable cable-3">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				  <div class="cable cable-4">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				  <div class="cable cable-5">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				  <div class="cable cable-6">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				  <div class="cable cable-7">
+				    <div class="leaf leaf-1"></div>
+				    <div class="leaf leaf-2"></div>
+				    <div class="leaf leaf-3"></div>
+				    <div class="leaf leaf-4"></div>
+				  </div>
+				</div>
+				<!-- partial -->
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-4 my">
 				<h5>&ldquo;단순히 인터넷 쇼핑을 하는 것만이 아닌,</h5>  
