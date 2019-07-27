@@ -133,13 +133,24 @@ hr {
 	width: 100px !important;
 	border-radius: 5px;
 }
+
+#remark{
+	color: #44b27d;
+	font-weight: bold;
+	position: relative;
+	right: 15px;
+	bottom: 15px;
+}
+
 </style>
 <body>
 	<div class=col-12 id=titleImg>
-		<img src="resources/free/boardFree.png">
+		<img src="resources/free/boardFree.jpg">
 	</div>
 
 	<div class=container>
+	<span id=remark>'나의 정원' 회원님들이 레시피를 공유하는 공간입니다.</span>
+	
 		<div class=listOne>
 			<c:forEach var="tmp" items="${list}">
 				<div class="row content">

@@ -204,7 +204,7 @@ hr {
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div class=col-12 id=titleImg>
-		<img src="resources/free/boardFree.png">
+		<img src="resources/free/boardFree.jpg">
 	</div>
 	<div class=container>
 		<div class=row>

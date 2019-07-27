@@ -132,14 +132,14 @@
 				        </div>
 				      </div>
 				      <div class="carousel-item">
-				        <img src="resources/img/caro2.jpg" class="d-block w-100" alt="...">
+				        <img src="resources/img/carousel3.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
 				          <h5>Second slide label</h5>
 				          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				        </div>
 				      </div>
 				      <div class="carousel-item">
-				        <img src="resources/img/carousel3.jpg" class="d-block w-100" alt="...">
+				        <img src="resources/img/caro1.jpg" class="d-block w-100" alt="...">
 				        <div class="carousel-caption d-none d-md-block text-left mb-5">
 				          <h5>Third slide label</h5>
 				          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
