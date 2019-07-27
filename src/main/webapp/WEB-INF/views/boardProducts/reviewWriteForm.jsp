@@ -118,9 +118,6 @@
 	
 	
 		$(function(){
-		
-		//새로고침, 뒤로가기 막기
-
 
 			$(document).bind('keydown', function(e) {
 				if (e.keyCode == 123 /* F12 */) {

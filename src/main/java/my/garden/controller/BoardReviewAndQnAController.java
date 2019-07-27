@@ -70,22 +70,23 @@ public class BoardReviewAndQnAController {
 		try {
 			List<BoardQnADTO> test = qnaService.qnaList(br_p_no, startNum2, endNum2);
 
-//			System.out.println("사이즈 : " + test.size());
+			//			System.out.println("사이즈 : " + test.size());
 
-			List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);
-			//System.out.println(list.size());
-			//System.out.println(list.get(0).getBr_no());
-			myRecommendNo = new Integer[list.size()];
 
-			for(int i=0;i < list.size();i++) {
-				myRecommendNo[i] = list.get(i).getBr_no();
-				//System.out.println(myRecommendNo[i]);
+			if(id!=null) {
+				List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);
+				//System.out.println(list.size());
+				//System.out.println(list.get(0).getBr_no());
+				myRecommendNo = new Integer[list.size()];
+
+				for(int i=0;i < list.size();i++) {
+					myRecommendNo[i] = list.get(i).getBr_no();
+					//System.out.println(myRecommendNo[i]);
+				}
+				request.setAttribute("myRecommendNo", myRecommendNo); 
 			}
-
-			//System.out.println(myRecommendNo);
-
+			
 			request.setAttribute("reviewList", brService.reviewList(br_p_no, startNum, endNum));
-			request.setAttribute("myRecommendNo", myRecommendNo); //
 			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum2, endNum2));
 			request.setAttribute("getNavi", brService.getNavi(revPage, br_p_no));
 			request.setAttribute("getNaviForQnA", qnaService.getNavi(qnaPage, br_p_no));
