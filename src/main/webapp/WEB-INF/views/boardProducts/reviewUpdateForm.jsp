@@ -218,6 +218,8 @@
 		</div>
 	</div>
 
+	<img alt="" src="/resources/products/reviewHeader.jpg" id="reviewHeaderImg">
+	
 	<!-- 리뷰 수정 폼 -->
 	<div id="wrapper">
 		<span class="boardTitle">후기수정</span>

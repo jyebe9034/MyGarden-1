@@ -136,20 +136,12 @@
 				}
 			}
 
-			var pnumber = "${productInfo.p_no}"; //돌아가기 버튼 고치기!!!!!!
-			console.log(pnumber);
-			$(".goBackBtn")
-					.on(
-							"click",
-							function() {
-								var pnumber = $
-								{
-									pnumber
-								}
-								;
-								location.href = "productsRead?&revPage=1&qnaPage=1&pnumber="
-										+ pnumber;
-							})
+			
+			$(".goBackBtn").on("click",function() {
+				var pnumber = "${productInfo.p_no}"; 
+				console.log(pnumber);
+				location.href = "productsRead?&revPage=1&qnaPage=1&pnumber="+ pnumber;
+			})
 
 			$(".writeBtn").on("click", function() {
 				var inputTitle = $("#inputTitle").val();
