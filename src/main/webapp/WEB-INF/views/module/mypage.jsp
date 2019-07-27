@@ -59,26 +59,9 @@
        	$('.gardenUpdateBtn').on('click', function(){
        		$("#gardenName").text("");
    			$("#fileName").text("");
-       	});
-       	$("input[name=m_garden]").on("blur", function(){
-       		var regexGarden=/^[가-힣A-z]{2,12}$/;
-       		if(regexGarden.exec($("input[name=m_garden]").val())){
-           		$.ajax({
-           			url:"/gardenCheck",
-           			type:"post",
-           			data : {key : $("input[name=m_garden]").val()}
-           		}).done(function(resp){
-           			if(resp==true){
-               			$("#gardenName").text("중복되는 정원 이름입니다");
-               			$("input[name=m_garden]").val("");
-           			}else{
-               			$("#gardenName").text("");
-           			}
-           		});
-       		}else{
-       			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-       			$("input[name=m_garden]").val("");
-       		}
+   			$("#ex_file").val("");
+   			$('input[name=m_garden]').val("");
+   			$('.profile').css('display', 'none');
        	});
        	$('.changeProfileBtn').on('click', function(){
    			if($('#ex_file').val()!=""){
@@ -92,10 +75,28 @@
         });	
        	$('.changeNameBtn').on('click', function(){
    			if($('input[name=m_garden]').val()!=""){
-       			var con = confirm('이대로 제출하시겠습니까?');
-				if(con){
-               		$('.changeGardenName').submit();	
-           		}
+   				var regexGarden=/^[가-힣A-z]{2,12}$/;
+   	       		if(regexGarden.exec($("input[name=m_garden]").val())){
+   	           		$.ajax({
+   	           			url:"/gardenCheck",
+   	           			type:"post",
+   	           			data : {key : $("input[name=m_garden]").val()}
+   	           		}).done(function(resp){
+   	           			if(resp==true){
+   	               			$("#gardenName").text("중복되는 정원 이름입니다");
+   	               			$("input[name=m_garden]").val("");
+   	           			}else{
+   	               			$("#gardenName").text("");
+   	            			var con = confirm('이대로 제출하시겠습니까?');
+   	     					if(con){
+   	                    		$('.changeGardenName').submit();	
+   	                		}
+   	           			}
+   	           		});
+   	       		}else{
+   	       			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
+   	       			$("input[name=m_garden]").val("");
+   	       		}
    			}else{
    				$("#gardenName").text("다시 확인 후 제출하세요");
    			}
