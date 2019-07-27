@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>후기수정</title>
+<title>나의 정원 - 후기수정</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 	.row.my {

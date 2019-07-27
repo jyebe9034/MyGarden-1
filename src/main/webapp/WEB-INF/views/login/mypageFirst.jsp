@@ -309,9 +309,10 @@ h4 .badge{background:#eee;}
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
 				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
-				  <c:if test="${grade == 'admin'}">
+				  <%-- <c:if test="${grade == 'admin'}"> --%>
 				  		<a href="productsAdd" class="list-group-item list-group-item-action">상품 등록</a>
-				  </c:if>
+				  		<a href="chatManage" class="list-group-item list-group-item-action">채팅 문의 관리</a>
+				  <%-- </c:if> --%>
 				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
