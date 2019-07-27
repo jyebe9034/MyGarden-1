@@ -15,10 +15,9 @@ public interface BoardQnADAO {
 	public int qnaCount(int bq_p_no) throws Exception;
 	public String getNavi(int qnaPage,int bq_p_no) throws Exception;
 	
-	public BoardQnADTO readQnA(int bq_no, String mine) throws Exception;
+	public BoardQnADTO readQnA(int bq_no) throws Exception;
 	public int updateQnA(BoardQnADTO dto, int bq_no) throws Exception;
 
-	//public String checkAdmin(String m_email) throws Exception;
 	public int writeComment(CommentQnADTO dto) throws Exception;
 	public int setAnsY(int cq_no) throws Exception;
 	
