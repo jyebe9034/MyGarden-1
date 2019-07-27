@@ -96,10 +96,12 @@ public class ProductsController {
 	public String selectFruitsList(Model model, String category) {
 		int start = 1;
 		int end = start+5;
+		System.out.println("카테고리 키워드 : " + category);
 		try {
 			List<ProductsDTO> result = pservice.selectProductsListByCategoryService(start, end, category);
 			model.addAttribute("result", result);
 			model.addAttribute("category",category);
+			model.addAttribute("keyword", "all");
 			return "products/productsList";
 		}catch(Exception e) {
 			e.printStackTrace();

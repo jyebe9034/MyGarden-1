@@ -46,7 +46,6 @@ public class PrivateGardenDAOImpl implements PrivateGardenDAO {
 	}
 	
 	public int updatePrivateGarden(String id, String light, String humid, int temp) {
-		System.out.println(id+" : "+light+" : "+humid+" : "+temp);
 		Map<String, Object> map = new HashMap<>();
 		map.put("id", id);
 		map.put("light", light);
