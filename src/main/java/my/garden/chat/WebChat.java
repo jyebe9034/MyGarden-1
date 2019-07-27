@@ -41,7 +41,7 @@ public class WebChat {
 		String id = arr[0];
 		String msg = arr[1];
 		Session client = clients.get(id); // 관리자나 클라이언트 모두 client에 담기게 돼
-		Session admin = clients.get("sdf@gmail.com");
+		Session admin = clients.get("admin123@naver.com");
 	
 		if(client != admin) { // 만약 client가 관리자가 아니라면(즉, 소비자가 메세지를 보낸다면)
 			admin.getBasicRemote().sendText(id + " : " + msg); // client의 메세지는 관리자에게 전달되어야 하고
