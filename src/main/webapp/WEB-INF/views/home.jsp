@@ -360,12 +360,23 @@
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
 	
+<<<<<<< HEAD
 	<div id="chatWrap">
 		<img id="chatBtn" src="/resources/img/chat.png"/>
 	</div> 
 	<div id="chatboxWrap">
 		<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
 	</div>
+=======
+	<c:if test="${grade != 'admin' && loginId != ''}">
+		<div id="chatWrap">
+			<img id="chatBtn" src="/resources/img/chat.png">
+		</div> 
+		<div id="chatboxWrap">
+			<iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+		</div>
+	</c:if>
+>>>>>>> dac72ac13fb27a8ef424f6419cc86004db95e296
 
 </body>
 </html>
