@@ -317,7 +317,7 @@ h4 {
 									<i class="fa fa-square"></i> 판매 건수
 								</h2>
 								<ul class="list-unstyled list-referrals">
-									<c:forEach var="tmp" items="${popular}" varStatus="status">
+									<c:forEach var="tmp" begin="0" end="4" items="${popular}" varStatus="status">
 										<li>
 											<p>
 												<span class="value">${tmp.s_p_title }</span><span
