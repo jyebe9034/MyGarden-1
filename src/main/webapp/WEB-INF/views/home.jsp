@@ -17,6 +17,7 @@
 			width : 350px;
 			height : 500px;
 			display : none;
+			-webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
 		}
 		#chatBox{
 			position : fixed;

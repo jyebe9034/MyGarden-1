@@ -83,6 +83,7 @@
 			</div>
 			<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 pt-5 my">	
 				<div id="title">채팅 문의 관리</div>
+				<hr>
 				<div id="chatBox">
 					<div class="messages">
 						<div class="consumer">문의한 사람</div>
@@ -123,7 +124,7 @@
 		var socket = new WebSocket("ws://192.168.0.14/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
 		
 		socket.onmessage = function(msg){ // 콜백함수
-			var line = $("<div class='messages'></div>");
+			var line = $("<hr><div class='messages'></div>");
 			var message = msg.data;
 			var arr = message.split(" : ");
 			line.append("<div class='consumer'>" + arr[0] + "</div>")

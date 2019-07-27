@@ -13,8 +13,8 @@
 		box-sizing : boder-box;
 		width : 350px;
 		height : 400px;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
+		border-top-left-radius: 20px;
+		border-top-right-radius: 20px;
 		background-color : #e8e4f0;
 	}
 	#chatContents{
@@ -55,17 +55,17 @@
 	}
 </style>
 <script>
-	$(function(){
-		$.ajax({
-			url : "selectChat",
-			type : "post",
-			data : ${loginId}
-		}).done(function(resp){
-			for(tmp : resp){
-				console.log(tmp);
-			}
-		})
-	})
+// 	$(function(){
+// 		$.ajax({
+// 			url : "selectChat",
+// 			type : "post",
+// 			data : ${loginId}
+// 		}).done(function(resp){
+// 			for(tmp : resp){
+// 				console.log(tmp);
+// 			}
+// 		})
+// 	}) 
 </script>
 </head>
 <body>
