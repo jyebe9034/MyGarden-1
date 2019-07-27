@@ -41,7 +41,7 @@ public class BoardReviewAndQnAController {
 	@Autowired
 	private BoardQnAService qnaService;
 	@Autowired
-	LoginServiceImpl loginservice;
+	private LoginServiceImpl loginservice;
 
 	@Autowired
 	private ProductsService pservice;
@@ -462,7 +462,6 @@ public class BoardReviewAndQnAController {
 		//System.out.println(cq_no);
 		return result; //result=2라면, 성공
 	}
-
 
 
 }

@@ -166,5 +166,11 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 		return sst.delete("boardReviewMB.deleteRecommend", br_no);
 	}
 	
+	//-----------------------------------------------------------------------
+	
+	/*(메인용)도움돼요수 많은 후기글목록*/
+	public List<BoardReviewDTO> topRcmdReviews(){
+		return sst.selectList("boardReviewMB.topRcmdReviews");
+	}
 	
 }
