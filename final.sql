@@ -63,7 +63,7 @@ img_p_path varchar(200) not null
 
 select * from image_product;
 
-
+select * from (select row_number() over(order by br_no) as rown, board_review.* from board_review where rown < 10);
 create table board_review(
 br_p_no number,
 br_no number primary key,
@@ -75,6 +75,8 @@ br_content varchar(4000) not null,
 br_writedate timestamp default sysdate,
 br_recommend number default 0
 );
+select * from board_review;
+insert into board_review values(1, 12, 'resources/img/profile.png', 'title', 'email', 'name', 'content', '19/7/27', 0);
 --drop table board_review;
 create sequence bf_seq
 start with 1
@@ -242,4 +244,27 @@ cf_email varchar(30) not null,
 cf_writedate timestamp default sysdate,
 cf_comment varchar(1000) not null
 );
+
+--채팅DB
+create table chat(
+c_sendemail varchar(50) primary key,
+c_message varchar(1000) not null,
+c_recieve_email varchar(50) default 'sdf@gmail.com',
+c_grade varchar(50),
+c_querydate timestamp default sysdate
+);
+drop table chat;
+
+select * from chat;
+
+insert into members values('admin123@naver.com', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', '관리자',
+'010-2414-9070', '12345', '관리자 시', '관리자 아파트', sysdate, '192.168.60.25', 'admin',
+default, default, '여성', '1992/01/29', '해영정원', 'resources/prof/1563966178539.png', '');
+--ID : admin123@naver.com
+--PW : admin123
+
+
+
+
+
 commit;

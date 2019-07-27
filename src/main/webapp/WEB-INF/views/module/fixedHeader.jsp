@@ -6,7 +6,7 @@
 #goToTop {
    position: fixed;
    right: 28px;
-   bottom: 90px;
+   bottom: 28px;
    border-radius: 50%;
    padding: 2px;
    background:rgba(255,255,255,0.5);
@@ -98,6 +98,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+#cart{margin:-10px 0 0 -20px;}
 
 /* 전체 폰트용 코드  */
 @font-face {
@@ -247,6 +248,9 @@
 										</div>
 									</form>
 								</li>
+		                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="cart">  
+									<img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">
+								</a></li>
 							</ul>
 						</div>
 					</nav>

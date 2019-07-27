@@ -13,48 +13,50 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src="resources/js/jquery.mCustomScrollbar.js"></script>
 <link rel="stylesheet" href="resources/css/recipe.css">
-   <style>
-      .clickToClose{background:#86B404; padding:10px 0; color:#eee;}
-      .clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
-      .clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
-      .scrollBar{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0 20px 50px 0 rgba(0,0,0,0.4);}
-      #clickToClose{display:none;}
-      .carousel-caption {text-shadow: 2px 2px 2px #444;}
-      .nav-tabs a{color:#495057;}
-      .lastBtn button{border:1px solid #4f9c87; color:#4f9c87; font-family:'Eoe_Zno_L';}
-      .lastBtn button:hover{background:#4f9c87;; color:#f4f4f4;}
-      #chatboxWrap{
-         border-radius : 5px;
-         width : 350px;
-         height : 500px;
-         display : none;
-      }
-      #chatBox{
-         position : fixed;
-         left : 20px;
-         bottom : 100px;
-      }
-      #chatWrap{
-         width : 70px;
-         height : 70px;
-         position : fixed;
-         left : 30px;
-         bottom : 25px;
-      }
-      #chatBtn{
-         width : 70px;
-         height : 70px;
-      }
-      #chatBtn:hover{
-         cursor : pointer;
-      }
-      .special:hover{filter: brightness(80%); cursor:pointer;}
-      
-      h1{
-            font-family: 'Merienda One', cursive;
-            color: #3a5c19;
-         }
-   </style>
+<link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+	<style>
+		.clickToClose{background:#86B404; padding:10px 0; color:#eee;}
+		.clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
+		.clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
+		.scrollBar{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0 20px 50px 0 rgba(0,0,0,0.4);}
+		#clickToClose{display:none;}
+		.carousel-caption {text-shadow: 2px 2px 2px #444;}
+		.nav-tabs a{color:#495057;}
+		.lastBtn button{border:1px solid #4f9c87; color:#4f9c87; font-family:'Eoe_Zno_L';}
+		.lastBtn button:hover{background:#4f9c87;; color:#f4f4f4;}
+		#chatboxWrap{
+			border-radius : 5px;
+			width : 350px;
+			height : 500px;
+			display : none;
+		}
+		#chatBox{
+			position : fixed;
+			left : 20px;
+			bottom : 100px;
+		}
+		#chatWrap{
+			width : 70px;
+			height : 70px;
+			position : fixed;
+			left : 30px;
+			bottom : 25px;
+		}
+		#chatBtn{
+			width : 70px;
+			height : 70px;
+		}
+		#chatBtn:hover{
+			cursor : pointer;
+		}
+		.special:hover{filter: brightness(80%); cursor:pointer;}
+		
+		h1{
+      		font-family: 'Merienda One', cursive;
+      		color: #3a5c19;
+
+      	}
+	</style>
 </head>
 <body>
 <!-- script -->
@@ -63,10 +65,8 @@
        $("#chatWrap").on("click", function(){
             console.log("클릭함");
             if($("#chatboxWrap").css("display") == "none"){
-               console.log("보여줘");
                $("#chatboxWrap").show();
             }else{
-               console.log("사라져");
                $("#chatboxWrap").hide();
             }
          })
@@ -164,11 +164,12 @@
                       <p class="font-weight-bold"">나만의 정원에서는 언제든 신선한 채소를 만나볼 수 있어요!</p>
                     </div>
                   </div>
-                  <div class="carousel-item">
-                    <img src="resources/img/caro2.jpg" class="d-block w-100" alt="...">
+
+                    <div class="carousel-item">
+                    <img src="resources/img/caro1.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block text-left mb-5">
-                      <h5 class="font-weight-bold"">어디에도 없는 나만의 레시피</h5>
-                      <p class="font-weight-bold"">아보카도 하나로 다섯가지 요리 만들기</p>
+                      <h5 class="font-weight-bold"">어디에도 없는 하나 뿐인 샐러드</h5>
+                      <p class="font-weight-bold"">직접 키운 허브로 만들어보세요!</p>
                     </div>
                   </div>
                   <div class="carousel-item">
@@ -284,6 +285,16 @@
                   </div>
                </div>
               </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
               <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="profile-tab">
      <!-- like 고치기 -->         
 	<c:forEach var="topReviews" items="${topReviews }">
@@ -310,6 +321,17 @@
 	 <!-- like 고치기 -->   
               
               </div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
               <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
          </div>
@@ -390,12 +412,15 @@
    
    <!-- footer -->
    <jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
-   
-   <div id="chatWrap">
-      <img id="chatBtn" src="/resources/img/chat.png">
-   </div> 
-   <div id="chatboxWrap">
-      <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
-   </div>
+
+   <c:if test="${grade == 'public' || grade == 'private'}">
+      <div id="chatWrap">
+         <img id="chatBtn" src="/resources/img/chat.png">
+      </div> 
+      <div id="chatboxWrap">
+         <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
+      </div>
+   </c:if>
+
 </body>
 </html>
