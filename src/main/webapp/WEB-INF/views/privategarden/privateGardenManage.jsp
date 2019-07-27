@@ -131,8 +131,21 @@
 	
 	#wrapper{
 		height : 800px;
+		margin-bottom: 100px;
 	}
 		
+	#clickHere img{
+		width: 80px;
+		transform : rotate(180deg)
+	}
+	
+	#clickWrap{
+		height: 80px;
+		position: relative;
+		top:190px;
+		left: 80px;
+	}
+	
 	#bubbleWrap{
 		display : none;
 		height : 0;
@@ -264,7 +277,11 @@
 	<div id="bcolor"></div>
 	
 	<div id="wrapper" class="container">
+		
 		<div id="contentsWrap" class="row">
+			<div id="clickWrap" class="col-12">
+			<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
+			</div>
 		    <div id="penguinWrap" class="col-6">
 				<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
 				<div id="bubbleWrap">
@@ -306,7 +323,7 @@
 			</div>
 		</div>
 	</div>
-	
+	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 	<script>
 		$("#save").on("click", function(){
 			var sun = $("#lightView").val();
@@ -441,6 +458,7 @@
 	
 		$("#penguin").on("click", function(){
 			$("#bubbleWrap").css("display", "block");
+			$("#clickHere").hide();
 		})
 	</script>
 
