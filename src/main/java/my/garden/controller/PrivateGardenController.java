@@ -92,4 +92,14 @@ public class PrivateGardenController {
 			return "error";
 		}
 	}
+	
+	@RequestMapping("cloud")
+	public String cloud() {
+		return "module/cloud";
+	}
+	
+	@RequestMapping("sun")
+	public String sun() {
+		return "module/sun";
+	}
 }
