@@ -373,5 +373,6 @@
          <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
       </div>
    </c:if>
+   
 </body>
 </html>

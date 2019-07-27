@@ -70,22 +70,23 @@ public class BoardReviewAndQnAController {
 		try {
 			List<BoardQnADTO> test = qnaService.qnaList(br_p_no, startNum2, endNum2);
 
-//			System.out.println("사이즈 : " + test.size());
+			//			System.out.println("사이즈 : " + test.size());
 
-			List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);
-			//System.out.println(list.size());
-			//System.out.println(list.get(0).getBr_no());
-			myRecommendNo = new Integer[list.size()];
 
-			for(int i=0;i < list.size();i++) {
-				myRecommendNo[i] = list.get(i).getBr_no();
-				//System.out.println(myRecommendNo[i]);
+			if(id!=null) {
+				List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);
+				//System.out.println(list.size());
+				//System.out.println(list.get(0).getBr_no());
+				myRecommendNo = new Integer[list.size()];
+
+				for(int i=0;i < list.size();i++) {
+					myRecommendNo[i] = list.get(i).getBr_no();
+					//System.out.println(myRecommendNo[i]);
+				}
+				request.setAttribute("myRecommendNo", myRecommendNo); 
 			}
-
-			//System.out.println(myRecommendNo);
-
+			
 			request.setAttribute("reviewList", brService.reviewList(br_p_no, startNum, endNum));
-			request.setAttribute("myRecommendNo", myRecommendNo); //
 			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum2, endNum2));
 			request.setAttribute("getNavi", brService.getNavi(revPage, br_p_no));
 			request.setAttribute("getNaviForQnA", qnaService.getNavi(qnaPage, br_p_no));
@@ -310,14 +311,18 @@ public class BoardReviewAndQnAController {
 	}
 
 	@RequestMapping("readQnA")
-	public String readQnA(HttpServletRequest request, int bq_no, String mine, String checkA) throws Exception {	
+	public String readQnA(HttpServletRequest request, int bq_no, String checkA) throws Exception {	
 		String id = (String) session.getAttribute("loginId");
 		session.setAttribute("bq_no", bq_no);
+		
+		
+		
 		MembersDTO mdto = new MembersDTO();
 		try {
-			request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, id));
-			request.setAttribute("mine", mine);
-			request.setAttribute("readQnA", qnaService.readQnA(bq_no, mine));
+			String writer = qnaService.readQnA(bq_no).getBq_email();
+			request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, writer));
+//			request.setAttribute("mine", mine);
+			request.setAttribute("readQnA", qnaService.readQnA(bq_no));
 			request.setAttribute("commentList", qnaService.commentList(bq_no));
 			//System.out.println("checkAns : " + checkA);
 			request.setAttribute("checkAns", checkA);
@@ -330,7 +335,7 @@ public class BoardReviewAndQnAController {
 	@RequestMapping("updateQnAForm")
 	public String updateQnAForm(HttpServletRequest request,int bq_no) throws Exception {	
 		try {
-			request.setAttribute("readQnA", qnaService.readQnA(bq_no, "y"));	
+			request.setAttribute("readQnA", qnaService.readQnA(bq_no));	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
