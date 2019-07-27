@@ -431,18 +431,10 @@ public class LoginDAO {
 	   }
 	
 	public List<ShopListDTO> getShoppedList(ShopListDTO dto){
-		if(sst.selectList("LoginDAO.selectOrderList", dto)==null) {
-			return null;
-		}else {
-			return sst.selectList("LoginDAO.selectOrderList", dto);
-		}
+		return  sst.selectList("LoginDAO.selectOrderList", dto);
 	}
 	public List<SubscribeDTO> getShoppedListSub(SubscribeDTO dto){
-		if(sst.selectList("LoginDAO.selectOrderListSub", dto)==null) {
-			return null;
-		}else {
-			return sst.selectList("LoginDAO.selectOrderListSub", dto);
-		}
+		return  sst.selectList("LoginDAO.selectOrderListSub", dto);
 	}
 	
 	public SubscribeDTO selectSub(String id){
