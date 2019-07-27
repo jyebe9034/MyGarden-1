@@ -41,7 +41,7 @@ input {
 }
 
 .body_sub_area table {
-   font-size: 13px;
+   font-size: 14px;
 }
 
 .body_sub_area table th {
@@ -52,7 +52,6 @@ input {
 #pay {
    width: 180px;
    text-align: center;
-   font-family: 'Spoqa Han Sans', sans-serif;
    display: inline-block;
    padding: 15px 0px;
    font-size: 16px;
@@ -71,13 +70,11 @@ table.list_table_style {
 table.list_table_style thead th {
    font-size: 15px;
    height: 35px;
-   font-family: 'Spoqa Han Sans', sans-serif;
    border-right: 0px;
    border-left: 0px;
 }
 
 table.list_table_style td.cell {
-   font-family: 'Spoqa Han Sans', sans-serif;
    border-right: 0px;
    border-left: 0px;
 }
@@ -292,7 +289,7 @@ table.list_table_style td.cell {
 							<div id="fee_benefit"
 								style="background-color: #888888; margin-top: 1px; padding: 10px; line-height: 18px; color: #ffffff; font-size: 14px; font-weight: lighter;">
 								<div id="fee_benefit_head">
-									<div style="font-size: 12px;">
+									<div style="font-size: 13px;">
 										- <span style="font-weight: bold;">신규 오픈 기념 배송비 무료
 											이벤트중!</span><br> - 주문 당 1개의 배송지만 선택 가능합니다. <span
 											style="font-weight: bold;">배송지를 꼭 확인해주세요!</span><br> -
@@ -428,7 +425,7 @@ table.list_table_style td.cell {
 										<td class="pb-3">받는분 <b style="color: red">*</b></td>
 										<td class="fx12 pt-2 pb-1" colspan="3"><input type="text"
 											id="recipient_user_name" value="" size="15" class="mr-1" /><label
-											class="small"><input type="checkbox"
+											><input type="checkbox"
 												id="copy_order_info" /> 주문자 정보와 동일</label>
 
 											<div class="overseasInfo hide" style="color: #ff0000;">*
@@ -540,7 +537,7 @@ table.list_table_style td.cell {
 											<span
 												style="font-size: 20px; font-weight: bold; color: #222422; padding-right: 10px;">최종결제금액</span>
 											<span
-												style="font-size: 30px; font-weight: bold; color: #222422; font-family: 'Spoqa Han Sans', sans-serif;"
+												style="font-size: 30px; font-weight: bold; color: #222422;"
 												class="settle_price"><fmt:formatNumber
 													value="${count }" type="number" /></span> <span
 												style="font-size: 15px; color: #222422; padding-right: 10px;">원</span>
