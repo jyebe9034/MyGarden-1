@@ -230,7 +230,7 @@
             buyer_email : "${loginDTO.m_email}",
             buyer_name : "${loginDTO.m_name}",
             buyer_tel : "${loginDTO.m_phone}",
-            m_redirect_url : 'orderComplete'
+            m_redirect_url : "toConfirmHurb?hurb="+$("#sort").text();
          /*  
              모바일 결제시,
              결제가 끝나고 랜딩되는 URL을 지정 
