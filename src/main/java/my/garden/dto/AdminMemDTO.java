@@ -10,7 +10,7 @@ public class AdminMemDTO {
 	private String m_ipaddress;
 	private String m_grade;
 	private int m_point;
-	private String m_gender;
+	private String m_gender; 
 	private String m_garden;
 	
 	public AdminMemDTO() {}

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
-<title>Chat</title>
+<title>나의 정원 - Chat</title>
 <style>
 	#chatBorder{
 		border : 0.5px solid #cacbcc;
@@ -69,20 +69,18 @@
 		
 		socket.onmessage = function(msg){ // 콜백함수
 			var line = $("<div class='messages'></div>");
-			var result = JSON.parse(msg.body);
-			line.append(result.name + " : " + result.message);
+			line.append("<div class='answer'>" + msg.data + "</div>");
 			$("#chatContents").append(line);
 			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
-			
 		} // 서버로부터 메세지가 도착한 경우
 		
 		$("#send").on("click",function(){
 			var msg = $("#message").val();
-			$("#chatContents").append("<p class='mine'> 나 : " + msg + "</p>");
+			$("#chatContents").append("<p class='mine'>" + msg + "</p>");
 			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
 			$("#message").val("");
 			$("#message").focus();
-			socket.send(msg);
+			socket.send("${loginId} : " + msg);
 		}) // 서버로 메세지를 보내는 경우
 	
 		$("#message").keyup(function(key){

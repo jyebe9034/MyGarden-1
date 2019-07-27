@@ -1,74 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
-<title>공유 정원</title>
+<title>나의 정원 - 공유 정원</title>
 <style>
-	#sharedWrap{
-		position : relative;
-	}
-	#sharedFarm{
-		width : 100%;
-		height : 200px;
-		margin : 30px auto;
-	}
-	#sharedTitle{
-		font-size : 30px;
-		text-align : center;
-		position : absolute;
-		top : 50%;
-		left : 45%;
-	}
-	#wrapper{
-		margin : 0px;
-		padding : 0px;
-	}
-	#viewheight{
-		height : 100vh;
-		margin : auto;
-	}
-	#header{
-		overflow : hidden;
-		height : 600px;
-		padding : 0;
-		margin-bottom : 50px;
-	}
-	#wrap{
-		text-align: center;
-	}
-	.eachImg{
-		width : 100%;
-		height : 250px;
-	}
-	.cards{
-		margin: 0 auto; 
-        float: none;
-	}
-	.article{
-		width : 100%;
-		margin-top : 30px;
-		text-align : center;
-	}
-	.anker:hover{
-		cursor : pointer;
-	}
-	.check{
-		text-align : left;
-	}
-	.adBtns {
-		background-color : #44b27d;
-		color : white;
-		margin-left : 10px;
-	}
-	.adBtns:hover{
-		background-color : #b4d9b5;
-		color : white;
-	}
+
+#sharedWrap {
+	width: 100%;
+	margin: 30px 0 !important;
+	padding: 0 15px;
+	height: 120px;
+}
+
+#sharedFarm {
+	width: 100%;
+	height: auto;
+}
+
+#sharedImgDiv{
+	width: 100%;
+	height: 100%;
+}
+
+#sharedTitle, #engTitle {
+	font-size: 30px;
+	color: white;
+	font-weight: bold;
+	position: relative;
+	bottom: 75px;
+	right: 340px;
+}
+
+#engTitle{
+	font-size: 20px;
+	margin-left: 10px;
+}
+
+#wrapper {
+	margin: 0px;
+	padding: 0px;
+}
+
+#viewheight {
+	height: 100vh;
+	margin: auto;
+}
+
+#header {
+	overflow: hidden;
+	height: 300px;
+	background-color:#f4f7e9;
+	padding: 0;
+	margin-bottom: 50px;
+}
+
+#wrap {
+	text-align: center;
+}
+
+.eachImg {
+	width: 100%;
+	height: 250px;
+}
+
+.cards {
+	margin: 0 auto;
+	float: none;
+}
+
+.card-title{
+	font-weight: bold;
+}
+
+.article {
+	width: 100%;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.anker:hover {
+	cursor: pointer;
+}
+
+.check {
+	text-align: left;
+}
+
+#adminBtn{
+	text-align: left;
+	width: 100%;
+	margin: 0px 25px;
+}
+
+.adBtns {
+	background-color: #44b27d;
+	color: white;
+	margin-left: 10px;
+}
+
+.adBtns:hover {
+	background-color: #b4d9b5;
+	color: white;
+}
 </style>
 <script>
 	$(function(){
@@ -99,21 +137,25 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../module/fixedHeader.jsp"/>
+	<jsp:include page="../module/fixedHeader.jsp" />
 	<div id="wrapper">
-		<div id="header">
-			<img id="titleImg" src="resources/img/smtomato.jpg">
-		</div>
+		<div id="header"></div>
 		<div id="viewheight" class="container-fluid">
 			<div id="wrap" class="container">
 				<div id="sharedWrap" class="row">
-					<img id="sharedFarm" src="resources/img/sharedFarm.jpg">
-					<div id="sharedTitle">공유 정원</div>
+					<div class="col-12 sharedImgDiv">
+						<img id="sharedFarm" src="resources/img/sharedFarm.jpg">
+						<span id ="sharedTitle">공유 정원</span>
+						<span id ="engTitle">Public Garden</span>
+					</div>
 				</div>
 				<c:if test="${grade=='admin'}">
 					<div class="row">
-						<input id="deleteBtn" class="adBtns btn btn-sm" type="button" value="삭제">
-						<input id="insertBtn" class="adBtns btn btn-sm" type="button" value="등록">
+						<div class="col-12" id=adminBtn>
+						<input id="deleteBtn" class="adBtns btn btn-sm" type="button"
+							value="삭제"> <input id="insertBtn"
+							class="adBtns btn btn-sm" type="button" value="등록">
+						</div>
 					</div>
 				</c:if>
 				<div class="row articles">
@@ -121,27 +163,28 @@
 						<div class="col-4 article">
 							<c:if test="${grade=='admin'}">
 								<div class="check">
-									<input type="checkbox" class="checkDelete" name="checked" value="${list.p_no}">
+									<input type="checkbox" class="checkDelete" name="checked"
+										value="${list.p_no}">
 								</div>
 							</c:if>
 							<div class="card cards" style="width: 18rem;">
-							  <img src="${list.p_imagepath}" class="card-img-top eachImg">
-							  <div class="card-body anker" pnumber="${list.p_no}">
-							    <h5 class="card-title title">${list.p_title}</h5>
-							    <p class="card-text price">${list.p_price}</p>
-							  </div>
+								<img src="${list.p_imagepath}" class="card-img-top eachImg">
+								<div class="card-body anker" pnumber="${list.p_no}">
+									<h5 class="card-title title">${list.p_title}</h5>
+									<p class="card-text price">${list.p_price}</p>
+								</div>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 			<div id="listFooter">
-				<jsp:include page='../module/fixedFooter.jsp'/>
-			</div> 
+				<jsp:include page='../module/fixedFooter.jsp' />
+			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<script>
 		<!-- infinite scroll구현 부분 -->
 		var isEnd = false;
@@ -212,6 +255,6 @@
 		}
 		
 	</script>
-	
+
 </body>
 </html>

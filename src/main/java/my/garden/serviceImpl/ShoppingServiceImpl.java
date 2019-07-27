@@ -27,7 +27,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectCartList(userId);
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public int delFromCart(String userId, CartDTO dto) throws Exception {
 		dto.setC_m_email(userId);
 		dao.delExpiredCart();
@@ -38,7 +38,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectMember(dto, id);
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public void insertIntoShopList(List<ShopListDTO> list, Long orderNo, String id) throws Exception {
 		for(ShopListDTO dto : list) {
 			dto.setS_orderno(orderNo);
@@ -50,7 +50,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		}	
 	}
 
-	@Transactional
+	@Transactional("txManager")
 	public List<List<ShopListDTO>> getOrderList(String id) throws Exception{
 		dao.updateShoplist();
 		dto.setS_email(id);
@@ -124,7 +124,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.insertSubscribe(sbdto);
 	}
 	
-	@Transactional
+	@Transactional("txManager")
 	public List<SubscribeDTO> getSubsList(String id) throws Exception{
 		dao.updateSubslist();			
 		return dao.selectSubsList(id);
@@ -135,7 +135,7 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.subsCancel(sbdto);
 	}
 	
-	@Transactional
+	@Transactional("txManager")
 	public List<SubscribeDTO> getSubsSearch(String id, SubscribeDTO sbdto) throws Exception{
 		dao.updateSubslist();	
 		sbdto.setSb_email(id);

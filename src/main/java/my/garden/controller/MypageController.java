@@ -169,5 +169,10 @@ public class MypageController {
 		}
 		return "shopping/shipping";
 	}
+	
+	@RequestMapping("chatManage")
+	public String toChatManage() {
+		return "chat/chatManage";
+	}
 
 }

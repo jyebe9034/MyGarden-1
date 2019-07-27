@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminDAO">
 	<select id="allMembers" resultType="my.garden.dto.AdminMemDTO">
-	select m_email, m_name, m_phone, m_joindate, m_ipaddress, m_grade, m_point, m_gender, m_garden from members
+	select m_email, m_name, nvl(m_phone,'-') as m_phone, m_joindate, m_ipaddress, m_grade, m_point, nvl(m_gender,'-') as m_gender, m_garden from members
 	</select>
 	
 	<select id="totalSale" resultType="Integer">
@@ -32,5 +32,17 @@
 	<update id="updateOrder">
 	update shoplist set s_statement=#{stat,jdbcType=VARCHAR} where s_orderno=#{no}
 	</update>
+	
+	<select id="subscribeCheckList" resultType="my.garden.dto.ShopListDTO">
+	select distinct(sb_orderno_seq) as s_orderno, sb_email as s_email, s_phone, sb_price as s_p_price from shoplist, subscribe where sb_email=s_email and sb_statement='입금 대기'
+	</select>
+	
+	<update id="updateSubscribe">
+	update subscribe set sb_statement=#{stat,jdbcType=VARCHAR} where sb_orderno_seq=#{no,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="privateList" resultType="my.garden.dto.PrivateGardenDTO">
+	select * from gardens
+	</select>
 
 </mapper>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>문의글</title>
+<title>나의 정원 - 문의글</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp" />
 <style>
 div {
@@ -14,9 +14,13 @@ div {
 	
 }
 
+#qnaHeaderImg {
+	width: 100% !important;
+}
+
 #qnaWrapper {
 	width: 1000px;
-	margin: 300px auto;
+	margin: 50px auto;
 }
 
 #updateQnAForm {
@@ -167,7 +171,7 @@ div {
 	height: 20%;
 }
 
-.commentLabelBox img{
+.commentLabelBox img {
 	margin-bottom: 15px;
 }
 
@@ -182,10 +186,6 @@ div {
 
 .blankComment {
 	background-color: white !important;
-}
-
-svg {
-	margin-bottom: 15px;
 }
 
 #inputComment {
@@ -356,7 +356,7 @@ svg {
 						data: {"cq_no" : ${readQnA.bq_no}}
 					}).done(function(resp){
 						if(resp=2){
-							alert("resp" + resp);
+							//alert("resp" + resp);
 							$("#answerWrapper").html("");
 							$("#answerWrapper").append("<div class='form-group row commentRow'>"
 									+"<div class=\"col-12 commentLabelBox\">"
@@ -393,8 +393,6 @@ svg {
 
 	<!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp" />
-	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>
-
 	<!-- 			carousel -->
 	<div class="container-fluid my">
 		<div class="row my">
@@ -403,6 +401,8 @@ svg {
 			</div>
 		</div>
 	</div>
+
+<img alt="" src="/resources/products/qnaHeader.jpg" id="qnaHeaderImg">
 
 	<!-- 리뷰 작성 폼 -->
 	<div id="qnaWrapper">
@@ -425,8 +425,7 @@ svg {
 					<div class="col-12">
 						<img src="${writerInfo.m_profile}" class="profileImg"
 							border="1px solid black"> <span class="writerInfo">
-							${readQnA.bq_name }/작성자/ <fmt:formatDate
-								pattern="yyyy-MM-dd hh:mm:ss" value="${readQnA.bq_writedate }" />
+							${readQnA.bq_name }/작성자/${readQnA.bq_writedate }
 						</span>
 					</div>
 				</div>

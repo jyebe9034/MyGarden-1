@@ -5,12 +5,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>후기수정</title>
+<title>나의 정원 - 후기수정</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
+	.row.my {
+	    background-color: #dde3d8;
+	}
+	
 	#wrapper{
 		margin: 200px auto;
 		width: 700px;
+	}
+	
+	.boardTitle{
+		color: #53782f;
+		font-weight: bold;
+		font-size: 20px;
+	}
+	
+	
+	.rvLabel{
+		color: #53782f
+	}
+	
+	.pTitle{
+		margin-left : 10px;
+		font-weight: bold;
+		color: #53782f;
 	}
 	
 	.productImage{
@@ -19,14 +40,28 @@
 	}
 	
 	#inputContent{
-		height: 300px;
+		height: 150px;
 		border: 1px solid lightgrey;
 		border-radius: 5px;
 		padding: 10px;
+		overflow: auto;
 	}
 	
-	.updateImgBtnBox{
-		margin:7px auto;
+	.imageBox {
+	    border-radius: 10px;
+	    margin-left: 15px;
+	    width: 79%;
+	    border: 1px solid lightgray;
+	    padding: 10px;
+   		padding-bottom: 0px;
+	}
+	
+	.previewImg img{
+		margin-bottom: 10px;
+	}
+	
+	#image{
+		margin-bottom: 5px;
 	}
 	
 	.updateImgBtn{
@@ -53,14 +88,14 @@
 	.btnsBox{
 		text-align: center;
 	}
-	.goMainBtn{
+	.goBackBtn{
 		background-color: #44b27d;
 /* 		color: #44b27d; */
 		color: white;
 		font-weight: bold;
 		border: 0px;
 	}
-	.goMainBtn:hover{
+	.goBackBtn:hover{
 		background-color: #b4d9b5;
 		color: white;
 		font-weight: bold;
@@ -91,14 +126,39 @@
 
 	$(function(){
 
-			$(".goMainBtn").on("click",function(){
-				$(location).attr("href","/");
+			$(".goBackBtn").on("click",function(){
+				var pnumber = ${oneReview.br_p_no};
+				location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
 			})
 			
+					$("#image").on("change",function(){
+			var formData = new FormData();
+	    	formData.append("formData",$(this)[0].files[0]);
+		
+	    	$.ajax({
+	    		  url:"getImgs",
+	    		  type:"post",
+	    		  processData:false,
+	    		  contentType:false,
+	    		  data: formData
+	    	  }).done(function(resp){
+	    		  console.log(resp);
+	    		  //console.log(image);
+	    		  var time = new Date().getTime();
+	              console.log("time : " + time);
+
+				 $(".previewImg").html("<img src='/resources/temp/"+resp+"?time="+time+"' width='200px'>");
+							
+	    	  })
+		
+		})
+		
+		
+				
 			$(".updateBtn").on("click",function(){
 				var inputContent = $("#inputContent").text();
 				var inputTitle = $("#inputTitle").val();
-				alert(inputTitle);
+				alert("글이 수정되었습니다.");
 				$("#content").val(inputContent);
 				$("#updateReviewForm").submit();
 			})
@@ -131,12 +191,15 @@
 					alert("제목은 30자 이내로 입력이 가능합니다.");
 				}
 			});
-			$('#inputContent').on('keyup', function() { //내용 글자수 입력 제한
-				if ($(this).text().length > 69) {
-					$(this).text($(this).text().substring(0, 69)); 
-					alert("내용은 70자 이내로 입력이 가능합니다.");
-				}
-			});
+			$(document).on('keyup', '#inputContent', function() { //내용 글자수 입력 제한
+				var inputComment = $("#inputContent").text();
+				var cntCmt = $("#cntCmt").val(inputComment);
+				//alert("입력한거ㅡㅡ: " + cntCmt.val());
+					if ($(cntCmt).val().length > 140) {
+						$("#inputContent").text($(cntCmt).val().substring(0, 140)); 
+						alert("내용은 140자 이내만 입력이 가능합니다.");
+					}
+				});
 
 		})
 	</script>
@@ -146,8 +209,6 @@
 
 <!-- header -->
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"/>
-	<jsp:include page="/WEB-INF/views/module/font.jsp"></jsp:include>s
-	
 	<!-- 			carousel -->
 	<div class="container-fluid my">
 		<div class="row my">
@@ -159,46 +220,59 @@
 
 	<!-- 리뷰 수정 폼 -->
 	<div id="wrapper">
+		<span class="boardTitle">후기수정</span>
+		<hr>
 		<div id="productInfo" >
 			<img src="${productInfo.p_imagepath}" class="productImage">
-			<span>${productInfo.p_title}</span>
+			<span class="pTitle">${productInfo.p_title}</span>
 		</div>
 		<hr>
 		
 			<form action="reviewUpdate" method="post" enctype="multipart/form-data" id="updateReviewForm">
 			<input type=hidden name="br_no" value="${oneReview.br_no }">
 			  <div class="form-group row">
-			       <label for="inputTitle" class="col-sm-2 col-form-label">제목</label>
+			       <label for="inputTitle" class="col-sm-2 col-form-label rvLabel">제목</label>
 			    
 			    <div class="col-sm-10">
 			      <input type="text" class="form-control byteLimit" id="inputTitle" name="br_title" value="${oneReview.br_title }">
 			    </div>
 			  </div>
 			 <div class="form-group row">
-			    <label for="inputContent" class="col-sm-2 col-form-label">내용</label>
+			    <label for="inputContent" class="col-sm-2 col-form-label rvLabel">내용</label>
 			    <div class="col-sm-10">
 			      <div contenteditable="true" id="inputContent">${oneReview.br_content }</div>
+			      <input type="hidden" id="cntCmt">
 			      <input type="hidden" class="form-control byteLimit" id="content" name="br_content" value="${oneReview.br_content }">
 			    </div>
 			  </div>
 				
-			  <div class="form-group row">
+			  <div class="form-group row imageRow">
 			  	 <label for="inputImage" class="col-sm-2 col-form-label"></label>
-				    <div class="col-sm-10 selImgBtnBox">
+			  	 
+			  	 <div class="imageBox">
+				 <div class="col-sm-10 selImgBtnBox">
+<!-- 				    <p class="rvLabel">사진수정</p> -->
+				    	<span class="previewImg">
+				    <img src="${oneReview.br_imagepath }" width=200px>
+				    </span>
 				      <input type="file" name=image accept="image/jpg, image/jpeg, image/gif, image/png" id=image>
 				    </div>
-				  <label for="inputImage" class="col-sm-2 col-form-label"></label>
-					<div class="col-sm-10 updateImgBtnBox">
-				      <input type="button" class="btn updateImgBtn" value="사진 수정">
-				      <input type="hidden" name="imagePath" value="${oneReview.br_imagepath }">
-				    </div>
-				    <label for="inputImage" class="col-sm-2 col-form-label"></label>
-				  <p><small>※ 수정할 사진을 선택한 후 '사진 수정'버튼을 누르면 사진 수정이 가능합니다.</small></p>
+				<div class="col-sm-10 updateImgBtnBox">
+					<div>
+						<input type="button" class="btn updateImgBtn" value="사진 수정">
+						<input type="hidden" name="imagePath"
+							value="${oneReview.br_imagepath }">
+					</div>
+				</div>
+				<label for="inputImage" class="col-sm-2 col-form-label"></label>
+				  <p><small class="rvLabel">※ 수정할 사진을 선택한 후 '사진 수정'버튼을 누르면 사진 수정이 가능합니다.</small></p>
+				  		  	
+			  </div>
 			  </div>	
 				
 			  <div class="form-group row btnsRow">
 			    <div class="col-12 btnsBox">
-			      <button type="button" class="btn goMainBtn" >메인으로</button>
+			      <button type="button" class="btn goBackBtn" >돌아가기</button>
 			      <button type="submit" class="btn updateBtn" >수정하기</button>
 			    </div>
 			  </div>	

@@ -28,14 +28,18 @@ public class ProductsController {
 
 	@RequestMapping("insertProducts")
 	public String insertProducts(ProductsDTO dto) {
-		String resourcePath = session.getServletContext().getRealPath("/resources");
+		String rootPath = session.getServletContext().getRealPath("/resources");
 		String title = dto.getP_title();
 		try {
-			File newFile = new File(resourcePath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
-			dto.getImage().transferTo(newFile);
-			dto.setP_imagepath("/resources/products/" + title + "/" + newFile.getName());
-			int result = pservice.insertProductsService(dto);
-			int result2 = pservice.insertImageFileService(title, dto.getP_imagepath());
+			File newFile = new File(rootPath + "/products/" + title);
+	         if(!newFile.exists()) {
+	            newFile.mkdir();
+	         }         
+	         File realFile = new File(rootPath + "/products/" + title + "/" + System.currentTimeMillis() + "_" + dto.getImage().getOriginalFilename());
+	         dto.getImage().transferTo(realFile);
+	         dto.setP_imagepath("/resources/products/" + title + "/" + realFile.getName());
+	         int result = pservice.insertProductsService(dto);
+	         int result2 = pservice.insertImageFileService(title, dto.getP_imagepath());
 			return "products/productsAdd";
 		}catch(Exception e) {
 			e.printStackTrace();

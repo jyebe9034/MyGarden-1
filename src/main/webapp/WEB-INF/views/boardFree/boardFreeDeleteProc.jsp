@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>글삭제</title>
+<title>나의 정원 - 글 삭제</title>
 </head>
 <body>
 	<script>

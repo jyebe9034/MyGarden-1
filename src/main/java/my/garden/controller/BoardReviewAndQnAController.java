@@ -69,6 +69,7 @@ public class BoardReviewAndQnAController {
 
 		try {
 			List<BoardQnADTO> test = qnaService.qnaList(br_p_no, startNum2, endNum2);
+
 //			System.out.println("사이즈 : " + test.size());
 
 			List<BoardReviewRecommendDTO> list=brService.myRecommendNo(id);

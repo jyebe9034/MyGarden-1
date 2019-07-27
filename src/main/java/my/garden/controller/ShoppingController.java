@@ -36,7 +36,7 @@ public class ShoppingController {
 
 	@RequestMapping("cart")
 	public String toCart(HttpServletRequest request) {
-		String id = (String)session.getAttribute("loginId");		
+		String id = (String)session.getAttribute("loginId");
 		try {
 			Thread.sleep(500);
 			if(id!=null) {
@@ -53,7 +53,6 @@ public class ShoppingController {
 	@RequestMapping("cartDel")
 	public void cartDel(HttpServletRequest request, CartDTO dto) {
 		String id = (String)session.getAttribute("loginId");
-		System.out.println(dto.getC_p_no());
 		try {
 			if(shsvc.delFromCart(id, dto)>0) {
 				System.out.println(id + " 님의 장바구니 품목 삭제 성공");
@@ -106,7 +105,8 @@ public class ShoppingController {
 		String id = (String)session.getAttribute("loginId");
 		dto.setC_m_email(id);
 		try {
-			shsvc.insertIntoCart(dto);
+			int result = shsvc.insertIntoCart(dto);
+			//System.out.println(result);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

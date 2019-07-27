@@ -6,7 +6,7 @@
 #goToTop {
    position: fixed;
    right: 28px;
-   bottom: 28px;
+   bottom: 90px;
    border-radius: 50%;
    padding: 2px;
    background:rgba(255,255,255,0.5);
@@ -33,6 +33,7 @@
    font-weight: 1000;
    letter-spacing: 4px; /*text-shadow: 1px 1px 1px gray;*/
    cursor:pointer;
+   color:#141414;
 }
 .topMenuNavbar {
    background-color: rgba(255, 255, 255, 0.1);
@@ -50,7 +51,7 @@
    box-shadow: 0 5px 40px 0 rgba(0,0,0,0.3);
 }
 .navbar-light .navbar-nav .nav-link {
-   color: #000;
+   color: #000; margin-top:11px; margin-left:5px;
 }
 .dropdown-menu {
    background-color: rgba(255, 255, 255, 0.3);
@@ -88,6 +89,35 @@
 .clickToClose{background:#86B404; padding:10px 0; color:#eee;}
 .clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
 .clickToCloseBtnBorder{width:25px; height:25px; right:2%; border:1px solid #eee; border-radius:50%; cursor:pointer;}
+
+@font-face {
+	font-family: 'S-CoreDream-3Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* 전체 폰트용 코드  */
+@font-face {
+	font-family: 'Eoe_Zno_L';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/Eoe_Zno_L.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	font-family: 'S-CoreDream-3Light';
+}
+
+.mt-2 {
+	font-family: 'Eoe_Zno_L';
+}
+/* 폰트용 코드  */
+
 </style>
 
 <!--    script -->
@@ -115,20 +145,12 @@
             scrollTop : '0'
          });
       });
-      $("#cart").on("click", function() {
-         $(location).attr("href", "cart")
-      });
-      
-      $("#admin").on("click", function() {
-          $(location).attr("href", "adminView")
-       });
-      
+//       $("#admin").on("click", function() {
+//           $(location).attr("href", "adminView")
+//        });
       $("#myGardenTitle").on("click", function() {
          $(location).attr("href", "/")
       });
-		$('#toMypage').on('click', function(){
-			$(location).attr('href', '/mypageFirst');
-		});
       /* 검색기능 by 지혜 */
       $("#searchBtn").on("click", function(){
     	  var keyword = $("#keyword").val();
@@ -147,13 +169,18 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <!-- 	JSTL	 -->
 			<c:choose>
-		       <c:when test="${loginName!=null}">
+		       <c:when test="${loginId!=null}">
 		       
 				<div class="row">
 					<div
 						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-						<a href="mypageFirst">${loginName }님의 페이지</a> <a href="/logout">로그아웃</a> <a href="/aboutMyGarden">공지사항</a> <a
-							href="#">고객센터</a>
+						<a href="mypageFirst">${loginName }님의 페이지</a> 
+<!-- 코드 추가 : admin인 경우 통계 보기로 감!!  -->
+						<c:if test="${grade=='admin' }">
+						<a href="adminIndex">통계 보기</a>
+						</c:if>
+<!-- 코드 끝  -->						
+						<a href="cart">장바구니</a> <a href="#">고객센터</a> <a href="/logout" class="mr-3">로그아웃</a> 
 					</div>
 				</div>
 			
@@ -163,8 +190,8 @@
 				<div class="row">
 					<div
 						class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3 mb-3 text-right topAnchor my">
-						<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="/aboutMyGarden">공지사항</a> <a
-							href="#">고객센터</a>
+						<a href="/login">로그인</a> <a href="/join">회원가입</a> <a href="cart">장바구니</a> <a
+							href="#" class="mr-3">고객센터</a>
 					</div>
 				</div>
 	  
@@ -190,7 +217,7 @@
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav m-auto text-center">
 								<li class="nav-item active dropdown"><a
-									class="nav-link dropdown-toggle mt-2" href="#" role="button"
+									class="nav-link dropdown-toggle" href="#" role="button"
 									data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false"> 상세 카테고리 </a>
 									<div class="dropdown-menu text-center"
@@ -201,16 +228,13 @@
 			                              <a class="dropdown-item" href="grain?category=grain">곡물</a>
 			                              <a class="dropdown-item" href="source?category=source">소스/조미료</a>
 									</div></li>
-								<li class="nav-item"><a class="nav-link mt-2" href="productsList">공유정원</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="privateGarden">비밀정원</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="adminIndex">|&nbsp;&nbsp;About</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="subscription">정기구독</a></li>
-		                        <li class="nav-item"><a class="nav-link mt-2" href="boardFreeList">자유게시판</a></li>
-								<li class="nav-item"><a class="nav-link" href="#"> 
-									<img src="resources/img/person.png" width="40" height="40" id="toMypage" data-toggle="tooltip" data-placement="bottom" title="마이페이지"> 
-									<img src="resources/img/shop.png" width="40" height="40" id="cart" data-toggle="tooltip" data-placement="bottom" title="장바구니">
-								</a></li>
-								<li class="nav-item ml-3">
+								<li class="nav-item"><a class="nav-link" href="productsList">공유정원</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="privateGarden">비밀정원</a></li>
+		                        <li class="nav-item"><a class="nav-link">|</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="/aboutMyGarden">About</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="subscription">정기구독</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="boardFreeList">자유게시판</a></li>
+								<li class="nav-item">
 									<form class="form-inline my-2 my-lg-0">
 										<div class="input-group topAnchorSearch">
 											<input class="form-control menuSearch ml-4" type="search"
