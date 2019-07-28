@@ -186,7 +186,7 @@
 						<c:if test="${grade=='admin' }">
 						<a href="adminIndex">통계 보기</a>
 						</c:if>
-<!-- 코드 끝  -->						
+<!-- 코드 끝  -->				
 						<a href="/logout">로그아웃</a> <a href="#">공지사항</a> <a href="#">고객센터</a>
 					</div>
 				</div>

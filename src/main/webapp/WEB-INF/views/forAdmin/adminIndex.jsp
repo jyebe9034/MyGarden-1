@@ -317,7 +317,8 @@ h4 {
 									<i class="fa fa-square"></i> 판매 건수
 								</h2>
 								<ul class="list-unstyled list-referrals">
-									<c:forEach var="tmp" begin="0" end="4" items="${popular}" varStatus="status">
+									<c:forEach var="tmp" begin="0" end="4" items="${popular}"
+										varStatus="status">
 										<li>
 											<p>
 												<span class="value">${tmp.s_p_title }</span><span
@@ -362,6 +363,25 @@ h4 {
 				</div>
 			</div>
 			<!-- 	orderContents 숨김용 		-->
+			<div class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel"></h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" id="modal-btn-si">네</button>
+							<button type="button" class="btn btn-primary" id="modal-btn-no">아니오</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div id=orderCheck class="col-12">
 				<h4>
 					<i class="fa fa-bell"> 입금 대기 목록</i>
@@ -627,10 +647,38 @@ h4 {
 				})
 				})		
 			})
+			
+			var modalConfirm = function(callback){
+ 
+  $("#modal-btn-si").on("click", function(){
+    callback(true);
+    $("#mi-modal").modal('hide');
+  });
+  
+  $("#modal-btn-no").on("click", function(){
+    callback(false);
+    $("#mi-modal").modal('hide');
+  });
+};
+
+modalConfirm(function(confirm){
+  if(confirm){
+    //Acciones si el usuario confirma
+    $("#result").html("CONFIRMADO");
+  }else{
+    //Acciones si el usuario no confirma
+    $("#result").html("NO CONFIRMADO");
+  }
+});
 		
 		$(document).on("click",".subsCheck",function(){
+			
 			var no = $(this).parent().parent().children('.orNo').text();
-			confirm('주문번호 '+no+'의 입금을 확인하시겠습니까?');
+			  $("#btn-confirm").on("click", function(){
+				    $("#mi-modal").modal('show');
+				  });
+
+			//confirm('주문번호 '+no+'의 입금을 확인하시겠습니까?');
 			$.ajax({
 				url:"subscribeStatChange",
 				data: {
