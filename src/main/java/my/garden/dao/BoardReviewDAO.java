@@ -7,9 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dto.BoardReviewDTO;
 import my.garden.dto.BoardReviewRecommendDTO;
+import my.garden.dto.ShopListDTO;
 
 
 public interface BoardReviewDAO {
+	public List<ShopListDTO> dCompletedPNums(String BR_EMAIL) throws Exception;
+	
 	public int writeReview(BoardReviewDTO dto) throws Exception;
 	public List<BoardReviewDTO> reviewList(int br_p_no, int startNum, int endNum) throws Exception;
 	public String getNavi(int currentPage,int br_p_no) throws Exception;

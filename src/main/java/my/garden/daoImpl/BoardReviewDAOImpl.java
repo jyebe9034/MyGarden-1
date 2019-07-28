@@ -16,12 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 import my.garden.dao.BoardReviewDAO;
 import my.garden.dto.BoardReviewDTO;
 import my.garden.dto.BoardReviewRecommendDTO;
+import my.garden.dto.ShopListDTO;
 
 @Repository
 public class BoardReviewDAOImpl implements BoardReviewDAO{
 	@Autowired
 	private SqlSessionTemplate sst;
 
+	public List<ShopListDTO> dCompletedPNums(String BR_EMAIL){
+		return sst.selectList("boardReviewMB.dCompletedPNums", BR_EMAIL);		
+	}
 
 	public int writeReview(BoardReviewDTO dto) {	//글작성	
 		return sst.insert("boardReviewMB.writeReview",dto);
@@ -172,5 +176,6 @@ public class BoardReviewDAOImpl implements BoardReviewDAO{
 	public List<BoardReviewDTO> topRcmdReviews(){
 		return sst.selectList("boardReviewMB.topRcmdReviews");
 	}
+	
 	
 }

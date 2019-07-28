@@ -17,14 +17,12 @@ public interface BoardQnADAO {
 	
 	public BoardQnADTO readQnA(int bq_no) throws Exception;
 	public int updateQnA(BoardQnADTO dto, int bq_no) throws Exception;
-
+	public int deleteQnA(int bq_no) throws Exception;
+	
 	public int writeComment(CommentQnADTO dto) throws Exception;
-	public int setAnsY(int cq_no) throws Exception;
-	
+	public int setAnsY(int cq_no) throws Exception;	
 	public CommentQnADTO commentList(int cq_no) throws Exception;
-	
-	public int updateComment(int cq_no, String cq_comment) throws Exception;
-	
+	public int updateComment(int cq_no, String cq_comment) throws Exception;	
 	public int deleteComment(int cq_no) throws Exception;	
 	public int setAnsN(int cq_no) throws Exception;
 	

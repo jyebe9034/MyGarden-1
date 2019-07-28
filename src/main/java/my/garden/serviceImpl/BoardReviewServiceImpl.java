@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import my.garden.dao.BoardReviewDAO;
 import my.garden.dto.BoardReviewDTO;
 import my.garden.dto.BoardReviewRecommendDTO;
+import my.garden.dto.ShopListDTO;
 import my.garden.service.BoardReviewService;
 
 @Service
@@ -26,6 +27,10 @@ public class BoardReviewServiceImpl implements BoardReviewService{
 
 	@Autowired
 	private BoardReviewDAO brDao;
+	
+	public List<ShopListDTO> dCompletedPNums(String BR_EMAIL) throws Exception{
+		return brDao.dCompletedPNums(BR_EMAIL);
+	}
 	
 	public int writeReview(BoardReviewDTO dto) throws Exception{
 		return brDao.writeReview(dto);
