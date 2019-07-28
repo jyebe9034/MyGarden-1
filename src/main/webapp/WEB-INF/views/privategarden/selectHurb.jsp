@@ -366,6 +366,5 @@
 			$("#addrConfirm").hide();
 		})
 	</script>
-	<jsp:include page="../module/fixedFooter.jsp"></jsp:include>
 </body>
 </html>
