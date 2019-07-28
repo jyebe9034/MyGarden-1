@@ -21,9 +21,6 @@ import my.garden.service.ChatService;
 
 @ServerEndpoint(value="/chatcontrol", configurator=HttpSessionSetter.class)
 public class WebChat {
-	
-	@Autowired
-	private ChatService cservice;
 
 	// 웹소켓 Session이 필요함. 이 Session은 http의 session과는 다른 애야. Session이 클라이언트의 정보를 담고있어.
 	private static Set<Session> clientSet = Collections.synchronizedSet(new HashSet<Session>()); 
@@ -44,13 +41,10 @@ public class WebChat {
 	
 		if(client != admin) { // 만약 client가 관리자가 아니라면(즉, 소비자가 메세지를 보낸다면)
 			admin.getBasicRemote().sendText(id + " : " + msg); // client의 메세지는 관리자에게 전달되어야 하고
-//			cservice.insertClientSendMessageService(id, msg, "client");
 		}else if(client == admin) { // 만약 client가 관리자라면(즉, 관리자가 메세지를 보낸다면)
 			String cid = arr[2];
 			Session toclient = clients.get(cid);
 			toclient.getBasicRemote().sendText(msg);
-			System.out.println(id+" : "+msg+" : "+cid);
-//			cservice.insertAdminSendMessageService(id, msg, cid, "admin");
 		}	
 	}
 

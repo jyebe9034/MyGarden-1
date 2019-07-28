@@ -9,23 +9,18 @@ public class ChatDTO {
 	private String c_recieve_email;
 	private String c_grade;
 	private Timestamp c_querydate;
+	private String c_answer;
 	
 	public ChatDTO() {}
-	public ChatDTO(String c_sendemail, String c_message, String c_grade, Timestamp c_querydate) {
-		super();
-		this.c_sendemail = c_sendemail;
-		this.c_message = c_message;
-		this.c_grade = c_grade;
-		this.c_querydate = c_querydate;
-	}
-	public ChatDTO(String c_sendemail, String c_message, String c_recieve_email, String c_grade,
-			Timestamp c_querydate) {
+	public ChatDTO(String c_sendemail, String c_message, String c_recieve_email, String c_grade, Timestamp c_querydate,
+			String c_answer) {
 		super();
 		this.c_sendemail = c_sendemail;
 		this.c_message = c_message;
 		this.c_recieve_email = c_recieve_email;
 		this.c_grade = c_grade;
 		this.c_querydate = c_querydate;
+		this.c_answer = c_answer;
 	}
 	
 	public String getC_sendemail() {
@@ -58,4 +53,11 @@ public class ChatDTO {
 	public void setC_querydate(Timestamp c_querydate) {
 		this.c_querydate = c_querydate;
 	}
+	public String getC_answer() {
+		return c_answer;
+	}
+	public void setC_answer(String c_answer) {
+		this.c_answer = c_answer;
+	}
+	
 }

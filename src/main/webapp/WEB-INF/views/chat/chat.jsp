@@ -84,23 +84,37 @@
 	}
 </style>
 <script>
-// 	$(function(){
-// 		$.ajax({
-// 			url : "selectChat",
-// 			type : "post",
-// 			data : ${loginId}
-// 		}).done(function(resp){
-// 			for(tmp : resp){
-// 				console.log(tmp);
-// 			}
-// 		})
-// 	}) 
+	$(function(){
+		$.ajax({
+			url : "selectAllForClient",
+			type : "post",
+			dataType : "json",
+			data : {
+				grade : "${loginId}"		
+			}
+		}).done(function(resp){
+			$.each(resp, function(i, item){
+				var msg = item.c_message;
+				if(i%2 == 0){
+					$("#chatContents").append("<p class='mine'>" + msg + "</p>");
+				}else{
+					var line = $("<div class='messages'></div>");
+					line.append("<div class='answer'>" + item.c_message + "</div>");
+					$("#chatContents").append(line);
+				}
+			})
+			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+		})
+	})
 </script>
 </head>
 <body>
 	<div id="chatBorder">
 		<div id="firstmsg" class="msg">안녕하세요!</div>
-		<div id="secondmsg" class="msg">문의하시면 몇분 내에 답변해드립니다.</div> 
+		<div id="secondmsg" class="msg">
+			문의하시면 몇분 내에 답변해드립니다.<br>
+			한번 문의하시면 답변을 받은 뒤 다른문의가 가능합니다.
+		</div> 
 		<div id="chatContents"></div>
 	</div>
 	<input type="text" id="message" placeholder="문의 내용을 입력하세요">
@@ -114,6 +128,7 @@
 			line.append("<div class='answer'>" + msg.data + "</div>");
 			$("#chatContents").append(line);
 			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+			$("#send").prop("disabled", false);
 		} // 서버로부터 메세지가 도착한 경우
 		
 		$("#send").on("click",function(){
@@ -123,6 +138,7 @@
 			$("#message").val("");
 			$("#message").focus();
 			socket.send("${loginId} : " + msg);
+			$(this).prop("disabled", true);
 		}) // 서버로 메세지를 보내는 경우
 	
 		$("#message").keyup(function(key){
