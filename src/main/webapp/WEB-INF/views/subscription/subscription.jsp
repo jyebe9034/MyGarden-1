@@ -434,6 +434,7 @@
 		$(".item").on("click", function() {
 			var item = $(this);
 			$(".item").css("border", "1px solid #d1d1d1");
+			$(".item").css("background-color", "#ffffff");
 			$(".item").attr("flag", "false");
 			item.css("border", "1px solid #44b27d");
 			item.css("background-color", "#e6ebe680");
@@ -441,7 +442,7 @@
 			$("#sb_category").val($(this).find("input:nth-child(1)").val());
 			$("#sb_price").val($(this).find("input:nth-child(2)").val());
 		})
-
+		
 		$("#next").on("click", function() {
 			if(${loginId==null}){
 				alert("로그인이 필요한 메뉴입니다.");

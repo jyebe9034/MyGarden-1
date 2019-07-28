@@ -250,13 +250,15 @@ hr {
 		})
 
 		$("#freeSearchBtn").on("click",function(){
-			if($("#searchVal").val()==""){
+			var searchVal = $("#searchVal").val().replace("(?i)<script", "&lt;script");
+			console.log(searchVal);
+			if(searchVal==""){
 				alert("검색어를 입력해주세요.");
 			}else{
 			$.ajax({
 				url:'searchForFree',
 				data:{
-					'value':$("#searchVal").val()
+					'value':searchVal
 				},
 				type:"post"
 			}).done(function (resp) {

@@ -17,6 +17,7 @@ public interface BoardFreeService {
 	public int serviceBoardCountAll()  throws Exception;
 	public int serviceBFmodify(int bf_no, String title, String content ) throws Exception;
 	public int serviceSearchCountAll(String searchVal) throws Exception;
+	public BoardFreeDTO serviceMostViewed() throws Exception;
 	
 	//댓글 
 	public int serviceCmtWrite(CommentFreeDTO dto)  throws Exception;

@@ -182,7 +182,6 @@ public class BoardFreeController {
 		try {
 			MembersDTO memDto = logDao.memSelectAll((String)session.getAttribute("loginId"));	
 			String tmpImg = memDto.getM_profile();
-			System.out.println("임시이미지"+tmpImg);
 			int result = dao.serviceWrite(new BoardFreeDTO(0, dto.getBf_title(), (String)session.getAttribute("loginName"), (String)session.getAttribute("loginId"), dto.getBf_content(), null, 0, null, 0, null, 0, tmpImg));
 			request.setAttribute("result", result);
 		} catch (Exception e) {
