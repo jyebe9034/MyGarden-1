@@ -430,18 +430,15 @@ input[type=text]:placeholder,input[type=email]:placeholder, input[type=password]
            			$("input[name=m_phone]").val("");
            		}
            	});
-           	var today = new Date();
-           	var curYear = today.toString().substr(13,2);
-           	var curY = today.toString().substr(11,2);
+           	var thisYear = new Date().getFullYear();
            	$("#date").on("blur", function(){
-           		if($('#date').val().substr(2,2) <= curYear-15){
+               	console.log(thisYear);
+               	console.log(thisYear-15);
+               	console.log($('#date').val().substr(0,4));
+           		if($('#date').val().substr(0,4) <= thisYear-15){
            			$("#birthCheck").text("");
            		}else{
-           			if(curYear-15 < 10){
-               			$("#birthCheck").text(curY + "0" + curYear-15 + "년도 이상 출생자부터 가입 가능합니다");
-           			}else{
-               			$("#birthCheck").text(curY + curYear-15 + "년도 이상 출생자부터 가입 가능합니다");
-           			}
+               		$("#birthCheck").text(thisYear-15 + "년도 이상 출생자부터 가입 가능합니다");
            			$("#date").val("");
            		}
            	});

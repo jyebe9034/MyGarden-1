@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import my.garden.dao.AdminDAO;
+import my.garden.dao.LoginDAO;
 import my.garden.dto.AdminMemDTO;
 import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
@@ -23,6 +24,8 @@ public class AdminController {
 
 	@Autowired
 	private AdminService dao;
+	@Autowired
+	private LoginDAO logdao;
 
 	@RequestMapping("adminIndex")
 	public String adminIndex(HttpServletRequest request) {
@@ -30,7 +33,11 @@ public class AdminController {
 		try {
 			member = dao.serviceAllMembers();
 			request.setAttribute("member", member);
-
+			String admin = (String)request.getSession().getAttribute("loginId");
+			String profileImg = logdao.memSelectAll(admin).getM_profile();
+			System.out.println(admin +":"+ profileImg);
+			
+			request.setAttribute("profileImg", profileImg);
 			request.setAttribute("totalSale", dao.serviceTotalSale());
 			request.setAttribute("totalCancel", dao.serviceTotalCancel());
 			request.setAttribute("realSale", dao.serviceTotalSale() - dao.serviceTotalCancel());

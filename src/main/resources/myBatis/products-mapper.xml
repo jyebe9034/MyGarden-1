@@ -3,9 +3,9 @@
 <mapper namespace="ProductsDAO">
 
 	<insert id="insertProducts">
-		insert into products values(p_seq.nextval, #{p_imagepath}, #{p_title}, #{p_subtitle},
-		#{p_category}, #{p_inventory}, #{p_unit}, #{p_seller}, #{p_origin}, #{p_price},
-		#{p_content}, default, default)
+		insert into products values(p_seq.nextval, #{p_imagepath,jdbcType=VARCHAR}, #{p_title,jdbcType=VARCHAR}, #{p_subtitle,jdbcType=VARCHAR},
+		#{p_category,jdbcType=VARCHAR}, #{p_inventory}, #{p_unit,jdbcType=VARCHAR}, #{p_seller,jdbcType=VARCHAR}, #{p_origin,jdbcType=VARCHAR}, #{p_price},
+		#{p_content,jdbcType=VARCHAR}, default, default)
 	</insert>
 	
 	<insert id="insertImageFile">
@@ -13,7 +13,7 @@
 	</insert>
 	
 	<select id="selectProductsListByCategory" parameterType="Map" resultType="my.garden.dto.ProductsDTO">
-		select * from (select row_number() over (order by p_no desc) as rown, products.* from products where p_category=#{category}) 
+		select * from (select row_number() over (order by p_no desc) as rown, products.* from products where p_category=#{category,jdbcType=VARCHAR}) 
 		where rown between #{start} and #{end}
 	</select>
 	
@@ -31,7 +31,7 @@
 	</delete>
 	
 	<delete id="deleteImagePath">
-		delete from image_product where img_p_title=#{img_p_title}
+		delete from image_product where img_p_title=#{img_p_title,jdbcType=VARCHAR}
 	</delete>
 	
 	<update id="updateProduct" parameterType="my.garden.dto.ProductsDTO">
@@ -46,7 +46,7 @@
 	</select>
 	
 	<select id="selectTitlesByCategory" resultType="java.lang.String">
-		select p_title from products where p_category = #{p_category}
+		select p_title from products where p_category = #{p_category,jdbcType=VARCHAR}
 	</select>
 	
 

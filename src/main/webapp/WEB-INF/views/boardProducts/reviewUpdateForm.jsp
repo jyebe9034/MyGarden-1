@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>후기수정</title>
+<title>나의 정원 - 후기수정</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 	.row.my {
@@ -218,6 +218,8 @@
 		</div>
 	</div>
 
+	<img alt="" src="/resources/products/reviewHeader.jpg" id="reviewHeaderImg">
+	
 	<!-- 리뷰 수정 폼 -->
 	<div id="wrapper">
 		<span class="boardTitle">후기수정</span>

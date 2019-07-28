@@ -63,6 +63,8 @@ public class BoardFreeController {
 						int bf_no=list.get(j).getBf_no();
 						int tmp = dao.serviceCmtCountAll(bf_no);
 						list.get(j).setBf_cmtcount(tmp);
+						String img = logDao.memSelectAll(list.get(j).getBf_email()).getM_profile();
+						list.get(j).setBf_writerImg(img);
 					}
 				}		
 			}else {

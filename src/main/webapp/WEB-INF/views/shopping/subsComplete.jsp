@@ -25,11 +25,11 @@
 }
 
 .body_sub_area table {
-	font-size: 12px;
+	font-size: 14px;
 }
 
 .body_sub_area table th {
-	font-size: 13px;
+	font-size: 15px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -409,10 +409,10 @@
 									</td>
 									<td width="300" align="right"><a href="productsList"
 										id="keepShopping"
-										style="color: #fff; font-size: 12px; text-align: center;"><div
+										style="color: #fff; font-size: 14px; text-align: center;"><div
 												style="width: 138px; height: 45px; background: #aaafaf; display: table-cell; vertical-align: middle;">쇼핑
 												계속하기</div></a> <a href="subsList" id="orderList"
-										style="color: #fff; font-size: 12px; text-align: center;"><div
+										style="color: #fff; font-size: 14px; text-align: center;"><div
 												style="width: 138px; height: 45px; background: #636666; display: table-cell; vertical-align: middle;">구독 내역</div></a></td>
 								</tr>
 

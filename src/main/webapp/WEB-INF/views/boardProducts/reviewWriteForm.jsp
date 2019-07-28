@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>후기작성</title>
+<title>나의 정원 - 후기작성</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 
@@ -115,83 +115,103 @@
 
 <!-- script -->
 	<script>
+	
+	
 		$(function(){
-			var pnumber = "${productInfo.p_no}"; //돌아가기 버튼 고치기!!!!!!
-			console.log(pnumber);
-			$(".goBackBtn").on("click",function(){
-					var pnumber = ${pnumber};
-					location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;			
-				})
+
+			$(document).bind('keydown', function(e) {
+				if (e.keyCode == 123 /* F12 */) {
+					e.preventDefault();
+					e.returnValue = false;
+				}
+			});
+
+			document.onmousedown = disableclick;
+			status = "마우스 우클릭은 사용할 수 없습니다.";
+
+			function disableclick(event) {
+				if (event.button == 2) {
+					alert(status);
+					return false;
+				}
+			}
+
 			
-				
-				
-			$(".writeBtn").on("click",function(){
+			$(".goBackBtn").on("click",function() {
+				var pnumber = "${productInfo.p_no}"; 
+				console.log(pnumber);
+				location.href = "productsRead?&revPage=1&qnaPage=1&pnumber="+ pnumber;
+			})
+
+			$(".writeBtn").on("click", function() {
 				var inputTitle = $("#inputTitle").val();
 				var inputContent = $("#inputContent").text();
-				
+
 				var cntTitle = inputTitle.length; //제목 글자수 계산
 				var cntContent = inputContent.length; //내용 글자수 계산
 				console.log("제목 글자 수 : " + cntTitle);
 				console.log("내용 글자 수 : " + cntContent);
-			
-				
-				if(inputTitle==""){
+
+				if (inputTitle == "") {
 					alert("제목을 입력하세요.");
 					event.preventDefault();
-				}else if(inputContent==""){
+				} else if (inputContent == "") {
 					alert("내용을 입력하세요.");
 					event.preventDefault();
-				}
-				else{
+				} else {
 					$("#content").val(inputContent);
 					alert("글이 등록되었습니다.");
 					//event.preventDefault();
 					$("#writeReviewForm").submit();
 				}
 			})
-			
 
-		$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
+			$('#inputTitle').on('keyup', function() { //제목 글자수 입력 제한
 				if ($(this).val().length > 30) {
 					$(this).val($(this).val().substring(0, 30));
 					alert("제목은 30자 이내만 입력이 가능합니다.");
 				}
 			});
-			
-		$(document).on('keyup', '#inputContent', function() { //내용 글자수 입력 제한
-			var inputComment = $("#inputContent").text();
-			var cntCmt = $("#content").val(inputComment);
-			//alert("입력한거ㅡㅡ: " + cntCmt.val());
+
+			$(document).on('keyup', '#inputContent', function() { //내용 글자수 입력 제한
+				var inputComment = $("#inputContent").text();
+				var cntCmt = $("#content").val(inputComment);
+				//alert("입력한거ㅡㅡ: " + cntCmt.val());
 				if ($(cntCmt).val().length > 140) {
-					$("#inputContent").text($(cntCmt).val().substring(0, 140)); 
+					$("#inputContent").text($(cntCmt).val().substring(0, 140));
 					alert("내용은 140자 이내만 입력이 가능합니다.");
 				}
 			});
-		
-		$("#image").on("change",function(){
-			var formData = new FormData();
-	    	formData.append("formData",$(this)[0].files[0]);
-		
-	    	$.ajax({
-	    		  url:"getImgs",
-	    		  type:"post",
-	    		  processData:false,
-	    		  contentType:false,
-	    		  data: formData
-	    	  }).done(function(resp){
-	    		  console.log(resp);
-	    		  //console.log(image);
-	    		  var time = new Date().getTime();
-	              console.log("time : " + time);
 
-				 $(".previewImg").html("<img src='/resources/temp/"+resp+"?time="+time+"' width='150px'>");
-				// $(".previewImg").attr("max-width","560px");/////////////////////
-							
-	    	  })
-		
-		})
-		
-		
+			$("#image").on(
+					"change",
+					function() {
+						var formData = new FormData();
+						formData.append("formData", $(this)[0].files[0]);
+
+						$.ajax({
+							url : "getImgs",
+							type : "post",
+							processData : false,
+							contentType : false,
+							data : formData
+						}).done(
+								function(resp) {
+									console.log(resp);
+									//console.log(image);
+									var time = new Date().getTime();
+									console.log("time : " + time);
+
+									$(".previewImg").html(
+											"<img src='/resources/temp/" + resp
+													+ "?time=" + time
+													+ "' width='150px'>");
+									// $(".previewImg").attr("max-width","560px");
+
+								})
+
+					})
+
 		})
 	</script>
 </head>

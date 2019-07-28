@@ -6,8 +6,9 @@
 <style>
 	.imageContainer{height:300px; overflow:hidden;}
 	.carousel-inner{margin-top:-120px;}
-	.overview{padding:20px 30px 20px 30px;}
-	.gardenImg{width:95%px; height:150px; overflow:hidden;}
+	.overview{padding:20px 30px 10px 30px;}
+	.overview2{padding:20px 10px 10px 0px;}
+	.gardenImg{width:95%; height:150px; overflow:hidden;}
 /* 	.gardenImg img{background-size:cover;} */
 	.currentActive{background:#4f9c87; color:#fff;}
 	.bg-f5{background: #f5f5f5;}
@@ -20,6 +21,7 @@
 	.filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 	.gardenUpdateBtn:nth-child(2){top:35%; left:50%; margin-left:-20px; display:none;}
 	.gardenImg:hover .gardenUpdateBtn:nth-child(2){display:block;}
+	.hoverImg{margin-left:-15px;}
 	.gardenImg:hover .hoverImg{filter: brightness(70%); cursor:pointer;}
 </style>    
 <!-- js -->
@@ -59,26 +61,9 @@
        	$('.gardenUpdateBtn').on('click', function(){
        		$("#gardenName").text("");
    			$("#fileName").text("");
-       	});
-       	$("input[name=m_garden]").on("blur", function(){
-       		var regexGarden=/^[가-힣A-z]{2,12}$/;
-       		if(regexGarden.exec($("input[name=m_garden]").val())){
-           		$.ajax({
-           			url:"/gardenCheck",
-           			type:"post",
-           			data : {key : $("input[name=m_garden]").val()}
-           		}).done(function(resp){
-           			if(resp==true){
-               			$("#gardenName").text("중복되는 정원 이름입니다");
-               			$("input[name=m_garden]").val("");
-           			}else{
-               			$("#gardenName").text("");
-           			}
-           		});
-       		}else{
-       			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
-       			$("input[name=m_garden]").val("");
-       		}
+   			$("#ex_file").val("");
+   			$('input[name=m_garden]').val("");
+   			$('.profile').css('display', 'none');
        	});
        	$('.changeProfileBtn').on('click', function(){
    			if($('#ex_file').val()!=""){
@@ -92,10 +77,28 @@
         });	
        	$('.changeNameBtn').on('click', function(){
    			if($('input[name=m_garden]').val()!=""){
-       			var con = confirm('이대로 제출하시겠습니까?');
-				if(con){
-               		$('.changeGardenName').submit();	
-           		}
+   				var regexGarden=/^[가-힣A-z]{2,12}$/;
+   	       		if(regexGarden.exec($("input[name=m_garden]").val())){
+   	           		$.ajax({
+   	           			url:"/gardenCheck",
+   	           			type:"post",
+   	           			data : {key : $("input[name=m_garden]").val()}
+   	           		}).done(function(resp){
+   	           			if(resp==true){
+   	               			$("#gardenName").text("중복되는 정원 이름입니다");
+   	               			$("input[name=m_garden]").val("");
+   	           			}else{
+   	               			$("#gardenName").text("");
+   	            			var con = confirm('이대로 제출하시겠습니까?');
+   	     					if(con){
+   	                    		$('.changeGardenName').submit();	
+   	                		}
+   	           			}
+   	           		});
+   	       		}else{
+   	       			$("#gardenName").text("2~12단어로 이루어진 영어, 한글만 가능합니다");
+   	       			$("input[name=m_garden]").val("");
+   	       		}
    			}else{
    				$("#gardenName").text("다시 확인 후 제출하세요");
    			}
@@ -167,7 +170,7 @@
 						  </div>
 						</div>
 				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview my">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview2 my">
 					<div class="gardenImg position-relative">
 						<img src="${memDTO.m_profile}" class="hoverImg" width="250" height="150">
 						<button type="button" class="mt-2 btn gardenUpdateBtn position-absolute" data-toggle="modal" data-target="#changeGardenProfile">

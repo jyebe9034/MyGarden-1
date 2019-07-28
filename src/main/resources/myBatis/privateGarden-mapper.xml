@@ -16,7 +16,7 @@
 	</insert>
 	
 	<update id="updatePrivateGarden" parameterType="Map">
-		update gardens set g_temper=#{temper} where g_email=#{id} 
+		update gardens set g_temper=#{temper}, g_humid=#{humid}, g_light=#{light} where g_email=#{id} 
 	</update>
 	
 </mapper>

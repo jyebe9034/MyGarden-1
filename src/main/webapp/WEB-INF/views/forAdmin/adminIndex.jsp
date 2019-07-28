@@ -9,7 +9,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"></jsp:include>
-<title>관리자 페이지 - 메인</title>
+<title>나의 정원 - 관리자 페이지 | 메인</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
 <meta name="viewport"
@@ -205,8 +205,7 @@ h4 {
 			</button>
 			<div class="sidebar-scroll">
 				<div class="user-account">
-					<img src="../../resources/admin/theme/assets/img/user.png"
-						class="img-responsive img-circle user-photo"
+					<img src="${profileImg }" class="img-responsive img-circle user-photo"
 						alt="User Profile Picture" width=150px> <br> <strong>${loginName }</strong>님,
 					안녕하세요!
 				</div>

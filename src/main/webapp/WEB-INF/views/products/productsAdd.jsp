@@ -9,7 +9,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
-<title>Product Add</title>
+<title>나의 정원 - Product Add</title>
 <style>
 	#header{
 		overflow : hidden;
@@ -76,7 +76,7 @@
 						<div id="category" class="col-10">
 							<select name="p_category" id="itemSelect" class="items">
 								<option value="fruit">fruit</option>
-								<option value="vagetable">vegetable</option>
+								<option value="vegetable">vegetable</option>
 								<option value="egg">egg</option>
 								<option value="grain">grain</option>
 								<option value="source">source</option>

@@ -1,5 +1,6 @@
 package my.garden.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import my.garden.dto.MembersDTO;
 import my.garden.dto.PrivateGardenDTO;
 import my.garden.service.PrivateGardenService;
+import my.garden.service.ShoppingService;
 
 @Controller
 public class PrivateGardenController {
@@ -19,6 +22,9 @@ public class PrivateGardenController {
 	
 	@Autowired 
 	private PrivateGardenService gservice;
+	
+	@Autowired
+	ShoppingService shsvc;
 	
 	@RequestMapping("privateGarden")
 	public String privateGarden(Model model) {
@@ -42,7 +48,14 @@ public class PrivateGardenController {
 	}
 	
 	@RequestMapping("toSelectHurb")
-	public String toSelectHurb() {
+	public String toSelectHurb(MembersDTO dto, HttpServletRequest request) {
+		String id = (String)session.getAttribute("loginId");
+		try {
+		request.setAttribute("loginDTO", shsvc.getMember(dto, id));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 		return "privategarden/selectHurb";
 	}
 	

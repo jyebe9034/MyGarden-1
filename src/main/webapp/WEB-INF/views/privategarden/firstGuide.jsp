@@ -192,13 +192,13 @@
 	}
 	
 	#clickHere img{
-		width: 80px;
+		width: 50px;
 		transform : rotate(180deg)
 	}
 	
 	#clickHere{
 		position: relative;
-		top:  230px;
+		top:  180px;
 		left:20px;
 	}
 	
