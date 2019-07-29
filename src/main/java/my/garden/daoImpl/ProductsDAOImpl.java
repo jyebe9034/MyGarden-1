@@ -112,4 +112,11 @@ public class ProductsDAOImpl implements ProductsDAO {
 		return sst.selectList("ProductsDAO.selectTitlesByCategory", p_category);
 	}
 	
+	public int updateSales(int p_no, int count) throws Exception{
+		Map<String, Integer> map = new HashMap<>();
+		map.put("p_no", p_no);
+		map.put("count", count);
+		return sst.update("ProductsDAO.updateSales", map);
+	}
+	
 }

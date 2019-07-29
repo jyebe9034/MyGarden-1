@@ -281,7 +281,7 @@
 	#cloud{
 		position:absolute;
 		top:240px;
-		left:460px;
+		left:36%;
 		border:none;
 		box-sizing: border-box;
 	}
@@ -295,7 +295,7 @@
 	#sun{
 		position:absolute;
 		top:110px;
-		left:230px;
+		left:24%;
 		border:none;
 		box-sizing: border-box;
 	}
