@@ -79,8 +79,17 @@
 		border-radius : 5px;
 	}
 	.mine{
-		margin-bottom : 0;
+		margin-top : 10px;
+		margin-bottom : 10px;
 		text-align : right;
+		color : #3e1c66;
+		font-weight : bold;
+	}
+	.messages{
+		margin-top : 10px;
+		margin-bottom : 10px;
+		color : #1a633b;
+		font-weight : bold;
 	}
 </style>
 <script>
@@ -105,6 +114,34 @@
 			})
 			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
 		})
+		
+		var socket = new WebSocket("ws://192.168.60.22/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
+		
+		socket.onmessage = function(msg){ // 콜백함수
+			var line = $("<div class='messages'></div>");
+			line.append("<div class='answer'>" + msg.data + "</div>");
+			$("#chatContents").append(line);
+			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+			$("#send").attr("flag", "true");
+		} // 서버로부터 메세지가 도착한 경우
+		
+		$("#send").on("click",function(){
+			if($(this).attr("flag") == "true"){
+				var msg = $("#message").val();
+				$("#chatContents").append("<p class='mine'>" + msg + "</p>");
+				socket.send("${loginId} : " + msg);	
+				$("#message").val("");
+				$("#message").focus();
+			}
+			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+			$(this).attr("flag", "false");
+		}) // 서버로 메세지를 보내는 경우
+	
+		$("#message").keyup(function(key){
+			if(key.keyCode == 13){
+				$("#send").click();
+			}
+		})
 	})
 </script>
 </head>
@@ -118,34 +155,6 @@
 		<div id="chatContents"></div>
 	</div>
 	<input type="text" id="message" placeholder="문의 내용을 입력하세요">
-	<input type="button" id="send" value="Send">
-	
-	<script>
-		var socket = new WebSocket("ws://192.168.60.22/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
-		
-		socket.onmessage = function(msg){ // 콜백함수
-			var line = $("<div class='messages'></div>");
-			line.append("<div class='answer'>" + msg.data + "</div>");
-			$("#chatContents").append(line);
-			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
-			$("#send").prop("disabled", false);
-		} // 서버로부터 메세지가 도착한 경우
-		
-		$("#send").on("click",function(){
-			var msg = $("#message").val();
-			$("#chatContents").append("<p class='mine'>" + msg + "</p>");
-			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
-			$("#message").val("");
-			$("#message").focus();
-			socket.send("${loginId} : " + msg);
-			$(this).prop("disabled", true);
-		}) // 서버로 메세지를 보내는 경우
-	
-		$("#message").keyup(function(key){
-			if(key.keyCode == 13){
-				$("#send").click();
-			}
-		})
-	</script>
+	<input type="button" id="send" value="Send" flag="true">
 </body>
 </html>

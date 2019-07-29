@@ -199,9 +199,9 @@
    $(function(){       
 	 //----- 레시피 시작 ------
 	   var recipe = '${recipe.bf_content}';
-	   var rRegex = /(<img.+?.>)/g;
+	   var rRegex = /(\/resources.+?\.png|\.jpg|\.jpeg|\.gif|\.PNG|\.JPG|\.JPEG|\.GIF)/g;
 	   var rimg = rRegex.exec(recipe);
-	   $("#recipeImg").append(rimg[1]);
+	   $("#realImg").attr("src",rimg[1]);
 	   console.log(rimg);
 	   var rcon = recipe.replace(rRegex, "");
 	   $("#recipeCont").html(rcon);
@@ -542,7 +542,9 @@
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto text-left mb-5 my scrollBar">
                 <div class=row>
                 <div class="col-12"><h5 id="recipeTitle" class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br></div>
-                <div class="col-lg-6 col-sm-12" id=recipeImg></div>
+                <div class="col-lg-6 col-sm-12" id=recipeImg>
+                <img src="" style=width:100% id=realImg>
+                </div>
                  <div class="col-lg-6 col-sm-12" id=recipeContBox>
                     <div id=recipeCont></div>
                  </div>

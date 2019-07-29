@@ -155,8 +155,11 @@
       /* 검색기능 by 지혜 */
       $("#searchBtn").on("click", function(){
     	  var keyword = $("#keyword").val();
-    	  console.log(keyword);
-    	  $(location).attr("href", "searchKeyword?keyword=" + keyword);
+    	  keyword = keyword.replace(/(&nbsp;)+/ig, "");	// 맨 앞 공백, 공백연속으로 쳤을때 &nbsp;
+    	  keyword = keyword.replace(/^[ ]+/ig, "");	// &nbsp;자르고나서 또 맨앞에 오는 공백 자르기
+    	  keyword = keyword.replace(/(<div><br><\/div>)+/ig, "");// 내용없이 엔터쳤을때
+    	  keyword = keyword.replace(/(<div>[ ]*?<\/div>)/ig, "");// 공백만 넣고 엔터쳤을때
+    	  $(location).attr("href", "searchKeyword?keyword=" + keyword);  
       })
    });
 </script>
