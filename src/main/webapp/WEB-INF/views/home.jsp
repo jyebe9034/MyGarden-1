@@ -359,7 +359,7 @@
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#best" role="tab" aria-controls="home" aria-selected="true">Best</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#like" role="tab" aria-controls="profile" aria-selected="false">Like</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#bestReviews" role="tab" aria-controls="profile" aria-selected="false">Best Reviews</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#review" role="tab" aria-controls="contact" aria-selected="false">Review</a>
@@ -406,7 +406,7 @@
                </div>
               </div>
               
-              <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="tab-pane fade" id="bestReviews" role="tabpanel" aria-labelledby="profile-tab">
 			     <div class="row rvWrapper">
 					<c:forEach var="topReviews" items="${topReviews }">
 											<div class="col-lg-4 col-md-6 col-sm-6 rvCardBox p-3">

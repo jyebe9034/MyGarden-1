@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,14 +16,15 @@
 		text-align : left;
 	}
 	#chatBox{
-		width : 650px;
+		width : 690px;
 		margin : auto;
+		overflow-y : auto;
 	}
 	.messages{
 		width : 100%;
 	}
 	.consumer{
-		width : 150px;
+		width : 200px;
 		float : left;
 	}
 	.question{
@@ -36,6 +36,32 @@
 		float : left;
 	}
 </style>
+<script>
+	$(function(){
+		$.ajax({
+			url : "selectClientMsg",
+			type : "post",
+			dataType : "json",
+			data : {
+				grade : "client"	
+			}
+		}).done(function(resp){
+			$.each(resp, function(i,item){
+				var line = $("<div class='messages'></div>");
+				var client = item.c_sendemail;
+				var msg = item.c_message;
+				line.append("<div class='consumer'>" + client + "</div>")
+				line.append("<div class='question'>" + msg + "</div>");
+				if(item.c_answer == "n"){
+					line.append("<button id='temp' type='button' class='btn btn-sm btn-outline-primary answer' data-toggle='modal' data-target='#exampleModalCenter'>답변하기</button>");
+				}else{
+					line.append("<button id='temp' type='button' class='btn btn-sm btn-outline-primary answer' data-toggle='modal' data-target='#exampleModalCenter' disabled='true'>답변완료</button>");
+				}
+				$("#msgBox").prepend(line);
+			})
+		})
+	})
+</script>
 </head>
 <body>
 <!-- header -->
@@ -74,10 +100,10 @@
 				  <a href="/mypageInfo" class="list-group-item list-group-item-action">내 정보 수정</a>
 				  <a href="orderList" class="list-group-item list-group-item-action">구매 내역</a>
 				  <a href="subsList" class="list-group-item list-group-item-action">정기 구독</a>
-				  <%-- <c:if test="${grade == 'admin'}"> --%>
+				  <c:if test="${grade == 'admin'}">
 				  		<a href="productsAdd" class="list-group-item list-group-item-action">상품 등록</a>
 				  		<a href="chatManage" class="list-group-item list-group-item-action currentActive">채팅 문의 관리</a>
-				  <%-- </c:if> --%>
+				  </c:if>
 				  <a href="/mypageDelete" class="list-group-item list-group-item-action">탈퇴하기</a>
 				</div>
 			</div>
@@ -90,6 +116,7 @@
 						<div class="question">문의 내용</div>
 						<div class="answer">답변하기</div>
 					</div>
+					<div id="msgBox"></div>
 				</div>
 			</div>
 			
@@ -130,8 +157,19 @@
 			line.append("<div class='consumer'>" + arr[0] + "</div>")
 			line.append("<div class='question'>" + arr[1] + "</div>");
 			line.append("<button id='temp' type='button' class='btn btn-sm btn-outline-primary answer' data-toggle='modal' data-target='#exampleModalCenter'>답변하기</button>");
-			$("#chatBox").append(line);
-			/* $("#chatBox").scrollTop($("#chatContents")[0].scrollHeight); */
+			$("#msgBox").prepend(line);
+			
+			$.ajax({
+				url : "clientMsg",
+				type : "post",
+				data : {
+					client : arr[0],
+					msg : arr[1]
+				}
+			}).done(function(resp){
+				console.log(resp);
+			})
+			
 		} // 서버로부터 메세지가 도착한 경우
 		
 		$("#send").on("click",function(){
@@ -141,6 +179,19 @@
 			socket.send("admin123@naver.com" + " : " + msg + " : " + id);
 			$("#message").text("");
 			$("#close").click();
+			
+			$.ajax({
+				url : "adminMsg",
+				type : "post",
+				data : {
+					admin : 'admin123@naver.com',
+					msg : msg,
+					client : id
+				}
+			}).done(function(resp){
+				console.log(resp);
+			})
+			
 		}) // 서버로 메세지를 보내는 경우
 		
 		$(document).on("click", "#temp", function(){
@@ -150,12 +201,6 @@
 			btn.text("답변완료");
 			btn.prop("disabled", true);
 		})
-	
-		/* $("#message").keyup(function(key){
-			if(key.keyCode == 13){
-				$("#send").click();
-			}
-		}) */
 	</script>
 </body>
 </html>
