@@ -18,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	AdminDAO dao;
-	
+
 	@Autowired
 	ScheduleTask schedule;
 
@@ -50,6 +50,10 @@ public class AdminServiceImpl implements AdminService {
 		return dao.orderCheckList(stat);
 	}
 
+	public List<PrivateGardenDTO> servicePopularHerb() throws Exception{
+		return dao.popularHerb();	
+	}
+
 
 	@Transactional("txManager")
 	public int serviceUpdateOrder(String orderNo, String stat) throws Exception{
@@ -59,11 +63,11 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return dao.updateOrder(orderNo, stat);
 	}
-	
+
 	public int serviceUpdateSubscribe(String orderNo, String stat) throws Exception{
 		return dao.updateSubscribe(orderNo, stat);
 	}
-	
+
 	public List<PrivateGardenDTO> servicePrivateList() throws Exception{
 		return dao.privateList();
 	}

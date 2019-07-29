@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -54,7 +55,120 @@
 		h1{
       		font-family: 'Merienda One', cursive;
       		color: #3a5c19;
+      	}
+      	
 
+      	.rvWrapper{
+      		width: 90%;
+      		margin: 0 auto;
+      		margin-top: 50px;
+      	}
+      	
+      	.rvCard{
+      		width: 90%;
+      		margin: auto;
+      		height: 400px;
+      		margin: 0 auto;
+      	}
+      	
+      	.imageBox{
+      		height: 40%;
+/*       		width: 40%; */
+      	}
+      	.imageBox img{
+      		max-height: 100%;
+      		border-radius: 5px;
+      		padding: 5px;
+      	}
+      	
+      	.contentsBox{
+       		height:60%; 
+      	}
+      	.contentsBox .card-body{
+      		height:100%;
+      	}
+      	.rvContents{
+      		height: 60%;
+      		text-overflow: ellipsis;
+      		display: block;
+      	}
+      	
+      	.rvContents span{
+      		width:100%;
+/*       		height:40%; */
+      		font-size: 18px;
+      		font-weight: bold;
+      		overflow: hidden;
+		    text-overflow: ellipsis;
+		    display: -webkit-box;
+		    -webkit-line-clamp: 2; /* 라인수 */
+		    -webkit-box-orient: vertical;
+		    word-wrap:break-word; 
+		    line-height: 1.2em;
+		    height: 2.5em; /* line-height 가 1.2em 이고 2라인을 자르기 때문에 height는 1.2em * 2 = 2.6em */
+      	}
+      	
+      	.rvContents p{
+      		width: 100%;
+      		font-size: 13px;
+/*       		margin-bottom: 10px; */
+		 	overflow: hidden;
+		    text-overflow: ellipsis;
+		    display: -webkit-box;
+		    -webkit-line-clamp: 3;
+		    -webkit-box-orient: vertical;
+		    word-wrap:break-word; 
+		    line-height: 1.2em;
+		    height: 3.6em;
+      	}
+      	
+      	.rvBottom{
+      		height:25%;
+      	}
+      	.rvBottom a{
+      		border : 1px solid #4f9c87;
+      		background-color: white;
+      		color:#4f9c87;
+      	}
+      	.rvBottom a:hover{
+      		border : 1px solid white;
+      		background-color: #4f9c87;
+      		color:white;
+      	}
+      	
+      	.rvCard:hover{
+      		cursor: pointer;
+      		filter: brightness(90%); 
+      	}
+      	
+      	#rvModal{
+      		margin-top : 50px;
+      	}
+      	
+      	.md_rvImgBox img{
+      		margin-bottom: 20px;
+      	}
+      	.rvMdCloseBtn{
+      	border : 1px solid white;
+      		background-color: #4f9c87;
+      		color:white;
+      	}
+      	.rvMdCloseBtn:hover{
+      	border : 1px solid #4f9c87;
+      		background-color: white;
+      		color:#4f9c87;
+      	}
+      	
+      	.recipeBox{
+      		height: 465px;
+      	}
+      	#recipeImg{
+      		position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
       	}
 	</style>
 </head>
@@ -117,7 +231,25 @@
             $(location).attr('href', $(this).attr('href'));
          });
    });
-         
+   
+	
+   $(".goPboardBtn").on("click",function(){
+	   $(".rvCard").attr("data-target","");
+   })
+   
+   $(document).on("click",".rvCard",function(){ //best리뷰 전체내용 모달창
+		   var imgSrc = $(this).children().val();
+		   var rvTitile = $(this).children().next().val();
+		   var rvContent = $(this).children().next().next().val();
+		   console.log("imgSrc : " + imgSrc);
+		   console.log("rvTitile : " + rvTitile);
+		   console.log("rvContent : " + rvContent);
+		   $("#md_rvTitle").text(rvTitile);
+		   $(".md_rvImgBox img").attr("src",imgSrc);
+		   $(".md_rvContent").text(rvContent);
+	   })
+	   
+   
    </script>
 
 <!-- advertise header -->
@@ -164,6 +296,7 @@
                       <p class="font-weight-bold"">나만의 정원에서는 언제든 신선한 채소를 만나볼 수 있어요!</p>
                     </div>
                   </div>
+
                     <div class="carousel-item">
                     <img src="resources/img/caro1.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption d-none d-md-block text-left mb-5">
@@ -238,7 +371,7 @@
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#best" role="tab" aria-controls="home" aria-selected="true">Best</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#like" role="tab" aria-controls="profile" aria-selected="false">Like</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#bestReviews" role="tab" aria-controls="profile" aria-selected="false">Best Reviews</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#review" role="tab" aria-controls="contact" aria-selected="false">Review</a>
@@ -284,7 +417,67 @@
                   </div>
                </div>
               </div>
-              <div class="tab-pane fade" id="like" role="tabpanel" aria-labelledby="profile-tab">...</div>
+              
+              <div class="tab-pane fade" id="bestReviews" role="tabpanel" aria-labelledby="profile-tab">
+			     <div class="row rvWrapper">
+					<c:forEach var="topReviews" items="${topReviews }">
+											<div class="col-lg-4 col-md-6 col-sm-6 rvCardBox p-3">
+												<div class="card mb-3 rvCard"  data-toggle="modal" data-target="#rvModal">
+													<input type="hidden" value="${topReviews.br_imagepath }">
+													<input type="hidden" value="${topReviews.br_title }">
+													<input type="hidden" value="${topReviews.br_content }">
+						
+													<div class="imageBox">
+														<img src="${topReviews.br_imagepath }" class="card-img" onerror="this.src='/resources/free/noImg.png'" >
+													</div>
+													<div class="contentsBox">
+														<div class="card-body">
+															<div class="rvContents">
+																<span class="card-title">${topReviews.br_title }</span>
+																<p class="card-text">${topReviews.br_content }</p>
+															</div>
+															<div class="rvBottom">
+																<p class="card-text">
+																	<small class="text-muted">
+																		<fmt:formatDate pattern="yyyy-MM-dd" value="${topReviews.br_date }"/>
+																	</small>
+																</p>
+																<a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn btn-lg goPboardBtn">상품 보러 가기</a>
+													
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+						</c:forEach>
+					</div> 
+				 </div>
+				 			<!-- Modal for Reviews -->  
+				            <div class="modal fade" id="rvModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="md_rvTitle"></h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							        <div class="md_rvImgBox">
+							        	<img src="" class="card-img" onerror="this.src='/resources/free/noImg.png'" >							
+							       	</div>
+							       	<div class="md_rvContentBox">
+							       		<div class="md_rvContent"></div>
+							       	</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn rvMdCloseBtn btn-lg" data-dismiss="modal">Close</button>
+				<!-- 			        <button type="button" class="btn btn-primary">상품 보러 가기</button> -->
+							      </div>
+							    </div>
+							  </div>
+			  				</div>
+              
               <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
          </div>
@@ -324,21 +517,15 @@
             <h4 class="pt-2 pb-4">정원 오너들이 공유하는 레시피</h4>
          </div>
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar text-left mb-5 my">
-            <img src="resources/img/main1.jpg" width="400" height="600" style="float:left;" class="pr-2">
-            <div style="float:left;" class="pt-4 pr-2 pl-2 pb-2">
-               <h5 class="font-weight-bold">레시피 제목</h5>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-            </div>
+          	<div class="row recipeBox">
+          		<div class="col-lg-6 col-sm-12" >
+          			<img src="resources/img/main1.jpg" width="400" height="auto" class="pr-2" id=recipeImg>
+          		</div>
+           		<div class="col-lg-6 col-sm-12">
+           			<h5 class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br>
+           			<div id=recipeCont></div>
+           		</div>
+           </div>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
@@ -365,6 +552,7 @@
    
    <!-- footer -->
    <jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"/>
+
    <c:if test="${grade == 'public' || grade == 'private'}">
       <div id="chatWrap">
          <img id="chatBtn" src="/resources/img/chat.png">
@@ -373,6 +561,21 @@
          <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
       </div>
    </c:if>
-
 </body>
+
+<script>
+
+//----- 레시피 시작 ------
+var recipe = '${recipe.bf_content}';
+var rimgRegex = /(\/re.+?png)/;
+var rimg = rimgRegex.exec(recipe);
+$("#recipeImg").attr("src",rimg[1]);
+
+var rconRegex = /(<img.+?>)/;
+var rcon = recipe.replace(rconRegex, "");
+$("#recipeCont").html(rcon);
+//----- 레시피 끝 -----
+
+</script>
+
 </html>

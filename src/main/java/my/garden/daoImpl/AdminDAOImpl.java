@@ -76,4 +76,9 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<PrivateGardenDTO> privateList(){
 		return sst.selectList("AdminDAO.privateList");
 	}	
+	
+	public List<PrivateGardenDTO> popularHerb(){
+		return sst.selectList("AdminDAO.popularHerb");
+	}
+	
 }

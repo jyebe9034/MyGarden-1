@@ -69,7 +69,9 @@ public class BoardFreeDAOImpl implements BoardFreeDAO {
 		return sst.selectOne("BoardFreeDAO.boardCountAll");
 	}
 	
-	
+	public BoardFreeDTO mostViewed() {
+		return sst.selectOne("BoardFreeDAO.mostViewed");
+	}
 	
 	//댓글 관련 DAO
 	public int cmtCountAll(int cf_bf_no) {

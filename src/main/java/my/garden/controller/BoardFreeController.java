@@ -63,6 +63,8 @@ public class BoardFreeController {
 						int bf_no=list.get(j).getBf_no();
 						int tmp = dao.serviceCmtCountAll(bf_no);
 						list.get(j).setBf_cmtcount(tmp);
+						String img = logDao.memSelectAll(list.get(j).getBf_email()).getM_profile();
+						list.get(j).setBf_writerImg(img);
 					}
 				}		
 			}else {
@@ -180,7 +182,6 @@ public class BoardFreeController {
 		try {
 			MembersDTO memDto = logDao.memSelectAll((String)session.getAttribute("loginId"));	
 			String tmpImg = memDto.getM_profile();
-			System.out.println("임시이미지"+tmpImg);
 			int result = dao.serviceWrite(new BoardFreeDTO(0, dto.getBf_title(), (String)session.getAttribute("loginName"), (String)session.getAttribute("loginId"), dto.getBf_content(), null, 0, null, 0, null, 0, tmpImg));
 			request.setAttribute("result", result);
 		} catch (Exception e) {

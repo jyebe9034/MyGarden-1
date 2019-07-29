@@ -20,4 +20,5 @@ public interface AdminService {
 	public int serviceUpdateSubscribe(String orderNo, String stat) throws Exception;
 	public List<PrivateGardenDTO> servicePrivateList() throws Exception;
 	public int serviceUpdateOrder(String orderNo, String stat) throws Exception;
+	public List<PrivateGardenDTO> servicePopularHerb() throws Exception;
 }

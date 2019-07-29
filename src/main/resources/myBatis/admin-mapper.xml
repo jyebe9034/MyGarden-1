@@ -44,5 +44,9 @@
 	<select id="privateList" resultType="my.garden.dto.PrivateGardenDTO">
 	select * from gardens
 	</select>
+	
+	<select id="popularHerb" resultType="my.garden.dto.PrivateGardenDTO">
+	select g_herb, count(*) as g_temper from gardens group by g_herb
+	</select>
 
 </mapper>

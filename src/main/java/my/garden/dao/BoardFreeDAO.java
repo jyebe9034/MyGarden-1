@@ -18,6 +18,7 @@ public interface BoardFreeDAO {
 	public int modify(int bf_no, String column, String value);
 	public int boardCountAll();
 	public int searchCountAll(String searchVal);
+	public BoardFreeDTO mostViewed();
 
 	public int cmtWrite(CommentFreeDTO dto);
 	public List<CommentFreeDTO> cmtList(int bf_no, int start, int end);

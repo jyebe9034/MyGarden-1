@@ -52,7 +52,12 @@ public class BoardQnAServiceImpl implements BoardQnAService{
 		return qnaDao.updateQnAImg3(bq_no, bq_imagepath);
 	}
 	
-	
+	@Transactional("txManager")
+	public int deleteQnA(int bq_no) throws Exception {
+		int result1 = qnaDao.deleteQnA(bq_no);
+		int result2 = qnaDao.deleteComment(bq_no);
+		return result1 + result2;
+	}
 	
 //------------------------------------관리자----------------------------------------
 	@Transactional("txManager")

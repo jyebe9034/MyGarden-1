@@ -95,6 +95,10 @@ th {
 	left: 0;
 	opacity: 0.8;
 }
+
+.ct-start{
+	width: 50px !important;
+} 
 </style>
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
@@ -119,7 +123,7 @@ th {
 			</button>
 			<div class="sidebar-scroll">
 				<div class="user-account">
-					<img src="../../resources/admin/theme/assets/img/user.png"
+					<img src="${profileImg }"
 						class="img-responsive img-circle user-photo"
 						alt="User Profile Picture" width=150px> <br> <strong>${loginName }</strong>님,
 					안녕하세요!
@@ -168,8 +172,9 @@ th {
 										<td>${tmp.g_email }</td>
 										<td>${tmp.g_name }</td>
 										<td>${tmp.g_gardenname }</td>
-										<td><fmt:formatDate value="${tmp.g_enrolldate }" pattern="yyyy-MM-dd"/></td>
-										<td>${tmp.g_hurb }</td>
+										<td><fmt:formatDate value="${tmp.g_enrolldate }"
+												pattern="yyyy-MM-dd" /></td>
+										<td>${tmp.g_herb }</td>
 										<td>${tmp.g_temper }</td>
 										<td>${tmp.g_humid }</td>
 										<td>${tmp.g_light }</td>
@@ -196,16 +201,19 @@ th {
 					</table>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel-content">
+						<h3 class="section-title">
+							<i class="fa fa-leaf"></i> 허브 선호도
+						</h3><br>
+						<div id="demo-bar-chart" class="ct-chart"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="clearfix"></div>
-	<footer>
-	<p class="copyright">
-		&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme
-			I Need</a>. All Rights Reserved.
-	</p>
-	</footer>
-	</div>
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script
@@ -256,6 +264,29 @@ th {
 	<script>
 		$(".menuScrollOption").hide();
 		$(".clickToClose").hide();
+
+		var data = {
+				labels : ${herbList},
+				series : [ ${herbCount} ]
+			};
+
+		// line chart
+		options = {
+			height: "300px",
+			showPoint: true,
+			axisX: {
+				showGrid: false
+			},
+			lineSmooth: false,
+			plugins: [
+				Chartist.plugins.tooltip({
+					appendToBody: true
+				}),
+			]
+		};
+
+		new Chartist.Bar('#demo-bar-chart', data, options);
+
 	</script>
 </body>
 </html>
