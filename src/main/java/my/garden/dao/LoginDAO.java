@@ -350,7 +350,7 @@ public class LoginDAO {
  
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
         postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.60.22/kakaoCallback")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
         postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
  
         final HttpClient client = HttpClientBuilder.create().build();
