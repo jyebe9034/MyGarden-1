@@ -287,7 +287,6 @@ hr {
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
-	console.log($("#content").html());
 	
    function maxCheck(i){
 		if(i.length==300){

@@ -47,8 +47,8 @@ public class PrivateGardenController {
 		}
 	}
 	
-	@RequestMapping("toSelectHurb")
-	public String toSelectHurb(MembersDTO dto, HttpServletRequest request) {
+	@RequestMapping("toSelectHerb")
+	public String toSelectherb(MembersDTO dto, HttpServletRequest request) {
 		String id = (String)session.getAttribute("loginId");
 		try {
 		request.setAttribute("loginDTO", shsvc.getMember(dto, id));
@@ -56,10 +56,10 @@ public class PrivateGardenController {
 			e.printStackTrace();
 			return "error";
 		}
-		return "privategarden/selectHurb";
+		return "privategarden/selectHerb";
 	}
 	
-	@RequestMapping("toConfirmHurb")
+	@RequestMapping("toConfirmherb")
 	public String insertPrivateGarden(String herb) {
 		String id = (String)session.getAttribute("loginId");
 		try {

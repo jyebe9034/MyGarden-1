@@ -1,11 +1,11 @@
 package my.garden.controller;
 
 
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,10 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import my.garden.dto.BoardFreeDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ProductsDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
+import my.garden.service.BoardFreeService;
+import my.garden.service.BoardReviewService;
 import my.garden.service.ProductsService;
 import my.garden.serviceImpl.LoginServiceImpl;
 
@@ -29,6 +32,10 @@ public class LoginController {
 
 	@Autowired
 	private ProductsService pservice;
+	@Autowired
+	private BoardReviewService brService;
+	@Autowired
+	private BoardFreeService bfs;
 	@Autowired
 	LoginServiceImpl loginserv;
 	@Autowired
@@ -77,7 +84,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/isLoginOk")
-	public String isLoginOk(String loginId, String loginPw) {
+	public String isLoginOk(HttpServletRequest request, String loginId, String loginPw) {
 		loginserv.isLoginOk(loginId, loginPw);
 		if(loginserv.isLoginOk(loginId, loginPw)==null) {
 			return "login/loginThrough";
@@ -88,6 +95,12 @@ public class LoginController {
 			String grade = loginserv.getGrade(loginId);
 			session.setAttribute("grade", grade);
 			try {
+				// 레시피 보여주기
+				BoardFreeDTO recipe = bfs.serviceMostViewed();
+				request.setAttribute("recipe", recipe);
+				// 탑리뷰 보여주기	
+				request.setAttribute("topReviews", brService.topRcmdReviews());
+				// 베스트 상품 보여주기
 				List<ProductsDTO> best = pservice.selectBestProductsService();
 				session.setAttribute("best", best);
 			}catch(Exception e) {
