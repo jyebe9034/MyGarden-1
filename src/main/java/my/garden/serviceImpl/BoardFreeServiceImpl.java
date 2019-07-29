@@ -65,6 +65,10 @@ public class BoardFreeServiceImpl implements BoardFreeService{
 		return dao.getBoardNavi(currentPage, recordTotalCount);
 	}
 	
+	public BoardFreeDTO serviceMostViewed() throws Exception{
+		return dao.mostViewed();
+	}
+	
 	//댓글
 	public int serviceCmtWrite(CommentFreeDTO dto)  throws Exception{
 		return dao.cmtWrite(dto);

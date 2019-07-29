@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import my.garden.dao.ProductsDAO;
 import my.garden.dao.ShoppingDAO;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
@@ -22,6 +23,9 @@ public class ShoppingServiceImpl implements ShoppingService{
 
 	@Autowired
 	ShopListDTO dto;
+	
+	@Autowired
+	private ProductsDAO pdao;
 
 	public List<CartDTO> getCartList(String userId) throws Exception{
 		return dao.selectCartList(userId);
@@ -47,6 +51,10 @@ public class ShoppingServiceImpl implements ShoppingService{
 			}
 			dao.insertIntoShopList(dto);
 			dao.delCartOrderd(id, dto.getS_p_title());
+			
+			int p_no = dto.getS_p_no();
+			int count = dto.getS_p_count();
+			pdao.updateSales(p_no, count);
 		}	
 	}
 

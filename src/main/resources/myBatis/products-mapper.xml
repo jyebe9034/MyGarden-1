@@ -47,7 +47,11 @@
 	
 	<select id="selectTitlesByCategory" resultType="java.lang.String">
 		select p_title from products where p_category = #{p_category,jdbcType=VARCHAR}
-	</select>
+	</select>	
+	
+	<update id="updateSales" parameterType="Map">
+		update products set p_sales=p_sales+#{count} where p_no = #{p_no}
+	</update>
 	
 
 </mapper>
