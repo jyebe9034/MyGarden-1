@@ -33,10 +33,11 @@
          display : none;
       }
       #chatBox{
-         border-radius : 15px;
+         border-radius : 10px;
          position : fixed;
          left : 20px;
          bottom : 100px;
+         z-index:9999;
       }
       #chatWrap{
          width : 70px;
@@ -443,34 +444,34 @@
 
 			     <div class="row rvWrapper">
 					<c:forEach var="topReviews" items="${topReviews }">
-											<div class="col-lg-3 col-md-6 col-sm-6 rvCardBox">
-												<div class="card mb-3 rvCard"  data-toggle="modal" data-target="#rvModal">
-													<input type="hidden" value="${topReviews.br_imagepath }">
-													<input type="hidden" value="${topReviews.br_title }">
-													<input type="hidden" value="${topReviews.br_content }">
-						
-													<div class="imageBox">
-														<img src="${topReviews.br_imagepath }" class="card-img" onerror="this.src='/resources/free/noImg.png'" >
-													</div>
-													<div class="contentsBox">
-														<div class="card-body">
-															<div class="rvContents">
-																<span class="card-title">${topReviews.br_title }</span>
-																<p class="card-text">${topReviews.br_content }</p>
-															</div>
-															<div class="rvBottom">
-																<p class="card-text">
-																	<small class="text-muted">
-																		<fmt:formatDate pattern="yyyy-MM-dd" value="${topReviews.br_date }"/>
-																	</small>
-																</p>
-																<a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn goPboardBtn">상품보러가기</a>
-													
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+								<div class="col-lg-4 col-md-6 col-sm-12 rvCardBox">
+                                    <div class="card mb-3 rvCard"  data-toggle="modal" data-target="#rvModal">
+                                       <input type="hidden" value="${topReviews.br_imagepath }">
+                                       <input type="hidden" value="${topReviews.br_title }">
+                                       <input type="hidden" value="${topReviews.br_content }">
+                  
+                                       <div class="imageBox">
+                                          <img src="${topReviews.br_imagepath }" class="card-img" onerror="this.src='/resources/free/noImg.png'" >
+                                       </div>
+                                       <div class="contentsBox">
+                                          <div class="card-body">
+                                             <div class="rvContents">
+                                                <span class="card-title">${topReviews.br_title }</span>
+                                                <p class="card-text">${topReviews.br_content }</p>
+                                             </div>
+                                             <div class="rvBottom">
+                                                <p class="card-text">
+                                                   <small class="text-muted">
+                                                      <fmt:formatDate pattern="yyyy-MM-dd" value="${topReviews.br_date }"/>
+                                                   </small>
+                                                </p>
+                                                <a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn goPboardBtn">상품보러가기</a>
+                                       
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
 						</c:forEach>
 					</div> 
 				 </div>
@@ -550,11 +551,11 @@
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
             <div class="slider">
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10004088_1491055334449687_1187165020_n.jpg" class="special" href="/"/>
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10817863_856543214397968_517239188_n.jpg" />
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10919749_326992714172441_299394464_n.jpg" />
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10617007_939025979457209_6938406_n.jpg" />
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1168617_1435408473368301_409182770_n.jpg" />
+               <img src="http://192.168.60.22/resources/write/dlgodud8997@naver.com/1564378451041_write.png" class="special" href="/"/>
+               <img src="/resources/write/young9008@daum.net/1564388965762_write.png" />
+               <img src="/resources/write/leeeyeonji@gmail.com/1564390760203_write.png" />
+               <img src="/resources/write/admin123@naver.com/1564394628735_write.png" />
+               <img src="/resources/write/jyebe9034@gmail.com/1564396773613_write.png" />
                </div>
             <!-- partial -->
 <!--               <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->
