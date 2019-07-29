@@ -2,11 +2,7 @@ package my.garden.controller;
 
 
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,22 +17,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ProductsDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
+import my.garden.service.ProductsService;
 import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class LoginController {
-	
+
+	@Autowired
+	private ProductsService pservice;
 	@Autowired
 	LoginServiceImpl loginserv;
 	@Autowired
 	HttpServletResponse response;
 	@Autowired
 	HttpSession session;
+
 	
+
 	@RequestMapping("/login")
 	public String Login() {
 		return "login/login";
@@ -46,7 +47,7 @@ public class LoginController {
 	public String Join() {
 		return "login/join";
 	}
-	
+
 	@RequestMapping("/joinSubmit")
 	public String JoinSubmit(MembersDTO dto, MultipartFile ex_file) {
 		int result = loginserv.joinSubmit(dto, ex_file);
@@ -56,7 +57,7 @@ public class LoginController {
 			return "error";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/emailCheck")
 	public boolean eamilCheck(String key) {
@@ -68,7 +69,7 @@ public class LoginController {
 	public boolean phoneCheck(String key) {
 		return loginserv.phoneDupCheck(key);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/gardenCheck")
 	public boolean gardenCheck(String key) {
@@ -86,6 +87,13 @@ public class LoginController {
 			session.setAttribute("loginName", loginName);
 			String grade = loginserv.getGrade(loginId);
 			session.setAttribute("grade", grade);
+			try {
+				List<ProductsDTO> best = pservice.selectBestProductsService();
+				session.setAttribute("best", best);
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
 			return "home";
 		}
 	}
@@ -95,7 +103,7 @@ public class LoginController {
 		session.invalidate();
 		return "login/homeThrough";
 	}
-	
+
 	@RequestMapping("/mypageDelete")
 	public String mypageDelete() {
 		return "login/mypageDelete";
@@ -118,25 +126,25 @@ public class LoginController {
 	public boolean pwCheck(String key, String pw) {
 		return loginserv.pwDupCheck(key, pw);
 	}
-	
+
 	@RequestMapping("/mailSender")
 	public String mailSender() throws Exception {
 		String m_email = (String)session.getAttribute("loginId");
 		loginserv.mailSender(m_email);
 		return "login/findAccountAfterLogin";
 	}
-	
+
 	@RequestMapping("/findAccountAfterLogin")
 	public String findAccountAfterLogin() {
 		return "login/findAccountAfterLogin";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/findId")
 	public MembersDTO findId(String key) {
 		return loginserv.findId(key);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/findPwGetCode")
 	public String findPwGetCode(String key) {
@@ -150,7 +158,7 @@ public class LoginController {
 		loginserv.updateOne(email, pw);
 		return null;
 	}
-	
+
 	@RequestMapping("/changeGardenProfile")
 	public String changeGardenProfile(MembersDTO dto, MultipartFile ex_file) {
 		dto.setM_email((String)session.getAttribute("loginId"));
@@ -164,7 +172,7 @@ public class LoginController {
 		loginserv.changeGardenName(dto);
 		return "login/mypageFirstThrough";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/naverLogin")
 	public String naverLogin() {
@@ -187,7 +195,7 @@ public class LoginController {
 			return "login/socialLoginThrough";
 		}
 	}
-	
+
 	@RequestMapping("/socialJoin") //모든 소셜 로그인 후 페이지 이동
 	public String socialJoin(MembersDTO dto) {
 		return "login/socialJoin";
@@ -198,20 +206,20 @@ public class LoginController {
 		loginserv.socialJoinSubmit(dto);
 		return "login/findAccountAfterLogin";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/kakaoLogin")
 	public String kakaoLogin() {
 		String url = "https://kauth.kakao.com/oauth/authorize?client_id=5a8617254e6227196ff9c31a66275c78&redirect_uri=http://localhost/kakaoCallback&response_type=code";
 		return url;
 	}
-	
+
 	@RequestMapping("/kakaoCallback")
 	public String kakaoLoginMakeUrl(String code) {
 		Map<String, String> map = loginserv.kakaoLoginMakeUrl(code);
 		String socialEmail = map.get("socialEmail");
 		String profile = map.get("profile");
-		
+
 		boolean result = loginserv.emailDupCheck(socialEmail);
 		if(result==true) { //그 외 - 홈으로 이동
 			session.setAttribute("loginName", loginserv.getName(socialEmail));
@@ -237,5 +245,5 @@ public class LoginController {
 		Object[] arr = new Object[] {sub, shop};
 		return new Gson().toJson(arr);
 	}
-	
+
 }

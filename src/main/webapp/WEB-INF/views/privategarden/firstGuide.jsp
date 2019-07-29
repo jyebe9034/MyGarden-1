@@ -148,7 +148,7 @@
 	 	font-size : 18px;
 	}
 	
-	#hurbBtn{
+	#herbBtn{
 	  	background-color: #0078c2;
 	  	font-size : 13px;
 	  	padding : 3px;
@@ -220,6 +220,7 @@
 	<div id="bcolor"></div>
 	
 	<div id="wrapper" class="container">
+
 	<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
 	    <div id="penguinWrap" class="col-12">
 			<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
@@ -229,6 +230,7 @@
 					  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
 					  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!<br>
 					<button id="hurbBtn" type="button" class="btn btn-sm">허브 선택 하기</button>
+
 				</div>
 			</div>
 		</div>
@@ -240,8 +242,8 @@
 			$("#clickHere").hide();
 		})
 		
-		$("#hurbBtn").on("click", function(){
-			$(location).attr("href", "toSelectHurb");
+		$("#herbBtn").on("click", function(){
+			$(location).attr("href", "toSelectherb");
 			/* $("#privategarden", parent.document).attr("src", "testModal"); */
 		})
 	</script>

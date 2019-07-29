@@ -7,6 +7,7 @@ import java.util.Map;
 import my.garden.dto.ProductsDTO;
 
 public interface ProductsDAO {
+	public List<ProductsDTO> selectBestProducts();
 	public int insertProducts(ProductsDTO dto);
 	public int insertImageFile(String title, String imgs);
 	public List<ProductsDTO> selectProductsListByCategory(int start, int end, String Category);
