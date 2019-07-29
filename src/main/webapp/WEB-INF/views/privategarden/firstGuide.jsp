@@ -591,7 +591,7 @@ background: radial-gradient(ellipse at center, #f9f9f9 29%,#1e5799 98%);
 						<div id="bubble">	
 							  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
 							  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!<br>
-							<p id="hurbBtn"><button type="button" class="btn btn-outline-secondary mt-2">허브 선택하기</button></p>
+							<p id="herbBtn"><button type="button" class="btn btn-outline-secondary mt-2">허브 선택하기</button></p>
 						</div>
 					</div>
 				</div>

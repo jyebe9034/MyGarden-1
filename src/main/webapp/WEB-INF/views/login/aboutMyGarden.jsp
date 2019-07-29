@@ -216,6 +216,8 @@
 }
 	.scrollBar, .scrollBar-lg{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0px 0px 15px #222;}
 	.imgimg img:hover{transform:scale(1.1); transition-duration:2s;}
+      .lastBtn button{border:1px solid #f5f5f5; color:#f5f5f5; font-family:'Eoe_Zno_L';}
+      .lastBtn button:hover{background:#4f9c87; color:#f5f5f5;}
 </style>
 </head>
 <body>
@@ -241,6 +243,9 @@
 				setHeight: "100%",
 				scrollButtons:{ enable: true }
 			});
+	         $('.lastBtn button').on('click', function(){
+	            $(location).attr('href', $(this).attr('href'));
+	         });
 		});
 	</script>
 <!-- header -->
@@ -625,14 +630,17 @@
 				STEP1. 나의 정원에서 제공하는 서비스를 알아보세요
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-4 my">
-				<h5>- 나의 정원을 개설하면 스마트팜으로 재배된 작물들을 매일 만나보실 수 있습니다</h5>  
-				<h5 class="mt-4 mb-2">- 비밀정원에서는 내가 키우고 싶은 작물들을 직접 키워볼 수 있습니다</h5>
+				<h5>- 나의 정원을 개설하면 스마트팜으로 재배된 작물들을 만나보실 수 있습니다</h5>  
+				<h5 class="mt-4 mb-2">- 나만의 정원에서 매일매일 신선한 작물들을 수확해보세요</h5>
 			</div>
 			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 my">
 		            	<img src="resources/img/greeners.png">
 		    </div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mt-5 mb-2 mg my">
 				STEP2. 스마트팜 기반으로 운영되는 똑똑한 작물들을 <br> 나만의 정원에서 매일 수확할 수 있습니다
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-4 my">
+				<h5>- 공유정원에서 작물을 선택하기만 하면 나의 정원에 저장되어, 다음날 바로 수확물을 받아볼 수 있습니다</h5>  
 			</div>
 			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 my">
             	<img src="resources/img/f1.png" height="400">
@@ -644,15 +652,19 @@
 				<img src="resources/img/f5.jpg" height="400">
 				<img src="resources/img/f6.jpg" height="400">
 		    </div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-3 mt-5 mg my">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 mt-5 mg my">
 				STEP4. 비밀정원에서는 내가 선택한 허브를 기를 수 있습니다
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-4 my"> 
 				<h5 class="mt-4 mb-2">- 평소 키워보고 싶었지만 망설였던 허브 키우기, 지금 당장 시작해보세요!</h5>
 			</div>
-			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 mb-4 my">
+			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar p-3 mb-5 my">
 				<img src="resources/img/private.png" height="700">
 				<img src="resources/img/private2.png" height="700">
+		    </div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mx-auto p-5 m-5 lastBtn my">
+	            <button type="button" class="btn btn-lg mt-2 mr-2" href="/">홈으로 가기</button>
+	            <button type="button" class="btn btn-lg mt-2" href="/login">나의 정원 이용해보기</button>
 		    </div>
 		</div>
 	</div>
