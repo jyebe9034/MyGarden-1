@@ -12,7 +12,7 @@
    #bcolor{
       width : 100%;
       height : 175px;
-      background-color : #deca92;      
+      background-color : #bee6d3;      
    }
    #titleImg{
       margin-top : 10px;

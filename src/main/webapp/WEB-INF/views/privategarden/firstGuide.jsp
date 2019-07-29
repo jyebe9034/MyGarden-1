@@ -243,7 +243,7 @@
 		})
 		
 		$("#herbBtn").on("click", function(){
-			$(location).attr("href", "toSelectherb");
+			$(location).attr("href", "toSelectHerb");
 			/* $("#privategarden", parent.document).attr("src", "testModal"); */
 		})
 	</script>

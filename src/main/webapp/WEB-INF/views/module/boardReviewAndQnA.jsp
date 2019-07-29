@@ -299,7 +299,7 @@ p {
 // 						$(this).css("font-size","17px");
 						$(item).show();
 						$(item).attr("display", "block");
-						$(item).css("background-color","#f3fff0");  
+						$(item).css("background-color","#dfebe580");  
 						$(this).parent().css("height","142px");
 						$(this).parent().css("margin-bottom","3px");
  						$(rvImage).css("height","213px")
