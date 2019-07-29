@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
    type="text/javascript"></script>
-<title>Select Hurb</title>
+<title>Select herb</title>
 <jsp:include page="/WEB-INF/views/module/bootstrap_cdn.jsp"/>
 <style>
 	#bcolor{
@@ -31,7 +31,7 @@
 		text-align: center;
 		width : 200px;
 	}
-	.hurbs{
+	.herbs{
 		width : 180px;
 		height : 180px;
 	}
@@ -51,7 +51,7 @@
 		margin-top : 20px;
 		text-align : center;
 	}
-	#chooseHurb{
+	#chooseherb{
 		font-size : 36px;
 		font-weight : bold;
 		margin : 20px 0px 10px 0px;
@@ -103,7 +103,7 @@
 		margin : 10px;
 	}
 	
-	#aboutHurb{
+	#aboutherb{
 		font-size : 14px;
 		margin : 15px;
 	}
@@ -124,25 +124,25 @@
 
 	<div id="wrap" class="container">
 		<div id="title" class="row">
-			<div id="chooseHurb" class="col-12">Select Your Hurb!</div>
+			<div id="chooseherb" class="col-12">Select Your herb!</div>
 			<div id="notice" class="col-12">선택한 허브를 키우는 방법은 완료 버튼을 클릭하면 볼 수 있어요</div>
 		</div>
 		<div class="rows row">
 			<div class="frames col-4">
 				<div id="applemint" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/applemint02.png">
+					<img class="herbs" src="/resources/herbs/applemint02.png">
 					<label>애플민트(Applemint)</label>
 				</div>
 			</div>
 			<div class="frames col-4">
 				<div id="basil" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/basil03.jpg">
+					<img class="herbs" src="/resources/herbs/basil03.jpg">
 					<label>바질(Basil)</label>
 				</div>
 			</div>
 			<div class="frames col-4">
 				<div id="watercress" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/watercress01.jpg">
+					<img class="herbs" src="/resources/herbs/watercress01.jpg">
 					<label>워터크래스(Watercress)</label>
 				</div>
 			</div>
@@ -150,19 +150,19 @@
 		<div class="rows row">
 			<div class="frames col-4">
 				<div id="coriander" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/coriander01.jpg">
+					<img class="herbs" src="/resources/herbs/coriander01.jpg">
 					<label>고수(Coriander)</label>
 				</div>
 			</div>
 			<div class="frames col-4">
 				<div id="oregano" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/oregano02.jpeg">
+					<img class="herbs" src="/resources/herbs/oregano02.jpeg">
 					<label>오레가노(Oregano)</label>
 				</div>
 			</div>
 			<div class="frames col-4">
 				<div id="parsley" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/parsley02.jpg">
+					<img class="herbs" src="/resources/herbs/parsley02.jpg">
 					<label>파슬리(Parsley)</label>
 				</div>
 			</div>
@@ -170,19 +170,19 @@
 		<div class="rows row">
 			<div class="frames col-4">
 				<div id="peppermint" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/peppermint02.jpg">
+					<img class="herbs" src="/resources/herbs/peppermint02.jpg">
 					<label>페퍼민트(Peppermint)</label>
 				</div>
 			</div>
 			<div class="frames col-4">
 				<div id="thyme" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/thyme01.jpg">
+					<img class="herbs" src="/resources/herbs/thyme01.jpg">
 					<label>타임(Thyme)</label>
 				</div>
 			</div>
 			<div class="frames col-4">
 				<div id="rucola" class="borders p-3" myflag="false">
-					<img class="hurbs" src="/resources/hurbs/rucola03.PNG">
+					<img class="herbs" src="/resources/herbs/rucola03.PNG">
 					<label>루꼴라(Rucola)</label>
 				</div>
 			</div>
@@ -198,7 +198,7 @@
                   style="background-color: #ffffff; border-radius: 10px; width: 350px;">
                   <div id="confirm_msg" class="p-2">
                   	<div id="sort"></div>
-                  	<div id="aboutHurb"></div>
+                  	<div id="aboutherb"></div>
                   </div>
                   <div>
                      <div id="cancel" data-toggle="modal" data-target="#exampleModalCenter">다른 허브 알아보기</div>
@@ -233,7 +233,7 @@
             buyer_email : "${loginDTO.m_email}",
             buyer_name : "${loginDTO.m_name}",
             buyer_tel : "${loginDTO.m_phone}",
-            m_redirect_url : "toConfirmHurb?hurb="+$("#sort").text()
+            m_redirect_url : "toConfirmherb?herb="+$("#sort").text()
          /*  
              모바일 결제시,
              결제가 끝나고 랜딩되는 URL을 지정 
@@ -256,8 +256,8 @@
             	    
                })
 				
-                var hurb = $("#sort").text();
-  				$(location).attr("href", "toConfirmHurb?hurb="+hurb);
+                var herb = $("#sort").text();
+  				$(location).attr("href", "toConfirmherb?herb="+herb);
                
             } else {
                alert('결제에 실패하였습니다.');
@@ -278,7 +278,7 @@
 				var test = $(this).attr("myflag");
 				if(test == "true"){
 					var name = $(this).attr("id");
-					var about = $("#aboutHurb");
+					var about = $("#aboutherb");
 					about.text("");
 					if(name == "applemint"){
 						$("#sort").text("애플민트(Applemint)");

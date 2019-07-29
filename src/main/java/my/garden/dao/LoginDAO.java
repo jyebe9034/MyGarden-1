@@ -10,8 +10,6 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -49,7 +45,6 @@ import com.google.gson.JsonParser;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
-import my.garden.dto.ProductsDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
 
@@ -190,8 +185,8 @@ public class LoginDAO {
 	
 	public String mailSender(String m_email) throws Exception {
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
+		final String username = "gemma6712"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
+		final String password = "althtjsdk7&"; //네이버 이메일 비밀번호를 입력해주세요. 
 		int port=465; //포트번호 
 		
 		// 메일 내용 
@@ -219,7 +214,7 @@ public class LoginDAO {
 			}); 
 		session.setDebug(true); 
 		Message mimeMessage = new MimeMessage(session); 
-		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); 
+		mimeMessage.setFrom(new InternetAddress("gemma6712@naver.com")); 
 		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 		
 		mimeMessage.setSubject(subject); 
@@ -355,7 +350,7 @@ public class LoginDAO {
  
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
         postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.60.22/kakaoCallback")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
         postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
  
         final HttpClient client = HttpClientBuilder.create().build();
