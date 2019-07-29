@@ -64,7 +64,7 @@ hr {
 #content {
 	border: 1px solid #9e9e9e;
 	border-radius: 5px;
-	height: 500px;
+	height: auto;
 	width: 100%;
 	margin: 0px auto;
 	padding: 15px;

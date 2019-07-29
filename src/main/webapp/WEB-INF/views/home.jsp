@@ -161,19 +161,19 @@
          }
          
          #recipeContBox{
-		margin: 0 !important;
-		}
-		
-		#recipeImg { 
-		width: 100%;
-		height: 100%;
-		} 
-		
-		#recipeImg img{
-		width: 100%;
-		height: auto;
-		}
-		
+      margin: 0 !important;
+      }
+      
+      #recipeImg { 
+      width: 100%;
+      height: 100%;
+      } 
+      
+      #recipeImg img{
+      width: 100%;
+      height: auto;
+      }
+      
          .best h5{
             margin : 0;
          }
@@ -510,13 +510,13 @@
          </div>
       
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto text-left mb-5 my scrollBar">
-             	<div class=row>
+                <div class=row>
                 <div class="col-lg-6 col-sm-12" id=recipeImg></div>
                  <div class="col-lg-6 col-sm-12" id=recipeContBox>
                     <h5 class="font-weight-bold text-center ">- ${recipe.bf_title } -</h5><br>
                     <div id=recipeCont></div>
                  </div>
-        		</div>
+              </div>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
@@ -558,10 +558,9 @@
 
 //----- 레시피 시작 ------
 var recipe = '${recipe.bf_content}';
-var rRegex = /(<img.+?.>).?(<img.+?.>)/g;
+var rRegex = /(<img.+?.>)/g;
 var rimg = rRegex.exec(recipe);
 $("#recipeImg").append(rimg[1]);
-$("#recipeImg").append(rimg[2]);
 console.log(rimg);
 var rcon = recipe.replace(rRegex, "");
 $("#recipeCont").html(rcon);

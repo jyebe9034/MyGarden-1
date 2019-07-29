@@ -60,10 +60,10 @@ public class PrivateGardenController {
 	}
 	
 	@RequestMapping("toConfirmHurb")
-	public String insertPrivateGarden(String hurb) {
+	public String insertPrivateGarden(String herb) {
 		String id = (String)session.getAttribute("loginId");
 		try {
-			int result = gservice.insertPrivateGardenService(id, hurb);
+			int result = gservice.insertPrivateGardenService(id, herb);
 			if(result > 0) {
 				return "redirect:/privateGarden";				
 			}else {

@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProductsDAO">
 
+	<select id="selectBestProducts" resultType="my.garden.dto.ProductsDTO">
+		select * from (select row_number() over (order by p_sales desc) as rown, products.* from products) where rown between 1 and 8
+	</select>
+
 	<insert id="insertProducts">
 		insert into products values(p_seq.nextval, #{p_imagepath,jdbcType=VARCHAR}, #{p_title,jdbcType=VARCHAR}, #{p_subtitle,jdbcType=VARCHAR},
 		#{p_category,jdbcType=VARCHAR}, #{p_inventory}, #{p_unit,jdbcType=VARCHAR}, #{p_seller,jdbcType=VARCHAR}, #{p_origin,jdbcType=VARCHAR}, #{p_price},

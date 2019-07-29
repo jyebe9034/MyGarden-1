@@ -22,6 +22,15 @@ public class ProductsServiceImpl implements ProductsService {
 	@Autowired
 	private ProductsDAO pdao;
 	
+	public List<ProductsDTO> selectBestProductsService() throws Exception {
+		try {
+			return pdao.selectBestProducts();
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public int insertProductsService(ProductsDTO dto) throws Exception {
 		try {
 			int result = pdao.insertProducts(dto);
@@ -115,6 +124,5 @@ public class ProductsServiceImpl implements ProductsService {
 	public List<String> selectTitlesByCategoryService(String p_category)throws Exception{
 		return pdao.selectTitlesByCategory(p_category);
 	}
-	
 	
 }
