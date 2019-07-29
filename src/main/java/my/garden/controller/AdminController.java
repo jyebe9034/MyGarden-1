@@ -35,8 +35,7 @@ public class AdminController {
 			request.setAttribute("member", member);
 			String admin = (String)request.getSession().getAttribute("loginId");
 			String profileImg = logdao.memSelectAll(admin).getM_profile();
-			System.out.println(admin +":"+ profileImg);
-			
+
 			request.setAttribute("profileImg", profileImg);
 			request.setAttribute("totalSale", dao.serviceTotalSale());
 			request.setAttribute("totalCancel", dao.serviceTotalCancel());
@@ -81,8 +80,22 @@ public class AdminController {
 	public String adminPrivateGarden(HttpServletRequest request) {
 		List<PrivateGardenDTO> list;
 		try {
+			String admin = (String)request.getSession().getAttribute("loginId");
+			String profileImg = logdao.memSelectAll(admin).getM_profile();
+			request.setAttribute("profileImg", profileImg);
 			list = dao.servicePrivateList();
 			request.setAttribute("list", list);
+			
+			List<PrivateGardenDTO> tmp = dao.servicePopularHerb();
+			List<String> herbList = new ArrayList<>();
+			List<Integer> herbCount = new ArrayList<>();
+			for(int i=0 ; i<tmp.size() ; i++) {
+			herbList.add("'"+tmp.get(i).getG_herb()+"'");
+			herbCount.add(tmp.get(i).getG_temper());
+			}
+			System.out.println(herbList+":"+herbCount);	
+			request.setAttribute("herbList", herbList);
+			request.setAttribute("herbCount", herbCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

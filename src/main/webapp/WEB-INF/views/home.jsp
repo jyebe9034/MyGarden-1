@@ -56,6 +56,18 @@
       		color: #3a5c19;
 
       	}
+      	
+      	.recipeBox{
+      		height: 465px;
+      	}
+      	#recipeImg{
+      		position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+      	}
 	</style>
 </head>
 <body>
@@ -324,9 +336,9 @@
             <h4 class="pt-2 pb-4">정원 오너들이 공유하는 레시피</h4>
          </div>
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar text-left mb-5 my">
-          	<div class="row">
+          	<div class="row recipeBox">
           		<div class="col-lg-6 col-sm-12" >
-          			<img src="resources/img/main1.jpg" width="400" height="600" style="float:left;" class="pr-2" id=recipeImg>
+          			<img src="resources/img/main1.jpg" width="400" height="auto" class="pr-2" id=recipeImg>
           		</div>
            		<div class="col-lg-6 col-sm-12">
            			<h5 class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br>
@@ -377,9 +389,8 @@ var rimgRegex = /(\/re.+?png)/;
 var rimg = rimgRegex.exec(recipe);
 $("#recipeImg").attr("src",rimg[1]);
 
-var rconRegex = /(<p><img.+?><\/p>)/;
+var rconRegex = /(<img.+?>)/;
 var rcon = recipe.replace(rconRegex, "");
-console.log(rcon)
 $("#recipeCont").html(rcon);
 //----- 레시피 끝 -----
 

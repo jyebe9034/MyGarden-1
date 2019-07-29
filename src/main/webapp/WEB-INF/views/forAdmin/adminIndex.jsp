@@ -509,7 +509,7 @@ h4 {
 					</c:otherwise>
 				</c:choose>
 			</div>
-		</div>
+		
 		<!-- END SOCIAL -->
 
 		<!-- DataTables Example -->
@@ -555,8 +555,7 @@ h4 {
 				</table>
 			</div>
 		</div>
-	</div>
-	</div>
+</div>
 
 
 
