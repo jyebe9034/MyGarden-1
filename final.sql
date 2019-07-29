@@ -21,10 +21,11 @@ m_realpath varchar(300)
 drop table members;
 select * from members;
 select m_pw from members where m_email = 'gmail@gmail';
-delete from members where m_Email = 'rudtjd3242@naver.com';
+delete from members where m_Email = 'guernica0419@naver.com(naver)';
 commit;
 insert into members(m_email) values('admin@admin');
 select sysdate from dual;
+
 
 create table test(
 birth date
@@ -33,7 +34,22 @@ insert into test values (to_date('18/1/1', 'yy/mm/dd'));
 insert into test values (to_date('1/1', 'yy/mm/dd'));
 select * from test;
 
-
+create table gardens(
+g_email varchar(50) primary key,
+g_name varchar(20) not null,
+g_gardenname varchar(100) not null,
+g_enrolldate timestamp default sysdate,
+g_g_herb varchar(40) not null,
+g_temper number not null,
+g_humid varchar(30) default '보통',
+g_light varchar(30) default '보통',
+g_process char(1) default 'y' check(g_process in('y','n')),
+g_consume char(1) default 'y' check(g_consume in('y','n'))
+);
+alter table gardens rename column g_hurb to g_herb; 
+--drop table gardens;
+insert into gardens values('espanoir0419@naver.com(naver)', 'ddd', 'df', sysdate, '페퍼민트', 20, default, default, default, default);
+select * from gardens;
 
 create table products(
 p_no number primary key,
@@ -83,7 +99,42 @@ start with 1
 increment by 1
 nocache
 nomaxvalue;
+create table board_qna(
+bq_p_no number, --상품글번호
+bq_no number primary key,--질문 글번호
+bq_checkedAns char(1) default 'n' check(bq_checkedAns in('y', 'n')),--답변 여부
+bq_checkedSecret char(1) default 'n' check(bq_checkedSecret in('y', 'n')),--비밀글
+bq_title varchar(100) not null,
+bq_email varchar(50) not null,
+bq_name varchar(20) not null, 
+bq_content varchar(4000) not null,
+bq_writedate timestamp default sysdate,
+bq_imagepath1 varchar(100),
+bq_imagepath2 varchar(100),
+bq_imagepath3 varchar(100)
+);
+--drop table board_qna;
+alter table board_qna modify(bq_email varchar(50));
+commit;
+create table comment_qna(
+cq_p_no number not null,
+cq_no number primary key,
+cq_name varchar(20) not null,
+cq_email varchar(50) not null,
+cq_writedate timestamp default sysdate,
+cq_comment varchar(1000) not null
+);
+--drop table comment_qna;
 
+select * from comment_qna;
+--drop table comment_qna;
+commit;
+--------------------------------------------------------------------------------
+create sequence board_qna_seq
+start with 1
+INCREMENT by 1
+nocache
+NOMAXVALUE;
 create table board_free(
 bf_no number primary key,
 bf_title varchar(100) not null,
@@ -247,15 +298,14 @@ cf_comment varchar(1000) not null
 
 --채팅DB
 create table chat(
-c_sendemail varchar(50) primary key,
+c_sendemail varchar(50) not null,
 c_message varchar(1000) not null,
-c_recieve_email varchar(50) default 'sdf@gmail.com',
+c_receive_email varchar(50) default 'admin123@naver.com',
 c_grade varchar(50),
-c_querydate timestamp default sysdate
+c_querydate timestamp default sysdate,
+c_answer char(1) check(c_answer in('y','n'))
 );
-drop table chat;
-
-select * from chat;
+--drop table chat;
 
 insert into members values('admin123@naver.com', '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9', '관리자',
 '010-2414-9070', '12345', '관리자 시', '관리자 아파트', sysdate, '192.168.60.25', 'admin',
