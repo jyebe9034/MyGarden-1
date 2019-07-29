@@ -334,10 +334,8 @@ public class BoardReviewAndQnAController {
 		try {
 			String writer = qnaService.readQnA(bq_no).getBq_email();
 			request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, writer));
-			//			request.setAttribute("mine", mine);
 			request.setAttribute("readQnA", qnaService.readQnA(bq_no));
 			request.setAttribute("commentList", qnaService.commentList(bq_no));
-			//System.out.println("checkAns : " + checkA);
 			request.setAttribute("checkAns", checkA);
 		} catch (Exception e) {
 			e.printStackTrace();

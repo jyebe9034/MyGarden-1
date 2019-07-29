@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import my.garden.dto.BoardQnADTO;
+
 @Component
 @Aspect
 public class WriterAdviser {
@@ -25,7 +27,7 @@ public class WriterAdviser {
 	public void reviewUpdate(){}
 
 	@Around("reviewWriteForm() ||  writeReview() || reviewUpdateForm() || reviewUpdate()")
-	public Object onlyForCompletedProducts(ProceedingJoinPoint pjp) throws Throwable{
+	public Object onlyForCompletedProducts(ProceedingJoinPoint pjp) throws Throwable{ //배송완료 상품만 후기작성 가능하도록 처리
 		int pnumber = (int) session.getAttribute("pnumber");
 		if(session.getAttribute("myCompletedPNum") == "pnumber") {
 			return pjp.proceed();
@@ -33,4 +35,5 @@ public class WriterAdviser {
 			return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 		}
 	}
+	
 }
