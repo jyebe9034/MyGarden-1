@@ -271,8 +271,9 @@ div {
 		
 // 		var grade = "${grade}";
 // 		console.log(grade);
-
-		if("${writerInfo.m_email != loginId}"){
+		var writer = "${writerInfo.m_email}";
+		var loginId = "${loginId}";
+		if(writer!=loginId){
 			alert("비밀글 입니다.");
 			var pnumber = "${pnumber}";
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
