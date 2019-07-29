@@ -33,10 +33,11 @@
          display : none;
       }
       #chatBox{
-         border-radius : 15px;
+         border-radius : 10px;
          position : fixed;
          left : 20px;
          bottom : 100px;
+         z-index:9999;
       }
       #chatWrap{
          width : 70px;
@@ -416,7 +417,7 @@
 
 			     <div class="row rvWrapper">
 					<c:forEach var="topReviews" items="${topReviews }">
-											<div class="col-lg-3 col-md-6 col-sm-6 rvCardBox">
+											<div class="col-lg-4 col-md-6 col-sm-12 rvCardBox">
 												<div class="card mb-3 rvCard"  data-toggle="modal" data-target="#rvModal">
 													<input type="hidden" value="${topReviews.br_imagepath }">
 													<input type="hidden" value="${topReviews.br_title }">
