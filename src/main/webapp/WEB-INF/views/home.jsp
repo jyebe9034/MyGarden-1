@@ -180,12 +180,39 @@
          .bestWrap{
             margin-bottom : 25px;
          }
+         
+         #recipeImg:hover{
+            cursor: pointer;
+            opacity: 0.7;
+         }
+         #recipeTitle:hover{
+            cursor: pointer;
+            text-decoration: underline;
+         }  
    </style>
 </head>
 <body>
 <!-- script -->
    <script>
    $(function(){       
+	 //----- 레시피 시작 ------
+	   var recipe = '${recipe.bf_content}';
+	   var rRegex = /(<img.+?.>)/g;
+	   var rimg = rRegex.exec(recipe);
+	   $("#recipeImg").append(rimg[1]);
+	   console.log(rimg);
+	   var rcon = recipe.replace(rRegex, "");
+	   $("#recipeCont").html(rcon);
+	   
+	   $("#recipeImg").on("click", function () {
+		   location.href="boardFreeRead?no="+${recipe.bf_no};
+		})
+		$("#recipeTitle").on("click", function () {
+		   location.href="boardFreeRead?no="+${recipe.bf_no};
+		})
+	   //----- 레시피 끝 -----
+
+	   
        $("#chatWrap").on("click", function(){
             if($("#chatboxWrap").css("display") == "none"){
                $("#chatboxWrap").show();
@@ -511,9 +538,9 @@
       
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto text-left mb-5 my scrollBar">
                 <div class=row>
+                <div class="col-12"><h5 id="recipeTitle" class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br></div>
                 <div class="col-lg-6 col-sm-12" id=recipeImg></div>
                  <div class="col-lg-6 col-sm-12" id=recipeContBox>
-                    <h5 class="font-weight-bold text-center ">- ${recipe.bf_title } -</h5><br>
                     <div id=recipeCont></div>
                  </div>
               </div>
@@ -526,17 +553,14 @@
                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10919749_326992714172441_299394464_n.jpg" />
                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10617007_939025979457209_6938406_n.jpg" />
                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1168617_1435408473368301_409182770_n.jpg" />
-                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/11189836_754178218029431_2102772742_n.jpg" />
-                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10843869_1658219887738208_2033326788_n.jpg" />
-                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1515054_1379051609022475_1394148610_n.jpg" />
                </div>
             <!-- partial -->
 <!--               <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->
             <script  src="resources/js/recipe.js"></script>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-5 pt-4 pb-5 lastBtn my">
-            <button type="button" class="btn btn-lg mt-2 mr-2" href="/boardFreeList">더 보기</button>
-            <button type="button" class="btn btn-lg mt-2" href="/aboutMyGarden">About 나의 정원</button>
+            <button type="button" class="btn mt-2 mr-2" href="/boardFreeList">더 보기</button>
+            <button type="button" class="btn mt-2" href="/aboutMyGarden">About 나의 정원</button>
          </div>
       </div>
    </div>
@@ -553,19 +577,4 @@
       </div>
    </c:if>
 </body>
-
-<script>
-
-//----- 레시피 시작 ------
-var recipe = '${recipe.bf_content}';
-var rRegex = /(<img.+?.>)/g;
-var rimg = rRegex.exec(recipe);
-$("#recipeImg").append(rimg[1]);
-console.log(rimg);
-var rcon = recipe.replace(rRegex, "");
-$("#recipeCont").html(rcon);
-//----- 레시피 끝 -----
-
-</script>
-
 </html>
