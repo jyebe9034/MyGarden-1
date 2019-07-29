@@ -17,6 +17,15 @@ public class ProductsDAOImpl implements ProductsDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
+	public List<ProductsDTO> selectBestProducts() {
+		try{
+			return sst.selectList("ProductsDAO.selectBestProducts");
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public int insertProducts(ProductsDTO dto) {
 		try {
 			return sst.insert("ProductsDAO.insertProducts", dto);

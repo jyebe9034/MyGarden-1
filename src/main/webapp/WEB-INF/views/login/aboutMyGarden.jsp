@@ -215,6 +215,7 @@
   }
 }
 	.scrollBar, .scrollBar-lg{padding:20px; overflow: auto; border-radius:5px; box-shadow: 0px 0px 15px #222;}
+	.imgimg img:hover{transform:scale(1.1); transition-duration:2s;}
 </style>
 </head>
 <body>
@@ -232,12 +233,12 @@
 				scrollButtons:{ enable: true }
 			});
 			$(".scrollBar-lg").mCustomScrollbar({
-				axis:"xy",
+				axis:"x",
 				theme:"light",
 				autoExpandScrollbar:true,
 				advanced:{autoExpandHorizontalScroll:true},
 				setWidth: "100%",
-				setHeight: 570,
+				setHeight: "100%",
 				scrollButtons:{ enable: true }
 			});
 		});
@@ -600,50 +601,59 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 mg my">
 				&Lang;나의 정원&Rang;의 초석은 이렇게 만들어졌습니다
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 my">
-			 	<div class="row mt-1 pl-2 pr-2">
-		            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar mb-2 my">
-		                <div class="contents bg-dark text-light text-left">
-		                   <h5 class="ml-2 text-muted">// 회원가입 시 정원 생성 기본 로직</h5>
-							<h5 class="ml-2">public class MyGarden implements Greeners{</h5><br>
-							   <h5 class="ml-4">private String seed;  <span class="text-muted">//비밀정원에 필요한 씨앗</span></h5><br>
-							   <h5 class="ml-4">public MyGarden() { };  <span class="text-muted">//공유정원 생성자</span> </h5><br>
-							   <h5 class="ml-4">public MyGarden(String seed) {  <span class="text-muted">//비밀정원 생성자</span></h5>
-							      <h5 class="ml-5">this.seed = seed;</h5>
-							   <h5 class="ml-4">}</h5><br>
-							<h5 class="ml-2">}</h5>
-							<br>
-							<h5 class="ml-2 text-muted">// 비밀정원 만들기</span>
-							<h5 class="ml-2">public class Garden {</h5><br>
-							  <h5 class="ml-4"> public static void main(String[] args) {</h5><br>
-							         <h5 class="ml-4">MyGarden publicGarden = new MyGarden();  <span class="text-muted">//공유정원 생성 (정원 생성의 디폴트)</span></h5><br>
-							        <h5 class="ml-4"> MyGarden privateGarden = new MyGarden(“페퍼민트”);  <span class="text-muted">//실물 땅을 인자로 갖는 개인정원 생성</span></h5><br>
-							   <h5 class="ml-4">}</h5><br>
-							<h5 class="ml-2">}</h5>
-		                </div>
-		            </div>
-		        </div>
+	            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar mt-4 mb-3 my">
+	                <div class="contents bg-dark text-light text-left">
+	                   <h5 class="ml-2 text-muted">// 회원가입 시 정원 생성 기본 로직</h5>
+						<h5 class="ml-2">public class MyGarden implements Greeners{</h5><br>
+						   <h5 class="ml-4">private String seed;  <span class="text-muted">//비밀정원에 필요한 씨앗</span></h5><br>
+						   <h5 class="ml-4">public MyGarden() { };  <span class="text-muted">//공유정원 생성자</span> </h5><br>
+						   <h5 class="ml-4">public MyGarden(String seed) {  <span class="text-muted">//비밀정원 생성자</span></h5>
+						      <h5 class="ml-5">this.seed = seed;</h5>
+						   <h5 class="ml-4">}</h5><br>
+						<h5 class="ml-2">}</h5>
+						<br>
+						<h5 class="ml-2 text-muted">// 비밀정원 만들기</span>
+						<h5 class="ml-2">public class Garden {</h5><br>
+						  <h5 class="ml-4"> public static void main(String[] args) {</h5><br>
+						         <h5 class="ml-4">MyGarden publicGarden = new MyGarden();  <span class="text-muted">//공유정원 생성 (정원 생성의 디폴트)</span></h5><br>
+						        <h5 class="ml-4"> MyGarden privateGarden = new MyGarden(“페퍼민트”);  <span class="text-muted">//실물 땅을 인자로 갖는 개인정원 생성</span></h5><br>
+						   <h5 class="ml-4">}</h5><br>
+						<h5 class="ml-2">}</h5>
+	                </div>
 			</div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-5 pb-3 mg my">
 				STEP1. 나의 정원에서 제공하는 서비스를 알아보세요
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-3 my">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-4 my">
 				<h5>- 나의 정원을 개설하면 스마트팜으로 재배된 작물들을 매일 만나보실 수 있습니다</h5>  
-				<h5 class="mt-4">- 비밀정원에서는 내가 키우고 싶은 작물들을 직접 키워볼 수 있습니다</h5>
+				<h5 class="mt-4 mb-2">- 비밀정원에서는 내가 키우고 싶은 작물들을 직접 키워볼 수 있습니다</h5>
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mr-5 pl-5 my">
-			 	<div class="row mt-1">
-		            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg mr-5 pl-5 mb-5 my">
+			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 my">
 		            	<img src="resources/img/greeners.png">
-		            </div>
-		        </div>
 		    </div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mt-5 mb-2 mg my">
 				STEP2. 스마트팜 기반으로 운영되는 똑똑한 작물들을 <br> 나만의 정원에서 매일 수확할 수 있습니다
 			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mg my">
-				STEP4. 비밀정원에서는 ....................
+			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 my">
+            	<img src="resources/img/f1.png" height="400">
+				<img src="resources/img/f2.jpg" height="400">
+				<img src="resources/img/f3.jpg" height="400">
+		    </div>
+			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 mt-4 my">
+				<img src="resources/img/f4.jpg" height="400">
+				<img src="resources/img/f5.jpg" height="400">
+				<img src="resources/img/f6.jpg" height="400">
+		    </div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-3 mt-5 mg my">
+				STEP4. 비밀정원에서는 내가 선택한 허브를 기를 수 있습니다
 			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-4 my"> 
+				<h5 class="mt-4 mb-2">- 평소 키워보고 싶었지만 망설였던 허브 키우기, 지금 당장 시작해보세요!</h5>
+			</div>
+			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 mb-4 my">
+				<img src="resources/img/private.png" height="700">
+				<img src="resources/img/private2.png" height="700">
+		    </div>
 		</div>
 	</div>
 	

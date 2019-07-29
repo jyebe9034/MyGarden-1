@@ -33,7 +33,7 @@ public class PrivateGardenServiceImpl implements PrivateGardenService {
 	// 타임 : 온도 16~23(default 19), 습도 약간 습함, 빛 햇빛좋아함
 	// 루꼴라 : 온도 10~18(default 14), 습도 상관없음, 빛 햇빛좋아하지만 너무 강하면 잎이 뻣벗해짐
 	@Transactional("txManager")
-	public int insertPrivateGardenService(String id, String hurb) throws Exception {
+	public int insertPrivateGardenService(String id, String herb) throws Exception {
 		PrivateGardenDTO pdto;
 		MembersDTO dto = ldao.memSelectAll(id);
 		if(!dto.getM_grade().equals("admin")) { // 관리자가 아니라면 등급변경
@@ -41,14 +41,14 @@ public class PrivateGardenServiceImpl implements PrivateGardenService {
 			System.out.println("등급변경 : " + result);
 		}
 		
-		if(hurb.equals("바질(Basil")) {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 27);
-		}else if(hurb.equals("파슬리(Parsley)") || hurb.equals("루꼴라(Rucola")) {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 14);
-		}else if(hurb.equals("타임(Thyme")) {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 19);
+		if(herb.equals("바질(Basil")) {
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),herb, 27);
+		}else if(herb.equals("파슬리(Parsley)") || herb.equals("루꼴라(Rucola")) {
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),herb, 14);
+		}else if(herb.equals("타임(Thyme")) {
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),herb, 19);
 		}else {
-			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),hurb, 18);
+			pdto = new PrivateGardenDTO(id,dto.getM_name(),dto.getM_garden(),herb, 18);
 		}
 		return pdao.insertPrivateGarden(pdto);
 	}

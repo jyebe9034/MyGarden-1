@@ -378,7 +378,7 @@
 	 	margin : 15px 10px 8px 10px;
 	}
 	  
-	#hurbBtn{
+	#herbBtn{
 	  	background-color: #7355c9;
 	  	float : right;
 	  	margin-right : 20px;
@@ -430,9 +430,9 @@
 			  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
 			  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!
 		</div>
-		<div id="toHurb">
+		<div id="toherb">
 			<!-- Button trigger modal -->
-			<button id="hurbBtn" class="btn btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter">허브 선택 하기</button>
+			<button id="herbBtn" class="btn btn-sm" type="button" data-toggle="modal" data-target="#exampleModalCenter">허브 선택 하기</button>
 		</div>
 	</div>
 	

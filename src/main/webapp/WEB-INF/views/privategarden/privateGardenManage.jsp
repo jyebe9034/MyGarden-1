@@ -89,7 +89,7 @@
 	  	
 	}
 	
-	#hurbBtn{
+	#herbBtn{
 	  	background-color: #0078c2;
 	  	font-size : 13px;
 	  	padding : 3px;
@@ -319,7 +319,7 @@
 			</div>
 			<div id="gardenInfo" class="col-6">
 				<div id="gardenName" class="infos">${result.g_gardenname}</div>
-				<div id="hurb" class="infos"><label>허브 종류 : </label>${result.g_hurb}</div>
+				<div id="herb" class="infos"><label>허브 종류 : </label>${result.g_herb}</div>
 				<div id="enrolldate" class="infos"><label>정원 개설일 : </label><fmt:formatDate value="${result.g_enrolldate}" pattern="yyyy-MM-dd"/></div>
 			</div>
 		</div>

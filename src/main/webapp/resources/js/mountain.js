@@ -21,6 +21,7 @@ const cloud5 = document.getElementById('cloud5');
 const star = document.getElementById('star');
 const star1 = document.getElementById('star1');
 const bubble = document.getElementById('bubble');
+const hurbBtn = document.getElementById('hurbBtn');
 
 
 
@@ -35,12 +36,13 @@ const bubble = document.getElementById('bubble');
     
     switcher.innerHTML = '<img src="resources/img/planet2.png" width="40" height="40">'   
     bubble.style.color="#141414";
+    hurbBtn.innerHTML = '<button type="button" class="btn btn-outline-secondary mt-2">허브 선택하기</button>';
     
     body[0].style.backgroundColor = "#ffd5be" //color of sky when day
     
-    moon.style.top = "145%" //postion of moon when down
+    moon.style.top = "160%" //postion of moon when down
     moon.style.transform = "scale(0)" //size of moon when down
-    moonShadow.style.top = "145%" //postion of moon-shadow when down
+    moonShadow.style.top = "160%" //postion of moon-shadow when down
     moonShadow.style.transform = "scale(0)" //size of moon-shadow when down
     moon.style.transition = "1s"; //transition time when coming up
   moonShadow.style.transition = "1s"; //transition time when coming up
@@ -62,17 +64,17 @@ star2.style.transition = "all .6s"; //time when fading out
 star2.style.transform = "rotate(280deg)";
 
     
-    sun.style.top = "15%" //postion of sun when up
-    sunShadow.style.top = "15%" //postion of sun-shadow when up
+    sun.style.top = "18%" //postion of sun when up
+    sunShadow.style.top = "18%" //postion of sun-shadow when up
 
     sun.style.transform = "scale(2.5)"//size of sun when up
     sunShadow.style.transform = "scale(2.5)"//size of sun-shadow when up
      sun.style.transition = "1s"; //transition time when coming up
   sunShadow.style.transition = "1s"; //transition time when coming up
     
-    cloud3.style.left = "45%" //postion of clouds when up
-    cloud4.style.left = "65%"//postion of clouds when up
-    cloud5.style.left = "50%"//postion of clouds when up
+    cloud3.style.left = "15%" //postion of clouds when up
+    cloud4.style.left = "25%"//postion of clouds when up
+    cloud5.style.left = "35%"//postion of clouds when up
 
   
       } else {
@@ -83,10 +85,11 @@ star2.style.transform = "rotate(280deg)";
    signal.style.display = "none"
    switcher.innerHTML = '<img src="resources/img/planet4.png" width="40" height="40">'
    	bubble.style.color="#f5f5f5";
+  hurbBtn.innerHTML = '<button type="button" class="btn btn-outline-light m-1">허브 선택하기</button>';
         
-  moon.style.top = "15%" //postion of moon when up
+  moon.style.top = "18%" //postion of moon when up
         
-  moonShadow.style.top = "15%" //postion of moon-shadow when up
+  moonShadow.style.top = "18%" //postion of moon-shadow when up
              
   moonShadow.style.transform = "scale(2)"//size of moon-shadow when coming up
   moon.style.transform = "scale(2)"//size of moon when coming up
