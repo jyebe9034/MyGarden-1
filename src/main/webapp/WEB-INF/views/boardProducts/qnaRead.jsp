@@ -123,12 +123,26 @@ div {
 	border: 0px;
 	cursor: pointer;
 }
-
 .goBackBtn:hover {
 	background-color: #b4d9b5;
 	color: white;
 	font-weight: bold;
 	border: 1px solid #b4d9b5;
+	cursor: pointer;
+}
+
+.deleteBtn {
+	background-color: #44b27d;
+	color: white;
+	font-weight: bold;
+	border: 0px;
+}
+
+.deleteBtn:hover {
+	background-color: #b4d9b5;
+	color: white;
+	font-weight: bold;
+	border: 0px;
 	cursor: pointer;
 }
 
@@ -202,15 +216,13 @@ div {
 	word-break: break-all;
 }
 
-.commentBtnBox {
-	margin-top: 10px;
-	margin-bottom: 20px
+.commentBtnRow{
+    width: 92%;
+    margin: auto;
+    text-align: right;
 }
-
-.commentBtnRow div {
-	position: relative;
-	left: 25px;
-	top: 15px;
+.commentBtnBox {
+	margin-top: 15px;
 }
 
 #editBtn {
@@ -240,9 +252,17 @@ div {
 	border: 0px;
 }
 
-[contentEditable=true]:empty:not (:focus ):before {
-	content: attr(data-text)
+.goBackBtnBox{
+	width: 85%;
+	margin: auto;
+	margin-top: 20px;
+/*  	text-align: center;  */
 }
+.goBackBtn{
+	width: 120px;
+}
+
+[contentEditable=true]:empty:not(:focus ):before {content: attr(data-text)};
 </style>
 
 <!-- script -->
@@ -251,6 +271,12 @@ div {
 		
 // 		var grade = "${grade}";
 // 		console.log(grade);
+
+		if("${writerInfo.m_email != loginId}"){
+			alert("비밀글 입니다.");
+			var pnumber = "${pnumber}";
+			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
+		}
 		
 		$(".goBackBtn").on("click",function(){
 			//$(location).attr("href","/");
@@ -263,6 +289,12 @@ div {
 			var bq_no = ${bq_no};
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
+		
+		$(".deleteBtn").on("click",function(){
+			var bq_no = ${bq_no};
+			$(location).attr("href","deleteQnA?bq_no="+bq_no);
+		})
+		
 
 	
 		$(document).on('keyup', '#inputComment', function() { //내용 글자수 입력 제한
@@ -307,7 +339,7 @@ div {
 	 					$("#inputComment").css("background-color","white");
 						$(".commentBtnBox").html("<button class='btn' id='delCommentBtn'>삭제하기</button>"
 								+ "<button type='button' class='btn' id='editBtn'>수정하기</button>");
-						alert("답변이 등록되었습니다.")
+						alert("답변이 등록되었습니다.");
 					}
 				})	
 			}
@@ -357,10 +389,10 @@ div {
 						if(resp=2){
 							//alert("resp" + resp);
 							$("#answerWrapper").html("");
-							$("#answerWrapper").append("<div class='form-group row commentRow'>"
+							$("#answerWrapper").append("<div class=\"form-group row commentRow\">"
 									+"<div class=\"col-12 commentLabelBox\">"
 									+"<img src=\"resources/products/adminCmtImg.png\">"
-									+"<label for=\"cq_comment\" class=\"col-12 col-form-label\">관리자 답변</label>"
+									+"<label for=\"cq_comment\" class=\"col-form-label\">관리자 답변</label>"
 									+"</div>"
 									+"<div class=\"col-12 inputCommentBox\">"
 									+"<div contenteditable=\"true\" id=\"inputComment\" data-text=\"내용을 입력해주세요.\"></div>"
@@ -370,6 +402,7 @@ div {
 									+"<div class=\"col-12 commentBtnBox\">"
 									+"<button class=\"btn\" id=\"commentBtn\">답변등록</button>"
 									+"</div></div>")
+						
 							alert("답변이 삭제되었습니다.");      
 						}			
 						
@@ -403,138 +436,142 @@ div {
 
 <img alt="" src="/resources/products/qnaHeader.jpg" id="qnaHeaderImg">
 
-	<!-- 리뷰 작성 폼 -->
-	<div id="qnaWrapper">
-		<!-- 		<span>문의하기</span> -->
-		<!-- 		<hr> -->
-
-		<div id="qWrapper">
-			<form action="updateQnA" id="updateQnAForm" method="post"
-				enctype="multipart/form-data">
-
-				<div class="form-group row inputTitleRow">
-					<!-- 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label> -->
-					<div class="col-sm-12">
-						<input type="text" class="form-control" id="inputTitle"
-							name="bq_title" value="${readQnA.bq_title }" readOnly>
-					</div>
-				</div>
-
-				<div class="row writerInfoRow">
-					<div class="col-12">
-						<img src="${writerInfo.m_profile}" class="profileImg"
-							border="1px solid black"> <span class="writerInfo">
-							${readQnA.bq_name }/작성자/${readQnA.bq_writedate }
-						</span>
-					</div>
-				</div>
-
-
-				<div class="form-group row inputContentRow">
-					<div class="col-sm-12">
-						<div contenteditable="false" id="inputContent">${readQnA.bq_content }</div>
-						<input type=hidden name="bq_content" id="content">
-					</div>
-				</div>
-				<div class="form-group row imagesRow">
-					<div class="col-sm-12 imagesBox">
-						<p>
-							<img src="${readQnA.bq_imagepath1 }"
-								onerror="this.style.display='none'" data-toggle="modal"
-								data-target=".bd-example-modal-lg">
-						</p>
-						<input type="hidden" value="${readQnA.bq_imagepath1 }">
-						<p>
-							<img src="${readQnA.bq_imagepath2 }"
-								onerror="this.style.display='none'">
-						</p>
-						<p>
-							<img src="${readQnA.bq_imagepath3 }"
-								onerror="this.style.display='none'">
-						</p>
-					</div>
-				</div>
-
-				<div class="form-group row btnsRow">
-					<div class="col-12 btns">
-						<button type="button" class="btn goBackBtn">돌아가기</button>
-<%-- 						<c:choose> --%>
-							<c:if test="${loginId eq readQnA.bq_email }">
-								<button type="button" class="btn updateBtn">수정하기</button>
-							</c:if>
-<%-- 						</c:choose> --%>
-					</div>
-				</div>
-			</form>
-			<div id="answerWrapper">
-
-				<c:choose>
-					<c:when test="${readQnA.bq_checkedAns eq 'n' and grade eq 'admin'}">
-						<!-- ========================답변(관리자만 가능)============================= -->
-
-						<div class="form-group row commentRow">
-							<div class="col-12 commentLabelBox">
-								<img src="resources/products/adminCmtImg.png"> <label
-									for="cq_comment" class="col-form-label">관리자 답변</label>
-							</div>
-							<div class="col-12 inputCommentBox">
-								<div contenteditable="true" id="inputComment"
-									data-text="내용을 입력해주세요."></div>
-								<input type="hidden" id="forCntCmt">
-							</div>
+		<!-- 리뷰 작성 폼 -->
+		<div id="qnaWrapper">
+			<!-- 		<span>문의하기</span> -->
+			<!-- 		<hr> -->
+	
+			<div id="qWrapper">
+				<form action="updateQnA" id="updateQnAForm" method="post"
+					enctype="multipart/form-data">
+	
+					<div class="form-group row inputTitleRow">
+						<!-- 		    <label for="inputTitle" class="col-sm-2 col-form-label">제목</label> -->
+						<div class="col-sm-12">
+							<input type="text" class="form-control" id="inputTitle"
+								name="bq_title" value="${readQnA.bq_title }" readOnly>
 						</div>
-						<div class="row commentBtnRow">
-							<div class="col-12 commentBtnBox">
-								<button class="btn" id="commentBtn">답변등록</button>
-							</div>
+					</div>
+	
+					<div class="row writerInfoRow">
+						<div class="col-12">
+							<img src="${writerInfo.m_profile}" class="profileImg"
+								border="1px solid black"> <span class="writerInfo">
+								${readQnA.bq_name }/작성자/${readQnA.bq_writedate }
+							</span>
 						</div>
-
-					</c:when>
-					<c:when test="${readQnA.bq_checkedAns eq 'n' and grade ne 'admin'}">
-						<div class="form-group row commentRow">
-							<div class="col-12 commentLabelBox">
-								<img alt="" src="resources/products/adminCmtImg.png"> <label
-									for="cq_comment" class="col-form-label">관리자 답변</label>
-							</div>
-							<div class="col-sm-12 inputCommentBox">
-								<div contenteditable="false" id="inputComment"
-									class="blankComment" data-text="">현재 등록된 답변이 없습니다.</div>
-								<input type="hidden" id="forCntCmt">
-							</div>
+					</div>
+	
+	
+					<div class="form-group row inputContentRow">
+						<div class="col-sm-12">
+							<div contenteditable="false" id="inputContent">${readQnA.bq_content }</div>
+							<input type=hidden name="bq_content" id="content">
 						</div>
-
-					</c:when>
-					<c:otherwise>
-						<div class="form-group row commentRow">
-							<div class="col-sm-12 commentLabelBox">
-								<img src="resources/products/adminCmtImg.png">	
-								<label for="cq_comment" class="col-form-label">관리자
-									답변</label>
-							</div>
-							<div class="col-sm-12 inputCommentBox">
-								<div contenteditable="false" id="inputComment">${commentList.cq_comment }</div>
-							</div>
+					</div>
+					<div class="form-group row imagesRow">
+						<div class="col-sm-12 imagesBox">
+							<p>
+								<img src="${readQnA.bq_imagepath1 }"
+									onerror="this.style.display='none'" data-toggle="modal"
+									data-target=".bd-example-modal-lg">
+							</p>
+							<input type="hidden" value="${readQnA.bq_imagepath1 }">
+							<p>
+								<img src="${readQnA.bq_imagepath2 }"
+									onerror="this.style.display='none'">
+							</p>
+							<p>
+								<img src="${readQnA.bq_imagepath3 }"
+									onerror="this.style.display='none'">
+							</p>
 						</div>
-						<c:if test="${readQnA.bq_checkedAns eq 'y' and grade eq 'admin'}">
-							<div class="row commentBtnRow">
-								<div class="col-12 commentBtnBox">
-									<button class="btn" id="delCommentBtn">삭제하기</button>
-									<button class="btn" id="editBtn">수정하기</button>
+					</div>
+	
+					<div class="form-group row btnsRow">
+						<div class="col-12 btns">
+	
+								<c:if test="${loginId eq readQnA.bq_email }">
+									<button type="button" class="btn deleteBtn">삭제하기</button>
+									<button type="button" class="btn updateBtn">수정하기</button>
+								</c:if>
+						</div>
+					</div>
+				</form>
+				<div id="answerWrapper">
+	
+					<c:choose>
+						<c:when test="${readQnA.bq_checkedAns eq 'n' and grade eq 'admin'}">
+							<!-- ========================답변(관리자만 가능)============================= -->
+	
+							<div class="form-group row commentRow">
+								<div class="col-12 commentLabelBox">
+									<img src="resources/products/adminCmtImg.png"> <label
+										for="cq_comment" class="col-form-label">관리자 답변</label>
+								</div>
+								<div class="col-12 inputCommentBox">
+									<div contenteditable="true" id="inputComment" data-text="내용을 입력해주세요."></div>
+									<input type="hidden" id="forCntCmt">
 								</div>
 							</div>
-						</c:if>
-					</c:otherwise>
-				</c:choose>
-
-				<!-- 		<div class="cq_comment"></div> -->
+							<div class="row commentBtnRow">
+								<div class="col-12 commentBtnBox">
+									<button class="btn" id="commentBtn">답변등록</button>
+								</div>
+							</div>
+	
+						</c:when>
+						<c:when test="${readQnA.bq_checkedAns eq 'n' and grade ne 'admin'}">
+							<div class="form-group row commentRow">
+								<div class="col-12 commentLabelBox">
+									<img alt="" src="resources/products/adminCmtImg.png"> <label
+										for="cq_comment" class="col-form-label">관리자 답변</label>
+								</div>
+								<div class="col-sm-12 inputCommentBox">
+									<div contenteditable="false" id="inputComment"
+										class="blankComment" data-text="">현재 등록된 답변이 없습니다.</div>
+									<input type="hidden" id="forCntCmt">
+								</div>
+							</div>
+	
+						</c:when>
+						<c:otherwise>
+							<div class="form-group row commentRow">
+								<div class="col-sm-12 commentLabelBox">
+									<img src="resources/products/adminCmtImg.png">	
+									<label for="cq_comment" class="col-form-label">관리자
+										답변</label>
+								</div>
+								<div class="col-sm-12 inputCommentBox">
+									<div contenteditable="false" id="inputComment">${commentList.cq_comment }</div>
+								</div>
+							</div>
+							<c:if test="${readQnA.bq_checkedAns eq 'y' and grade eq 'admin'}">
+								<div class="row commentBtnRow">
+									<div class="col-12 commentBtnBox">
+										<button class="btn" id="delCommentBtn">삭제하기</button>
+										<button class="btn" id="editBtn">수정하기</button>
+									</div>
+								</div>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+	
+					<!-- 		<div class="cq_comment"></div> -->
+				</div>
+	
+	
+	
+	
 			</div>
-
-
-
-
+			<div class="goBackBtnBox">
+				<button type="button" class="btn goBackBtn">돌아가기</button>
+			</div>
 		</div>
+		
+	
 
-	</div>
+	
 
 
 	<!-- 	footer -->

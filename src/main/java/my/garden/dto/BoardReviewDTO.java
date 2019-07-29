@@ -53,7 +53,7 @@ public class BoardReviewDTO {
 		this.br_imagepath = br_imagepath;
 	}
 	public String getBr_title() {
-		return br_title;
+		return br_title.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 	public void setBr_title(String br_title) {
 		this.br_title = br_title;
@@ -71,7 +71,7 @@ public class BoardReviewDTO {
 		this.br_name = br_name;
 	}
 	public String getBr_content() {
-		return br_content;
+		return br_content.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 	public void setBr_content(String br_content) {
 		this.br_content = br_content;
@@ -79,6 +79,11 @@ public class BoardReviewDTO {
 	public String getBr_writedate() {
 		return this.formedTime();
 	}
+	
+	public Timestamp getBr_date(){
+		return this.br_writedate;
+	}
+	
 	public void setBr_writedate(Timestamp br_writedate) {
 		this.br_writedate = br_writedate;
 	}

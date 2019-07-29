@@ -74,7 +74,7 @@ public class BoardQnADTO {
 
 
 	public String getBq_title() {
-		return bq_title;
+		return bq_title.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 
 
@@ -110,7 +110,7 @@ public class BoardQnADTO {
 
 
 	public String getBq_content() {
-		return bq_content;
+		return bq_content.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 
 

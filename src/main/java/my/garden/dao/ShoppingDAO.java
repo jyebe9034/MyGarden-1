@@ -1,113 +1,52 @@
 package my.garden.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
 
-@Component
-public class ShoppingDAO {
-
-	@Autowired
-	private SqlSessionTemplate sst;
-
-	public List<CartDTO> selectCartList(String userId) throws Exception{
-		return sst.selectList("ShoppingDAO.selectCartList", userId);
-	}
+public interface ShoppingDAO {
+	public List<CartDTO> selectCartList(String userId) throws Exception;
 	
-	public int delFromCart(CartDTO dto) throws Exception{
-		return sst.delete("ShoppingDAO.delFromCart", dto);
-	}
+	public int delFromCart(CartDTO dto) throws Exception;
 	
-	public int delExpiredCart() throws Exception{
-		return sst.delete("ShoppingDAO.delExpiredCart");
-	}
+	public int delExpiredCart() throws Exception;
 	
-	public MembersDTO selectMember(MembersDTO dto, String id) throws Exception{
-		dto.setM_email(id);
-		return sst.selectOne("LoginDAO.memSelectAll", dto);
-	}
+	public MembersDTO selectMember(MembersDTO dto, String id) throws Exception;
 	
-	public int insertIntoShopList(ShopListDTO dto) throws Exception{
-		return sst.insert("ShoppingDAO.insertIntoShopList", dto);
-	}
+	public int insertIntoShopList(ShopListDTO dto) throws Exception;
 	
-	public void delCartOrderd(String id, String title) throws Exception{
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		map.put("title", title);
-		sst.delete("ShoppingDAO.delCartOrderd", map);
-	}
+	public void delCartOrderd(String id, String title) throws Exception;
 	
-	public List<ShopListDTO> selectOrderList(ShopListDTO dto) throws Exception{
-		return sst.selectList("ShoppingDAO.selectOrderList", dto);
-	}
+	public List<ShopListDTO> selectOrderList(ShopListDTO dto) throws Exception;
 	
-	public List<Long> selectOrderNo(String id) throws Exception{
-		return sst.selectList("ShoppingDAO.selectOrderNo", id);
-	}
+	public List<Long> selectOrderNo(String id) throws Exception;
 	
-	public int insertIntoCart(CartDTO dto) throws Exception{
-		return sst.insert("ShoppingDAO.insertIntoCart", dto);
-	}
+	public int insertIntoCart(CartDTO dto) throws Exception;
 	
-	public int isCartExist(int c_p_no) throws Exception{
-		return sst.selectOne("ShoppingDAO.isCartExist", c_p_no);
-	}
+	public int isCartExist(int c_p_no) throws Exception;
 	
-	public int updateCart(CartDTO dto) throws Exception{
-		return sst.update("ShoppingDAO.updateCart", dto);
-	}
+	public int updateCart(CartDTO dto) throws Exception;
 		
-	public List<Long> searchOrderNo(String id, String orderStatus) throws Exception{
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		map.put("orderStatus", orderStatus);
-		return sst.selectList("ShoppingDAO.searchOrderNo", map);
-	}
+	public List<Long> searchOrderNo(String id, String orderStatus) throws Exception;
 	
-	public List<Long> searchOrderNoAll(ShopListDTO dto) throws Exception{
-		return sst.selectList("ShoppingDAO.searchOrderNoAll", dto);
-	}
+	public List<Long> searchOrderNoAll(ShopListDTO dto) throws Exception;
 	
-	public List<Long> searchOrderNoDuration(ShopListDTO dto) throws Exception{
-		return sst.selectList("ShoppingDAO.searchOrderNoDuration", dto);
-	}
+	public List<Long> searchOrderNoDuration(ShopListDTO dto) throws Exception;
 	
-	public int insertSubscribe(SubscribeDTO dto) throws Exception{
-		return sst.insert("ShoppingDAO.insertSubscribe", dto);
-	}
+	public int insertSubscribe(SubscribeDTO dto) throws Exception;
 	
-	public int updateShoplist() throws Exception{
-		return sst.update("ShoppingDAO.updateShopList");
-	}
+	public int updateShoplist() throws Exception;
 	
-	public int updateSubslist() throws Exception{
-		return sst.update("ShoppingDAO.updateSubsList");
-	}
+	public int updateSubslist() throws Exception;
 	
-	public List<SubscribeDTO> selectSubsList(String id) throws Exception{
-		return sst.selectList("ShoppingDAO.selectSubsList", id);
-	}
+	public List<SubscribeDTO> selectSubsList(String id) throws Exception;
 	
-	public int subsCancel(SubscribeDTO sbdto) throws Exception{
-		return sst.update("ShoppingDAO.subsCancel", sbdto);
-	}
+	public int subsCancel(SubscribeDTO sbdto) throws Exception;
 	
-	public List<SubscribeDTO> selectSubsSearch(SubscribeDTO dto) throws Exception{
-		return sst.selectList("ShoppingDAO.selectSubsSearch", dto);
-	}
+	public List<SubscribeDTO> selectSubsSearch(SubscribeDTO dto) throws Exception;
 	
-	public int completeShipping(Long s_orderno) throws Exception{
-		return sst.update("ShoppingDAO.completeShipping", s_orderno);
-	}
-	
+	public int completeShipping(Long s_orderno) throws Exception;
 }

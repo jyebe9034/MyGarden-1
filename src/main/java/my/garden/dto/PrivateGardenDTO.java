@@ -8,7 +8,7 @@ public class PrivateGardenDTO {
 	private String g_name;
 	private String g_gardenname;
 	private Timestamp g_enrolldate;
-	private String g_hurb;
+	private String g_herb;
 	private int g_temper;
 	private String g_humid;
 	private String g_light;
@@ -16,21 +16,21 @@ public class PrivateGardenDTO {
 	private String g_consume;
 	
 	public PrivateGardenDTO() {}
-	public PrivateGardenDTO(String g_email, String g_name, String g_gardenname, String g_hurb, int g_temper) {
+	public PrivateGardenDTO(String g_email, String g_name, String g_gardenname, String g_herb, int g_temper) {
 		super();
 		this.g_email = g_email;
 		this.g_name = g_name;
 		this.g_gardenname = g_gardenname;
-		this.g_hurb = g_hurb;
+		this.g_herb = g_herb;
 		this.g_temper = g_temper;
 	}
-	public PrivateGardenDTO(String g_email, String g_name, Timestamp g_enrolldate, String g_hurb, int g_temper,
+	public PrivateGardenDTO(String g_email, String g_name, Timestamp g_enrolldate, String g_herb, int g_temper,
 			String g_humid, String g_light, String g_process, String g_consume) {
 		super();
 		this.g_email = g_email;
 		this.g_name = g_name;
 		this.g_enrolldate = g_enrolldate;
-		this.g_hurb = g_hurb;
+		this.g_herb = g_herb;
 		this.g_temper = g_temper;
 		this.g_humid = g_humid;
 		this.g_light = g_light;
@@ -62,11 +62,11 @@ public class PrivateGardenDTO {
 	public void setG_enrolldate(Timestamp g_enrolldate) {
 		this.g_enrolldate = g_enrolldate;
 	}
-	public String getG_hurb() {
-		return g_hurb;
+	public String getG_herb() {
+		return g_herb;
 	}
-	public void setG_hurb(String g_hurb) {
-		this.g_hurb = g_hurb;
+	public void setG_herb(String g_herb) {
+		this.g_herb = g_herb;
 	}
 	public int getG_temper() {
 		return g_temper;

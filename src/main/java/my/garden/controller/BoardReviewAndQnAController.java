@@ -24,6 +24,7 @@ import my.garden.dto.CommentFreeDTO;
 import my.garden.dto.CommentQnADTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ProductsDTO;
+import my.garden.dto.ShopListDTO;
 import my.garden.service.BoardQnAService;
 import my.garden.service.BoardReviewService;
 import my.garden.service.ProductsService;
@@ -41,7 +42,7 @@ public class BoardReviewAndQnAController {
 	@Autowired
 	private BoardQnAService qnaService;
 	@Autowired
-	LoginServiceImpl loginservice;
+	private LoginServiceImpl loginservice;
 
 	@Autowired
 	private ProductsService pservice;
@@ -84,8 +85,20 @@ public class BoardReviewAndQnAController {
 					//System.out.println(myRecommendNo[i]);
 				}
 				request.setAttribute("myRecommendNo", myRecommendNo); 
+
+				String myCompletedPNum = null;
+				List<ShopListDTO> dCompletedPNumsList = brService.dCompletedPNums(id);
+				Integer[] dCompletedPNums = new Integer[dCompletedPNumsList.size()];
+				for(int i = 0;i < dCompletedPNumsList.size();i++) {
+					dCompletedPNums[i] = dCompletedPNumsList.get(i).getS_p_no();
+					//System.out.println(dCompletedPNums[i]);
+					if(dCompletedPNums[i].equals(pnumber)) {
+						myCompletedPNum="pnumber";
+					}
+				}
+				session.setAttribute("myCompletedPNum",myCompletedPNum);
 			}
-			
+
 			request.setAttribute("reviewList", brService.reviewList(br_p_no, startNum, endNum));
 			request.setAttribute("qnaList", qnaService.qnaList(br_p_no, startNum2, endNum2));
 			request.setAttribute("getNavi", brService.getNavi(revPage, br_p_no));
@@ -111,6 +124,8 @@ public class BoardReviewAndQnAController {
 			model.addAttribute("productInfo", dto);
 			model.addAttribute("pnumber",pnumber);
 		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
 		}
 		return "/boardProducts/reviewWriteForm";
 	}
@@ -147,8 +162,8 @@ public class BoardReviewAndQnAController {
 
 			brService.writeReview(dto);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "error";
 		}
 		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + br_p_no;
 	}
@@ -200,6 +215,7 @@ public class BoardReviewAndQnAController {
 			request.setAttribute("br_no", br_no);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
 		return "/boardProducts/reviewUpdateForm";
 	}
@@ -236,13 +252,12 @@ public class BoardReviewAndQnAController {
 				request.setAttribute("oneReview", brService.oneReview(br_no));
 			} catch (Exception e) {
 				e.printStackTrace();
+				return "error";
 			} 
 		}
 
 		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber; 
 	}
-
-
 
 	@RequestMapping("reviewDelete")
 	public String reviewDelete(HttpServletRequest request, int br_no) {
@@ -251,8 +266,8 @@ public class BoardReviewAndQnAController {
 			brService.deleteReview(br_no);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
-
 		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 	}
 
@@ -274,8 +289,8 @@ public class BoardReviewAndQnAController {
 		dto.setBq_email(id);
 		dto.setBq_name(name);
 		dto.setBq_p_no(bq_p_no);
-		System.out.println("문의 글 제목: " + dto.getBq_title());
-		System.out.println("문의 글 내용 : " + dto.getBq_content());
+		//		System.out.println("문의 글 제목: " + dto.getBq_title());
+		//		System.out.println("문의 글 내용 : " + dto.getBq_content());
 		try {
 			//	if(!images.isEmpty()) { //이미지 들어있으면 
 			if(images.length>0) {
@@ -305,29 +320,26 @@ public class BoardReviewAndQnAController {
 			qnaService.writeQnA(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}
 
-		return "redirect:productsRead?&mine=y&revPage=1&qnaPage=1&pnumber=" + bq_p_no;
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + bq_p_no;
 	}
 
 	@RequestMapping("readQnA")
 	public String readQnA(HttpServletRequest request, int bq_no, String checkA) throws Exception {	
 		String id = (String) session.getAttribute("loginId");
 		session.setAttribute("bq_no", bq_no);
-		
-		
-		
 		MembersDTO mdto = new MembersDTO();
 		try {
 			String writer = qnaService.readQnA(bq_no).getBq_email();
 			request.setAttribute("writerInfo", loginservice.memSelectAll(mdto, writer));
-//			request.setAttribute("mine", mine);
 			request.setAttribute("readQnA", qnaService.readQnA(bq_no));
 			request.setAttribute("commentList", qnaService.commentList(bq_no));
-			//System.out.println("checkAns : " + checkA);
 			request.setAttribute("checkAns", checkA);
 		} catch (Exception e) {
 			e.printStackTrace();
+			//			return "error";
 		}
 		return "/boardProducts/qnaRead";
 	}
@@ -338,6 +350,7 @@ public class BoardReviewAndQnAController {
 			request.setAttribute("readQnA", qnaService.readQnA(bq_no));	
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "error";
 		}	
 		return "/boardProducts/qnaUpdateForm";
 	}
@@ -356,8 +369,23 @@ public class BoardReviewAndQnAController {
 		try {
 			qnaService.updateQnA(dto, bq_no);
 		} catch (Exception e) {
+			e.printStackTrace();
+			//			return "error";
 		}
-		return "redirect:/readQnA?mine=y&bq_no="+bq_no;
+		return "redirect:/readQnA?&bq_no="+bq_no;
+	}
+
+	@RequestMapping("deleteQnA")
+	public String deleteQnA(HttpServletRequest request, int bq_no) {
+		int pnumber = (int) session.getAttribute("pnumber");
+		try {
+			int result = qnaService.deleteQnA(bq_no);
+			//			System.out.println(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			//			return "error";
+		}
+		return "redirect:productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
 	}
 
 	@ResponseBody
@@ -462,7 +490,6 @@ public class BoardReviewAndQnAController {
 		//System.out.println(cq_no);
 		return result; //result=2라면, 성공
 	}
-
 
 
 }

@@ -74,6 +74,18 @@
 		delete BR_RECOMMEND where br_no=#{br_no}
 	</delete>
 	
+
+	<select id="topRcmdReviews" resultType="my.garden.dto.BoardReviewDTO">
+		select * 
+		from (select ROW_Number() over (order by br_recommend DESC) as row_num, board_review.* from board_review) 
+		where row_num between 1 and 3
+	</select>
 	
+	<!-- 배송 완료된 상품번호 (배송완료 상품만 후기 작성 가능하도록) -->
+	<select id="dCompletedPNums" resultType="my.garden.dto.ShopListDTO">
+		select s_p_no 
+		from shoplist
+		where s_statement = '배송 완료' and s_email =#{br_email}
+	</select>
 	
 </mapper>
