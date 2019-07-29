@@ -61,7 +61,7 @@
       	.rvWrapper{
       		width: 90%;
       		margin: 0 auto;
-      		margin-top: 20px;
+      		margin-top: 50px;
       	}
       	
       	.rvCard{
