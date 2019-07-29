@@ -53,8 +53,8 @@
 
 #header {
 	overflow: hidden;
-	height: 300px;
-	background-color:#f4f7e9;
+	height: 175px;
+	background-color: #bee6d3;
 	padding: 0;
 	margin-bottom: 50px;
 }

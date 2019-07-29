@@ -26,12 +26,13 @@
 		.lastBtn button{border:1px solid #4f9c87; color:#4f9c87; font-family:'Eoe_Zno_L';}
 		.lastBtn button:hover{background:#4f9c87;; color:#f4f4f4;}
 		#chatboxWrap{
-			border-radius : 5px;
+			border-radius : 15px;
 			width : 350px;
 			height : 500px;
 			display : none;
 		}
 		#chatBox{
+			border-radius : 15px;
 			position : fixed;
 			left : 20px;
 			bottom : 100px;
@@ -72,7 +73,7 @@
       	}
       	
       	.imageBox{
-      		height: 40%;
+      		height: 170px;
 /*       		width: 40%; */
       	}
       	.imageBox img{
@@ -119,7 +120,7 @@
 		    -webkit-box-orient: vertical;
 		    word-wrap:break-word; 
 		    line-height: 1.2em;
-		    height: 3.6em;
+		    height: 3.5em;
       	}
       	
       	.rvBottom{
@@ -169,6 +170,12 @@
 			top: 0;
 			bottom: 0;
 			margin: auto;
+      	}
+      	.best h5{
+      		margin : 0;
+      	}
+      	.bestWrap{
+      		margin-bottom : 25px;
       	}
 	</style>
 </head>
@@ -377,13 +384,10 @@
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pt-4 pb-4 m-auto my">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#best" role="tab" aria-controls="home" aria-selected="true">Best</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#best" role="tab" aria-controls="home" aria-selected="true">Best Products</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#bestReviews" role="tab" aria-controls="profile" aria-selected="false">Best Reviews</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#review" role="tab" aria-controls="contact" aria-selected="false">Review</a>
               </li>
               <li class="nav-item" style="padding-top:2px;">
                 <a class="nav-link border-0 font-weight-bold" href="/productsList">More +</a>
@@ -393,10 +397,12 @@
               <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="home-tab">
                  <div class="row pt-3 m-auto">
                  <c:forEach var="list" items="${best}">
-	                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+	                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my best">
 	                     <img src="${list.p_imagepath}" width="90%" height="180" class="special" href="productsRead?&revPage=1&qnaPage=1&pnumber=${list.p_no}">
-	                     <h5 class="pt-2 pb-3">${list.p_title}</h5>
-	                     <p class="card-text price">${list.p_price}</p>
+	                     <div class="bestWrap">
+		                     <h5 class="pt-3">${list.p_title}</h5>
+		                     <p class="card-text price">${list.p_price}</p>
+	                  	 </div>
 	                  </div>
                  </c:forEach>
                </div>
@@ -426,7 +432,7 @@
 																		<fmt:formatDate pattern="yyyy-MM-dd" value="${topReviews.br_date }"/>
 																	</small>
 																</p>
-																<a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn btn-lg goPboardBtn">상품 보러 가기</a>
+																<a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn goPboardBtn">상품 보러 가기</a>
 													
 															</div>
 														</div>
@@ -462,7 +468,6 @@
 							  </div>
 			  				</div>
               
-              <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
          </div>
       </div>

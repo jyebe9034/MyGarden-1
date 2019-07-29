@@ -234,7 +234,7 @@
 		                        <li class="nav-item"><a class="nav-link">|</a></li>
 		                        <li class="nav-item"><a class="nav-link" href="/aboutMyGarden">About</a></li>
 		                        <li class="nav-item"><a class="nav-link" href="subscription">정기구독</a></li>
-		                        <li class="nav-item"><a class="nav-link" href="boardFreeList">자유게시판</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="boardFreeList">레시피</a></li>
 								<li class="nav-item">
 									<form class="form-inline my-2 my-lg-0">
 										<div class="input-group topAnchorSearch">
