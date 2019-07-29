@@ -2,11 +2,7 @@ package my.garden.controller;
 
 
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +17,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
-import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.ProductsDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
+import my.garden.service.ProductsService;
 import my.garden.serviceImpl.LoginServiceImpl;
 
 @Controller
 public class LoginController {
 	
+	@Autowired
+	private ProductsService pservice;
 	@Autowired
 	LoginServiceImpl loginserv;
 	@Autowired
@@ -89,6 +88,8 @@ public class LoginController {
 			session.setAttribute("loginName", loginName);
 			String grade = loginserv.getGrade(loginId);
 			session.setAttribute("grade", grade);
+//			List<ProductsDTO> best = pservice.selectBestProductsService();
+//			session.setAttribute("best", best);
 			return "home";
 		}
 	}

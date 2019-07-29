@@ -392,7 +392,7 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="home-tab">
                  <div class="row pt-3 m-auto">
-                 <c:forEach var="list" items="${result}">
+                 <c:forEach var="list" items="${best}">
 	                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
 	                     <img src="${list.p_imagepath}" width="90%" height="180" class="special" href="productsRead?&revPage=1&qnaPage=1&pnumber=${list.p_no}">
 	                     <h5 class="pt-2 pb-3">${list.p_title}</h5>
