@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import my.garden.daoImpl.ShoppingDAOImpl;
 
 @Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ScheduleTask {
 
 	private ThreadPoolTaskScheduler scheduler;
@@ -49,6 +49,7 @@ public class ScheduleTask {
 				System.out.println("스케줄러 왔음 + : " + count);
 				if(count==2) {
 					sdao.completeShipping(Long.parseLong(orderNo));
+					count=0;
 					this.stopScheduler();
 				}
 			}catch(Exception e) {
