@@ -26,7 +26,7 @@ public interface ShoppingDAO {
 	
 	public int insertIntoCart(CartDTO dto) throws Exception;
 	
-	public int isCartExist(int c_p_no) throws Exception;
+	public int isCartExist(CartDTO dto) throws Exception;
 	
 	public int updateCart(CartDTO dto) throws Exception;
 		

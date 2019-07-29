@@ -234,14 +234,14 @@
 		                        <li class="nav-item"><a class="nav-link">|</a></li>
 		                        <li class="nav-item"><a class="nav-link" href="/aboutMyGarden">About</a></li>
 		                        <li class="nav-item"><a class="nav-link" href="subscription">정기구독</a></li>
-		                        <li class="nav-item"><a class="nav-link" href="boardFreeList">자유게시판</a></li>
+		                        <li class="nav-item"><a class="nav-link" href="boardFreeList">레시피</a></li>
 								<li class="nav-item">
 									<form class="form-inline my-2 my-lg-0">
 										<div class="input-group topAnchorSearch">
-											<input class="form-control menuSearch ml-4" type="search"
+											<input id="keyword" class="form-control menuSearch ml-4" type="search"
 												placeholder="Search..." aria-label="Search"
 												aria-describedby="basic-addon2">
-											<div class="input-group-append">
+											<div id="searchBtn" class="input-group-append">
 												<button class="btn btn-outline-secondary mr-4" type="button"
 													id="button-addon2">&telrec;</button>
 											</div>
