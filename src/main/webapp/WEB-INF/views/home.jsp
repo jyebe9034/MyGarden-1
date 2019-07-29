@@ -158,6 +158,18 @@
       		background-color: white;
       		color:#4f9c87;
       	}
+      	
+      	.recipeBox{
+      		height: 465px;
+      	}
+      	#recipeImg{
+      		position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+      	}
 	</style>
 </head>
 <body>
@@ -505,21 +517,15 @@
             <h4 class="pt-2 pb-4">정원 오너들이 공유하는 레시피</h4>
          </div>
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar text-left mb-5 my">
-            <img src="resources/img/main1.jpg" width="400" height="600" style="float:left;" class="pr-2">
-            <div style="float:left;" class="pt-4 pr-2 pl-2 pb-2">
-               <h5 class="font-weight-bold">레시피 제목</h5>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-            </div>
+          	<div class="row recipeBox">
+          		<div class="col-lg-6 col-sm-12" >
+          			<img src="resources/img/main1.jpg" width="400" height="auto" class="pr-2" id=recipeImg>
+          		</div>
+           		<div class="col-lg-6 col-sm-12">
+           			<h5 class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br>
+           			<div id=recipeCont></div>
+           		</div>
+           </div>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
@@ -555,6 +561,21 @@
          <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
       </div>
    </c:if>
-
 </body>
+
+<script>
+
+//----- 레시피 시작 ------
+var recipe = '${recipe.bf_content}';
+var rimgRegex = /(\/re.+?png)/;
+var rimg = rimgRegex.exec(recipe);
+$("#recipeImg").attr("src",rimg[1]);
+
+var rconRegex = /(<img.+?>)/;
+var rcon = recipe.replace(rconRegex, "");
+$("#recipeCont").html(rcon);
+//----- 레시피 끝 -----
+
+</script>
+
 </html>

@@ -47,7 +47,7 @@ public class BoardFreeDTO {
 		this.bf_no = bf_no;
 	}
 	public String getBf_title() {
-		return bf_title;
+		return bf_title.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 	public void setBf_title(String bf_title) {
 		this.bf_title = bf_title;
@@ -65,7 +65,7 @@ public class BoardFreeDTO {
 		this.bf_email = bf_email;
 	}
 	public String getBf_content() {
-		return bf_content;
+		return bf_content.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 	public void setBf_content(String bf_content) {
 		this.bf_content = bf_content;

@@ -80,7 +80,7 @@ public class CommentFreeDTO {
 	}
 
 	public String getCf_comment() {
-		return cf_comment;
+		return cf_comment.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 
 	public void setCf_comment(String cf_comment) {

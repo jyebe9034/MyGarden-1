@@ -18,4 +18,5 @@ public interface AdminDAO {
 	public int updateOrder(String orderNo, String stat);
 	public int updateSubscribe(String orderNo, String stat);
 	public List<PrivateGardenDTO> privateList();
+	public List<PrivateGardenDTO> popularHerb();
 }

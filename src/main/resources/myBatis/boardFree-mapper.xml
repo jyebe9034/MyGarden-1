@@ -57,4 +57,8 @@
 		delete from comment_free where ${column}=${value}
 	</delete>
 	
+	<select id="mostViewed" resultType="my.garden.dto.BoardFreeDTO">
+		select * from (select row_number() over(order by bf_viewcount desc) as rown, board_free.* from board_free) where rown=1
+	</select>
+	
 </mapper>
