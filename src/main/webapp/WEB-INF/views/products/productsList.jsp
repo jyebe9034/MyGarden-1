@@ -9,7 +9,6 @@
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
 <title>나의 정원 - 공유 정원</title>
 <style>
-
 #sharedWrap {
 	width: 100%;
 	margin: 30px 0 !important;
@@ -54,7 +53,7 @@
 #header {
 	overflow: hidden;
 	height: 175px;
-	background-color: #bee6d3;
+	background-color: #97c4b8;
 	padding: 0;
 	margin-bottom: 50px;
 }
@@ -140,7 +139,7 @@
 	<jsp:include page="../module/fixedHeader.jsp" />
 	<div id="wrapper">
 		<div id="header"></div>
-		<div id="viewheight" class="container-fluid">
+		<div id="viewheight" class="container-fluid m-0 p-0">
 			<div id="wrap" class="container">
 				<div id="sharedWrap" class="row">
 					<div class="col-12 sharedImgDiv">
@@ -178,7 +177,7 @@
 					</c:forEach>
 				</div>
 			</div>
-			<div id="listFooter">
+			<div id="listFooter" style="margin-top:100px;">
 				<jsp:include page='../module/fixedFooter.jsp' />
 			</div>
 		</div>
