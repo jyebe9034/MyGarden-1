@@ -77,8 +77,9 @@ public class ShoppingServiceImpl implements ShoppingService{
 		return dao.selectOrderList(dto);
 	}
 	
-	public int insertIntoCart(CartDTO dto) throws Exception{
-		if(dao.isCartExist(dto.getC_p_no())>0) {
+	public int insertIntoCart(CartDTO dto, String id) throws Exception{
+		dto.setC_m_email(id);
+		if(dao.isCartExist(dto)>0) {
 			return dao.updateCart(dto);			
 		}else {
 			return dao.insertIntoCart(dto);
