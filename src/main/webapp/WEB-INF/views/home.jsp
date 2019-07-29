@@ -15,6 +15,7 @@
       <script src="resources/js/jquery.mCustomScrollbar.js"></script>
 <link rel="stylesheet" href="resources/css/recipe.css">
 <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+
    <style>
       .clickToClose{background:#86B404; padding:10px 0; color:#eee;}
       .clickToCloseBtn{width:25px; height:25px; right:2%; cursor:pointer;}
@@ -32,10 +33,11 @@
          display : none;
       }
       #chatBox{
-         border-radius : 15px;
+         border-radius : 10px;
          position : fixed;
          left : 20px;
          bottom : 100px;
+			z-index:9999;
       }
       #chatWrap{
          width : 70px;
@@ -179,12 +181,39 @@
          .bestWrap{
             margin-bottom : 25px;
          }
+         
+         #recipeImg:hover{
+            cursor: pointer;
+            opacity: 0.7;
+         }
+         #recipeTitle:hover{
+            cursor: pointer;
+            text-decoration: underline;
+         }  
    </style>
 </head>
 <body>
 <!-- script -->
    <script>
    $(function(){       
+	 //----- 레시피 시작 ------
+	   var recipe = '${recipe.bf_content}';
+	   var rRegex = /(<img.+?.>)/g;
+	   var rimg = rRegex.exec(recipe);
+	   $("#recipeImg").append(rimg[1]);
+	   console.log(rimg);
+	   var rcon = recipe.replace(rRegex, "");
+	   $("#recipeCont").html(rcon);
+	   
+	   $("#recipeImg").on("click", function () {
+		   location.href="boardFreeRead?no="+${recipe.bf_no};
+		})
+		$("#recipeTitle").on("click", function () {
+		   location.href="boardFreeRead?no="+${recipe.bf_no};
+		})
+	   //----- 레시피 끝 -----
+
+	   
        $("#chatWrap").on("click", function(){
             if($("#chatboxWrap").css("display") == "none"){
                $("#chatboxWrap").show();
@@ -411,9 +440,9 @@
               </div>
               
               <div class="tab-pane fade" id="bestReviews" role="tabpanel" aria-labelledby="profile-tab">
-              <div class="row rvWrapper">
-               <c:forEach var="topReviews" items="${topReviews }">
-                                 <div class="col-lg-4 col-md-6 col-sm-6 rvCardBox p-3">
+			     <div class="row rvWrapper">
+					<c:forEach var="topReviews" items="${topReviews }">
+								<div class="col-lg-4 col-md-6 col-sm-12 rvCardBox">
                                     <div class="card mb-3 rvCard"  data-toggle="modal" data-target="#rvModal">
                                        <input type="hidden" value="${topReviews.br_imagepath }">
                                        <input type="hidden" value="${topReviews.br_title }">
@@ -434,42 +463,41 @@
                                                       <fmt:formatDate pattern="yyyy-MM-dd" value="${topReviews.br_date }"/>
                                                    </small>
                                                 </p>
-                                                <a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn goPboardBtn">상품 보러 가기</a>
+                                                <a href="productsRead?&revPage=1&qnaPage=1&pnumber=${topReviews.br_p_no }"class="btn goPboardBtn">상품보러가기</a>
                                        
                                              </div>
                                           </div>
                                        </div>
                                     </div>
                                  </div>
-                  </c:forEach>
-               </div> 
-             </div>
-                      <!-- Modal for Reviews -->  
-                        <div class="modal fade" id="rvModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                       <div class="modal-dialog" role="document">
-                         <div class="modal-content">
-                           <div class="modal-header">
-                             <h5 class="modal-title" id="md_rvTitle"></h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                             </button>
-                           </div>
-                           <div class="modal-body">
-                             <div class="md_rvImgBox">
-                                <img src="" class="card-img" onerror="this.src='/resources/free/noImg.png'" >                     
-                               </div>
-                               <div class="md_rvContentBox">
-                                  <div class="md_rvContent"></div>
-                               </div>
-                           </div>
-                           <div class="modal-footer">
-                             <button type="button" class="btn rvMdCloseBtn btn-lg" data-dismiss="modal">Close</button>
-            <!--                  <button type="button" class="btn btn-primary">상품 보러 가기</button> -->
-                           </div>
-                         </div>
-                       </div>
-                       </div>
-              
+						</c:forEach>
+					</div> 
+				 </div>
+				 			<!-- Modal for Reviews -->  
+				            <div class="modal fade" id="rvModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="md_rvTitle"></h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							        <div class="md_rvImgBox">
+							        	<img src="" class="card-img" onerror="this.src='/resources/free/noImg.png'" >							
+							       	</div>
+							       	<div class="md_rvContentBox">
+							       		<div class="md_rvContent"></div>
+							       	</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn rvMdCloseBtn btn-lg" data-dismiss="modal">Close</button>
+				<!-- 			        <button type="button" class="btn btn-primary">상품 보러 가기</button> -->
+							      </div>
+							    </div>
+							  </div>
+			  				</div>
             </div>
          </div>
       </div>
@@ -481,23 +509,23 @@
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">조소현 선수</h5>
-            <img src="resources/img/player1.jpg" width="330" height="340" class="special" href="/productsList">
+            <img src="resources/img/player1.jpg" width="330" height="340" class="special" href="/vegetable?category=vegetable">
             <h6 class="pt-3 pb-2">&ldquo;규칙적인 샐러딩 습관이 중요합니다 &rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">지소연 선수</h5>
-            <img src="resources/img/player2.jpg" width="330" height="340" class="special" href="/productsList">
+            <img src="resources/img/player2.jpg" width="330" height="340" class="special" href="/fruit?category=fruit">
             <h6 class="pt-3 pb-2">&ldquo;나의 정원에서 제철과일을 즐겨 먹어요&rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">문미라 선수</h5>
-            <img src="resources/img/player3.jpg" width="330" height="340" class="special" href="/productsList">
+            <img src="resources/img/player3.jpg" width="330" height="340" class="special" href="/egg?category=egg">
             <h6 class="pt-3 pb-1">&ldquo;나의 정원에선 채소뿐만 아니라 </h6>
             <h6 class="pb-2">다른 유기농 유제품도 함께 수확할 수 있어서 좋아요&rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">손화연 선수</h5>
-            <img src="resources/img/player4.jpg" width="330" height="340" class="special" href="/productsList">
+            <img src="resources/img/player4.jpg" width="330" height="340" class="special" href="/grain?category=grain">
             <h6 class="pt-3 pb-1">&ldquo;영양과 맛, 두가지를 다 잡은</h6>
             <h6 class="pb-2">저만의 오트밀 레시피를 알려드리겠습니다&rdquo;</h6>
          </div>
@@ -510,9 +538,9 @@
       
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto text-left mb-5 my scrollBar">
                 <div class=row>
+                <div class="col-12"><h5 id="recipeTitle" class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br></div>
                 <div class="col-lg-6 col-sm-12" id=recipeImg></div>
                  <div class="col-lg-6 col-sm-12" id=recipeContBox>
-                    <h5 class="font-weight-bold text-center ">- ${recipe.bf_title } -</h5><br>
                     <div id=recipeCont></div>
                  </div>
               </div>
@@ -520,22 +548,19 @@
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
             <div class="slider">
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10004088_1491055334449687_1187165020_n.jpg" class="special" href="/"/>
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10817863_856543214397968_517239188_n.jpg" />
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10919749_326992714172441_299394464_n.jpg" />
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10617007_939025979457209_6938406_n.jpg" />
-               <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1168617_1435408473368301_409182770_n.jpg" />
-                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/11189836_754178218029431_2102772742_n.jpg" />
-                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/10843869_1658219887738208_2033326788_n.jpg" />
-                <img src="https://www.maggiesadler.com/wp-content/uploads/2015/10/1515054_1379051609022475_1394148610_n.jpg" />
+               <img src="http://192.168.60.22/resources/write/dlgodud8997@naver.com/1564378451041_write.png" class="special" href="/"/>
+               <img src="/resources/write/young9008@daum.net/1564388965762_write.png" />
+               <img src="/resources/write/leeeyeonji@gmail.com/1564390760203_write.png" />
+               <img src="/resources/write/admin123@naver.com/1564394628735_write.png" />
+               <img src="/resources/write/jyebe9034@gmail.com/1564396773613_write.png" />
                </div>
             <!-- partial -->
 <!--               <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->
             <script  src="resources/js/recipe.js"></script>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-5 pt-4 pb-5 lastBtn my">
-            <button type="button" class="btn btn-lg mt-2 mr-2" href="/boardFreeList">더 보기</button>
-            <button type="button" class="btn btn-lg mt-2" href="/aboutMyGarden">About 나의 정원</button>
+            <button type="button" class="btn mt-2 mr-2" href="/boardFreeList">더 보기</button>
+            <button type="button" class="btn mt-2" href="/aboutMyGarden">About 나의 정원</button>
          </div>
       </div>
    </div>
@@ -552,19 +577,4 @@
       </div>
    </c:if>
 </body>
-
-<script>
-
-//----- 레시피 시작 ------
-var recipe = '${recipe.bf_content}';
-var rRegex = /(<img.+?.>)/g;
-var rimg = rRegex.exec(recipe);
-$("#recipeImg").append(rimg[1]);
-console.log(rimg);
-var rcon = recipe.replace(rRegex, "");
-$("#recipeCont").html(rcon);
-//----- 레시피 끝 -----
-
-</script>
-
 </html>

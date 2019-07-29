@@ -12,7 +12,7 @@
    #bcolor{
       width : 100%;
       height : 175px;
-      background-color : #deca92;      
+      background-color : #bee6d3;      
    }
    #titleImg{
       margin-top : 10px;
@@ -206,27 +206,32 @@
    
    <script>
        $("#getProduct").on("click",function(){
-			var data = new FormData();
-			var price = $("#total").html().split("원");
-			data.append("c_p_no", "${result.p_no}");
-			data.append("c_p_imagepath", "${result.p_imagepath}");
-			data.append("c_p_title", "${result.p_title}");
-			data.append("c_p_price", "${result.p_price}");
-			data.append("c_m_email", "${loginId}");
-			data.append("c_count", $("#smSelect").val());
-         $.ajax({
-            url : "insertCart",
-            data : data,
-            type : "post",
-            cache : false,
-            contentType : false,
-            processData : false
-         }).done(function(){
-        	var goCart = confirm("상품을 성공적으로 장바구니에 담았습니다. 장바구니로 이동하시겠습니까?");
-			if (goCart) {
-				location.href = "cart";
-			}
-         })
+    	   if(${loginId==null} || ${loginName==null}){
+    		   alert("로그인이 필요한 메뉴입니다.");
+				$(location).attr("href","/login");
+    	   }else{
+				var data = new FormData();
+				var price = $("#total").html().split("원");
+				data.append("c_p_no", "${result.p_no}");
+				data.append("c_p_imagepath", "${result.p_imagepath}");
+				data.append("c_p_title", "${result.p_title}");
+				data.append("c_p_price", "${result.p_price}");
+				data.append("c_m_email", "${loginId}");
+				data.append("c_count", $("#smSelect").val());
+	         $.ajax({
+	            url : "insertCart",
+	            data : data,
+	            type : "post",
+	            cache : false,
+	            contentType : false,
+	            processData : false
+	         }).done(function(){
+	        	var goCart = confirm("상품을 성공적으로 장바구니에 담았습니다. 장바구니로 이동하시겠습니까?");
+				if (goCart) {
+					location.href = "cart";
+				}
+	         })
+    	   }
       }) 
       
       $("#updateBtn").on("click", function(){

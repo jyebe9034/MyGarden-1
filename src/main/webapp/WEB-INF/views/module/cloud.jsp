@@ -20,7 +20,7 @@
 	height: 50px;
 	position: absolute;
 	top: 50px;
-	left: 230px;
+	left: 220px;
 	margin-left: -170px;
 	z-index: 100;
 	transform: translate(0, 0);

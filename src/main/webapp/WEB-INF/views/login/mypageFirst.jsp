@@ -163,6 +163,9 @@ h4 .badge{background:#eee;}
 <!-- js -->
 <script>
 	$(function(){
+		$('.carousel').carousel({
+			  interval: 5000
+			});
 		var today = new Date();
 		var yyyy = today.getFullYear();
 		var mt = ["Ja", "Fb", "Mr", "Ap", "Ma", "Ju", "Jl", "Ag", "Sp", "Ot", "Nv", "Dc"];
@@ -223,7 +226,7 @@ h4 .badge{background:#eee;}
 						    + '<td colspan="2" class="pt-4 text-left">'+rst[0][i].sb_category+'</td>'
 						    + '</tr>'
 						    + '<tr>'
-						    + '<th scope="row" style="border:none;"></th>'
+						    + '<th scope="row" class="pt-1 border-0">('+rst[0][i].sb_statement+')</th>'
 						    + '<td colspan="2" style="border:none;" class="text-left">'+rst[0][i].sb_price+'원</td>'
 						    + '</tr>'
 						    + '<tr>'
@@ -240,7 +243,7 @@ h4 .badge{background:#eee;}
 						    + '<td colspan="2" class="pt-4 text-left">'+rst[1][i].s_p_title+'</td>'
 						    + '</tr>'
 						    + '<tr>'
-						    + '<th scope="row" style="border:none;"></th>'
+						    + '<th scope="row" class="pt-1 border-0">('+rst[1][i].s_statement+')</th>'
 						    + '<td colspan="2" style="border:none;" class="text-left">'+rst[1][i].s_p_price+'원</td>'
 						    + '</tr>'
 						    + '<tr>'

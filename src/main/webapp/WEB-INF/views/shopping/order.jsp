@@ -90,6 +90,9 @@ table.list_table_style td.cell {
 .orderImg {
    border-radius: 10px;
    width: 100%;
+   height: 100%;
+   margin-top : 5px;
+   margin-bottom : 5px;
 }
 </style>
 
@@ -180,9 +183,8 @@ table.list_table_style td.cell {
 												<table width="100%" border="0" cellpadding="0"
 													cellspacing="0">
 													<tr>
-														<td class="center" width="60" height="60" valign="middle"
-															style="border: 1px solid #eeeeee;"><img
-															class="orderImg" src="${dto.c_p_imagepath }"
+														<td class="center" width="60" height="60" valign="middle">
+														<img class="orderImg" src="${dto.c_p_imagepath }"
 															align="absmiddle"
 															style="max-height: 60px; max-width: 60px;" /></td>
 														<td class="left" style="padding-left: 10px;">

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import my.garden.dao.LoginDAO;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
 
@@ -175,26 +176,17 @@ public class LoginServiceImpl {
 		JsonNode accessToken = jsonToken.get("access_token");
 		JsonNode userInfo = logDao.kakaoLoginGetInfo(accessToken);
 		
-//		System.out.println("userInfo : " + userInfo);
-		
 		// Get id
         String id = userInfo.path("id").asText();
         String name = null;
         String profile = null;
         String socialEmail = null;
-
-        // 유저정보 카카오에서 가져오기 Get properties
-
         JsonNode properties = userInfo.path("properties");
         JsonNode kakao_account = userInfo.path("kakao_account");
  
         name = properties.path("nickname").asText();
         profile = properties.path("profile_image").asText();
         socialEmail = kakao_account.path("email").asText();
- 
-//        System.out.println("id : " + id);
-//        System.out.println("name : " + name);
-//        System.out.println("email : " + socialEmail);
         
         Map<String, String> map = new HashMap();
         map.put("socialEmail", id+"(kakao)");
@@ -241,6 +233,10 @@ public class LoginServiceImpl {
 	
 	public String getGrade(String id) {
 		return logDao.getGrade(id);
+	}
+	
+	public PrivateGardenDTO getPrivate(String g_email) {
+		return logDao.getPrivate(g_email);
 	}
 	
 }

@@ -17,12 +17,6 @@ public class LoginAdviser {
 	@Autowired
 	private HttpSession session;
 	
-//	@Pointcut("execution(* my.garden.controller.LoginController.Login(..))") 
-//	public void cut1() {
-//	}
-//	@Pointcut("execution(* my.garden.controller.LoginController.Join(..))") 
-//	public void cut2() {
-//	}
 	@Pointcut("execution(* my.garden.controller.MypageController.*(..))")
 	public void mypage() {}
 	
@@ -34,8 +28,7 @@ public class LoginAdviser {
 	public void delete(){}
 	@Pointcut("execution(* my.garden.controller.BoardReviewAndQnAController.recommend(..))")
 	public void recommend(){}
-	
-	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeWrite(..))")
+	@Pointcut("execution(* my.garden.controller.PrivateGardenController.*(..))")
 	public void bfWrite(){}
 	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeModify(..))")
 	public void bfModify(){}
@@ -43,12 +36,15 @@ public class LoginAdviser {
 	public void bfDelete(){}
 	@Pointcut("execution(* my.garden.controller.AdminController.admin*(..))")
 	public void admin(){}
+	
+	public void privateGarden(){}
+	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeWrite(..))")
 
 	
 //	@Around("execution(* my.garden.controller.LoginController.*(..))")
-	@Around("mypage() || write() || update() || delete() || recommend() || bfWrite() || bfModify() || bfModify() || bfDelete() || admin()")
+	@Around("mypage() || write() || update() || delete() || recommend() || bfWrite() || bfModify() || bfDelete() || admin() || privateGarden()")
 	public Object loginCheck(ProceedingJoinPoint pjp) throws Throwable{
-		if(session.getAttribute("loginId") == null) {
+		if(session.getAttribute("loginId") == null || session.getAttribute("loginName") == null) {
 			return "login/login"; 
 		} else {
 			return pjp.proceed();
