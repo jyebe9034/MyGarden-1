@@ -451,7 +451,7 @@ h4 {
 											<td class=orNo>${tmp.s_orderno }</td>
 											<td>${tmp.s_email }</td>
 											<td>${tmp.s_phone }</td>
-											<td><fmt:formatNumber value="${tmp.s_p_count}"
+											<td><fmt:formatNumber value="${tmp.s_p_price}"
 													pattern="#,###원" /></td>
 											<td><button class=subsCheck>
 													<i class="fa fa-check-circle"></i>

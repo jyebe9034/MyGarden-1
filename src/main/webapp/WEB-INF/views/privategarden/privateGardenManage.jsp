@@ -258,6 +258,7 @@
 	
 	label{
 		width : 180px;
+		font-size : 20px;
 	}
 	
 	#save{
@@ -402,7 +403,9 @@
 					temper : temp
 				}
 			}).done(function(resp){
-				console.log(resp);
+				if(resp == "잘 다녀옴"){
+					alert("펭콘이 이 상태를 기억했습니다!");
+				}
 			})
 		})
 	
