@@ -164,7 +164,7 @@
 			})
 		
 			$(".updateImgBtn").on("click",function(){
-				var imageFile = $(this).parent().prev().prev().children();
+				var imageFile = $(this).parent().parent().prev().children("input");
 				var imageOriPath = $(this).next().val();
 				var formData = new FormData();
 		    	 formData.append("formData",$(imageFile)[0].files[0]);

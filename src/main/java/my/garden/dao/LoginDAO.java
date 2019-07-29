@@ -46,6 +46,7 @@ import com.google.gson.JsonParser;
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.PrivateGardenDTO;
+
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
 
@@ -189,7 +190,6 @@ public class LoginDAO {
 		final String username = "sparkss0419"; //only account(not @-)
 		final String password = "mygarden555*"; //account password 
 		int port=465; //port number
-		
 		//mail contents 
 		String recipient = m_email; //receiver's account 
 		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //mail title 
@@ -349,8 +349,10 @@ public class LoginDAO {
  
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
         postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.60.22/kakaoCallback")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
+
         postParams.add(new BasicNameValuePair("code", code)); // getting code when accounting
+
         final HttpClient client = HttpClientBuilder.create().build();
         final HttpPost post = new HttpPost(RequestUrl);
  

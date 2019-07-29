@@ -609,8 +609,8 @@ background: radial-gradient(ellipse at center, #f9f9f9 29%,#1e5799 98%);
 		<script  src="resources/js/mountain.js"></script>
 	
 	<script>
-		$("#hurbBtn").on("click", function(){
-			$(location).attr("href", "toSelectHurb");
+		$("#herbBtn").on("click", function(){
+			$(location).attr("href", "toSelectHerb");
 			/* $("#privategarden", parent.document).attr("src", "testModal"); */
 		})
 	</script>
