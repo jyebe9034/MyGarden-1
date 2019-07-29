@@ -287,6 +287,8 @@ hr {
 	</div>
 	<jsp:include page="/WEB-INF/views/module/fixedFooter.jsp"></jsp:include>
 	<script>
+	console.log($("#content").html());
+	
    function maxCheck(i){
 		if(i.length==300){
 			alert("최대 300자 까지 쓸 수 있습니다.");

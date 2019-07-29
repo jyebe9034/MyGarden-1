@@ -219,6 +219,8 @@ hr {
  			}else{
  				$(this).next().html("<img src='/resources/free/noImg.png'>");
  			}
+ 			
+ 			console.log(result[1]);
  	}) 
 
 		$(document).on("click",".title",function(){
