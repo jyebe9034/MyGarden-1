@@ -633,7 +633,7 @@
 				<h5>- 나의 정원을 개설하면 스마트팜으로 재배된 작물들을 만나보실 수 있습니다</h5>  
 				<h5 class="mt-4 mb-2">- 나만의 정원에서 매일매일 신선한 작물들을 수확해보세요</h5>
 			</div>
-			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 my">
+			<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar-lg p-3 my">
 		            	<img src="resources/img/greeners.png">
 		    </div>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-4 mt-5 mb-2 mg my">
@@ -658,7 +658,7 @@
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pb-4 my"> 
 				<h5 class="mt-4 mb-2">- 평소 키워보고 싶었지만 망설였던 허브 키우기, 지금 당장 시작해보세요!</h5>
 			</div>
-			<div class="col-lg-9 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar p-3 mb-5 my">
+			<div class="col-lg-7 col-md-10 col-sm-10 col-xs-12 mx-auto scrollBar p-3 mb-5 my">
 				<img src="resources/img/private.png" height="700">
 				<img src="resources/img/private2.png" height="700">
 		    </div>
