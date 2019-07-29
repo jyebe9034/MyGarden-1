@@ -139,6 +139,9 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sst.update("boardQnAMB.changeImg3", bq_no);
 	}
 	
+	public int deleteQnA(int bq_no) {
+		return sst.update("boardQnAMB.deleteQnA", bq_no);
+	}
 	
 	/*관리자 답변 기능*/
 

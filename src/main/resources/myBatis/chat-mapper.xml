@@ -3,11 +3,24 @@
 <mapper namespace="ChatDAO">
 
 	<insert id="insertClientSendMessage">
-		insert into chat values(#{array[0]}, #{array[1]}, default, #{array[2]}, default)
+		insert into chat values(#{array[0]}, #{array[1]}, default, #{array[2]}, default, #{array[3]})
 	</insert>
 	
 	<insert id="insertAdminSendMessage">
-		insert into chat values(#{array[0]}, #{array[1]}, #{array[2]}, #{array[3]}, default)
+		insert into chat values(#{array[0]}, #{array[1]}, #{array[2]}, #{array[3]}, default, #{array[4]})
 	</insert>
+	
+	<update id="updateAnswerState">
+		update chat set c_answer=#{array[1]} where c_sendemail=#{array[0]}
+	</update>
+	
+	<select id="selectClientMessage" resultType="my.garden.dto.ChatDTO">
+		select * from chat where c_grade=#{c_grade}
+	</select>
+	
+	<select id="selectAllForClient" resultType="my.garden.dto.ChatDTO">
+		select * from chat where c_sendemail=#{array[0],jdbcType=VARCHAR} or c_receive_email=#{array[1],jdbcType=VARCHAR} 
+		order by c_querydate
+	</select>
 
 </mapper>

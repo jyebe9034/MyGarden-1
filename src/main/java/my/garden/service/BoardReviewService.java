@@ -7,8 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import my.garden.dto.BoardReviewDTO;
 import my.garden.dto.BoardReviewRecommendDTO;
+import my.garden.dto.ShopListDTO;
 
 public interface BoardReviewService {
+	public List<ShopListDTO> dCompletedPNums(String BR_EMAIL) throws Exception;
+	
 	public int writeReview(BoardReviewDTO dto) throws Exception;
 	public List<BoardReviewDTO> reviewList(int br_p_no, int startNum, int endNum) throws Exception;
 	public String getNavi(int revPage,int br_p_no) throws Exception;
@@ -24,6 +27,6 @@ public interface BoardReviewService {
 	public int updateReview(Map<String, Object> map) throws Exception;
 	public void deleteReview(int br_no) throws Exception;
 	
-	
+	public List<BoardReviewDTO> topRcmdReviews() throws Exception;
 	
 }

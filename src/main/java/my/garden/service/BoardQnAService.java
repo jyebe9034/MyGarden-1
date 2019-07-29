@@ -23,13 +23,10 @@ public interface BoardQnAService {
 	public int updateImg2(int bq_no, String bq_imagepath) throws Exception;
 	public int updateImg3(int bq_no, String bq_imagepath) throws Exception;
 	
-	
+	public int deleteQnA(int bq_no) throws Exception;
 //-----------------------------------관리자----------------------------------------------
 	public int writeComment(int cq_n, CommentQnADTO dto) throws Exception;
-	
 	public CommentQnADTO commentList(int cq_no) throws Exception;
-	
 	public int updateComment(int cq_no, String cq_comment) throws Exception;
-	
 	public int deleteComment(int cq_no) throws Exception;
 }

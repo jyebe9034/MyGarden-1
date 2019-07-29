@@ -270,15 +270,21 @@ p {
 	$(function(){
 		
 		$("span[class='checkRecmd']").each(function(i,item){
-			if($(this).attr("flag")=='t'){
+			if($(this).attr("flag")=='pnumber'){
 				$(this).parent(".recommendBtn").html("<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'>");
 			}	
 		})
-			
 		
-			$("#writeReviewBtn").on("click",function(){
+		$("#writeReviewBtn").on("click",function(){
+			if(${loginId==null}){
+				alert("로그인 후 이용가능한 서비스 입니다.");
+// 				$(location).attr("href","login");
+			}else if(${myCompletedPNum == "pnumber"}){
 				$(location).attr("href","reviewWriteForm");
-			})
+			}else{
+				alert("구매하신 상품에 한해 후기작성이 가능합니다.");
+			}
+		})
 			
 			/*제목 클릭하면 내용 보임*/
 			$(".reviewContent").hide();			
@@ -501,17 +507,15 @@ p {
 										<div class="reviewRecommend"
 											value="${reviewList.br_recommend}">
 											<input type="hidden" value="${reviewList.br_title}">
-											<span class="mb-1 recommendBtn"> <c:forEach
-													var="myRecommendNo" items="${myRecommendNo }">
+											<span class="mb-1 recommendBtn"> 
+											<c:forEach var="myRecommendNo" items="${myRecommendNo }">
 													<c:choose>
 														<c:when test="${myRecommendNo eq reviewList.br_no }">
 															<span class="checkRecmd" flag="t"></span>
-															<!-- 														<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'> -->
-														</c:when>
+															</c:when>
 														<c:otherwise>
 															<span class="checkRecmd" flag="f"></span>
-															<!-- 														<img src="/resources/products/reviewHate.png" width="25px" class="recommendImage"> -->
-														</c:otherwise>
+															</c:otherwise>
 													</c:choose>
 												</c:forEach> <img src="/resources/products/reviewHate.png" width="25px"
 												class="recommendImage">

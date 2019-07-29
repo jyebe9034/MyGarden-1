@@ -45,7 +45,7 @@
 
 <!-- 문의 글 삭제 -->
 	<delete id="deleteQnA">
-		delete board_qna where BQ_NO=#{bq_no};
+		delete board_qna where BQ_NO=#{bq_no}
 	</delete>
 
 <!-- 답변 글 등록 -->

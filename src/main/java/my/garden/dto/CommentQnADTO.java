@@ -54,7 +54,7 @@ public class CommentQnADTO {
 		this.cq_writedate = cq_writedate;
 	}
 	public String getCq_comment() {
-		return cq_comment;
+		return cq_comment.replaceAll("(?i)<(/?script[^>]*)>", "&lt;$1&gt;");
 	}
 	public void setCq_comment(String cq_comment) {
 		this.cq_comment = cq_comment;

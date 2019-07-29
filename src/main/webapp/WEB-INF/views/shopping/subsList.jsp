@@ -445,6 +445,7 @@ transform: rotate(45deg) scale(0);
 					<c:if test="${grade == 'admin'}">
 						<a href="productsAdd"
 							class="list-group-item list-group-item-action">상품 등록</a>
+							<a href="chatManage" class="list-group-item list-group-item-action">채팅 문의 관리</a>
 					</c:if>
 					<a href="/mypageDelete"
 						class="list-group-item list-group-item-action">탈퇴하기</a>

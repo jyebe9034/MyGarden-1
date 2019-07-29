@@ -123,12 +123,26 @@ div {
 	border: 0px;
 	cursor: pointer;
 }
-
 .goBackBtn:hover {
 	background-color: #b4d9b5;
 	color: white;
 	font-weight: bold;
 	border: 1px solid #b4d9b5;
+	cursor: pointer;
+}
+
+.deleteBtn {
+	background-color: #44b27d;
+	color: white;
+	font-weight: bold;
+	border: 0px;
+}
+
+.deleteBtn:hover {
+	background-color: #b4d9b5;
+	color: white;
+	font-weight: bold;
+	border: 0px;
 	cursor: pointer;
 }
 
@@ -202,15 +216,13 @@ div {
 	word-break: break-all;
 }
 
-.commentBtnBox {
-	margin-top: 10px;
-	margin-bottom: 20px
+.commentBtnRow{
+    width: 92%;
+    margin: auto;
+    text-align: right;
 }
-
-.commentBtnRow div {
-	position: relative;
-	left: 25px;
-	top: 15px;
+.commentBtnBox {
+	margin-top: 15px;
 }
 
 #editBtn {
@@ -240,9 +252,17 @@ div {
 	border: 0px;
 }
 
-[contentEditable=true]:empty:not (:focus ):before {
-	content: attr(data-text)
+.goBackBtnBox{
+	width: 85%;
+	margin: auto;
+	margin-top: 20px;
+/*  	text-align: center;  */
 }
+.goBackBtn{
+	width: 120px;
+}
+
+[contentEditable=true]:empty:not (:focus ):before {content: attr(data-text)};
 </style>
 
 <!-- script -->
@@ -263,6 +283,12 @@ div {
 			var bq_no = ${bq_no};
 			$(location).attr("href","updateQnAForm?bq_no="+bq_no);
 		})
+		
+		$(".deleteBtn").on("click",function(){
+			var bq_no = ${bq_no};
+			$(location).attr("href","deleteQnA?bq_no="+bq_no);
+		})
+		
 
 	
 		$(document).on('keyup', '#inputComment', function() { //내용 글자수 입력 제한
@@ -307,7 +333,7 @@ div {
 	 					$("#inputComment").css("background-color","white");
 						$(".commentBtnBox").html("<button class='btn' id='delCommentBtn'>삭제하기</button>"
 								+ "<button type='button' class='btn' id='editBtn'>수정하기</button>");
-						alert("답변이 등록되었습니다.")
+						alert("답변이 등록되었습니다.");
 					}
 				})	
 			}
@@ -457,12 +483,11 @@ div {
 
 				<div class="form-group row btnsRow">
 					<div class="col-12 btns">
-						<button type="button" class="btn goBackBtn">돌아가기</button>
-<%-- 						<c:choose> --%>
+
 							<c:if test="${loginId eq readQnA.bq_email }">
+								<button type="button" class="btn deleteBtn">삭제하기</button>
 								<button type="button" class="btn updateBtn">수정하기</button>
 							</c:if>
-<%-- 						</c:choose> --%>
 					</div>
 				</div>
 			</form>
@@ -478,8 +503,7 @@ div {
 									for="cq_comment" class="col-form-label">관리자 답변</label>
 							</div>
 							<div class="col-12 inputCommentBox">
-								<div contenteditable="true" id="inputComment"
-									data-text="내용을 입력해주세요."></div>
+								<div contenteditable="true" id="inputComment" data-text="내용을 입력해주세요."></div>
 								<input type="hidden" id="forCntCmt">
 							</div>
 						</div>
@@ -533,7 +557,9 @@ div {
 
 
 		</div>
-
+		<div class="goBackBtnBox">
+			<button type="button" class="btn goBackBtn">돌아가기</button>
+		</div>
 	</div>
 
 
