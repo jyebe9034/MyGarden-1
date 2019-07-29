@@ -288,7 +288,7 @@
 					</div>
 					<div class="name">나만의 박스</div>
 					<div class="content">
-						정기 구독 박스를 <br> 원하는 품목으로 구성하고 싶다면<br> 나만의 박스를 만들어 보세요.
+						정기 구독 박스를 <br> 원하는 품목으로 구성하려면<br> 나만의 박스를 만들어 보세요.
 					</div>
 				</div>
 			</div>
@@ -444,7 +444,7 @@
 		})
 		
 		$("#next").on("click", function() {
-			if(${loginId==null}){
+			if(${loginId==null} || ${loginName==null}){
 				alert("로그인이 필요한 메뉴입니다.");
 				$(location).attr("href","/login");
 			}else{

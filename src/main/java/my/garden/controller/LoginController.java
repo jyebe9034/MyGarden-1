@@ -36,8 +36,7 @@ public class LoginController {
 	@Autowired
 	HttpSession session;
 
-	PrintWriter out;
-
+	
 
 	@RequestMapping("/login")
 	public String Login() {
