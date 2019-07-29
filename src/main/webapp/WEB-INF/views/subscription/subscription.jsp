@@ -10,6 +10,9 @@
 <jsp:include page="../module/bootstrap_cdn.jsp"></jsp:include>
 <title>나의 정원 - 정기 구독</title>
 <style>
+.options{
+	width:100px;
+}
 #bcolor {
 	width: 100%;
 	height: 175px;
@@ -338,7 +341,7 @@
 						<div id="hide" class="mb-5">
 							<div class="periodSub">나만의 박스 구성 선택</div>
 							<div class="selects mt-2">
-								<select flag="false" class="mr-3 mt-2 p-1 options" name="sb_component1"
+								<select flag="false" class="mr-2 mt-2 p-1 options" name="sb_component1"
 									id="select1">
 									<option selected value="미선택" hidden>과일/채소</option>
 									<option value="미선택">선택안함</option>
@@ -348,14 +351,14 @@
 									<c:forEach var="fruit" items="${fruits}">
 										<option value="${fruit }"><c:out value="${fruit }" /></option>
 									</c:forEach>
-								</select><select flag="false" class="mr-3 mt-2 p-1 options" name="sb_component2"
+								</select><select flag="false" class="mr-2 mt-2 p-1 options" name="sb_component2"
 									id="select2">
 									<option selected value="미선택" hidden>달걀/유제품</option>
 									<option value="미선택">선택안함</option>
 									<c:forEach var="egg" items="${eggs}">
 										<option value="${egg }"><c:out value="${egg }" /></option>
 									</c:forEach>
-								</select><select flag="false" class="mr-3 mt-2 p-1 options" name="sb_component3"
+								</select><select flag="false" class="mr-2 mt-2 p-1 options" name="sb_component3"
 									id="select3">
 									<option selected value="미선택" hidden>곡물/기타</option>
 									<option value="미선택">선택안함</option>
@@ -526,7 +529,7 @@
 									alert("선택된 상품이 없습니다.");
 								} else {
 									if ($("#cardPay").prop("checked")) {
-										var price = 3000;
+										var price = 100;
 										var IMP = window.IMP; // 생략가능
 										IMP.init('imp33112290'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 										IMP.request_pay(

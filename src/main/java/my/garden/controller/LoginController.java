@@ -42,9 +42,7 @@ public class LoginController {
 	HttpServletResponse response;
 	@Autowired
 	HttpSession session;
-
 	
-
 	@RequestMapping("/login")
 	public String Login() {
 		return "login/login";
@@ -223,7 +221,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/kakaoLogin")
 	public String kakaoLogin() {
-		String url = "https://kauth.kakao.com/oauth/authorize?client_id=5a8617254e6227196ff9c31a66275c78&redirect_uri=http://localhost/kakaoCallback&response_type=code";
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=5a8617254e6227196ff9c31a66275c78&redirect_uri=http://192.168.60.22/kakaoCallback&response_type=code";
 		return url;
 	}
 

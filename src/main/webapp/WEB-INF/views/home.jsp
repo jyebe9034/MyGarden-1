@@ -37,7 +37,7 @@
          position : fixed;
          left : 20px;
          bottom : 100px;
-         z-index:9999;
+			z-index:9999;
       }
       #chatWrap{
          width : 70px;
@@ -59,7 +59,6 @@
             font-family: 'Merienda One', cursive;
             color: #3a5c19;
          }
-         
 
          .rvWrapper{
             width: 90%;
@@ -441,7 +440,6 @@
               </div>
               
               <div class="tab-pane fade" id="bestReviews" role="tabpanel" aria-labelledby="profile-tab">
-
 			     <div class="row rvWrapper">
 					<c:forEach var="topReviews" items="${topReviews }">
 								<div class="col-lg-4 col-md-6 col-sm-12 rvCardBox">
@@ -500,7 +498,6 @@
 							    </div>
 							  </div>
 			  				</div>
-              
             </div>
          </div>
       </div>

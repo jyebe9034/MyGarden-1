@@ -272,10 +272,10 @@
 	}
 	
 	#cloudFrame{
-		width:280px;
+		width:260px;
 		height:280px;
 		border:none;
-		border-radius:50%;
+		border-radius:5px;
         box-sizing: border-box;
 		box-shadow: 0 0 15px 15px rgba(79,115,135,1);
 	}
@@ -291,11 +291,11 @@
 		height:600px;
 		border:none;
 		border-radius:50%;
-        box-sizing: border-box;
+        box-sizing: border-box; 
 	}
 	#sun{
 		position:absolute;
-		top:110px;
+		top:80px;
 		left:24%;
 		border:none;
 		box-sizing: border-box;

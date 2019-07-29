@@ -31,7 +31,6 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
-
 		//레시피 보여주기
 		try {
 			BoardFreeDTO recipe = bfs.serviceMostViewed();

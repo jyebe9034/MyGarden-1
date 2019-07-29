@@ -29,6 +29,7 @@ body {
 .sun {
 	-webkit-animation: ROTATE 20s infinite linear;
 	animation: ROTATE 20s infinite linear;
+	box-shadow: 0 0 60px 60px #ffeccc;
 }
 
 .shine {
