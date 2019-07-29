@@ -45,7 +45,6 @@ import com.google.gson.JsonParser;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
-
 import my.garden.dto.PrivateGardenDTO;
 
 import my.garden.dto.ShopListDTO;
@@ -188,12 +187,9 @@ public class LoginDAO {
 	
 	public String mailSender(String m_email) throws Exception {
 		String host = "smtp.naver.com"; 
-
 		final String username = "sparkss0419"; //only account(not @-)
 		final String password = "mygarden555*"; //account password 
 		int port=465; //port number
-
-		
 		//mail contents 
 		String recipient = m_email; //receiver's account 
 		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //mail title 

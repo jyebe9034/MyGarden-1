@@ -5,6 +5,7 @@
 .footer {
 	color: #666;
 	background:#efefef;
+	padding:55px 0 40px 0;
 }
 
 .footerEnd a {
@@ -25,7 +26,7 @@
 </style>
 
 <!-- 	html -->
-<div class="container-fluid footer p-5 mt-5 text-center my">
+<div class="container-fluid footer text-center my">
 	<div class="row m-auto">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center footerContactBox my">
 			<h5 class="font-weight-bold">고객센터 1588-0000</h5>
