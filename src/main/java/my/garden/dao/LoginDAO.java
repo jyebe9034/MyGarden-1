@@ -247,7 +247,7 @@ public class LoginDAO {
 	public String NaverLoginMakeUrl() {
 		try {
 		    String clientId = "zoUb6lNYx8sC2suyUmcS";
-		    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
+		    String redirectURI = URLEncoder.encode("http://192.168.60.22/callbackNaver", "UTF-8");
 		    SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
 		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -266,7 +266,7 @@ public class LoginDAO {
 	    String clientSecret = "bZgqg3cbjr";//application client secret value";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
-	    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
+	    String redirectURI = URLEncoder.encode("http://192.168.60.22/callbackNaver", "UTF-8");
 	    String apiURL;
 	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 	    apiURL += "client_id=" + clientId;
@@ -351,7 +351,6 @@ public class LoginDAO {
         postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
         postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
         postParams.add(new BasicNameValuePair("code", code)); // getting code when accounting
-        
         final HttpClient client = HttpClientBuilder.create().build();
         final HttpPost post = new HttpPost(RequestUrl);
  

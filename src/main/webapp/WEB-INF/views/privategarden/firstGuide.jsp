@@ -85,52 +85,52 @@
    filter: drop-shadow(3px 3px 3px #00000070);
 }
 
-.flare{
-   top : -300px;
-   left: calc(50% + 150px);
-   position: absolute;
-   animation: lands 2s alternate ease-in-out infinite;
-   will-change: transform;
-   -webkit-user-select: none;
-   user-select: none;
-   opacity : 0.5;
-}
+/* .flare{ */
+/*    top : -300px; */
+/*    left: calc(50% + 150px); */
+/*    position: absolute; */
+/*    animation: lands 2s alternate ease-in-out infinite; */
+/*    will-change: transform; */
+/*    -webkit-user-select: none; */
+/*    user-select: none; */
+/*    opacity : 0.5; */
+/* } */
 
-@keyframes lands{
-  0%{transform:translateY(-5px);}
-  100%{transform:translateY(5px);}
+/* @keyframes lands{ */
+/*   0%{transform:translateY(-5px);} */
+/*   100%{transform:translateY(5px);} */
 
-}
+/* } */
 
-@keyframes r1{
-100%{transform:translateY(5px);}
-  0%{transform:translateY(-5px);} 
-}
+/* @keyframes r1{ */
+/* 100%{transform:translateY(5px);} */
+/*   0%{transform:translateY(-5px);}  */
+/* } */
 
-@keyframes r2{
-100%{transform:translateY(10px);}
-  0%{transform:translateY(-10px);} 
-}
+/* @keyframes r2{ */
+/* 100%{transform:translateY(10px);} */
+/*   0%{transform:translateY(-10px);}  */
+/* } */
 
-@keyframes r3{
-100%{transform:translateY(5px);}
-  0%{transform:translateY(-5px);} 
-}
+/* @keyframes r3{ */
+/* 100%{transform:translateY(5px);} */
+/*   0%{transform:translateY(-5px);}  */
+/* } */
 
-@keyframes r4{
-100%{transform:translateY(3px);}
-  0%{transform:translateY(-3px);} 
-}
+/* @keyframes r4{ */
+/* 100%{transform:translateY(3px);} */
+/*   0%{transform:translateY(-3px);}  */
+/* } */
 
-@keyframes r5{
-100%{transform:translateY(10px);}
-  0%{transform:translateY(-10px);} 
-}
+/* @keyframes r5{ */
+/* 100%{transform:translateY(10px);} */
+/*   0%{transform:translateY(-10px);}  */
+/* } */
 
-@keyframes r6{
-100%{transform:translateY(5px);}
-  0%{transform:translateY(-5px);} 
-}
+/* @keyframes r6{ */
+/* 100%{transform:translateY(5px);} */
+/*   0%{transform:translateY(-5px);}  */
+/* } */
 
 	#speechBubble{
 	  	width : 350px;
@@ -171,18 +171,18 @@
 		z-index : 0;
 	}
 	
-	#island{
-		position : relative;
-	}
+/* 	#island{ */
+/* 		position : relative; */
+/* 	} */
 	
-	#penguin{
-		width : 150px;
-		height : 170px;
-		position : relative;
-		top : 210px;
-		left : 75px;
-		cursor : pointer;
-	}
+/* 	#penguin{ */
+/* 		width : 150px; */
+/* 		height : 170px; */
+/* 		position : relative; */
+/* 		top : 210px; */
+/* 		left : 75px; */
+/* 		cursor : pointer; */
+/* 	} */
 	
 	#bubbleimg{
 		position : relative;
@@ -206,9 +206,9 @@
 		height : 1000px;
 	}
 	
-	.garden:hover{
-		cursor : pointer;
-	}
+/* 	.garden:hover{ */
+/* 		cursor : pointer; */
+/* 	} */
 	
 	#bubbleWrap{
 		display : none;
@@ -220,30 +220,17 @@
 	<div id="bcolor"></div>
 	
 	<div id="wrapper" class="container">
-		<div id="contentsWrap" class="row">
-		<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
-		    <div id="penguinWrap" class="col-12">
-				<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
-				<div id="bubbleWrap">
-					<div id="bubbleimg"><img id="spimg" src="/resources/imgPrivategarden/speechbubble.png"></div>
-					<div id="bubble">
-						  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
-						  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!<br>
-						<button id="hurbBtn" type="button" class="btn btn-sm">허브 선택 하기</button>
-					</div>
+	<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
+	    <div id="penguinWrap" class="col-12">
+			<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
+			<div id="bubbleWrap">
+				<div id="bubbleimg"><img id="spimg" src="/resources/imgPrivategarden/speechbubble.png"></div>
+				<div id="bubble">
+					  안녕하세요 :)<br> 저는 여러분을 비밀정원으로 안내할 펭콘이에요<br>
+					  비밀정원을 시작하기 위해서는<br>먼저 키우고 싶은 허브를 선택해야해요!<br>
+					<button id="hurbBtn" type="button" class="btn btn-sm">허브 선택 하기</button>
 				</div>
 			</div>
-			
-			<div id="island" class="col-12 mb-5">
-			  <img class="garden flare" src="/resources/imgPrivategarden/flare4.PNG" width="300px">
-			  <img class="garden hero-octonaut" src="/resources/imgPrivategarden/base.png" width="800px">
-			  <img class="garden r1" src="/resources/imgPrivategarden/00.png" width="40px">
-			  <img class="garden r2" src="/resources/imgPrivategarden/01.png" width="60px">
-			  <img class="garden r3" src="/resources/imgPrivategarden/02.png" width="45px">
-			  <img class="garden r4" src="/resources/imgPrivategarden/03.png" width="50px">
-			  <img class="garden r5" src="/resources/imgPrivategarden/04.png" width="65px">
-			  <img class="garden r6" src="/resources/imgPrivategarden/05.png" width="45px">	   
-		    </div>
 		</div>
 	</div>
 	

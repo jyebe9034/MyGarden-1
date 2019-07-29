@@ -16,8 +16,9 @@
    }
    #titleImg{
       margin-top : 10px;
-      width : 100%;
-      height : 350px;
+      width : 90%;
+      height : 550px;
+      margin : auto;
    }
    .trow{
       border-bottom : 1px solid #9c9c9c;
@@ -60,6 +61,7 @@
    #smCart{
       border : 1px solid #c9c5c5;
       width : 300px;
+      height : 300px;
       position : fixed;
       left : 25px;
       bottom : 5px;

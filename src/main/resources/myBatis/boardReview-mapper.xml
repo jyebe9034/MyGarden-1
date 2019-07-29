@@ -85,7 +85,7 @@
 	<select id="dCompletedPNums" resultType="my.garden.dto.ShopListDTO">
 		select s_p_no 
 		from shoplist
-		where s_statement = '배송완료' and s_email =#{br_email}
+		where s_statement = '배송 완료' and s_email =#{br_email}
 	</select>
 	
 </mapper>

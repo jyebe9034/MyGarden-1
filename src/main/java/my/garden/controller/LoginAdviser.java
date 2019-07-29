@@ -29,9 +29,20 @@ public class LoginAdviser {
 	@Pointcut("execution(* my.garden.controller.BoardReviewAndQnAController.recommend(..))")
 	public void recommend(){}
 	@Pointcut("execution(* my.garden.controller.PrivateGardenController.*(..))")
-	public void privateGarden(){}
+	public void bfWrite(){}
+	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeModify(..))")
+	public void bfModify(){}
+	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeDelete(..))")
+	public void bfDelete(){}
+	@Pointcut("execution(* my.garden.controller.AdminController.admin*(..))")
+	public void admin(){}
 	
-	@Around("mypage() || write() || update() || delete() || recommend() || privateGarden()")
+	public void privateGarden(){}
+	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeWrite(..))")
+
+	
+//	@Around("execution(* my.garden.controller.LoginController.*(..))")
+	@Around("mypage() || write() || update() || delete() || recommend() || bfWrite() || bfModify() || bfDelete() || admin() || privateGarden()")
 	public Object loginCheck(ProceedingJoinPoint pjp) throws Throwable{
 		if(session.getAttribute("loginId") == null || session.getAttribute("loginName") == null) {
 			return "login/login"; 

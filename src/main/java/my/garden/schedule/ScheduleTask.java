@@ -8,7 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Component;
 
-import my.garden.dao.ShoppingDAO;
+import my.garden.daoImpl.ShoppingDAOImpl;
 
 @Component
 public class ScheduleTask {
@@ -16,7 +16,7 @@ public class ScheduleTask {
 	private ThreadPoolTaskScheduler scheduler;
 
 	@Autowired
-	ShoppingDAO sdao;
+	ShoppingDAOImpl sdao;
 
 	private int count = 0;
 	

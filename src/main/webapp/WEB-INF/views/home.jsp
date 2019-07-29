@@ -159,6 +159,18 @@
       		background-color: white;
       		color:#4f9c87;
       	}
+      	
+      	.recipeBox{
+      		height: 465px;
+      	}
+      	#recipeImg{
+      		position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+      	}
 	</style>
 </head>
 <body>
@@ -166,7 +178,6 @@
    <script>
    $(function(){       
        $("#chatWrap").on("click", function(){
-            console.log("클릭함");
             if($("#chatboxWrap").css("display") == "none"){
                $("#chatboxWrap").show();
             }else{
@@ -219,6 +230,16 @@
          $('.lastBtn button').on('click', function(){
             $(location).attr('href', $(this).attr('href'));
          });
+         
+         $(".price").html(function(){
+ 			var price = $(this).html();
+ 			var result = numberWithCommas(price);
+ 			$(this).html(result);
+ 		})
+ 	
+ 		function numberWithCommas(x) {
+ 		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "원";
+ 		}
    });
    
 	
@@ -372,38 +393,13 @@
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="best" role="tabpanel" aria-labelledby="home-tab">
                  <div class="row pt-3 m-auto">
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
-                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
-                     <img src="resources/img/salad.jpg" width="95%" height="250" class="special" href="#">
-                     <h5 class="pt-2 pb-3">dddddddd</h5>
-                  </div>
+                 <c:forEach var="list" items="${result}">
+	                  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 p-0 my">
+	                     <img src="${list.p_imagepath}" width="90%" height="180" class="special" href="productsRead?&revPage=1&qnaPage=1&pnumber=${list.p_no}">
+	                     <h5 class="pt-2 pb-3">${list.p_title}</h5>
+	                     <p class="card-text price">${list.p_price}</p>
+	                  </div>
+                 </c:forEach>
                </div>
               </div>
               
@@ -506,21 +502,15 @@
             <h4 class="pt-2 pb-4">정원 오너들이 공유하는 레시피</h4>
          </div>
           <div class="col-lg-9 col-md-10 col-sm-12 col-xs-12 mx-auto scrollBar text-left mb-5 my">
-            <img src="resources/img/main1.jpg" width="400" height="600" style="float:left;" class="pr-2">
-            <div style="float:left;" class="pt-4 pr-2 pl-2 pb-2">
-               <h5 class="font-weight-bold">레시피 제목</h5>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-                  sssssssssss<br>
-            </div>
+          	<div class="row recipeBox">
+          		<div class="col-lg-6 col-sm-12" >
+          			<img src="resources/img/main1.jpg" width="400" height="auto" class="pr-2" id=recipeImg>
+          		</div>
+           		<div class="col-lg-6 col-sm-12">
+           			<h5 class="font-weight-bold text-center">- ${recipe.bf_title } -</h5><br>
+           			<div id=recipeCont></div>
+           		</div>
+           </div>
          </div>
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
@@ -556,6 +546,21 @@
          <iframe id="chatBox" src="toChat" width="350px" height="496px" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0/>
       </div>
    </c:if>
-
 </body>
+
+<script>
+
+//----- 레시피 시작 ------
+var recipe = '${recipe.bf_content}';
+var rimgRegex = /(\/re.+?png)/;
+var rimg = rimgRegex.exec(recipe);
+$("#recipeImg").attr("src",rimg[1]);
+
+var rconRegex = /(<img.+?>)/;
+var rcon = recipe.replace(rconRegex, "");
+$("#recipeCont").html(rcon);
+//----- 레시피 끝 -----
+
+</script>
+
 </html>

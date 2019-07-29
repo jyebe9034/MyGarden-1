@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import my.garden.dao.ProductsDAO;
 import my.garden.dto.CartDTO;
 import my.garden.dto.MembersDTO;
 import my.garden.dto.ShopListDTO;
@@ -103,9 +104,8 @@ public class ShoppingController {
 	@RequestMapping(value = "insertCart", method = RequestMethod.POST)
 	public void insertCart(CartDTO dto) {
 		String id = (String)session.getAttribute("loginId");
-		dto.setC_m_email(id);
 		try {
-			int result = shsvc.insertIntoCart(dto);
+			int result = shsvc.insertIntoCart(dto, id);
 			//System.out.println(result);
 		}catch(Exception e) {
 			e.printStackTrace();

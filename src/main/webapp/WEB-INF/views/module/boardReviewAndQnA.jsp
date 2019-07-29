@@ -435,10 +435,8 @@ p {
 					}else{
 						$(location).attr("href","readQnA?bq_no="+bq_no);	
 					}
-					
 				}
 			})
-			
 			
 			
 	})

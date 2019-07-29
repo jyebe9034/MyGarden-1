@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,5 +115,6 @@ public class ProductsServiceImpl implements ProductsService {
 	public List<String> selectTitlesByCategoryService(String p_category)throws Exception{
 		return pdao.selectTitlesByCategory(p_category);
 	}
+	
 	
 }
