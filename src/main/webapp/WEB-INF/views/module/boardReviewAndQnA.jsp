@@ -270,7 +270,7 @@ p {
 	$(function(){
 		
 		$("span[class='checkRecmd']").each(function(i,item){
-			if($(this).attr("flag")=='pnumber'){
+			if($(this).attr("flag")=='t'){
 				$(this).parent(".recommendBtn").html("<img src='/resources/products/reviewLike.png' width='27px' class='recommendImage'>");
 			}	
 		})

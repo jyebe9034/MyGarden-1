@@ -222,7 +222,7 @@ div {
     text-align: right;
 }
 .commentBtnBox {
-	margin-top: 15px;
+	margin: 15px 0;
 }
 
 #editBtn {
@@ -269,11 +269,10 @@ div {
 <script>
 	$(function(){
 		
-// 		var grade = "${grade}";
-// 		console.log(grade);
+ 		var grade = "${grade}";
 		var writer = "${writerInfo.m_email}";
 		var loginId = "${loginId}";
-		if(writer!=loginId){
+		if(writer!=loginId && grade!='admin'){
 			alert("비밀글 입니다.");
 			var pnumber = "${pnumber}";
 			location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;
@@ -298,18 +297,18 @@ div {
 		
 
 	
-		$(document).on('keyup', '#inputComment', function() { //내용 글자수 입력 제한
-			var inputComment = $("#inputComment").text();
-			var cntCmt = $("#forCntCmt").val(inputComment);
-			//alert("입력한거ㅡㅡ: " + cntCmt.val());
-				if ($(cntCmt).val().length > 550) {
-					$("#inputComment").text($(cntCmt).val().substring(0, 550)); 
-					alert("내용은 550자 이내만 입력이 가능합니다.");
-				}
-			});
+// 		$(document).on('keyup', '#inputComment', function() { //내용 글자수 입력 제한
+// 			var inputComment = $("#inputComment").html();
+// 			var cntCmt = $("#forCntCmt").val(inputComment);
+// 			//alert("입력한거ㅡㅡ: " + cntCmt.val());
+// 				if ($(cntCmt).val().length > 100) {
+// 					$("#inputComment").html($(cntCmt).val().substring(0, 100)); 
+// 					alert("내용은 700자 이내만 입력이 가능합니다.");
+// 				}
+// 			});
 		
 		$(document).on("click","#commentBtn",function(){  //답변 등록
-			var inputComment = $("#inputComment").text();
+			var inputComment = $("#inputComment").html();
 			//$("#cq_comment").val(inputComment);
 			
 			if(inputComment==""){

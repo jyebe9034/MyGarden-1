@@ -72,7 +72,7 @@
       	}
       	
       	.imageBox{
-      		height: 40%;
+      		height: 160px;
 /*       		width: 40%; */
       	}
       	.imageBox img{
@@ -119,7 +119,7 @@
 		    -webkit-box-orient: vertical;
 		    word-wrap:break-word; 
 		    line-height: 1.2em;
-		    height: 3.6em;
+		    height: 3.5em;
       	}
       	
       	.rvBottom{
