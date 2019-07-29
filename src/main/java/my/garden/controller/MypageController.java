@@ -97,9 +97,10 @@ public class MypageController {
 	}
 
 	@RequestMapping("orderList")
-	public String toOrderList(HttpServletRequest request) {
+	public String toOrderList(HttpServletRequest request, MembersDTO dto) {
 		String id = (String)session.getAttribute("loginId");		
 		try {
+			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
 			request.setAttribute("listWrapper", shsvc.getOrderList(id));
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -109,9 +110,10 @@ public class MypageController {
 	}
 
 	@RequestMapping("subsList")
-	public String toSubsList(HttpServletRequest request) {
+	public String toSubsList(HttpServletRequest request, MembersDTO dto) {
 		String id = (String)session.getAttribute("loginId");		
 		try {
+			session.setAttribute("memDTO", loginserv.memSelectAll(dto, id));
 			request.setAttribute("list", shsvc.getSubsList(id));
 		}catch(Exception e) {
 			e.printStackTrace();
