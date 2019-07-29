@@ -38,11 +38,11 @@
 </insert>
 
 <select id="isCartExist" resultType="java.lang.Integer">
-		select count(*) from cart where c_p_no = #{c_p_no}
+		select count(*) from cart where c_p_no = #{c_p_no} and c_m_email = #{c_m_email}
 </select>
 
 <update id="updateCart">
-		update cart set c_count = #{c_count} where c_p_no = #{c_p_no}
+		update cart set c_count = #{c_count} where c_p_no = #{c_p_no} and c_m_email = #{c_m_email}
 </update>
 
 <select id="searchOrderNo" resultType="java.lang.Long" parameterType="map">

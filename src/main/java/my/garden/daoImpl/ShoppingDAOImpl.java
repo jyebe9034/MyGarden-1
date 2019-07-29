@@ -60,8 +60,8 @@ public class ShoppingDAOImpl implements ShoppingDAO{
 		return sst.insert("ShoppingDAO.insertIntoCart", dto);
 	}
 	
-	public int isCartExist(int c_p_no) throws Exception{
-		return sst.selectOne("ShoppingDAO.isCartExist", c_p_no);
+	public int isCartExist(CartDTO dto) throws Exception{
+		return sst.selectOne("ShoppingDAO.isCartExist", dto);
 	}
 	
 	public int updateCart(CartDTO dto) throws Exception{
