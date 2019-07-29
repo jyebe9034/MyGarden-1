@@ -40,7 +40,6 @@ public class MypageController {
 	@Autowired
 	ShoppingService shsvc;
 	
-
 	@RequestMapping("/mypageFirst")
 	public String Mypage(MembersDTO dto) {
 		String loginName = (String)session.getAttribute("loginName");
@@ -58,6 +57,7 @@ public class MypageController {
 			session.setAttribute("year", year);
 			session.setAttribute("mm", mname);
 			session.setAttribute("lists", new Gson().toJson(lists));
+			session.setAttribute("privateDTO", loginserv.getPrivate(id));
 			return "login/mypageFirst"; 
 		}
 	}
