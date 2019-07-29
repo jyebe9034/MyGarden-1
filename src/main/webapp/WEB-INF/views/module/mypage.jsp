@@ -6,8 +6,8 @@
 <style>
 	.imageContainer{height:300px; overflow:hidden;}
 	.carousel-inner{margin-top:-120px;}
-	.overview{padding:20px 30px 10px 30px;}
-	.overview2{padding:20px 10px 10px 0px;}
+	.overview{padding:20px 30px 0px 30px;}
+	.overview2{padding:20px 10px 0px 0px;}
 	.gardenImg{width:95%; height:150px; overflow:hidden;}
 /* 	.gardenImg img{background-size:cover;} */
 	.currentActive{background:#4f9c87; color:#fff;}
@@ -21,7 +21,7 @@
 	.filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 	.gardenUpdateBtn:nth-child(2){top:35%; left:50%; margin-left:-20px; display:none;}
 	.gardenImg:hover .gardenUpdateBtn:nth-child(2){display:block;}
-	.hoverImg{margin-left:-15px;}
+	.hoverImg{margin:-10px 0 0 -15px;}
 	.gardenImg:hover .hoverImg{filter: brightness(70%); cursor:pointer;}
 </style>    
 <!-- js -->
@@ -77,7 +77,7 @@
         });	
        	$('.changeNameBtn').on('click', function(){
    			if($('input[name=m_garden]').val()!=""){
-   				var regexGarden=/^[가-힣A-z]{2,12}$/;
+   				var regexGarden=/^[가-힣A-z]+[\s]*[가-힣A-z]{0,12}$/;
    	       		if(regexGarden.exec($("input[name=m_garden]").val())){
    	           		$.ajax({
    	           			url:"/gardenCheck",
@@ -187,8 +187,15 @@
 			<p class="text-right mt-2"><a href="/subsList" class="badge badge-primary">more</a></p>
 		</div>
 		<div class="col-lg-3 col-md- col-sm-6 col-xs-12 bg-f5 border border-white overview my">
-			<h3 class="text-left mt-4">보유씨앗 &raquo;</h3>
-			<h4 class="text-center mt-2">seed개</h4>
+			<h3 class="text-left mt-4">나의 허브&raquo;</h3>
+		<c:choose>
+	       <c:when test="${privateDTO!=null}">
+			<h4 class="text-center mt-2">${privateDTO.g_herb }</h4>
+		 </c:when>
+       <c:otherwise>	
+			<h4 class="text-center mt-2">(No Herb)</h4>
+       		</c:otherwise>
+   		</c:choose>
 			<h6 class="text-center mt-2">&nbsp;</h6>
 			<p class="text-right mt-2"><a href="#" class="badge badge-primary">more</a></p>
 		</div>

@@ -332,7 +332,7 @@ button.btn_select_all, button.btn_select_del {
 		$("#buySelect").on(
 				"click",
 				function() {
-					if(${loginId==null}){
+					if(${loginId==null} || ${loginName==null}){
 						alert("로그인이 필요한 메뉴입니다.")
 						$(location).attr("href","/login");
 					}else{

@@ -10,8 +10,6 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -49,7 +45,7 @@ import com.google.gson.JsonParser;
 
 import my.garden.dto.CalendarDTO;
 import my.garden.dto.MembersDTO;
-import my.garden.dto.ProductsDTO;
+import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.dto.SubscribeDTO;
 
@@ -190,26 +186,26 @@ public class LoginDAO {
 	
 	public String mailSender(String m_email) throws Exception {
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-		final String password = "mygarden5*"; //네이버 이메일 비밀번호를 입력해주세요. 
-		int port=465; //포트번호 
+		final String username = "sparkss0419"; //only account(not @-)
+		final String password = "mygarden555*"; //account password 
+		int port=465; //port number
 		
-		// 메일 내용 
-		String recipient = m_email; //받는 사람의 메일주소를 입력해주세요. 
-		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //메일 제목 입력해주세요. 
+		//mail contents 
+		String recipient = m_email; //receiver's account 
+		String subject = "나의 정원에서 코드 번호를 보내드립니다"; //mail title 
 		String randomCode = this.randomCode();
 		System.out.println("인증번호 : " + randomCode);
-		String body = "코드 번호는 " + randomCode + "입니다. "; //메일 내용 입력해주세요. 
-		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성 
+		String body = "코드 번호는 " + randomCode + "입니다. "; //mail contents
+		Properties props = System.getProperties(); //making object to input userInfo 
 		
-		// SMTP 서버 정보 설정 
+		// SMTP server information 
 		props.put("mail.smtp.host", host); 
 		props.put("mail.smtp.port", port); 
 		props.put("mail.smtp.auth", "true"); 
 		props.put("mail.smtp.ssl.enable", "true"); 
 		props.put("mail.smtp.ssl.trust", host); 
 		
-		//Session 생성 
+		//Session making 
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
 			String un=username; 
 			String pw=password; 
@@ -266,8 +262,8 @@ public class LoginDAO {
 	}
 	
 	public String NaverLoginCallback() throws Exception {
-		String clientId = "zoUb6lNYx8sC2suyUmcS";//애플리케이션 클라이언트 아이디값";
-	    String clientSecret = "bZgqg3cbjr";//애플리케이션 클라이언트 시크릿값";
+		String clientId = "zoUb6lNYx8sC2suyUmcS";//application client id value;
+	    String clientSecret = "bZgqg3cbjr";//application client secret value";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
 	    String redirectURI = URLEncoder.encode("http://localhost/callbackNaver", "UTF-8");
@@ -280,17 +276,15 @@ public class LoginDAO {
 	    apiURL += "&state=" + state;
 	    String access_token = "";
 	    String refresh_token = "";
-//	    System.out.println("apiURL="+apiURL);
 	    try {
 	      URL url = new URL(apiURL);
 	      HttpURLConnection con = (HttpURLConnection)url.openConnection();
 	      con.setRequestMethod("GET");
 	      int responseCode = con.getResponseCode();
 	      BufferedReader br;
-//	      System.out.print("responseCode="+responseCode);
-	      if(responseCode==200) { // 정상 호출
+	      if(responseCode==200) { // seuccessed
 	        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	      } else {  // 에러 발생
+	      } else {  // error
 	        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	      }
 	      String inputLine;
@@ -356,8 +350,8 @@ public class LoginDAO {
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
         postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
         postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
-        postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
- 
+        postParams.add(new BasicNameValuePair("code", code)); // getting code when accounting
+        
         final HttpClient client = HttpClientBuilder.create().build();
         final HttpPost post = new HttpPost(RequestUrl);
  
@@ -368,12 +362,11 @@ public class LoginDAO {
  
             final HttpResponse response = client.execute(post);
             final int responseCode = response.getStatusLine().getStatusCode();
- 
 //            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
 //            System.out.println("Post parameters : " + postParams);
 //            System.out.println("Response Code : " + responseCode);
  
-            // JSON 형태 반환값 처리
+            // JSON return
             ObjectMapper mapper = new ObjectMapper();
             returnNode = mapper.readTree(response.getEntity().getContent());
         } catch (Exception e) {
@@ -399,7 +392,7 @@ public class LoginDAO {
 //            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
 //            System.out.println("Response Code : " + responseCode);
  
-            // JSON 형태 반한값 처리
+            // JSON return
             ObjectMapper mapper = new ObjectMapper();
             returnNode = mapper.readTree(response.getEntity().getContent());
  
@@ -417,10 +410,8 @@ public class LoginDAO {
 		for(int month=0; month<12; month++) {
 	        cal.set(Calendar.MONTH, 0);
 	        int mm=cal.get(Calendar.MONTH)+month;
-//	        System.out.println(mm + 1 + "월");
 	        Calendar result = new GregorianCalendar(year, mm, day);
 	        daysOfMonth = result.getActualMaximum(Calendar.DAY_OF_MONTH);
-//	        System.out.println(year + "년 " + (mm+1) + "월의 일수: " + daysOfMonth);
 	        calArr[month] = daysOfMonth;
 		}
        return calArr;
@@ -450,55 +441,14 @@ public class LoginDAO {
 	}
 	
 	
+	public PrivateGardenDTO getPrivate(String g_email) {
+		return sst.selectOne("PrivateGardenDAO.selectPrivateGarden", g_email);
+	}
 	
 	
 	
-//	private static String chromeDriverRoute = "D:\\SpringOnly\\workspace\\MyGarden_DB\\src\\main\\webapp\\resources\\lib\\chromedriver.exe"; //�뱶�씪�씠釉� �젅��寃쎈줈
-//	
-//	//selenium
-//	private WebDriver seleniumSetting() { 
-//		System.setProperty("webdriver.chrome.driver", chromeDriverRoute);
-//		ChromeOptions opt = new ChromeOptions();
-//		opt.addArguments("--silent");
-//		opt.addArguments("--headless");
-//		WebDriver driver = new ChromeDriver(opt);
-//		return driver;
-//	}
-//	public int getItems(ProductsDTO dto, MultipartFile fake) {
-////		"/clist?code=0010&mode=initial"과일
-////        "/clist?code=0007&mode=initial"채소
-////        "/clist?code=0037&mode=initial"반찬
-////        "/clist?code=0021&mode=initial"육류
-////        "/clist?code=0034&mode=initial"수산물
-////        "/clist?code=0038&mode=initial"건어물
-////        "/clist?code=0016&mode=initial"달걀/유제품
-////        "/clist?code=0086&mode=initial"곡물
-////        "/clist?code=0017&mode=initial"소스/조미료
-////        "/clist?code=0004&mode=initial"가공
-//		WebDriver driver = this.seleniumSetting();
-//		driver.get("https://mannabox.co.kr" + key);
-//		WebElement result = driver.findElement(By.xpath("//*[@id=\"goods_list\"]"));
-//		String innerHTML = result.getAttribute("innerHTML");
-//		Pattern p = Pattern.compile("background-color:#ffffff;.+\\n\\n.+\\n.+\\n.+\\n.+img data-original=\"(.+?)\".+\\n.+\\n\\n.+data_goods_name=\"(.+?)\".+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+\\n.+size:.+;\">(.+?)</span>"); 
-//		Matcher m = p.matcher(innerHTML); 
-//
-//		while(m.find()) { 
-//			dto.setImage(fake);
-//			dto.setP_imagepath(m.group());
-//			dto.setP_title(m.group());
-//			dto.setP_subtitle("설명 참조");
-//			dto.setP_category("category");
-//			dto.setP_inventory(1000);
-//			dto.setP_unit("상품명 참조");
-//			dto.setP_seller("");
-//			dto.setP_origin("");
-//			dto.setP_price(Integer.parseInt(m.group()));
-//			dto.setP_content("");
-//			dto.setP_sales(0);
-//			dto.setP_writedate(new Timestamp(System.currentTimeMillis()));
-//		}
-//		driver.close();
-//	}
+	
+
 	
 	
 	

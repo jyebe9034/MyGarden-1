@@ -170,7 +170,7 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <!-- 	JSTL	 -->
 			<c:choose>
-		       <c:when test="${loginId!=null}">
+		       <c:when test="${loginName!=null}">
 		       
 				<div class="row">
 					<div

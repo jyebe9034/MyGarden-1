@@ -78,7 +78,7 @@
    </select>
 	
    <select id="selectSub" resultType="my.garden.dto.SubscribeDTO">
-   		SELECT * FROM (SELECT * FROM subscribe ORDER BY ROWNUM DESC) WHERE  sb_email=#{value} and ROWNUM = 1
+   		SELECT * FROM (SELECT * FROM subscribe ORDER BY ROWNUM DESC) WHERE sb_email=#{value} and ROWNUM = 1
    </select>
    
 </mapper>
