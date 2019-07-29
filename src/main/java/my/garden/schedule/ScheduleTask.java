@@ -3,6 +3,8 @@ package my.garden.schedule;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.PeriodicTrigger;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 import my.garden.daoImpl.ShoppingDAOImpl;
 
 @Component
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ScheduleTask {
 
 	private ThreadPoolTaskScheduler scheduler;
