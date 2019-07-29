@@ -68,4 +68,3 @@ public class WebChat {
 		t.printStackTrace();
 	}
 }
-
