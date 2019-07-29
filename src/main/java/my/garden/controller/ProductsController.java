@@ -96,7 +96,6 @@ public class ProductsController {
 	public String selectFruitsList(Model model, String category) {
 		int start = 1;
 		int end = start+5;
-		System.out.println("카테고리 키워드 : " + category);
 		try {
 			List<ProductsDTO> result = pservice.selectProductsListByCategoryService(start, end, category);
 			model.addAttribute("result", result);
@@ -133,7 +132,7 @@ public class ProductsController {
 		try {
 			if(category.equals("all") && keyword.equals("all")) {
 				return pservice.selectProductsListByPageService(start, end);
-			}else if(keyword.equals("all")) {
+			}else if(!category.equals("all") && keyword.equals("all")) {
 				return pservice.selectProductsListByCategoryService(start, end, category);
 			}else {
 				return pservice.selectProductsListByKeywordService(start, end, keyword);
@@ -218,6 +217,7 @@ public class ProductsController {
 		try {
 			List<ProductsDTO> result = pservice.selectProductsListByKeywordService(start, end, keyword);
 			model.addAttribute("result", result);
+			model.addAttribute("category", "all");
 			model.addAttribute("keyword", keyword);
 			return "products/productsList";
 		}catch(Exception e) {

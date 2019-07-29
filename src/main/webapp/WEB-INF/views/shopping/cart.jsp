@@ -245,6 +245,7 @@ button.btn_select_all, button.btn_select_del {
 
 .goodsName {
 	width: 80%;
+	font-size : 14px;
 }
 
 .nameWrapper {
