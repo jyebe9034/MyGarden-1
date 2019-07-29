@@ -107,6 +107,9 @@
 	background-color: #b4d9b5;
 	color: white;
 }
+#listFooter{
+	margin-top : 30px;
+}
 </style>
 <script>
 	$(function(){
@@ -140,7 +143,7 @@
 	<jsp:include page="../module/fixedHeader.jsp" />
 	<div id="wrapper">
 		<div id="header"></div>
-		<div id="viewheight" class="container-fluid">
+		<div id="viewheight" class="container-fluid p-0">
 			<div id="wrap" class="container">
 				<div id="sharedWrap" class="row">
 					<div class="col-12 sharedImgDiv">
