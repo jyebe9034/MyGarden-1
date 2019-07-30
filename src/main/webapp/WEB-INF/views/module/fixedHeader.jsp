@@ -242,11 +242,10 @@
 									<form class="form-inline my-2 my-lg-0">
 										<div class="input-group topAnchorSearch">
 											<input id="keyword" class="form-control menuSearch ml-4" type="search"
-												placeholder="Search..." aria-label="Search"
-												aria-describedby="basic-addon2">
+												placeholder="Search...">
 											<div id="searchBtn" class="input-group-append">
 												<button class="btn btn-outline-secondary mr-4" type="button"
-													id="button-addon2">&telrec;</button>
+													>&telrec;</button>
 											</div>
 										</div>
 									</form>

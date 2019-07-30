@@ -141,7 +141,15 @@ hr {
 	right: 15px;
 	bottom: 15px;
 }
-
+.ellipsis {
+    height : 200px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal !important;
+    display: block;
+}
 </style>
 <body>
 	<div class=col-12 id=titleImg>
@@ -272,7 +280,7 @@ hr {
 				for(var i=0 ; i<resp.searchList.length ; i++){
 				tmp = tmp +'<div class="col-12"><div class=title>'+resp.searchList[i].bf_title+'</div>'
 				+'<input type=hidden value='+resp.searchList[i].bf_no +'>'
-				+'<hr><div class="col-12 searchContImg">'+resp.searchList[i].bf_content+'</div>'
+				+'<hr><div class="col-12 searchContImg ellipsis">'+resp.searchList[i].bf_content+'</div>'
 				+'<br><div class=otherContents><span class=writer>'
 				+'<img src="resources/free/boardFreeWriter.png">'+resp.searchList[i].bf_writer+'</span><span class=writeDate>'
 				+'<img src="resources/free/boardFreeWriteDate.png">'+resp.searchList[i].bf_stringdate+'</span><span class=viewCount>'

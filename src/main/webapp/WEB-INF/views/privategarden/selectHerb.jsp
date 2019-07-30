@@ -221,7 +221,8 @@
 			alert("로그인이 필요한 메뉴입니다.")
 			$(location).attr("href","/login");
 		}else{
-  		 alert("허브 결제를 진행합니다.");  	  
+  		 alert("허브 결제를 진행합니다.");  	
+  		 var spl = "${loginId}".split("(");
          var IMP = window.IMP; // 생략가능
          IMP.init('imp33112290'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
          IMP.request_pay({
@@ -230,9 +231,9 @@
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : "허브 결제 : "+ $("#sort").text(), //결제창에서 보여질 이름 //// 후원명 불러오기
             amount : 100, // 입력받은 금액
-            buyer_email : "${loginDTO.m_email}",
-            buyer_name : "${loginDTO.m_name}",
-            buyer_tel : "${loginDTO.m_phone}",
+            buyer_email : spl[0],
+            buyer_name : "${loginName}",
+            buyer_tel : "010-0000-0000",
             m_redirect_url : "toConfirmherb?herb="+$("#sort").text()
          /*  
              모바일 결제시,

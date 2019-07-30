@@ -208,6 +208,7 @@ public class LoginController {
 			session.setAttribute("loginId", socialEmail);
 			return "login/homeThrough";
 		}else { //최초 로그인 - 정보입력 페이지로 이동
+			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("social", "naver");
 			session.setAttribute("profile", "");
@@ -245,6 +246,7 @@ public class LoginController {
 			session.setAttribute("loginId", socialEmail);
 			return "login/homeThrough";
 		}else { //최초 로그인 - 정보입력 페이지로 이동
+			session.setAttribute("loginName", loginserv.getName(socialEmail));
 			session.setAttribute("loginId", socialEmail);
 			session.setAttribute("profile", profile);
 			session.setAttribute("social", "kakao");

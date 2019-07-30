@@ -597,7 +597,8 @@ table.list_table_style td.cell {
 		}else{
 		if($("#order_user_name").val()!="" && $("#order_email").val()!="" && $("#phone1").val()!="" && $("#phone2").val()!="" && $("#phone3").val()!="" && $("#zipcode").val()!="" && $("#address1").val()!="" && $("#address2").val()!="" && $("#recipient_user_name").val()!="" && $("#recvPhone1").val()!="" && $("#recvPhone2").val()!="" && $("#recvPhone3").val()!=""){
     	  if($("#cardPay").prop("checked")){
-    	  
+    		  
+    	 var spl = "${loginId}".split("(");
          var IMP = window.IMP; // 생략가능
          IMP.init('imp33112290'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
          IMP.request_pay({
@@ -606,9 +607,9 @@ table.list_table_style td.cell {
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : "상품 결제", //결제창에서 보여질 이름 //// 후원명 불러오기
             amount : ${count}, // 입력받은 금액
-            buyer_email : "${loginDTO.m_email}",
-            buyer_name : "${loginDTO.m_name}",
-            buyer_tel : "${loginDTO.m_phone}",
+            buyer_email : spl[0],
+            buyer_name : "${loginName}",
+            buyer_tel : "010-0000-0000",
             m_redirect_url : 'orderComplete'
          /*  
              모바일 결제시,

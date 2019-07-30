@@ -16,7 +16,7 @@
 #bcolor {
 	width: 100%;
 	height: 175px;
-	background-color: #deca92;
+	background-color: #ffe0de;
 }
 
 #title {
