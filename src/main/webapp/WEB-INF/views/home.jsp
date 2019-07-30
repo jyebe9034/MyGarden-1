@@ -201,7 +201,6 @@
 	   var rRegex = /(\/resources.+?\.png|\.jpg|\.jpeg|\.gif|\.PNG|\.JPG|\.JPEG|\.GIF)/g;
 	   var rimg = rRegex.exec(recipe);
 	   $("#realImg").attr("src",rimg[1]);
-	   console.log(rimg);
 	   var rcon = recipe.replace(rRegex, "");
 	   $("#recipeCont").html(rcon);
 	   
@@ -550,11 +549,11 @@
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
             <div class="slider">
-               <img src="http://192.168.60.22/resources/write/dlgodud8997@naver.com/1564378451041_write.png" class="special" href="/"/>
+               <!-- <img src="http://192.168.60.22/resources/write/dlgodud8997@naver.com/1564378451041_write.png" class="special" href="/"/>
                <img src="/resources/write/young9008@daum.net/1564388965762_write.png" />
                <img src="/resources/write/leeeyeonji@gmail.com/1564390760203_write.png" />
                <img src="/resources/write/admin123@naver.com/1564394628735_write.png" />
-               <img src="/resources/write/jyebe9034@gmail.com/1564396773613_write.png" />
+               <img src="/resources/write/jyebe9034@gmail.com/1564396773613_write.png" /> -->
                </div>
             <!-- partial -->
 <!--               <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->

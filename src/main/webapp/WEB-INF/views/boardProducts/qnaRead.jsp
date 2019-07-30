@@ -272,7 +272,8 @@ div {
        var grade = "${grade}";
       var writer = "${writerInfo.m_email}";
       var loginId = "${loginId}";
-      if(writer!=loginId && grade!='admin'){
+      var checkedSr = "${readQnA.bq_checkedSecret}";
+      if(checkedSr == 'y' && writer != loginId && grade !='admin'){
          alert("비밀글 입니다.");
          var pnumber = "${pnumber}";
          location.href = "productsRead?&revPage=1&qnaPage=1&pnumber=" + pnumber;

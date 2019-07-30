@@ -228,8 +228,6 @@ hr {
  			}else{
  				$(this).next().html("<img src='/resources/free/noImg.png'>");
  			}
- 			
- 			console.log(result[1]);
  	}) 
 
 		$(document).on("click",".title",function(){
@@ -245,10 +243,8 @@ hr {
 			var page = $(this).text();
 			if(page == ">"){
 				page = parseInt($(this).prev().text())+1;
-				console.log(page);
 			}else if(page == "<"){
 				page = parseInt($(this).next().text())-1;
-				console.log(page);
 			}
 			$(location).attr("href","boardFreeList?page="+page);
 		})
@@ -262,7 +258,6 @@ hr {
 
 		$("#freeSearchBtn").on("click",function(){
 			var searchVal = $("#searchVal").val().replace("(?i)<script", "&lt;script");
-			console.log(searchVal);
 			if(searchVal==""){
 				alert("검색어를 입력해주세요.");
 			}else{
@@ -312,10 +307,8 @@ hr {
 			var page = $(this).text();
 			if(page == ">"){
 				page = parseInt($(this).prev().text())+1;
-				console.log(page);
 			}else if(page == "<"){
 				page = parseInt($(this).next().text())-1;
-				console.log(page);
 			}
 			$.ajax({
 				url:'searchForFree',
