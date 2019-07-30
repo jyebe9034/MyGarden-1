@@ -222,7 +222,7 @@ div {
     text-align: right;
 }
 .commentBtnBox {
-   margin: 15px 0;
+	margin: 15px 0;
 }
 
 #editBtn {

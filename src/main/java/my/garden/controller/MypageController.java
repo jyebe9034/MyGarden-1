@@ -90,6 +90,8 @@ public class MypageController {
 	@RequestMapping("/updateInfo")
 	public String updateInfo(MembersDTO dto) {
 		if(loginserv.memUpdateAll(dto)>0) {
+			
+			session.setAttribute("loginName", loginserv.getName((String)session.getAttribute("loginId")));
 			return "login/mypageInfoThrough";
 		}else {
 			return "error";

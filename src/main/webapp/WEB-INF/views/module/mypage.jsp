@@ -182,8 +182,15 @@
 		</div>
 		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 bg-f5 border border-white overview my">
 			<h3 class="text-left mt-4">최근구독 &raquo;</h3>
-			<h5 class="text-center mt-2">${subDTO.sb_period }</h5>
-			<h5 class="text-center mt-2">${subDTO.sb_category }</h5>
+			<c:choose>
+	       		<c:when test="${privateDTO!=null}">
+					<h5 class="text-center mt-2">${subDTO.sb_period }</h5>
+					<h5 class="text-center mt-2">${subDTO.sb_category }</h5>
+			 	</c:when>
+	       		<c:otherwise>	
+					<h4 class="text-center mt-2">(No Subscription)</h4>
+	       		</c:otherwise>
+	   		</c:choose>
 			<p class="text-right mt-2"><a href="/subsList" class="badge badge-primary">more</a></p>
 		</div>
 		<div class="col-lg-3 col-md- col-sm-6 col-xs-12 bg-f5 border border-white overview my">
@@ -191,13 +198,13 @@
 		<c:choose>
 	       <c:when test="${privateDTO!=null}">
 			<h4 class="text-center mt-2">${privateDTO.g_herb }</h4>
+			<h6 class="text-center mt-2">&nbsp;</h6>
 		 </c:when>
        <c:otherwise>	
 			<h4 class="text-center mt-2">(No Herb)</h4>
        		</c:otherwise>
    		</c:choose>
-			<h6 class="text-center mt-2">&nbsp;</h6>
-			<p class="text-right mt-2"><a href="#" class="badge badge-primary">more</a></p>
+			<p class="text-right mt-2"><a href="/subsList" class="badge badge-primary">more</a></p>
 		</div>
 	</div>	
 </div>
