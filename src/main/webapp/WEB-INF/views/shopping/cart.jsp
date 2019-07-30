@@ -269,7 +269,8 @@ button.btn_select_all, button.btn_select_del {
 	$(function() {
 
 		var totalWon = $("#totalWon").html();
-
+		$("#totalWon").html(totalWon.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		
 		$("#selectAll").on("click", function() {
 			if ($(".goodsCheckbox").prop("checked")) {
 				$(".goodsCheckbox").prop("checked", false);
@@ -277,7 +278,7 @@ button.btn_select_all, button.btn_select_del {
 				$("#totalWonPrice").val(0);
 			} else {
 				$(".goodsCheckbox").prop("checked", true);
-				$("#totalWon").html(totalWon);
+				$("#totalWon").html(totalWon.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 				$("#totalWonPrice").val(totalWon);
 			}
 		});
@@ -295,7 +296,7 @@ button.btn_select_all, button.btn_select_del {
 										/\B(?=(\d{3})+(?!\d))/g, ","));
 						$("#totalWonPrice").val(total + parseInt(price));
 					} else {
-						var total = parseInt($("#totalWonPrice").val());
+						var total = $("#totalWonPrice").val();
 						var price = $(this).parent().parent().find(
 								"div:nth-child(10)").find("input:nth-child(2)")
 								.val();
@@ -710,8 +711,7 @@ button.btn_select_all, button.btn_select_del {
 							<c:otherwise>
 								<div style="text-align: right; font-weight: bold">
 									<span id="totalPrice">총 주문금액</span> <span class="totalprice"
-										id="totalWon"><fmt:formatNumber value="${count }"
-											type="number" /></span><input type="hidden" value="${count }"
+										id="totalWon">${count }</span><input type="hidden" value="${count }"
 										id="totalWonPrice"> <span id="won">원</span>
 								</div>
 							</c:otherwise>
