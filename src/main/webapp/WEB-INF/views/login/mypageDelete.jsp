@@ -13,6 +13,7 @@
 .fontGreen{font-weight:bold; color:#4f9c87;}
 .onblur{font-size:13px; color:#4f9c87;}
 .postCode{position:relative;}
+.modal-body{height:400px; overflow-y:scroll;}
 input[name=m_social]{pointer-events: none; visibility: hidden;}
 .blockSign {
   align-items: center;

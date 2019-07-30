@@ -21,6 +21,7 @@
 .postCode{position:relative;}
 .modal-body{max-height:270px; overflow-y:auto;}
 #surplusForm, #verifingCode{display:none;}
+.modal-body{height:400px; overflow-y:scroll;}
 .blockSign {
   align-items: center;
   flex-direction: column; 
