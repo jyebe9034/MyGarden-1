@@ -290,7 +290,7 @@ input[type=email]{
 			      }
 			  });
            	$("input[name=m_garden]").on("blur", function(){
-           		var regexGarden=/^[가-힣A-z]{2,12}$/;
+           		var regexGarden=/^[가-힣A-z]+[\s]*[가-힣A-z]{0,12}$/;
            		if(regexGarden.exec($("input[name=m_garden]").val())){
                		$.ajax({
                			url:"/gardenCheck",
