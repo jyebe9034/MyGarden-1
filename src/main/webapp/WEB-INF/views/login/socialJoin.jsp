@@ -389,22 +389,8 @@ input[type=email]{
 								          <span aria-hidden="true">&times;</span>
 								        </button>
 								      </div>
-								      <div class="modal-body">
-								             개인정보 수집항목 및 수집방법	<br>
-										① 회사는 원활한 서비스 제공을 위해 최초 서비스 설치 후 서비스 이용에 대한 동의를 완료하는 시점에 아래와 같은 최소한의 개인정보를 수집하고 있습니다.	<br>
-										1. 회원의 서비스 이용정보	<br>
-										- 국가 코드, 폰 사용 언어, 앱 버전, 이메일·페이스북계정·구글플러스계정, 비밀번호	<br>
-										2. 회원이 사용하는 단말기의 정보	<br>
-										- 통신사, 모델명, OS버전 정보, UUID	<br>
-										② 회사는 필수항목 이외에 회원이 서비스 이용을 목적으로 직접 작성한 개인정보를 선택항목으로 수집하고 있습니다.	<br>
-										1. 서비스 이용문의 회신에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
-										2. 이벤트 참여에 필요한 이용자의 전화번호 및 전자우편 주소	<br>
+								      <div class="modal-body text-left">
+								         <jsp:include page="/WEB-INF/views/module/contract.jsp"/>
 								      </div>
 								      <div class="modal-footer">
 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
