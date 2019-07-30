@@ -45,12 +45,20 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	public String Login() {
-		return "login/login";
+		if(session.getAttribute("loginName")!=null) {
+			return "home";
+		}else {
+			return "login/login";
+		}
 	}
 
 	@RequestMapping("/join")
 	public String Join() {
-		return "login/join";
+		if(session.getAttribute("loginName")!=null) {
+			return "home";
+		}else {
+			return "login/join";
+		}
 	}
 
 	@RequestMapping("/joinSubmit")

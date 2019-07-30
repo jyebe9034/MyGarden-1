@@ -258,6 +258,7 @@
 	
 	label{
 		width : 180px;
+		font-size : 20px;
 	}
 	
 	#save{
@@ -299,6 +300,30 @@
 		border:none;
 		box-sizing: border-box;
 	}
+	.growup{
+	   animation: growup 2s alternate ease-in-out infinite;
+	   will-change: transform;
+	   user-select: none;
+	   transition-duration:0.5s;
+	   filter: drop-shadow(5px 5px 5px #00000075);
+	}
+	@keyframes growup {
+	    0% {
+	        transform: rotate(-3deg);
+	    }
+	    85% {
+	        transform: rotate(3deg);
+	    }
+	    90% {
+	        transform: rotate(-5deg);
+	    }
+	    95% {
+	        transform: rotate(3deg);
+	    }
+	    100% {
+	        transform: rotate(0deg);
+	    }
+	}
 </style>
 </head>
 <body>
@@ -312,8 +337,8 @@
 			<span id="clickHere"><img src="/resources/imgPrivategarden/clickHere.png">클릭해주세요!</span>
 			</div>
 		    <div id="penguinWrap" class="col-6">
-				<img id="penguin" src="/resources/imgPrivategarden/penguin.png">
-				<div id="bubbleWrap">
+				<img id="penguin" src="/resources/imgPrivategarden/penguin.png" class="growup">
+				<div id="bubbleWrap" flag="true">
 					<div id="bubbleimg"><img id="spimg" src="/resources/imgPrivategarden/speech.PNG"></div>
 				</div>
 			</div>
@@ -378,7 +403,9 @@
 					temper : temp
 				}
 			}).done(function(resp){
-				console.log(resp);
+				if(resp == "잘 다녀옴"){
+					alert("펭콘이 이 상태를 기억했습니다!");
+				}
 			})
 		})
 	
@@ -496,8 +523,15 @@
 		}
 	
 		$("#penguin").on("click", function(){
-			$("#bubbleWrap").css("display", "block");
-			$("#clickHere").hide();
+			if($("#bubbleWrap").attr("flag")=="true"){
+				$("#bubbleWrap").css("display", "block");
+				$("#clickHere").hide();
+				$("#bubbleWrap").attr("flag","false");
+			}else{
+				$("#bubbleWrap").css("display", "none");
+				$("#clickHere").show();
+				$("#bubbleWrap").attr("flag","true");
+			}
 		})
 		
 		$("#cloud").hide();
