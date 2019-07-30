@@ -124,9 +124,11 @@ public class BoardQnADTO {
 	public String getBq_writedate() {
 		return this.formedTime();
 	}
-
-
-
+	
+	public Timestamp getBq_date(){
+		return this.bq_writedate;
+	}
+	
 	public void setBq_writedate(Timestamp bq_writedate) {
 		this.bq_writedate = bq_writedate;
 	}

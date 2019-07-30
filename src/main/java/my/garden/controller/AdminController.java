@@ -18,6 +18,7 @@ import my.garden.dto.AdminMemDTO;
 import my.garden.dto.PrivateGardenDTO;
 import my.garden.dto.ShopListDTO;
 import my.garden.service.AdminService;
+import my.garden.service.BoardQnAService;
 
 @Controller
 public class AdminController {
@@ -26,6 +27,8 @@ public class AdminController {
 	private AdminService dao;
 	@Autowired
 	private LoginDAO logdao;
+	@Autowired
+	private BoardQnAService qnaService;
 
 	@RequestMapping("adminIndex")
 	public String adminIndex(HttpServletRequest request) {
@@ -142,5 +145,22 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	
+	@RequestMapping("adminQnACheck")
+	public String adminQnACheck(HttpServletRequest request) {
+		List<PrivateGardenDTO> list;
+		try {
+			String admin = (String)request.getSession().getAttribute("loginId");
+			String profileImg = logdao.memSelectAll(admin).getM_profile();
+			request.setAttribute("profileImg", profileImg);
+			list = dao.servicePrivateList();
+			request.setAttribute("list", list);
+			
+			request.setAttribute("qnaList", qnaService.qnaListforAdmin()); //문의글 리스트
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		return "forAdmin/adminQnACheck";
 	}
 }
