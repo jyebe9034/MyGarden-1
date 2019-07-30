@@ -183,7 +183,7 @@
 		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 bg-f5 border border-white overview my">
 			<h3 class="text-left mt-4">최근구독 &raquo;</h3>
 			<c:choose>
-	       		<c:when test="${privateDTO!=null}">
+	       		<c:when test="${subDTO!=null}">
 					<h5 class="text-center mt-2">${subDTO.sb_period }</h5>
 					<h5 class="text-center mt-2">${subDTO.sb_category }</h5>
 			 	</c:when>
