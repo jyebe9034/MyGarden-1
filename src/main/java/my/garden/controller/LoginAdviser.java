@@ -28,7 +28,8 @@ public class LoginAdviser {
 	public void delete(){}
 	@Pointcut("execution(* my.garden.controller.BoardReviewAndQnAController.recommend(..))")
 	public void recommend(){}
-	@Pointcut("execution(* my.garden.controller.PrivateGardenController.*(..))")
+	
+	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeWrite(..))")
 	public void bfWrite(){}
 	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeModify(..))")
 	public void bfModify(){}
@@ -37,8 +38,9 @@ public class LoginAdviser {
 	@Pointcut("execution(* my.garden.controller.AdminController.admin*(..))")
 	public void admin(){}
 	
+	@Pointcut("execution(* my.garden.controller.PrivateGardenController.*(..))")
 	public void privateGarden(){}
-	@Pointcut("execution(* my.garden.controller.BoardFreeController.boardFreeWrite(..))")
+	
 
 	
 //	@Around("execution(* my.garden.controller.LoginController.*(..))")

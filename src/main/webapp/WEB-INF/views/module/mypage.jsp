@@ -172,7 +172,7 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 overview2 my">
 					<div class="gardenImg position-relative">
-						<img src="${memDTO.m_profile}" class="hoverImg" width="150" height="150">
+						<img src="${memDTO.m_profile}" class="hoverImg" width="auto" height="150">
 						<button type="button" class="mt-2 btn gardenUpdateBtn position-absolute" data-toggle="modal" data-target="#changeGardenProfile">
 							<img src="resources/img/edit.png" width="20" height="20">
 						</button>

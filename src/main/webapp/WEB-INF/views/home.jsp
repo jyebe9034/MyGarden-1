@@ -201,7 +201,6 @@
 	   var rRegex = /(\/resources.+?\.png|\.jpg|\.jpeg|\.gif|\.PNG|\.JPG|\.JPEG|\.GIF)/g;
 	   var rimg = rRegex.exec(recipe);
 	   $("#realImg").attr("src",rimg[1]);
-	   console.log(rimg);
 	   var rcon = recipe.replace(rRegex, "");
 	   $("#recipeCont").html(rcon);
 	   
@@ -509,23 +508,23 @@
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">조소현 선수</h5>
-            <img src="resources/img/player1.jpg" width="330" height="340" class="special" href="/vegetable?category=vegetable">
+            <img src="resources/img/player1.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-2">&ldquo;규칙적인 샐러딩 습관이 중요합니다 &rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">지소연 선수</h5>
-            <img src="resources/img/player2.jpg" width="330" height="340" class="special" href="/fruit?category=fruit">
+            <img src="resources/img/player2.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-2">&ldquo;나의 정원에서 제철과일을 즐겨 먹어요&rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">문미라 선수</h5>
-            <img src="resources/img/player3.jpg" width="330" height="340" class="special" href="/egg?category=egg">
+            <img src="resources/img/player3.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-1">&ldquo;나의 정원에선 채소뿐만 아니라 </h6>
             <h6 class="pb-2">다른 유기농 유제품도 함께 수확할 수 있어서 좋아요&rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">손화연 선수</h5>
-            <img src="resources/img/player4.jpg" width="330" height="340" class="special" href="/grain?category=grain">
+            <img src="resources/img/player4.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-1">&ldquo;영양과 맛, 두가지를 다 잡은</h6>
             <h6 class="pb-2">저만의 오트밀 레시피를 알려드리겠습니다&rdquo;</h6>
          </div>
@@ -550,11 +549,11 @@
          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-4 my">
             <!-- partial:index.partial.html -->
             <div class="slider">
-               <img src="http://192.168.60.22/resources/write/dlgodud8997@naver.com/1564378451041_write.png" class="special" href="/"/>
+               <!-- <img src="http://192.168.60.22/resources/write/dlgodud8997@naver.com/1564378451041_write.png" class="special" href="/"/>
                <img src="/resources/write/young9008@daum.net/1564388965762_write.png" />
                <img src="/resources/write/leeeyeonji@gmail.com/1564390760203_write.png" />
                <img src="/resources/write/admin123@naver.com/1564394628735_write.png" />
-               <img src="/resources/write/jyebe9034@gmail.com/1564396773613_write.png" />
+               <img src="/resources/write/jyebe9034@gmail.com/1564396773613_write.png" /> -->
                </div>
             <!-- partial -->
 <!--               <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script> -->

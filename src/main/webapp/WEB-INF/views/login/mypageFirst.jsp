@@ -366,7 +366,7 @@ h4 .badge{background:#eee;}
 					<table class="table table-sm" style="border-bottom:1px solid #dee2e6;">
 					  <thead>
 					    <tr>
-					      <th scope="col" class="pt-2 pb-2">No</th>
+					      <th scope="col" class="pt-2 pb-2" style=width:150px;>No</th>
 					      <th scope="col" class="pt-2 pb-2">상품</th>
 					      <th scope="col" colspan=2 class="pt-2 pb-2 text-left">주문정보</th>
 					    </tr>

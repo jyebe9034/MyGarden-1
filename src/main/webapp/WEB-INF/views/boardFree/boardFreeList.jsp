@@ -112,6 +112,7 @@ hr {
 	width: 100%;
 	height: 32px;
 	text-align: center;
+	margin-bottom : 30px;
 }
 
 .naviBtn, .searchNaviBtn {
@@ -141,7 +142,15 @@ hr {
 	right: 15px;
 	bottom: 15px;
 }
-
+.ellipsis {
+    height : 200px;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal !important;
+    display: block;
+}
 </style>
 <body>
 	<div class=col-12 id=titleImg>
@@ -179,7 +188,7 @@ hr {
 				</div>
 			</c:forEach>
 		</div>
-		<br> <br>
+		<br>
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
@@ -219,8 +228,6 @@ hr {
  			}else{
  				$(this).next().html("<img src='/resources/free/noImg.png'>");
  			}
- 			
- 			console.log(result[1]);
  	}) 
 
 		$(document).on("click",".title",function(){
@@ -236,10 +243,8 @@ hr {
 			var page = $(this).text();
 			if(page == ">"){
 				page = parseInt($(this).prev().text())+1;
-				console.log(page);
 			}else if(page == "<"){
 				page = parseInt($(this).next().text())-1;
-				console.log(page);
 			}
 			$(location).attr("href","boardFreeList?page="+page);
 		})
@@ -253,7 +258,6 @@ hr {
 
 		$("#freeSearchBtn").on("click",function(){
 			var searchVal = $("#searchVal").val().replace("(?i)<script", "&lt;script");
-			console.log(searchVal);
 			if(searchVal==""){
 				alert("검색어를 입력해주세요.");
 			}else{
@@ -272,7 +276,7 @@ hr {
 				for(var i=0 ; i<resp.searchList.length ; i++){
 				tmp = tmp +'<div class="col-12"><div class=title>'+resp.searchList[i].bf_title+'</div>'
 				+'<input type=hidden value='+resp.searchList[i].bf_no +'>'
-				+'<hr><div class="col-12 searchContImg">'+resp.searchList[i].bf_content+'</div>'
+				+'<hr><div class="col-12 searchContImg ellipsis">'+resp.searchList[i].bf_content+'</div>'
 				+'<br><div class=otherContents><span class=writer>'
 				+'<img src="resources/free/boardFreeWriter.png">'+resp.searchList[i].bf_writer+'</span><span class=writeDate>'
 				+'<img src="resources/free/boardFreeWriteDate.png">'+resp.searchList[i].bf_stringdate+'</span><span class=viewCount>'
@@ -303,10 +307,8 @@ hr {
 			var page = $(this).text();
 			if(page == ">"){
 				page = parseInt($(this).prev().text())+1;
-				console.log(page);
 			}else if(page == "<"){
 				page = parseInt($(this).next().text())-1;
-				console.log(page);
 			}
 			$.ajax({
 				url:'searchForFree',

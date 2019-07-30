@@ -187,8 +187,8 @@ public class LoginDAO {
 	
 	public String mailSender(String m_email) throws Exception {
 		String host = "smtp.naver.com"; 
-		final String username = "sparkss0419"; //only account(not @-)
-		final String password = "mygarden555*"; //account password 
+		final String username = "gemma6712"; //only account(not @-)
+		final String password = "admin123*"; //account password 
 		int port=465; //port number
 		//mail contents 
 		String recipient = m_email; //receiver's account 
@@ -215,7 +215,7 @@ public class LoginDAO {
 			}); 
 		session.setDebug(true); 
 		Message mimeMessage = new MimeMessage(session); 
-		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); 
+		mimeMessage.setFrom(new InternetAddress("gemma6712@naver.com")); 
 		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 		
 		mimeMessage.setSubject(subject); 
@@ -349,7 +349,7 @@ public class LoginDAO {
  
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
         postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/kakaoCallback")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.60.22/kakaoCallback")); // 리다이렉트 URI
 
         postParams.add(new BasicNameValuePair("code", code)); // getting code when accounting
 
