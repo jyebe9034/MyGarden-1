@@ -509,23 +509,23 @@
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">조소현 선수</h5>
-            <img src="resources/img/player1.jpg" width="330" height="340" class="special" href="/vegetable?category=vegetable">
+            <img src="resources/img/player1.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-2">&ldquo;규칙적인 샐러딩 습관이 중요합니다 &rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">지소연 선수</h5>
-            <img src="resources/img/player2.jpg" width="330" height="340" class="special" href="/fruit?category=fruit">
+            <img src="resources/img/player2.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-2">&ldquo;나의 정원에서 제철과일을 즐겨 먹어요&rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">문미라 선수</h5>
-            <img src="resources/img/player3.jpg" width="330" height="340" class="special" href="/egg?category=egg">
+            <img src="resources/img/player3.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-1">&ldquo;나의 정원에선 채소뿐만 아니라 </h6>
             <h6 class="pb-2">다른 유기농 유제품도 함께 수확할 수 있어서 좋아요&rdquo;</h6>
          </div>
          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2 my">
             <h5 class="pt-2 pb-2">손화연 선수</h5>
-            <img src="resources/img/player4.jpg" width="330" height="340" class="special" href="/grain?category=grain">
+            <img src="resources/img/player4.jpg" width="330" height="340" class="special">
             <h6 class="pt-3 pb-1">&ldquo;영양과 맛, 두가지를 다 잡은</h6>
             <h6 class="pb-2">저만의 오트밀 레시피를 알려드리겠습니다&rdquo;</h6>
          </div>
