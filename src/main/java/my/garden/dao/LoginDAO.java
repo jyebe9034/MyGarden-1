@@ -215,7 +215,7 @@ public class LoginDAO {
 			}); 
 		session.setDebug(true); 
 		Message mimeMessage = new MimeMessage(session); 
-		mimeMessage.setFrom(new InternetAddress("gemma6712@naver.com")); 
+		mimeMessage.setFrom(new InternetAddress("sparkss0419@naver.com")); 
 		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 		
 		mimeMessage.setSubject(subject); 
