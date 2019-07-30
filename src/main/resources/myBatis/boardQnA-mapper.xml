@@ -8,11 +8,15 @@
 		select count(*) from board_qna where bq_p_no=#{bq_p_no}
 	</select>
 	
-<!-- 문의 굴목록 -->
+<!-- 문의 글 목록 -->
 	<select id="qnaList" resultType="my.garden.dto.BoardQnADTO" parameterType="hashmap">
 		select * 
 		from (select row_number() over(order by bq_no desc) as rown, board_qna.* from board_qna where bq_p_no=#{bq_p_no}) 
 		where rown between #{startNum2} and #{endNum2}
+	</select>
+<!-- 문의 글 목록(관리자페이지용)-->
+	<select id="qnaListforAdmin" resultType="my.garden.dto.BoardQnADTO">
+		select * from board_qna order by bq_checkedAns, bq_writedate desc
 	</select>
 
 <!-- 문의 글 작성 -->

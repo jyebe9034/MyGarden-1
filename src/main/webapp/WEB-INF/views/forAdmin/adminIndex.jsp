@@ -215,6 +215,8 @@ h4 {
 							class="lnr lnr-home"></i><span>전체 보기</span></a></li>
 					<li class=""><a href="adminPrivateGarden"> <i
 							class="lnr lnr lnr-leaf"></i><span>비밀 정원</span></a></li>
+					<li class=""><a href="adminQnACheck"> <i
+							class="lnr lnr lnr-leaf"></i><span>문의 글 목록</span></a></li>
 				</ul>
 				</nav>
 			</div>

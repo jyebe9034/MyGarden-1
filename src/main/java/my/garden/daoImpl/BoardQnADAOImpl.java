@@ -38,6 +38,10 @@ public class BoardQnADAOImpl implements BoardQnADAO{
 		return sst.selectList("boardQnAMB.qnaList",map);
 	}
 
+	public List<BoardQnADTO> qnaListforAdmin(){ // Q&A 목록 (관리자페이지 용)	
+		return sst.selectList("boardQnAMB.qnaListforAdmin");
+	}
+
 	public int qnaCount(int bq_p_no) { //상세페이지에서 총  Q&A 개수(상품별  Q&A 개수)
 		return sst.selectOne("boardQnAMB.qnaCount", bq_p_no);
 	}

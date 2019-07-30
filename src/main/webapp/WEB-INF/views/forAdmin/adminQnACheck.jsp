@@ -99,7 +99,23 @@ th {
 .ct-start{
 	width: 50px !important;
 } 
+
+.qnaRow:hover{
+	cursor: pointer;
+	background-color: #e8e4f090;
+}
+
 </style>
+<script>
+	$(function(){
+
+			$(".qnaTd").on("click",function(){
+				var p_no = $(this).parent().find("td:nth-child(2)").html();
+				console.log(p_no);
+				location.href="productsRead?&revPage=1&qnaPage=1&pnumber="+p_no;
+			})
+	})
+</script>
 <body>
 	<jsp:include page="/WEB-INF/views/module/fixedHeader.jsp"></jsp:include>
 	<div id=bcolor></div>
@@ -132,9 +148,9 @@ th {
 				<ul id="main-menu" class="metismenu">
 					<li class=""><a href="adminIndex"> <i
 							class="lnr lnr-home"></i><span>전체 보기</span></a></li>
-					<li class="active"><a href="adminPrivateGarden"> <i
+					<li class=""><a href="adminPrivateGarden"> <i
 							class="lnr lnr lnr-leaf"></i><span>비밀 정원</span></a></li>
-					<li class=""><a href="adminQnACheck"> <i
+					<li class="active"><a href="adminQnACheck"> <i
 							class="lnr lnr lnr-leaf"></i><span>문의 글 목록</span></a></li>
 				</ul>
 				</nav>
@@ -147,7 +163,7 @@ th {
 			<div class="dashboard-section">
 				<div class="section-heading clearfix">
 					<h2 class="section-title">
-						<i class="fa fa-user-circle"></i> 회원관리
+						<i class="fa fa-user-circle"></i> 문의글목록
 					</h2>
 				</div>
 				<div class="table">
@@ -155,47 +171,36 @@ th {
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th>아이디</th>
-								<th>이름</th>
-								<th>정원 이름</th>
-								<th>정원 생성일</th>
-								<th>허브 종류</th>
-								<th>온도</th>
-								<th>습도</th>
-								<th>빛</th>
-								<th>상태</th>
-								<th>소비여부</th>
+								<th>답변 여부</th>
+								<th>상품번호</th>
+								<th>문의 글번호</th>
+								<th>글 제목</th>
+								<th>작성자 아이디</th>
+								<th>작성자 이름</th>
+								<th>작성일</th>
 							</tr>
 						</thead>
 						<tbody>
 							<div id=mTable>
-								<c:forEach var="tmp" items="${list}">
-									<tr>
-										<td>${tmp.g_email }</td>
-										<td>${tmp.g_name }</td>
-										<td>${tmp.g_gardenname }</td>
-										<td><fmt:formatDate value="${tmp.g_enrolldate }"
+								<c:forEach var="tmp" items="${qnaList}">
+									<tr class="qnaRow">
+										<td class="qnaTd">
+											<c:choose>
+												<c:when test="${tmp.bq_checkedAns eq 'y'}">
+													답변 완료 
+												</c:when>
+												<c:otherwise>
+													답변 대기
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td class="qnaTd p_no">${tmp.bq_p_no }</td>
+										<td class="qnaTd">${tmp.bq_no }</td>
+										<td class="qnaTd">${tmp.bq_title }</td>
+										<td class="qnaTd">${tmp.bq_email }</td>
+										<td class="qnaTd">${tmp.bq_name }</td>
+										<td class="qnaTd"><fmt:formatDate value="${tmp.bq_date }"
 												pattern="yyyy-MM-dd" /></td>
-										<td>${tmp.g_herb }</td>
-										<td>${tmp.g_temper }</td>
-										<td>${tmp.g_humid }</td>
-										<td>${tmp.g_light }</td>
-										<c:choose>
-											<c:when test="${tmp.g_process == 'y'}">
-												<td>재배 중</td>
-											</c:when>
-											<c:otherwise>
-												<td>재배 완료</td>
-											</c:otherwise>
-										</c:choose>
-										<c:choose>
-											<c:when test="${tmp.g_process == 'y'}">
-												<td>-</td>
-											</c:when>
-											<c:otherwise>
-												<td>${tmp.g_process}</td>
-											</c:otherwise>
-										</c:choose>
 									</tr>
 								</c:forEach>
 							</div>
@@ -204,16 +209,7 @@ th {
 				</div>
 			</div>
 			
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel-content">
-						<h3 class="section-title">
-							<i class="fa fa-leaf"></i> 허브 선호도
-						</h3><br>
-						<div id="demo-bar-chart" class="ct-chart"></div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 	<div class="clearfix"></div>
@@ -268,27 +264,6 @@ th {
 		$(".menuScrollOption").hide();
 		$(".clickToClose").hide();
 
-		var data = {
-				labels : ${herbList},
-				series : [ ${herbCount} ]
-			};
-
-		// line chart
-		options = {
-			height: "300px",
-			showPoint: true,
-			axisX: {
-				showGrid: false
-			},
-			lineSmooth: false,
-			plugins: [
-				Chartist.plugins.tooltip({
-					appendToBody: true
-				}),
-			]
-		};
-
-		new Chartist.Bar('#demo-bar-chart', data, options);
 
 	</script>
 </body>
