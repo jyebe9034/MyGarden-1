@@ -112,6 +112,7 @@ hr {
 	width: 100%;
 	height: 32px;
 	text-align: center;
+	margin-bottom : 30px;
 }
 
 .naviBtn, .searchNaviBtn {
@@ -187,7 +188,7 @@ hr {
 				</div>
 			</c:forEach>
 		</div>
-		<br> <br>
+		<br>
 		<div id="freeSearch">
 			<form class="form-inline my-2 my-lg-0">
 				<div class="input-group freeSearch">
