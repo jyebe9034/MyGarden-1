@@ -230,7 +230,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/kakaoLogin")
 	public String kakaoLogin() {
-		String url = "https://kauth.kakao.com/oauth/authorize?client_id=5a8617254e6227196ff9c31a66275c78&redirect_uri=http://192.168.60.22/kakaoCallback&response_type=code";
+		String url = "https://kauth.kakao.com/oauth/authorize?client_id=2ece0d85770beb85c1dd21a763a0f8ca&redirect_uri=http://192.168.0.14/kakaoCallback&response_type=code";
 		return url;
 	}
 

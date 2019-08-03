@@ -115,7 +115,7 @@
 			$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
 		})
 		
-		var socket = new WebSocket("ws://192.168.60.22/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
+		var socket = new WebSocket("ws://192.168.0.14/chatcontrol"); // 이 코드를 통해서 웹소켓이 열림
 		
 		socket.onmessage = function(msg){ // 콜백함수
 			var line = $("<div class='messages'></div>");

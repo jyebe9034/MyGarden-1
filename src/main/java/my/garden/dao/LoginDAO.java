@@ -188,7 +188,7 @@ public class LoginDAO {
 	public String mailSender(String m_email) throws Exception {
 		String host = "smtp.naver.com"; 
 		final String username = "gemma6712"; //only account(not @-)
-		final String password = "admin123*"; //account password 
+		final String password = "althtjsdk7&"; //account password 
 		int port=465; //port number
 		//mail contents 
 		String recipient = m_email; //receiver's account 
@@ -246,8 +246,8 @@ public class LoginDAO {
 	
 	public String NaverLoginMakeUrl() {
 		try {
-		    String clientId = "zoUb6lNYx8sC2suyUmcS";
-		    String redirectURI = URLEncoder.encode("http://192.168.60.22/callbackNaver", "UTF-8");
+		    String clientId = "wFhPkHel8GeB4_N4ZKSp";
+		    String redirectURI = URLEncoder.encode("http://192.168.0.14/callbackNaver", "UTF-8");
 		    SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
 		    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -262,11 +262,11 @@ public class LoginDAO {
 	}
 	
 	public String NaverLoginCallback() throws Exception {
-		String clientId = "zoUb6lNYx8sC2suyUmcS";//application client id value;
-	    String clientSecret = "bZgqg3cbjr";//application client secret value";
+		String clientId = "wFhPkHel8GeB4_N4ZKSp";//application client id value;
+	    String clientSecret = "MU7yZksk9D";//application client secret value";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
-	    String redirectURI = URLEncoder.encode("http://192.168.60.22/callbackNaver", "UTF-8");
+	    String redirectURI = URLEncoder.encode("http://192.168.0.14/callbackNaver", "UTF-8");
 	    String apiURL;
 	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 	    apiURL += "client_id=" + clientId;
@@ -348,8 +348,8 @@ public class LoginDAO {
         final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
  
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        postParams.add(new BasicNameValuePair("client_id", "5a8617254e6227196ff9c31a66275c78")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.60.22/kakaoCallback")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("client_id", "2ece0d85770beb85c1dd21a763a0f8ca")); // REST API KEY
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.0.14/kakaoCallback")); // 리다이렉트 URI
 
         postParams.add(new BasicNameValuePair("code", code)); // getting code when accounting
 
@@ -445,12 +445,5 @@ public class LoginDAO {
 	public PrivateGardenDTO getPrivate(String g_email) {
 		return sst.selectOne("PrivateGardenDAO.selectPrivateGarden", g_email);
 	}
-	
-	
-	
-	
-
-	
-	
 	
 }
